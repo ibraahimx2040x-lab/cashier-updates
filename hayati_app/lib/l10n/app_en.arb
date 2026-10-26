@@ -33,6 +33,8 @@
   },
   "aiAutoDone": "Done automatically (you allowed this in assistant settings).",
   "aiChipAddTask": "Add a new task",
+  "aiChipFreeTime": "I have half an hour, what can I get done?",
+  "aiChipLate": "I'm running late, rearrange the rest of my day",
   "aiChipOverdue": "Sort my overdue tasks",
   "aiChipPlanDay": "Plan my day",
   "aiChipReview": "Review my progress this week",
@@ -47,14 +49,40 @@
   },
   "aiData": "Assistant and your data",
   "aiDataBody": "In this version the assistant runs entirely on your device; nothing is sent to an AI provider. When the cloud assistant is enabled, only the sections you allow will be sent to the provider through our server, to answer your request.",
+  "aiDisabled": "The assistant is turned off in assistant settings.",
   "aiDraftsDisabled": "Drafting plans is turned off in assistant settings, so I didn't prepare changes.",
   "aiExample1": "Add a task to review English tomorrow at 8 pm",
   "aiExample2": "I want to learn English, 30 minutes every day",
   "aiExample3": "Plan my day",
   "aiExecFailed": "I couldn't apply that. Nothing was changed.",
   "aiFailed": "Something went wrong and I couldn't answer. Your message is kept — try again.",
-  "aiDisabled": "The assistant is turned off in assistant settings.",
-  "aiRefused": "I can't help with that request. Try asking in a different way.",
+  "aiFreeTime": "You have {minutes} min. These tasks fit:",
+  "@aiFreeTime": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "aiFreeTimeItem": "• {title} ({minutes} min)",
+  "@aiFreeTimeItem": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "aiFreeTimeNone": "No open task with an estimate fits {minutes} min. Try splitting a bigger task, or take a break.",
+  "@aiFreeTimeNone": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
   "aiGoalFirstWeekOnly": "Only the first week of sessions is created; you can add more later.",
   "aiGoalNoSubject": "What would you like to learn?",
   "aiGoalReady": "Here's a plan to learn {subject}: {minutes}-minute daily sessions over {days} days, with four milestones and your first week of sessions. Nothing is created until you approve.",
@@ -192,6 +220,7 @@
     }
   },
   "aiReasonTask": "You asked to add a task.",
+  "aiRefused": "I can't help with that request. Try asking in a different way.",
   "aiReviewGoal": "“{title}” is at {percent}%.",
   "@aiReviewGoal": {
     "placeholders": {
@@ -314,6 +343,7 @@
   "archivedNotes": "Archived notes",
   "askAssistantReplan": "Ask the assistant to rearrange my day",
   "askAssistantReview": "Ask the assistant",
+  "askHayati": "Ask Hayati",
   "assistantDisabled": "The assistant is turned off",
   "assistantDisabledBody": "Everything else in Hayati keeps working. Turn it on in settings any time.",
   "assistantHint": "Ask me to plan, add or review…",
@@ -371,6 +401,14 @@
   "byMilestones": "By milestones",
   "byMilestonesHint": "Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.",
   "calendar": "Calendar",
+  "canMoveCount": "{n, plural, =1{1 task doesn't fit today and can move without hurting your goals} other{{n} tasks don't fit today and can move without hurting your goals}}",
+  "@canMoveCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "cancel": "Cancel",
   "catHealth": "Health",
   "catLearning": "Learning",
@@ -440,6 +478,8 @@
   "date": "Date",
   "day": "Day",
   "dayEnd": "Day ends",
+  "daySchedule": "Today's schedule",
+  "dayScheduleDone": "Today's schedule is done",
   "dayStart": "Day starts",
   "daysCount": "{n, plural, =1{1 day} other{{n} days}}",
   "@daysCount": {
@@ -506,6 +546,7 @@
   "discard": "Discard",
   "discardMessage": "You have unsaved changes. Leave without saving?",
   "discardTitle": "Discard changes?",
+  "dismiss": "Dismiss",
   "displayName": "Display name",
   "displayNameOptional": "Your name (optional)",
   "documents": "Documents",
@@ -553,6 +594,7 @@
   "errTargetBeforeStart": "Target date must be after the start date",
   "estimatedDuration": "Estimated 30 min",
   "estimatedMinutes": "Estimated duration (minutes)",
+  "estimatedPill": "Estimated length",
   "eventTitle": "Event title",
   "eventsLabel": "Events",
   "everyDay": "Every day",
@@ -624,6 +666,7 @@
   "forgotRemoteBody": "Enter your email and we'll send you a link to set a new password.",
   "forgotTitle": "Recover access",
   "freeTime": "Free time",
+  "freeTimeNow": "Free time",
   "getStarted": "Get started",
   "goalActive": "Active",
   "goalArchived": "Archived",
@@ -667,6 +710,8 @@
     }
   },
   "habitsEmptyBody": "Add a habit and choose which days it's expected. Days it isn't due never count against you.",
+  "hanafiAsr": "Hanafi Asr",
+  "hanafiAsrHint": "Later Asr time (shadow twice an object's length).",
   "hasBreak": "Add a daily break",
   "hasWorkHours": "I have fixed work or study hours",
   "haveAccount": "I have an account",
@@ -675,6 +720,17 @@
   "highlights": "Highlights",
   "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
   "homeSections": "Home screen",
+  "homeViewGoals": "Goals",
+  "homeViewToday": "Today",
+  "homeViewWeek": "Week",
+  "inDuration": "in {duration}",
+  "@inDuration": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
   "inactiveHabits": "Inactive",
   "includeTechInfo": "Include technical info",
   "initialTasks": "First tasks",
@@ -695,7 +751,11 @@
   "linkedMilestoneOptional": "Milestone (optional)",
   "linkedTasks": "Linked tasks",
   "localModeNotice": "Local mode: your account and data are stored on this device.",
+  "locationDenied": "Location permission was denied. You can pick a city instead.",
+  "locationError": "Couldn't get your location. Try again or pick a city.",
+  "locationOff": "Location services are off on this device.",
   "locationOptional": "Location (optional)",
+  "locationPrivacy": "Your location is used on this device to calculate times and saved only as coordinates in your settings.",
   "manageAssistantAccess": "Manage assistant permissions",
   "manual": "Manually",
   "manualHint": "You set the percentage yourself.",
@@ -712,6 +772,14 @@
   "markRead": "Mark as read",
   "memberSince": "Member since",
   "menu": "Menu",
+  "methodEgyptian": "Egyptian General Authority",
+  "methodGulf": "Gulf region",
+  "methodIsna": "ISNA (North America)",
+  "methodKarachi": "University of Islamic Sciences, Karachi",
+  "methodKuwait": "Kuwait",
+  "methodMwl": "Muslim World League",
+  "methodQatar": "Qatar",
+  "methodUmmAlQura": "Umm al-Qura (Makkah)",
   "milestone": "Milestone",
   "milestoneHint": "e.g. Understand Dart basics",
   "milestones": "Milestones",
@@ -748,6 +816,7 @@
   "movedTomorrow": "Moved to tomorrow",
   "multiCurrencyNote": "Each currency is totalled separately — amounts are never combined across currencies.",
   "myGoals": "My goals",
+  "myLocation": "My location",
   "myNotes": "My notes",
   "navAssistant": "Assistant",
   "navExpenses": "Expenses",
@@ -756,6 +825,7 @@
   "navHome": "Home",
   "navNotes": "Notes",
   "navNotifications": "Notifications",
+  "navPrayer": "Prayer",
   "navProgress": "Progress",
   "navSettings": "Settings",
   "navTasks": "Tasks",
@@ -769,7 +839,17 @@
   "newUserBody": "Start with one task and one goal. Then ask the assistant to plan your day.",
   "newUserTitle": "Welcome to Hayati 👋",
   "next": "Next",
+  "nextDay": "Next day",
   "nextPeriod": "Next",
+  "nextPrayerIs": "Next: {name}",
+  "@nextPrayerIs": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "nextUp": "Next",
   "noActions": "No actions yet.",
   "noActiveGoals": "No active goals right now.",
   "noConversations": "No previous chats.",
@@ -794,6 +874,7 @@
   "noteTitle": "Title",
   "notesOptional": "Notes (optional)",
   "nothingScheduled": "Nothing scheduled",
+  "nothingScheduledNow": "Nothing scheduled today",
   "nothingToPlan": "No open tasks to plan for this day.",
   "notifDue": "Check its deadline in your tasks.",
   "notifEventBody": "Starts in {minutes} min",
@@ -820,10 +901,38 @@
       }
     }
   },
+  "notifPrayerSoon": "{name} prayer in {minutes} min",
+  "@notifPrayerSoon": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notifPrayerTitle": "Time for {name} prayer",
+  "@notifPrayerTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "notifTaskTitle": "Reminder: {title}",
   "@notifTaskTitle": {
     "placeholders": {
       "title": {
+        "type": "String"
+      }
+    }
+  },
+  "nowLabel": "Now",
+  "nowUntil": "Until {time}",
+  "@nowUntil": {
+    "placeholders": {
+      "time": {
         "type": "String"
       }
     }
@@ -877,6 +986,7 @@
   "permDraftPlansSub": "Prepare plans for you to review. Drafts are never applied without approval.",
   "permLogHabits": "Log habit completion",
   "permLogHabitsSub": "When you say you did a habit today.",
+  "pickCity": "Choose a city",
   "pin": "Pin",
   "planApplied": "Plan applied",
   "planEmptyToday": "Nothing planned for today yet.",
@@ -902,8 +1012,51 @@
   "planner": "Planner",
   "planningHint": "This helps the planner place tasks in time you actually have.",
   "planningPrefs": "Planning",
+  "prayerAsr": "Asr",
+  "prayerBlock": "Keep time free for prayer",
+  "prayerBlockHint": "The planner won't put tasks in this time.",
+  "prayerCalcNote": "Times are calculated astronomically and may differ by a minute or two from your local mosque. You can change the method in settings.",
+  "prayerCalculation": "Calculation",
+  "prayerCurrent": "Current prayer time",
+  "prayerDhuhr": "Dhuhr",
+  "prayerEnable": "Show prayer times",
+  "prayerEnableHint": "On the home screen, in your day plan and as reminders.",
+  "prayerFajr": "Fajr",
+  "prayerIsha": "Isha",
+  "prayerLocation": "Location",
+  "prayerLogHint": "Mark it yourself after you pray. Hayati never assumes.",
+  "prayerLogLabel": "I prayed {name}",
+  "@prayerLogLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "prayerLogToggle": "Prayer log",
+  "prayerLogToggleHint": "Optional. Only what you mark yourself is recorded.",
+  "prayerMaghrib": "Maghrib",
+  "prayerMethodLabel": "Method",
+  "prayerNoLocation": "No location set yet",
+  "prayerNotify": "Notify me at each prayer time",
+  "prayerPreview": "Today's times",
+  "prayerRemindBefore": "Also remind me before",
+  "prayerReminders": "Reminders and planning",
+  "prayerSettingsTitle": "Prayer times settings",
+  "prayerSetupAction": "Set up",
+  "prayerSetupBody": "Choose your city to see prayer times and plan your day around them.",
+  "prayerSetupTitle": "Prayer times",
+  "prayerWeekLogged": "{n, plural, =0{You haven't logged any prayers in the last 7 days.} =1{You logged 1 prayer in the last 7 days.} other{You logged {n} prayers in the last 7 days.}}",
+  "@prayerWeekLogged": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "previous": "Previous",
   "previousChats": "Previous chats",
+  "previousDay": "Previous day",
   "pricingNotSet": "Price, billing period, taxes and renewal terms will be shown clearly here before purchase is enabled.",
   "priorityHigh": "High",
   "priorityLabel": "Priority",
@@ -947,6 +1100,7 @@
   "reportSaved": "Report saved. It will be sent when the support service is connected.",
   "resetLinkSent": "If an account exists for this email, a reset link is on its way.",
   "restBlock": "Break",
+  "restOfDayFree": "The rest of the day is yours.",
   "restore": "Restore",
   "restorePurchases": "Restore purchases",
   "resumeGoal": "Make active",
@@ -965,6 +1119,7 @@
   "saving": "Saving…",
   "scheduleGroup": "When",
   "search": "Search",
+  "searchCity": "Search for a city",
   "sectionsShown": "Sections in the app",
   "send": "Send",
   "sendResetLink": "Send link",
@@ -1019,7 +1174,9 @@
     }
   },
   "subscriptionTitle": "Subscription",
+  "suggestedPill": "Suggested",
   "suggestedPlan": "Suggested plan",
+  "sunrise": "Sunrise",
   "switchToSignIn": "Already have an account? Sign in",
   "switchToSignUp": "New here? Create an account",
   "syncNever": "Not synced yet",
@@ -1154,6 +1311,7 @@
     }
   },
   "use24h": "24-hour time",
+  "useMyLocation": "Use my location",
   "verificationLocal": "Not required in local mode",
   "viewAll": "View all",
   "viewAllGoals": "View all goals",
@@ -1174,7 +1332,26 @@
   "wdTue": "Tue",
   "wdWed": "Wed",
   "week": "Week",
+  "weekAhead": "Your next 7 days",
+  "weekBusy": "Busy day",
+  "weekEvents": "{n, plural, =0{No events} =1{1 event} other{{n} events}}",
+  "@weekEvents": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "weekLoad": "Planned load",
   "weekStart": "Week starts on",
+  "weekTasks": "{n, plural, =0{No tasks due} =1{1 task due} other{{n} tasks due}}",
+  "@weekTasks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
   "welcomeTitle": "Organize your life, step by step",
   "whatWeStore": "What Hayati stores",

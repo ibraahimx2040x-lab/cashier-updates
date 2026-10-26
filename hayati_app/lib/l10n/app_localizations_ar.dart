@@ -81,6 +81,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiChipAddTask => 'أضف مهمة جديدة';
 
   @override
+  String get aiChipFreeTime => 'عندي نصف ساعة، ماذا أستطيع إنجازه؟';
+
+  @override
+  String get aiChipLate => 'تأخرت اليوم، رتّب لي بقية يومي';
+
+  @override
   String get aiChipOverdue => 'رتّب مهامي المتأخرة';
 
   @override
@@ -105,6 +111,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'في هذا الإصدار يعمل المساعد بالكامل على جهازك، ولا يُرسل شيء إلى مزود ذكاء اصطناعي. عند تفعيل المساعد السحابي، تُرسل الأقسام التي تسمح بها فقط إلى المزود عبر خادمنا للرد على طلبك.';
 
   @override
+  String get aiDisabled => 'المساعد متوقف من إعدادات المساعد.';
+
+  @override
   String get aiDraftsDisabled =>
       'إنشاء مسودات الخطط معطّل في إعدادات المساعد، لذلك لم أجهّز تغييرات.';
 
@@ -125,11 +134,19 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدث خطأ ولم أستطع الرد. رسالتك محفوظة، حاول مرة أخرى.';
 
   @override
-  String get aiDisabled => 'المساعد متوقف من إعدادات المساعد.';
+  String aiFreeTime(int minutes) {
+    return 'عندك $minutes دقيقة. هذه مهام تناسبها:';
+  }
 
   @override
-  String get aiRefused =>
-      'لا أستطيع المساعدة في هذا الطلب. جرّب صياغته بطريقة أخرى.';
+  String aiFreeTimeItem(String title, int minutes) {
+    return '• $title ($minutes دقيقة)';
+  }
+
+  @override
+  String aiFreeTimeNone(int minutes) {
+    return 'لا توجد مهمة مفتوحة بمدة محددة تناسب $minutes دقيقة. جرّب تقسيم مهمة أكبر، أو خذ استراحة.';
+  }
 
   @override
   String get aiGoalFirstWeekOnly =>
@@ -246,6 +263,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiReasonTask => 'طلبت إضافة مهمة.';
+
+  @override
+  String get aiRefused =>
+      'لا أستطيع المساعدة في هذا الطلب. جرّب صياغته بطريقة أخرى.';
 
   @override
   String aiReviewGoal(String title, int percent) {
@@ -401,6 +422,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get askAssistantReview => 'اسأل المساعد';
 
   @override
+  String get askHayati => 'اسأل مساعد حياتي';
+
+  @override
   String get assistantDisabled => 'المساعد معطّل';
 
   @override
@@ -501,6 +525,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get calendar => 'التقويم';
+
+  @override
+  String canMoveCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n مهمة لا تتسع اليوم ويمكن نقلها دون الإضرار بأهدافك',
+      few: '$n مهام لا تتسع اليوم ويمكن نقلها دون الإضرار بأهدافك',
+      two: 'مهمتان لا تتسعان اليوم ويمكن نقلهما دون الإضرار بأهدافك',
+      one: 'مهمة لا تتسع اليوم ويمكن نقلها دون الإضرار بأهدافك',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get cancel => 'إلغاء';
@@ -633,6 +670,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dayEnd => 'نهاية اليوم';
+
+  @override
+  String get daySchedule => 'جدول اليوم';
+
+  @override
+  String get dayScheduleDone => 'انتهى جدول اليوم';
 
   @override
   String get dayStart => 'بداية اليوم';
@@ -799,6 +842,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get discardTitle => 'تجاهل التعديلات؟';
 
   @override
+  String get dismiss => 'إخفاء';
+
+  @override
   String get displayName => 'الاسم المعروض';
 
   @override
@@ -942,6 +988,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get estimatedMinutes => 'المدة التقديرية (بالدقائق)';
+
+  @override
+  String get estimatedPill => 'مدة تقديرية';
 
   @override
   String get eventTitle => 'عنوان الموعد';
@@ -1118,6 +1167,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get freeTime => 'الوقت المتاح';
 
   @override
+  String get freeTimeNow => 'وقت حر';
+
+  @override
   String get getStarted => 'ابدأ الآن';
 
   @override
@@ -1193,6 +1245,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'أضف عادة واختر الأيام المطلوبة فيها. الأيام غير المطلوبة لا تُحسب ضدك أبدًا.';
 
   @override
+  String get hanafiAsr => 'العصر على المذهب الحنفي';
+
+  @override
+  String get hanafiAsrHint => 'وقت عصر متأخر (ظل الشيء مثليه).';
+
+  @override
   String get hasBreak => 'إضافة استراحة يومية';
 
   @override
@@ -1216,6 +1274,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeSections => 'الصفحة الرئيسية';
+
+  @override
+  String get homeViewGoals => 'الأهداف';
+
+  @override
+  String get homeViewToday => 'اليوم';
+
+  @override
+  String get homeViewWeek => 'الأسبوع';
+
+  @override
+  String inDuration(String duration) {
+    return 'بعد $duration';
+  }
 
   @override
   String get inactiveHabits => 'غير نشطة';
@@ -1280,7 +1352,21 @@ class AppLocalizationsAr extends AppLocalizations {
       'الوضع المحلي: حسابك وبياناتك محفوظة على هذا الجهاز.';
 
   @override
+  String get locationDenied =>
+      'لم يُسمح بالوصول إلى الموقع. يمكنك اختيار مدينة بدلًا من ذلك.';
+
+  @override
+  String get locationError => 'تعذّر تحديد موقعك. حاول مرة أخرى أو اختر مدينة.';
+
+  @override
+  String get locationOff => 'خدمات الموقع متوقفة على هذا الجهاز.';
+
+  @override
   String get locationOptional => 'المكان (اختياري)';
+
+  @override
+  String get locationPrivacy =>
+      'يُستخدم موقعك لحساب المواقيت فقط، ويُحفظ كإحداثيات في إعداداتك.';
 
   @override
   String get manageAssistantAccess => 'إدارة صلاحيات المساعد';
@@ -1310,6 +1396,30 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get menu => 'القائمة';
+
+  @override
+  String get methodEgyptian => 'الهيئة المصرية العامة للمساحة';
+
+  @override
+  String get methodGulf => 'منطقة الخليج';
+
+  @override
+  String get methodIsna => 'الجمعية الإسلامية لأمريكا الشمالية';
+
+  @override
+  String get methodKarachi => 'جامعة العلوم الإسلامية بكراتشي';
+
+  @override
+  String get methodKuwait => 'الكويت';
+
+  @override
+  String get methodMwl => 'رابطة العالم الإسلامي';
+
+  @override
+  String get methodQatar => 'قطر';
+
+  @override
+  String get methodUmmAlQura => 'أم القرى (مكة)';
 
   @override
   String get milestone => 'مرحلة';
@@ -1374,6 +1484,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myGoals => 'أهدافي';
 
   @override
+  String get myLocation => 'موقعي';
+
+  @override
   String get myNotes => 'ملاحظاتي';
 
   @override
@@ -1396,6 +1509,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navNotifications => 'الإشعارات';
+
+  @override
+  String get navPrayer => 'الصلاة';
 
   @override
   String get navProgress => 'تقدمي';
@@ -1438,7 +1554,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get next => 'التالي';
 
   @override
+  String get nextDay => 'اليوم التالي';
+
+  @override
   String get nextPeriod => 'التالي';
+
+  @override
+  String nextPrayerIs(String name) {
+    return 'الصلاة القادمة: $name';
+  }
+
+  @override
+  String get nextUp => 'التالي';
 
   @override
   String get noActions => 'لا توجد إجراءات بعد.';
@@ -1513,6 +1640,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get nothingScheduled => 'لا يوجد شيء مجدول';
 
   @override
+  String get nothingScheduledNow => 'لا شيء مجدول اليوم';
+
+  @override
   String get nothingToPlan => 'لا توجد مهام مفتوحة للتخطيط لهذا اليوم.';
 
   @override
@@ -1534,8 +1664,26 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String notifPrayerSoon(String name, int minutes) {
+    return 'صلاة $name بعد $minutes دقيقة';
+  }
+
+  @override
+  String notifPrayerTitle(String name) {
+    return 'حان وقت صلاة $name';
+  }
+
+  @override
   String notifTaskTitle(String title) {
     return 'تذكير: $title';
+  }
+
+  @override
+  String get nowLabel => 'الآن';
+
+  @override
+  String nowUntil(String time) {
+    return 'حتى $time';
   }
 
   @override
@@ -1644,6 +1792,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get permLogHabitsSub => 'عندما تذكر أنك أنجزت عادة اليوم.';
 
   @override
+  String get pickCity => 'اختر مدينة';
+
+  @override
   String get pin => 'تثبيت';
 
   @override
@@ -1693,10 +1844,112 @@ class AppLocalizationsAr extends AppLocalizations {
   String get planningPrefs => 'تفضيلات التخطيط';
 
   @override
+  String get prayerAsr => 'العصر';
+
+  @override
+  String get prayerBlock => 'وقت محجوز للصلاة';
+
+  @override
+  String get prayerBlockHint => 'لا يضع المخطط مهامًا في هذا الوقت.';
+
+  @override
+  String get prayerCalcNote =>
+      'المواقيت محسوبة فلكيًا وقد تختلف دقيقة أو دقيقتين عن أذان مسجدك. يمكنك تغيير طريقة الحساب من الإعدادات.';
+
+  @override
+  String get prayerCalculation => 'طريقة الحساب';
+
+  @override
+  String get prayerCurrent => 'وقت الصلاة الحالية';
+
+  @override
+  String get prayerDhuhr => 'الظهر';
+
+  @override
+  String get prayerEnable => 'عرض مواقيت الصلاة';
+
+  @override
+  String get prayerEnableHint => 'في الرئيسية وفي خطة يومك وكتنبيهات.';
+
+  @override
+  String get prayerFajr => 'الفجر';
+
+  @override
+  String get prayerIsha => 'العشاء';
+
+  @override
+  String get prayerLocation => 'الموقع';
+
+  @override
+  String get prayerLogHint =>
+      'حدّدها بنفسك بعد أن تصلي. التطبيق لا يفترض ذلك أبدًا.';
+
+  @override
+  String prayerLogLabel(String name) {
+    return 'صلّيت $name';
+  }
+
+  @override
+  String get prayerLogToggle => 'سجل الصلوات';
+
+  @override
+  String get prayerLogToggleHint => 'اختياري. لا يُسجّل إلا ما تحدده بنفسك.';
+
+  @override
+  String get prayerMaghrib => 'المغرب';
+
+  @override
+  String get prayerMethodLabel => 'الطريقة';
+
+  @override
+  String get prayerNoLocation => 'لم يُحدد موقع بعد';
+
+  @override
+  String get prayerNotify => 'نبّهني عند كل صلاة';
+
+  @override
+  String get prayerPreview => 'مواقيت اليوم';
+
+  @override
+  String get prayerRemindBefore => 'وذكّرني قبلها بـ';
+
+  @override
+  String get prayerReminders => 'التنبيهات والتخطيط';
+
+  @override
+  String get prayerSettingsTitle => 'إعدادات مواقيت الصلاة';
+
+  @override
+  String get prayerSetupAction => 'إعداد';
+
+  @override
+  String get prayerSetupBody => 'اختر مدينتك لعرض المواقيت وتنظيم يومك حولها.';
+
+  @override
+  String get prayerSetupTitle => 'مواقيت الصلاة';
+
+  @override
+  String prayerWeekLogged(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'سجّلت $n صلاة في آخر 7 أيام.',
+      few: 'سجّلت $n صلوات في آخر 7 أيام.',
+      two: 'سجّلت صلاتين في آخر 7 أيام.',
+      one: 'سجّلت صلاة واحدة في آخر 7 أيام.',
+      zero: 'لم تسجّل أي صلاة في آخر 7 أيام.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get previous => 'السابق';
 
   @override
   String get previousChats => 'المحادثات السابقة';
+
+  @override
+  String get previousDay => 'اليوم السابق';
 
   @override
   String get pricingNotSet =>
@@ -1834,6 +2087,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get restBlock => 'استراحة';
 
   @override
+  String get restOfDayFree => 'بقية اليوم لك.';
+
+  @override
   String get restore => 'استعادة';
 
   @override
@@ -1886,6 +2142,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get search => 'بحث';
+
+  @override
+  String get searchCity => 'ابحث عن مدينة';
 
   @override
   String get sectionsShown => 'الأقسام الظاهرة في التطبيق';
@@ -2015,7 +2274,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get subscriptionTitle => 'الاشتراك';
 
   @override
+  String get suggestedPill => 'مقترح';
+
+  @override
   String get suggestedPlan => 'الخطة المقترحة';
+
+  @override
+  String get sunrise => 'الشروق';
 
   @override
   String get switchToSignIn => 'لديك حساب؟ سجّل الدخول';
@@ -2260,6 +2525,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get use24h => 'نظام 24 ساعة';
 
   @override
+  String get useMyLocation => 'استخدم موقعي';
+
+  @override
   String get verificationLocal => 'غير مطلوب في الوضع المحلي';
 
   @override
@@ -2301,7 +2569,44 @@ class AppLocalizationsAr extends AppLocalizations {
   String get week => 'أسبوع';
 
   @override
+  String get weekAhead => 'أيامك السبعة القادمة';
+
+  @override
+  String get weekBusy => 'يوم مزدحم';
+
+  @override
+  String weekEvents(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n موعدًا',
+      few: '$n مواعيد',
+      two: 'موعدان',
+      one: 'موعد واحد',
+      zero: 'لا مواعيد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get weekLoad => 'حجم الالتزامات';
+
+  @override
   String get weekStart => 'بداية الأسبوع';
+
+  @override
+  String weekTasks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n مهمة مستحقة',
+      few: '$n مهام مستحقة',
+      two: 'مهمتان مستحقتان',
+      one: 'مهمة مستحقة',
+      zero: 'لا مهام مستحقة',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get welcomeBody =>

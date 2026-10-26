@@ -1,7 +1,10 @@
 import '../core/router/route_paths.dart';
 import '../core/utils/dates.dart';
 import '../data/app_data.dart';
+import '../core/utils/labels.dart';
+import '../data/models/prayer.dart';
 import '../l10n/app_localizations.dart';
+import 'prayer_times.dart';
 
 /// One reminder for the phone's notification system.
 class DeviceReminder {
@@ -22,10 +25,12 @@ class DeviceReminder {
 const maxScheduled = 60;
 
 /// Reminders to schedule on the device from [d], soonest first: task
-/// reminders, event reminders, and each due day's habit reminder within
-/// [horizonDays]. Past times, finished tasks and habits already logged
+/// reminders, event reminders, each due day's habit reminder within
+/// [horizonDays], and prayer times (plus the optional early reminder) for
+/// [prayerDays] days. Past times, finished tasks and habits already logged
 /// today are skipped.
-List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizations l, {int horizonDays = 14}) {
+List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizations l,
+    {int horizonDays = 14, int prayerDays = 2}) {
   final out = <DeviceReminder>[];
   final until = now.add(Duration(days: horizonDays));
   bool inWindow(DateTime t) => t.isAfter(now) && t.isBefore(until);
@@ -69,6 +74,28 @@ List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizatio
         title: l.notifHabitTitle(h.name),
         route: Routes.habits,
       ));
+    }
+  }
+  final ps = d.settings.prayer;
+  if (ps.active && ps.notify) {
+    for (var i = 0; i < prayerDays; i++) {
+      final day = prayerDay(ps, today.add(Duration(days: i)))!;
+      for (final p in Prayer.values) {
+        final at = day[p];
+        final key = 'prayer:${dayKey(day.day)}:${p.name}';
+        if (inWindow(at)) {
+          out.add(DeviceReminder(id: stableId(key), at: at, title: l.notifPrayerTitle(l.prayerName(p)), route: Routes.prayer));
+        }
+        final early = at.subtract(Duration(minutes: ps.remindBefore));
+        if (ps.remindBefore > 0 && inWindow(early)) {
+          out.add(DeviceReminder(
+            id: stableId('$key:before'),
+            at: early,
+            title: l.notifPrayerSoon(l.prayerName(p), ps.remindBefore),
+            route: Routes.prayer,
+          ));
+        }
+      }
     }
   }
   out.sort((a, b) => a.at.compareTo(b.at));

@@ -1,11 +1,39 @@
 import '../../data/models/goal.dart';
 import '../../data/models/misc.dart';
+import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../domain/planner.dart';
 import '../../l10n/app_localizations.dart';
 
 /// Localized names for enums and fixed codes.
 extension Labels on AppLocalizations {
+  String prayerName(Prayer p) => switch (p) {
+        Prayer.fajr => prayerFajr,
+        Prayer.dhuhr => prayerDhuhr,
+        Prayer.asr => prayerAsr,
+        Prayer.maghrib => prayerMaghrib,
+        Prayer.isha => prayerIsha,
+      };
+
+  /// "1 hour 20 minutes" with localized plurals.
+  String durationText(int minutes) {
+    if (minutes < 60) return unitMinutes(minutes);
+    final h = minutes ~/ 60, m = minutes % 60;
+    return m == 0 ? unitHours(h) : '${unitHours(h)} ${unitMinutes(m)}';
+  }
+
+  String prayerMethod(PrayerMethod m) => switch (m) {
+        PrayerMethod.ummAlQura => methodUmmAlQura,
+        PrayerMethod.muslimWorldLeague => methodMwl,
+        PrayerMethod.egyptian => methodEgyptian,
+        PrayerMethod.karachi => methodKarachi,
+        PrayerMethod.dubai => methodGulf,
+        PrayerMethod.kuwait => methodKuwait,
+        PrayerMethod.qatar => methodQatar,
+        PrayerMethod.northAmerica => methodIsna,
+      };
+
   String priority(Priority p) => switch (p) {
         Priority.low => priorityLow,
         Priority.medium => priorityMedium,
@@ -87,3 +115,11 @@ extension Labels on AppLocalizations {
     return m == 0 ? unitHours(h) : '${unitHours(h)} ${unitMinutes(m)}';
   }
 }
+
+/// Name of a fixed block in a day plan.
+String blockLabel(AppLocalizations l, Block b) => switch (b.kind) {
+      BlockKind.prayer => l.prayerName(Prayer.values.byName(b.refId!)),
+      BlockKind.work => l.workBlock,
+      BlockKind.event => b.label ?? '',
+      BlockKind.rest || BlockKind.free => l.restBlock,
+    };

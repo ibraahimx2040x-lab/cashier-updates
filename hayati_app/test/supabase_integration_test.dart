@@ -13,11 +13,13 @@ import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/core/config.dart';
+import 'package:hayati/core/utils/dates.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/prayer.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
@@ -136,6 +138,34 @@ void main() {
     await a.c.read(syncProvider.notifier).sync();
     await a.settle();
     expect(a.data.snapshot.tasks, isEmpty);
+  }, skip: skip);
+
+  test('prayer settings and the prayer log sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(
+          onboardingDone: true,
+          prayer: s.prayer.copyWith(enabled: true, place: 'Riyadh', latitude: () => 24.7136, longitude: () => 46.6753, remindBefore: 10),
+        ));
+    final today = dayKey(DateTime.now());
+    a.data.setPrayerLogged(Prayer.fajr, today, true);
+    await a.settle();
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final p = b.data.snapshot.settings.prayer;
+    expect(p.active, isTrue);
+    expect(p.remindBefore, 10);
+    expect(b.data.snapshot.prayerLogged(Prayer.fajr, today), isTrue);
   }, skip: skip);
 
   test('another account sees nothing', () async {

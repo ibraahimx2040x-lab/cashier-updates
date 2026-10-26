@@ -184,6 +184,8 @@ class AppCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Card(
         color: color,
+        // Coloured cards stand on their own; no shadow under them.
+        elevation: color == null ? null : 0,
         clipBehavior: Clip.antiAlias,
         child: InkWell(onTap: onTap, child: Padding(padding: padding, child: child)),
       );

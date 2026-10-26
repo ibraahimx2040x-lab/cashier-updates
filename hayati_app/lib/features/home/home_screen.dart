@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -13,10 +15,14 @@ import '../../data/data_controller.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../domain/day_timeline.dart';
 import '../../domain/metrics.dart';
+import '../../domain/planner.dart';
+import '../../domain/prayer_times.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/motion.dart';
 import '../shell/quick_add.dart';
 
 /// Tasks relevant "today": due today, overdue, or planned for today.
@@ -32,21 +38,115 @@ List<Task> todaysTasks(AppData d, DateTime now) {
   }).toList();
 }
 
-/// Screen 5 — "My day": answers "what should I do now?"
-class HomeScreen extends ConsumerWidget {
+enum HomeView { today, week, goals }
+
+/// Screen 5 — "My day": what to do now, what's next, and how the week and
+/// long-term goals look.
+class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends ConsumerState<HomeScreen> {
+  HomeView _view = HomeView.today;
+  Timer? _tick;
+
+  @override
+  void initState() {
+    super.initState();
+    // "Now" and countdowns move with the clock.
+    _tick = Timer.periodic(const Duration(seconds: 30), (_) {
+      if (mounted) setState(() {});
+    });
+  }
+
+  @override
+  void dispose() {
+    _tick?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final d = ref.watch(dataProvider);
     final s = d.settings;
     final now = ref.watch(clockProvider)();
     final fmt = Fmt.of(context, use24h: s.use24h);
-    final data = ref.read(dataProvider.notifier);
     final t = Theme.of(context).textTheme;
     final wide = isWide(context);
+    final name = s.showNameInGreeting && s.displayName.isNotEmpty ? s.displayName : null;
 
+    final body = switch (_view) {
+      HomeView.today => _TodayView(d: d, now: now, fmt: fmt, wide: wide),
+      HomeView.week => _WeekView(d: d, now: now, fmt: fmt),
+      HomeView.goals => _GoalsView(d: d, fmt: fmt),
+    };
+
+    return Scaffold(
+      appBar: AppBar(
+        toolbarHeight: 76,
+        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(name == null ? l.greeting(now.hour) : l.greetingName(now.hour, name), style: t.titleLarge),
+          Text(fmt.fullDate(now), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+        ]),
+        actions: [
+          IconButton(
+            tooltip: l.navNotifications,
+            onPressed: () => context.push(Routes.notifications),
+            icon: Badge(
+              isLabelVisible: d.unreadNotifications > 0,
+              label: Text('${d.unreadNotifications}'),
+              child: const Icon(Icons.notifications_outlined),
+            ),
+          ),
+          if (!wide) _MoreMenu(settings: s),
+          const SizedBox(width: Space.s),
+        ],
+      ),
+      body: ResponsiveContainer(
+        maxWidth: 1100,
+        child: ListView(
+          padding: const EdgeInsets.fromLTRB(Space.gutter, Space.xs, Space.gutter, 112),
+          children: [
+            SegmentedButton<HomeView>(
+              showSelectedIcon: false,
+              segments: [
+                ButtonSegment(value: HomeView.today, label: Text(l.homeViewToday), icon: const Icon(Icons.wb_sunny_outlined)),
+                ButtonSegment(value: HomeView.week, label: Text(l.homeViewWeek), icon: const Icon(Icons.view_week_outlined)),
+                ButtonSegment(value: HomeView.goals, label: Text(l.homeViewGoals), icon: const Icon(Icons.flag_outlined)),
+              ],
+              selected: {_view},
+              onSelectionChanged: (v) => setState(() => _view = v.first),
+            ),
+            const SizedBox(height: Space.l),
+            SmoothSwitcher(childKey: _view, child: body),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+// ----------------------------------------------------------------- today
+
+class _TodayView extends ConsumerWidget {
+  const _TodayView({required this.d, required this.now, required this.fmt, required this.wide});
+  final AppData d;
+  final DateTime now;
+  final Fmt fmt;
+  final bool wide;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final s = d.settings;
+    final data = ref.read(dataProvider.notifier);
+    final t = Theme.of(context).textTheme;
+
+    final timeline = buildTimeline(d, now);
     final today = todaysTasks(d, now);
     final open = today.where((x) => x.isOpen).toList();
     final doneCount = today.where((x) => x.isDone).length;
@@ -59,63 +159,11 @@ class HomeScreen extends ConsumerWidget {
         return (a.plannedStart ?? a.dueAt ?? DateTime(9999)).compareTo(b.plannedStart ?? b.dueAt ?? DateTime(9999));
       });
     final top3 = priorities.take(3).toList();
-    final upcoming = d.events.where((e) => e.end.isAfter(now)).toList()..sort((a, b) => a.start.compareTo(b.start));
+    final movable = timeline.plan.unscheduled.length;
     final habits = d.habits.where((h) => h.isDueOn(now)).toList();
-    final goals = d.goals.where((g) => g.status == GoalStatus.active).take(3).toList();
     final isNew = d.tasks.isEmpty && d.goals.isEmpty && d.events.isEmpty;
-    final name = s.showNameInGreeting && s.displayName.isNotEmpty ? s.displayName : null;
 
-    final planCard = AppCard(
-      color: AppColors.deepGreen,
-      child: Theme(
-        data: Theme.of(context).copyWith(
-          textTheme: t.apply(bodyColor: Colors.white, displayColor: Colors.white),
-        ),
-        child: Builder(builder: (context) {
-          final tt = Theme.of(context).textTheme;
-          return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Row(children: [
-              const Icon(Icons.view_timeline_outlined, color: Colors.white),
-              const SizedBox(width: Space.s),
-              Expanded(child: Text(l.todayPlan, style: tt.titleMedium)),
-              IconButton(
-                tooltip: l.askAssistantReplan,
-                color: Colors.white,
-                icon: const Icon(Icons.auto_awesome),
-                onPressed: () => context.go('${Routes.assistant}?q=${Uri.encodeComponent(l.aiChipPlanDay)}'),
-              ),
-            ]),
-            const SizedBox(height: Space.s),
-            Text(
-              today.isEmpty ? l.planEmptyToday : l.planSummary(doneCount, today.length),
-              style: tt.bodyMedium?.copyWith(color: Colors.white70),
-            ),
-            if (today.isNotEmpty) ...[
-              const SizedBox(height: Space.m),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(8),
-                child: LinearProgressIndicator(
-                  value: doneCount / today.length,
-                  minHeight: 8,
-                  color: AppColors.lightGreen,
-                  backgroundColor: Colors.white24,
-                ),
-              ),
-            ],
-            const SizedBox(height: Space.l),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(
-                foregroundColor: Colors.white,
-                side: const BorderSide(color: Colors.white54),
-                minimumSize: const Size(64, 44),
-              ),
-              onPressed: () => context.go(Routes.timeTab('planner')),
-              child: Text(l.reviewMyPlan),
-            ),
-          ]);
-        }),
-      ),
-    );
+    void ask(String q) => context.go('${Routes.assistant}?q=${Uri.encodeComponent(q)}');
 
     final prioritySection = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       SectionHeader(l.topPriorities, action: l.allTasks, onAction: () => context.go(Routes.timeTab('tasks'))),
@@ -142,24 +190,25 @@ class HomeScreen extends ConsumerWidget {
               onOpen: () => context.push(Routes.task(task.id)),
             ),
           ),
+      if (movable > 0)
+        AppCard(
+          color: context.status.highlight,
+          onTap: () => context.go(Routes.timeTab('planner')),
+          child: Row(children: [
+            Icon(Icons.low_priority, color: Theme.of(context).colorScheme.primary),
+            const SizedBox(width: Space.m),
+            Expanded(child: Text(l.canMoveCount(movable))),
+            const Icon(Icons.chevron_right),
+          ]),
+        ),
     ]);
 
-    final eventsSection = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      SectionHeader(l.upcoming, action: l.viewCalendar, onAction: () => context.go(Routes.timeTab('calendar'))),
-      if (upcoming.isEmpty)
-        AppCard(child: Text(l.noUpcoming))
+    final scheduleSection = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      SectionHeader(l.daySchedule, action: l.reviewMyPlan, onAction: () => context.go(Routes.timeTab('planner'))),
+      if (timeline.items.isEmpty)
+        AppCard(child: Text(l.planEmptyToday))
       else
-        for (final e in upcoming.take(2))
-          Padding(
-            padding: const EdgeInsets.only(bottom: Space.s),
-            child: EventCard(
-              event: e,
-              fmt: Fmt.of(context, use24h: s.use24h),
-              onTap: () => context.push(Routes.event(e.id)),
-            ),
-          ),
-      if (upcoming.isNotEmpty && !isSameDay(upcoming.first.start, now))
-        Text(fmt.weekdayDate(upcoming.first.start), style: t.bodySmall),
+        _Timeline(items: timeline.items, now: now, fmt: fmt),
     ]);
 
     final habitsSection = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
@@ -183,77 +232,472 @@ class HomeScreen extends ConsumerWidget {
       ],
     ]);
 
-    final goalsSection = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      SectionHeader(l.goalsSummary, action: l.viewAllGoals, onAction: () => context.go(Routes.goals)),
-      if (goals.isEmpty)
-        AppCard(
-          child: Row(children: [
-            Expanded(child: Text(l.noGoalsYet)),
-            TextButton(onPressed: () => context.push(Routes.goal('new')), child: Text(l.addGoal)),
-          ]),
-        )
-      else
-        for (final g in goals)
-          Padding(
-            padding: const EdgeInsets.only(bottom: Space.s),
-            child: GoalCard(
-              goal: g,
-              compact: true,
-              fmt: fmt,
-              progress: GoalProgress.of(g, d.milestonesOf(g.id)),
-              onTap: () => context.push(Routes.goal(g.id)),
-            ),
-          ),
-    ]);
-
     final sections = <Widget>[
-      if (isNew) _NewUserCard(onAddTask: () => context.push(Routes.task('new')), onAddGoal: () => context.push(Routes.goal('new')), onPlan: () => context.go('${Routes.assistant}?q=${Uri.encodeComponent(l.aiChipPlanDay)}')),
-      planCard,
+      _NowCard(
+        timeline: timeline,
+        now: now,
+        fmt: fmt,
+        done: doneCount,
+        total: today.length,
+        onReplan: () => ask(l.aiChipLate),
+      ),
+      if (isNew)
+        _NewUserCard(
+          onAddTask: () => context.push(Routes.task('new')),
+          onAddGoal: () => context.push(Routes.goal('new')),
+          onPlan: () => ask(l.aiChipPlanDay),
+        ),
+      _PrayerStrip(d: d, now: now, fmt: fmt),
+      _AskChips(onAsk: ask),
       if (wide)
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(child: prioritySection),
+          Expanded(child: scheduleSection),
           const SizedBox(width: Space.xl),
-          Expanded(child: s.homeShowEvents ? eventsSection : const SizedBox()),
+          Expanded(child: prioritySection),
         ])
       else ...[
         prioritySection,
-        if (s.homeShowEvents) eventsSection,
+        scheduleSection,
       ],
       if (s.homeShowHabits && s.has(AppModule.habits)) habitsSection,
-      if (s.homeShowGoals) goalsSection,
     ];
 
-    return Scaffold(
-      appBar: AppBar(
-        toolbarHeight: 72,
-        title: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Text(name == null ? l.greeting(now.hour) : l.greetingName(now.hour, name), style: t.titleLarge),
-          Text(fmt.fullDate(now), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
-        ]),
-        actions: [
-          IconButton(
-            tooltip: l.navNotifications,
-            onPressed: () => context.push(Routes.notifications),
-            icon: Badge(
-              isLabelVisible: d.unreadNotifications > 0,
-              label: Text('${d.unreadNotifications}'),
-              child: const Icon(Icons.notifications_outlined),
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      for (var i = 0; i < sections.length; i++)
+        Padding(
+          padding: EdgeInsets.only(bottom: i == sections.length - 1 ? 0 : Space.xl),
+          child: FadeSlideIn(index: i, child: sections[i]),
+        ),
+    ]);
+  }
+}
+
+/// The hero card: what's happening now and what comes next.
+class _NowCard extends StatelessWidget {
+  const _NowCard({
+    required this.timeline,
+    required this.now,
+    required this.fmt,
+    required this.done,
+    required this.total,
+    required this.onReplan,
+  });
+  final DayTimeline timeline;
+  final DateTime now;
+  final Fmt fmt;
+  final int done;
+  final int total;
+  final VoidCallback onReplan;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final cur = timeline.current;
+    final next = timeline.next;
+    const fg = Colors.white;
+    const dim = Colors.white70;
+
+    final String headline;
+    final String detail;
+    double? elapsed;
+    if (cur != null) {
+      headline = itemTitle(l, cur);
+      detail = l.nowUntil(fmt.time(cur.end));
+      elapsed = now.difference(cur.start).inSeconds / cur.end.difference(cur.start).inSeconds;
+    } else if (next != null) {
+      headline = l.freeTimeNow;
+      detail = l.nowUntil(fmt.time(next.start));
+    } else {
+      headline = timeline.items.isEmpty ? l.nothingScheduledNow : l.dayScheduleDone;
+      detail = l.restOfDayFree;
+    }
+
+    return Semantics(
+      container: true,
+      label: '${l.nowLabel}: $headline, $detail',
+      child: Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(Radii.sheet),
+          gradient: const LinearGradient(
+            begin: AlignmentDirectional.topStart,
+            end: AlignmentDirectional.bottomEnd,
+            colors: [AppColors.deepGreen, AppColors.midGreen],
+          ),
+          boxShadow: [
+            BoxShadow(color: AppColors.deepGreen.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 10)),
+          ],
+        ),
+        padding: const EdgeInsets.fromLTRB(Space.xl, Space.l, Space.l, Space.l),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Row(children: [
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(20)),
+              child: Row(mainAxisSize: MainAxisSize.min, children: [
+                const DecoratedBox(
+                  decoration: BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle),
+                  child: SizedBox.square(dimension: 8),
+                ),
+                const SizedBox(width: 6),
+                Text('${l.nowLabel} · ${fmt.time(now)}', style: t.labelMedium?.copyWith(color: fg)),
+              ]),
+            ),
+            const Spacer(),
+            IconButton(
+              tooltip: l.aiChipLate,
+              color: fg,
+              icon: const Icon(Icons.auto_awesome),
+              onPressed: onReplan,
+            ),
+          ]),
+          const SizedBox(height: Space.m),
+          AnimatedSwitcher(
+            duration: Motion.medium,
+            child: Text(
+              headline,
+              key: ValueKey(headline),
+              style: t.headlineSmall?.copyWith(color: fg),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
           ),
-          if (!wide) _MoreMenu(settings: s),
-          const SizedBox(width: Space.s),
-        ],
-      ),
-      body: ResponsiveContainer(
-        maxWidth: 1100,
-        child: ListView.separated(
-          padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, 96),
-          itemCount: sections.length,
-          separatorBuilder: (_, _) => const SizedBox(height: Space.xl),
-          itemBuilder: (_, i) => sections[i],
-        ),
+          const SizedBox(height: Space.xs),
+          Text(detail, style: t.bodyMedium?.copyWith(color: dim)),
+          if (elapsed != null) ...[
+            const SizedBox(height: Space.m),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(begin: 0, end: elapsed.clamp(0, 1)),
+                duration: Motion.slow,
+                curve: Motion.curve,
+                builder: (_, v, _) =>
+                    LinearProgressIndicator(value: v, minHeight: 6, color: AppColors.lightGreen, backgroundColor: Colors.white24),
+              ),
+            ),
+          ],
+          if (next != null && next != cur) ...[
+            const SizedBox(height: Space.l),
+            Container(
+              padding: const EdgeInsets.all(Space.m),
+              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.10), borderRadius: BorderRadius.circular(Radii.button)),
+              child: Row(children: [
+                Icon(iconFor(next), color: fg, size: 20),
+                const SizedBox(width: Space.m),
+                Expanded(
+                  child: Text('${l.nextUp}: ${itemTitle(l, next)}', style: t.bodyMedium?.copyWith(color: fg), overflow: TextOverflow.ellipsis),
+                ),
+                Text(fmt.time(next.start), style: t.labelMedium?.copyWith(color: dim)),
+              ]),
+            ),
+          ],
+          if (total > 0) ...[
+            const SizedBox(height: Space.m),
+            Text(l.planSummary(done, total), style: t.bodySmall?.copyWith(color: dim)),
+          ],
+        ]),
       ),
     );
+  }
+}
+
+/// Next prayer, or an invitation to set prayer times up.
+class _PrayerStrip extends ConsumerWidget {
+  const _PrayerStrip({required this.d, required this.now, required this.fmt});
+  final AppData d;
+  final DateTime now;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final ps = d.settings.prayer;
+    final scheme = Theme.of(context).colorScheme;
+    final t = Theme.of(context).textTheme;
+    if (!ps.active) {
+      if (ps.setupDismissed) return const SizedBox.shrink();
+      return AppCard(
+        onTap: () => context.push(Routes.prayerSettings),
+        child: Row(children: [
+          CircleAvatar(backgroundColor: context.status.highlight, child: Icon(Icons.mosque_outlined, color: scheme.primary)),
+          const SizedBox(width: Space.m),
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(l.prayerSetupTitle, style: t.titleSmall),
+              Text(l.prayerSetupBody, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+            ]),
+          ),
+          IconButton(
+            tooltip: l.dismiss,
+            icon: const Icon(Icons.close, size: 20),
+            onPressed: () => ref.read(dataProvider.notifier).updateSettings((s) => s.copyWith(prayer: s.prayer.copyWith(setupDismissed: true))),
+          ),
+        ]),
+      );
+    }
+    final next = nextPrayer(ps, now)!;
+    final left = next.$2.difference(now).inMinutes + 1;
+    return AppCard(
+      onTap: () => context.push(Routes.prayer),
+      child: Row(children: [
+        CircleAvatar(backgroundColor: context.status.highlight, child: Icon(Icons.mosque_outlined, color: scheme.primary)),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(l.nextPrayerIs(l.prayerName(next.$1)), style: t.titleSmall),
+            Text(l.inDuration(l.durationText(left)), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          ]),
+        ),
+        Text(fmt.time(next.$2), style: t.titleMedium?.copyWith(color: scheme.primary)),
+        const SizedBox(width: Space.xs),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
+class _AskChips extends StatelessWidget {
+  const _AskChips({required this.onAsk});
+  final ValueChanged<String> onAsk;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+      Text(l.askHayati, style: t.titleMedium),
+      const SizedBox(height: Space.s),
+      Wrap(spacing: Space.s, runSpacing: Space.s, children: [
+        for (final q in [l.aiChipLate, l.aiChipFreeTime, l.aiChipPlanDay])
+          ActionChip(
+            avatar: const Icon(Icons.auto_awesome, size: 16),
+            label: Text(q),
+            onPressed: () => onAsk(q),
+          ),
+      ]),
+    ]);
+  }
+}
+
+/// Vertical timeline of today's items; past ones fade back.
+class _Timeline extends StatelessWidget {
+  const _Timeline({required this.items, required this.now, required this.fmt});
+  final List<TimelineItem> items;
+  final DateTime now;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+    return AppCard(
+      padding: const EdgeInsets.symmetric(vertical: Space.s),
+      child: Column(children: [
+        for (var i = 0; i < items.length; i++)
+          Builder(builder: (context) {
+            final it = items[i];
+            final current = it.isNow(now);
+            final past = it.isPast(now);
+            final color = switch (it.kind) {
+              TimelineKind.prayer => scheme.primary,
+              TimelineKind.event => context.status.info,
+              TimelineKind.task => scheme.secondary,
+              TimelineKind.work => context.status.warning,
+              TimelineKind.rest => context.status.inactive,
+            };
+            return AnimatedOpacity(
+              duration: Motion.medium,
+              opacity: past ? 0.45 : 1,
+              child: InkWell(
+                onTap: switch (it.kind) {
+                  TimelineKind.task => () => context.push(Routes.task(it.refId!)),
+                  TimelineKind.event => () => context.push(Routes.event(it.refId!)),
+                  TimelineKind.prayer => () => context.push(Routes.prayer),
+                  _ => null,
+                },
+                child: Container(
+                  color: current ? context.status.highlight : null,
+                  padding: const EdgeInsets.symmetric(horizontal: Space.l, vertical: Space.s),
+                  child: IntrinsicHeight(
+                    child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                      SizedBox(
+                        width: 64,
+                        child: Text(fmt.time(it.start), style: t.labelMedium?.copyWith(color: context.status.textSecondary)),
+                      ),
+                      Column(children: [
+                        Container(
+                          width: 10,
+                          height: 10,
+                          margin: const EdgeInsets.only(top: 4),
+                          decoration: BoxDecoration(
+                            color: current ? color : Colors.transparent,
+                            border: Border.all(color: color, width: 2),
+                            shape: BoxShape.circle,
+                          ),
+                        ),
+                        if (i < items.length - 1)
+                          Expanded(child: Container(width: 2, color: scheme.outlineVariant, margin: const EdgeInsets.only(top: 2))),
+                      ]),
+                      const SizedBox(width: Space.m),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.only(bottom: Space.s),
+                          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                            Row(children: [
+                              Icon(iconFor(it), size: 16, color: color),
+                              const SizedBox(width: Space.xs),
+                              Expanded(
+                                child: Text(itemTitle(l, it),
+                                    style: t.bodyMedium?.copyWith(fontWeight: current ? FontWeight.w700 : FontWeight.w500),
+                                    overflow: TextOverflow.ellipsis),
+                              ),
+                            ]),
+                            const SizedBox(height: 2),
+                            Wrap(spacing: Space.s, runSpacing: 2, crossAxisAlignment: WrapCrossAlignment.center, children: [
+                              Text('${fmt.time(it.start)} – ${fmt.time(it.end)}', style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+                              if (it.suggested) Pill(label: l.suggestedPill, color: context.status.info),
+                              if (it.kind == TimelineKind.task && it.estimated) Pill(label: l.estimatedPill, color: context.status.inactive),
+                            ]),
+                          ]),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ),
+              ),
+            );
+          }),
+      ]),
+    );
+  }
+}
+
+IconData iconFor(TimelineItem it) => switch (it.kind) {
+      TimelineKind.prayer => Icons.mosque_outlined,
+      TimelineKind.event => Icons.event,
+      TimelineKind.task => Icons.check_circle_outline,
+      TimelineKind.work => Icons.work_outline,
+      TimelineKind.rest => Icons.free_breakfast_outlined,
+    };
+
+String itemTitle(AppLocalizations l, TimelineItem it) => switch (it.kind) {
+      TimelineKind.prayer => l.prayerName(it.prayer!),
+      TimelineKind.work => l.workBlock,
+      TimelineKind.rest => l.restBlock,
+      _ => it.title ?? '',
+    };
+
+// ------------------------------------------------------------------ week
+
+class _WeekView extends StatelessWidget {
+  const _WeekView({required this.d, required this.now, required this.fmt});
+  final AppData d;
+  final DateTime now;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final today = dateOnly(now);
+    const planner = Planner();
+    final days = [for (var i = 0; i < 7; i++) today.add(Duration(days: i))];
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      Text(l.weekAhead, style: t.titleMedium),
+      const SizedBox(height: Space.s),
+      for (var i = 0; i < days.length; i++)
+        Builder(builder: (context) {
+          final day = days[i];
+          final key = dayKey(day);
+          final plan = planner.plan(day: day, now: now, tasks: d.tasks, events: d.events, settings: d.settings);
+          final events = d.events.where((e) => isSameDay(e.start, day)).length;
+          final due = d.tasks.where((x) => x.isOpen && !x.archived && x.dueDate == key).length;
+          final load = plan.freeMinutes == 0 ? (plan.neededMinutes > 0 ? 1.0 : 0.0) : plan.neededMinutes / plan.freeMinutes;
+          final busy = load > 0.85;
+          return Padding(
+            padding: const EdgeInsets.only(bottom: Space.s),
+            child: FadeSlideIn(
+              index: i,
+              child: AppCard(
+                color: i == 0 ? context.status.highlight : null,
+                onTap: () => context.go(Routes.timeTab('calendar')),
+                child: Row(children: [
+                  SizedBox(
+                    width: 56,
+                    child: Column(children: [
+                      Text(fmt.weekdayShort(day), style: t.labelMedium?.copyWith(color: context.status.textSecondary)),
+                      Text('${day.day}', style: t.headlineSmall),
+                    ]),
+                  ),
+                  const SizedBox(width: Space.m),
+                  Expanded(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Wrap(spacing: Space.s, runSpacing: Space.xs, children: [
+                        Pill(label: l.weekEvents(events), color: context.status.info, icon: Icons.event),
+                        Pill(label: l.weekTasks(due), color: Theme.of(context).colorScheme.secondary, icon: Icons.check_circle_outline),
+                        if (busy) Pill(label: l.weekBusy, color: context.status.warning, icon: Icons.warning_amber),
+                      ]),
+                      const SizedBox(height: Space.s),
+                      Semantics(
+                        label: l.weekLoad,
+                        value: '${(load.clamp(0, 1) * 100).round()}%',
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6),
+                          child: TweenAnimationBuilder<double>(
+                            tween: Tween(begin: 0, end: load.clamp(0, 1).toDouble()),
+                            duration: Motion.slow,
+                            curve: Motion.curve,
+                            builder: (_, v, _) => LinearProgressIndicator(
+                              value: v,
+                              minHeight: 6,
+                              color: busy ? context.status.warning : null,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ),
+                ]),
+              ),
+            ),
+          );
+        }),
+    ]);
+  }
+}
+
+// ----------------------------------------------------------------- goals
+
+class _GoalsView extends StatelessWidget {
+  const _GoalsView({required this.d, required this.fmt});
+  final AppData d;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final goals = d.goals.where((g) => g.status == GoalStatus.active).toList();
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      SectionHeader(l.goalsSummary, action: l.viewAllGoals, onAction: () => context.go(Routes.goals)),
+      if (goals.isEmpty)
+        EmptyState(icon: Icons.flag_outlined, title: l.noGoalsYet, action: l.addGoal, onAction: () => context.push(Routes.goal('new')))
+      else
+        for (var i = 0; i < goals.length; i++)
+          Padding(
+            padding: const EdgeInsets.only(bottom: Space.s),
+            child: FadeSlideIn(
+              index: i,
+              child: GoalCard(
+                goal: goals[i],
+                fmt: fmt,
+                progress: GoalProgress.of(goals[i], d.milestonesOf(goals[i].id)),
+                onTap: () => context.push(Routes.goal(goals[i].id)),
+              ),
+            ),
+          ),
+    ]);
   }
 }
 
@@ -296,6 +740,7 @@ class _MoreMenu extends ConsumerWidget {
       tooltip: l.menu,
       onSelected: (r) => r == 'add' ? showQuickAdd(context, ref) : context.push(r),
       itemBuilder: (_) => [
+        _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),
         if (settings.has(AppModule.expenses)) _item(Routes.expenses, Icons.account_balance_wallet_outlined, l.navExpenses),

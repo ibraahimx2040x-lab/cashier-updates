@@ -19,6 +19,8 @@ import '../../features/home/home_screen.dart';
 import '../../features/notes/note_editor_screen.dart';
 import '../../features/notes/notes_screen.dart';
 import '../../features/notifications/notifications_screen.dart';
+import '../../features/prayer/prayer_screen.dart';
+import '../../features/prayer/prayer_settings_screen.dart';
 import '../../features/progress/progress_screen.dart';
 import '../../features/settings/assistant_settings_screen.dart';
 import '../../features/settings/help_screen.dart';
@@ -117,6 +119,8 @@ final routerProvider = Provider<GoRouter>((ref) {
           )),
       page('/goal/:id', (s) => GoalEditScreen(goalId: s.pathParameters['id'] == 'new' ? null : s.pathParameters['id'])),
       page('/assistant/review/:id', (s) => ReviewScreen(proposalId: s.pathParameters['id']!)),
+      page(Routes.prayer, (_) => const PrayerScreen()),
+      page(Routes.prayerSettings, (_) => const PrayerSettingsScreen()),
       page(Routes.habits, (_) => const HabitsScreen()),
       page(Routes.notes, (_) => const NotesScreen()),
       page('/note/:id', (s) => NoteEditorScreen(noteId: s.pathParameters['id'] == 'new' ? null : s.pathParameters['id'])),

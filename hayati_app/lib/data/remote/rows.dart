@@ -7,6 +7,7 @@ import '../../core/utils/dates.dart';
 import '../app_data.dart';
 import '../models/goal.dart';
 import '../models/misc.dart';
+import '../models/prayer.dart';
 import '../models/settings.dart';
 import '../models/task.dart';
 
@@ -140,6 +141,11 @@ Row habitLogRow(HabitLog l) => {'id': l.id, 'habit_id': l.habitId, 'day': l.day}
 
 HabitLog habitLogFrom(Row r) => HabitLog(id: r['id'] as String, habitId: r['habit_id'] as String, day: r['day'] as String);
 
+Row prayerLogRow(PrayerLog l) => {'id': l.id, 'day': l.day, 'prayer': l.prayer.name};
+
+PrayerLog prayerLogFrom(Row r) =>
+    PrayerLog(id: r['id'] as String, day: r['day'] as String, prayer: Prayer.values.byName(r['prayer'] as String));
+
 Row noteRow(Note n) => {
       'id': n.id,
       'title': n.title,
@@ -213,6 +219,7 @@ Row profileRow(UserSettings s) => {
           if (e.key != 'retentionDays') e.key: e.value,
       },
       'chat_retention_days': s.assistant.retentionDays,
+      'prayer_settings': s.prayer.toJson(),
     };
 
 UserSettings settingsFrom(Row r) {
@@ -239,6 +246,7 @@ UserSettings settingsFrom(Row r) {
     homeShowHabits: (home['habits'] as bool?) ?? true,
     homeShowGoals: (home['goals'] as bool?) ?? true,
     assistant: AssistantPermissions.fromJson(perms),
+    prayer: PrayerSettings.fromJson((r['prayer_settings'] as Map?)?.cast<String, Object?>() ?? const {}),
   );
 }
 
@@ -259,6 +267,7 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('events', (d) => [for (final x in d.events) eventRow(x)], eventFrom),
   SyncTable('habits', (d) => [for (final x in d.habits) habitRow(x)], habitFrom),
   SyncTable('habit_logs', (d) => [for (final x in d.habitLogs) habitLogRow(x)], habitLogFrom),
+  SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
   SyncTable('notes', (d) => [for (final x in d.notes) noteRow(x)], noteFrom),
   SyncTable('expenses', (d) => [for (final x in d.expenses) expenseRow(x)], expenseFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
@@ -276,6 +285,7 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     events: read('events', eventFrom),
     habits: read('habits', habitFrom),
     habitLogs: read('habit_logs', habitLogFrom),
+    prayerLogs: read('prayer_logs', prayerLogFrom),
     notes: read('notes', noteFrom),
     expenses: read('expenses', expenseFrom),
     budgets: read('budgets', budgetFrom),

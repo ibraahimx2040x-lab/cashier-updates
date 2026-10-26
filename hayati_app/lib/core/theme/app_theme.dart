@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart' show CupertinoPageTransitionsBuilder;
 import 'package:flutter/material.dart';
 
 import 'app_colors.dart';
@@ -170,8 +171,21 @@ abstract final class AppTheme {
     );
     const minButton = Size(64, 50);
 
+    final dark = scheme.brightness == Brightness.dark;
+    // Same smooth fade-and-rise page transition on every platform.
+    const transitions = PageTransitionsTheme(builders: {
+      TargetPlatform.android: FadeForwardsPageTransitionsBuilder(),
+      TargetPlatform.iOS: CupertinoPageTransitionsBuilder(),
+      TargetPlatform.macOS: FadeForwardsPageTransitionsBuilder(),
+      TargetPlatform.windows: FadeForwardsPageTransitionsBuilder(),
+      TargetPlatform.linux: FadeForwardsPageTransitionsBuilder(),
+      TargetPlatform.fuchsia: FadeForwardsPageTransitionsBuilder(),
+    });
+
     return ThemeData(
       useMaterial3: true,
+      pageTransitionsTheme: transitions,
+      splashFactory: InkRipple.splashFactory,
       colorScheme: scheme,
       fontFamily: font,
       fontFamilyFallback: const ['Tajawal', 'Inter'],
@@ -187,13 +201,16 @@ abstract final class AppTheme {
         centerTitle: false,
         titleTextStyle: text.titleLarge,
       ),
+      // Light: soft tinted shadow instead of a border. Dark: shadows don't
+      // read, so a hairline border separates cards.
       cardTheme: CardThemeData(
         color: scheme.surface,
-        elevation: 0,
+        elevation: dark ? 0 : 2,
+        shadowColor: AppColors.deepGreen.withValues(alpha: 0.10),
         margin: EdgeInsets.zero,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(Radii.card),
-          side: BorderSide(color: scheme.outlineVariant),
+          side: dark ? BorderSide(color: scheme.outlineVariant) : BorderSide.none,
         ),
       ),
       filledButtonTheme: FilledButtonThemeData(
@@ -236,7 +253,7 @@ abstract final class AppTheme {
         ),
       ),
       chipTheme: ChipThemeData(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        shape: const StadiumBorder(),
         side: BorderSide(color: scheme.outlineVariant),
         selectedColor: status.highlight,
         labelStyle: text.labelMedium,
@@ -255,8 +272,29 @@ abstract final class AppTheme {
       navigationBarTheme: NavigationBarThemeData(
         backgroundColor: scheme.surface,
         indicatorColor: status.highlight,
+        indicatorShape: const StadiumBorder(),
         surfaceTintColor: Colors.transparent,
-        labelTextStyle: WidgetStatePropertyAll(text.labelSmall),
+        elevation: 0,
+        height: 72,
+        labelTextStyle: WidgetStateProperty.resolveWith((s) => text.labelSmall?.copyWith(
+              fontWeight: s.contains(WidgetState.selected) ? FontWeight.w700 : FontWeight.w500,
+            )),
+      ),
+      segmentedButtonTheme: SegmentedButtonThemeData(
+        style: SegmentedButton.styleFrom(
+          selectedBackgroundColor: scheme.primary,
+          selectedForegroundColor: scheme.onPrimary,
+          side: BorderSide(color: scheme.outlineVariant),
+          shape: const StadiumBorder(),
+          textStyle: text.labelLarge,
+          animationDuration: Motion.medium,
+        ),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: scheme.primary,
+        foregroundColor: scheme.onPrimary,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Radii.card)),
+        elevation: 3,
       ),
       navigationRailTheme: NavigationRailThemeData(
         backgroundColor: scheme.surface,

@@ -118,5 +118,33 @@ select pg_temp.check((select due_date is null from tasks where id = 'aaaaaaaa-00
 select pg_temp.check(consume_assistant_request(2) and consume_assistant_request(2) and not consume_assistant_request(2),
   'daily assistant limit enforced');
 
+-- Prayer log: owner-only, one row per prayer per day, nothing in the future.
+insert into prayer_logs (day, prayer) values (current_date, 'fajr');
+do $$ begin
+  insert into prayer_logs (day, prayer) values (current_date, 'fajr');
+  raise exception 'FAILED: duplicate prayer log';
+exception when unique_violation then raise notice 'ok: prayer logged once per day';
+end $$;
+do $$ begin
+  insert into prayer_logs (day, prayer) values (current_date + 2, 'asr');
+  raise exception 'FAILED: future prayer log';
+exception when check_violation then raise notice 'ok: no prayer log for a future day';
+end $$;
+do $$ begin
+  insert into prayer_logs (day, prayer) values (current_date, 'witr');
+  raise exception 'FAILED: unknown prayer';
+exception when check_violation then raise notice 'ok: only the five prayers';
+end $$;
+update profiles set prayer_settings = '{"enabled": true, "method": "ummAlQura"}';
+select pg_temp.check((select prayer_settings ->> 'method' = 'ummAlQura' from profiles), 'prayer settings saved');
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check((select count(*) = 0 from prayer_logs), 'B cannot read A''s prayer log');
+do $$ begin
+  insert into prayer_logs (user_id, day, prayer) values ('11111111-1111-1111-1111-111111111111', current_date, 'dhuhr');
+  raise exception 'FAILED: wrote a prayer log for another user';
+exception when insufficient_privilege then raise notice 'ok: cannot log for another user';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED
