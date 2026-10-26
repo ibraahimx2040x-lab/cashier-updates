@@ -23,6 +23,8 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+  flutter_native_splash: ^2.4.8
 
 flutter:
   uses-material-design: true
@@ -44,3 +46,25 @@ flutter:
           weight: 600
         - asset: assets/fonts/Inter-Bold.ttf
           weight: 700
+
+# Brand assets are drawn by tool/make_brand.py.
+flutter_launcher_icons:
+  android: true
+  ios: true
+  remove_alpha_ios: true
+  image_path: assets/brand/icon.png
+  adaptive_icon_background: "#163A36"
+  adaptive_icon_foreground: assets/brand/icon_foreground.png
+  web:
+    generate: true
+    image_path: assets/brand/icon.png
+    background_color: "#163A36"
+    theme_color: "#163A36"
+
+flutter_native_splash:
+  color: "#163A36"
+  image: assets/brand/splash.png
+  android_12:
+    color: "#163A36"
+    image: assets/brand/splash.png
+  web: true

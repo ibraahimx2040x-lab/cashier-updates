@@ -90,14 +90,15 @@ class _LogoPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = s.width * 0.07;
     canvas.drawCircle(c, r * 0.86, ring);
+    // A winding S-shaped path between two dots (same as tool/make_brand.py).
     final path = Path()
-      ..moveTo(c.dx - r * 0.42, c.dy + r * 0.34)
-      ..quadraticBezierTo(c.dx - r * 0.1, c.dy + r * 0.05, c.dx, c.dy)
-      ..quadraticBezierTo(c.dx + r * 0.1, c.dy - r * 0.05, c.dx + r * 0.42, c.dy - r * 0.34);
+      ..moveTo(c.dx - r * 0.40, c.dy + r * 0.36)
+      ..quadraticBezierTo(c.dx + r * 0.05, c.dy + r * 0.50, c.dx, c.dy)
+      ..quadraticBezierTo(c.dx - r * 0.05, c.dy - r * 0.50, c.dx + r * 0.40, c.dy - r * 0.36);
     canvas.drawPath(path, ring..strokeCap = StrokeCap.round);
     final dot = Paint()..color = color;
-    canvas.drawCircle(Offset(c.dx - r * 0.42, c.dy + r * 0.34), r * 0.1, dot);
-    canvas.drawCircle(Offset(c.dx + r * 0.42, c.dy - r * 0.34), r * 0.1, dot);
+    canvas.drawCircle(Offset(c.dx - r * 0.40, c.dy + r * 0.36), r * 0.11, dot);
+    canvas.drawCircle(Offset(c.dx + r * 0.40, c.dy - r * 0.36), r * 0.11, dot);
   }
 
   @override
