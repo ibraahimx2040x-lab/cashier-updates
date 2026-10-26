@@ -83,7 +83,10 @@ class LocalAssistantEngine {
     if (t.isEmpty) return EngineReply(l.aiUnsupported, kind: MessageKind.info);
 
     if (_has(t, const ['متاخر', 'المتاخره', 'overdue', 'late tasks'])) return _overdue(ctx, now);
-    if (_has(t, const ['خطط', 'خطه يومي', 'رتب يومي', 'plan my day', 'plan today', 'plan the day'])) {
+    // "I'm late, rearrange the rest of my day": the plan always starts
+    // from now, so re-planning is the answer.
+    if (_has(t, const ['خطط', 'خطه يومي', 'رتب يومي', 'بقيه يومي', 'تاخرت', 'plan my day', 'plan today', 'plan the day',
+        'rest of my day', 'running late'])) {
       return _planDay(ctx, now);
     }
     if (_has(t, const ['اضف ملاحظه', 'ملاحظه:', 'سجل ملاحظه', 'add note', 'add a note', 'note:'])) {
@@ -91,6 +94,10 @@ class LocalAssistantEngine {
     }
     if (_has(t, const ['اضف مهمه', 'مهمه جديده', 'ذكرني', 'add task', 'add a task', 'new task', 'remind me'])) {
       return _addTask(input, t, ctx, now);
+    }
+    final free = _durationMinutes(t);
+    if (free != null && _has(t, const ['عندي', 'فاضي', 'وقت', 'i have', 'free', 'spare'])) {
+      return _freeTime(ctx, now, free);
     }
     final habit = _matchHabit(t, ctx);
     if (habit != null && _has(t, const ['سجل', 'تم', 'انجزت', 'خلصت', 'done', 'log', 'completed', 'did'])) {
@@ -118,6 +125,27 @@ class LocalAssistantEngine {
   }
 
   // ------------------------------------------------------------- intents
+
+  /// Suggests open tasks that fit into [minutes] (no changes proposed).
+  EngineReply _freeTime(AssistantContext ctx, DateTime now, int minutes) {
+    if (!ctx.perms.shareTasks) return EngineReply(l.aiNeedsSharing(l.navTasks), kind: MessageKind.info);
+    final today = dateOnly(now);
+    int urgency(Task x) {
+      if (x.dueDate == null) return 2;
+      return parseDayKey(x.dueDate!).isAfter(today) ? 1 : 0;
+    }
+    final fits = ctx.tasks
+        .where((x) => x.isOpen && !x.archived && x.estimatedMinutes != null && x.estimatedMinutes! <= minutes)
+        .toList()
+      ..sort((a, b) {
+        final u = urgency(a).compareTo(urgency(b));
+        if (u != 0) return u;
+        return b.priority.index.compareTo(a.priority.index);
+      });
+    if (fits.isEmpty) return EngineReply(l.aiFreeTimeNone(minutes), kind: MessageKind.info);
+    final lines = [for (final x in fits.take(3)) l.aiFreeTimeItem(x.title, x.estimatedMinutes!)];
+    return EngineReply('${l.aiFreeTime(minutes)}\n${lines.join('\n')}', kind: MessageKind.info);
+  }
 
   EngineReply _planDay(AssistantContext ctx, DateTime now) {
     if (!ctx.perms.shareTasks) return EngineReply(l.aiNeedsSharing(l.navTasks), kind: MessageKind.info);

@@ -15,6 +15,7 @@ import '../../domain/reminders.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/device_notifications.dart';
 import '../../widgets/common.dart';
+import '../auth/splash_screen.dart' show HayatiLogo;
 import 'quick_add.dart';
 
 /// Five fixed destinations: bottom bar on phones, sidebar on wide screens.
@@ -184,7 +185,7 @@ class _Sidebar extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(Space.xl, 0, Space.xl, Space.l),
                 child: Row(
                   children: [
-                    Icon(Icons.explore_outlined, color: scheme.primary),
+                    HayatiLogo(size: 28, color: scheme.primary),
                     const SizedBox(width: Space.s),
                     Text(l.appName, style: Theme.of(context).textTheme.titleLarge?.copyWith(color: scheme.primary)),
                   ],
@@ -193,6 +194,7 @@ class _Sidebar extends ConsumerWidget {
               for (var i = 0; i < dests.length; i++)
                 item(index == i ? dests[i].$2 : dests[i].$1, dests[i].$3, () => onSelect(i), selected: index == i),
               const Divider(height: Space.xl),
+              item(Icons.mosque_outlined, l.navPrayer, () => context.push(Routes.prayer)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))
                 item(Icons.sticky_note_2_outlined, l.navNotes, () => context.push(Routes.notes)),

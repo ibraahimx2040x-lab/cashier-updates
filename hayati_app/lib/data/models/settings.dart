@@ -1,3 +1,5 @@
+import 'prayer.dart';
+
 /// Per-user preferences (the `profiles` table on the server).
 class TimeRange {
   const TimeRange(this.start, this.end);
@@ -144,6 +146,7 @@ class UserSettings {
     this.homeShowHabits = true,
     this.homeShowGoals = true,
     this.assistant = const AssistantPermissions(),
+    this.prayer = const PrayerSettings(),
   });
 
   final String displayName;
@@ -165,6 +168,7 @@ class UserSettings {
   final bool homeShowHabits;
   final bool homeShowGoals;
   final AssistantPermissions assistant;
+  final PrayerSettings prayer;
 
   bool has(AppModule m) => modules.contains(m);
 
@@ -186,6 +190,7 @@ class UserSettings {
     bool? homeShowHabits,
     bool? homeShowGoals,
     AssistantPermissions? assistant,
+    PrayerSettings? prayer,
   }) =>
       UserSettings(
         displayName: displayName ?? this.displayName,
@@ -205,6 +210,7 @@ class UserSettings {
         homeShowHabits: homeShowHabits ?? this.homeShowHabits,
         homeShowGoals: homeShowGoals ?? this.homeShowGoals,
         assistant: assistant ?? this.assistant,
+        prayer: prayer ?? this.prayer,
       );
 
   Map<String, Object?> toJson() => {
@@ -225,6 +231,7 @@ class UserSettings {
         'homeShowHabits': homeShowHabits,
         'homeShowGoals': homeShowGoals,
         'assistant': assistant.toJson(),
+        'prayer': prayer.toJson(),
       };
 
   factory UserSettings.fromJson(Map<String, Object?> j) {
@@ -252,6 +259,7 @@ class UserSettings {
       assistant: j['assistant'] == null
           ? d.assistant
           : AssistantPermissions.fromJson((j['assistant'] as Map).cast()),
+      prayer: j['prayer'] == null ? d.prayer : PrayerSettings.fromJson((j['prayer'] as Map).cast()),
     );
   }
 }

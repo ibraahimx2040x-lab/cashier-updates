@@ -52,6 +52,7 @@ class SettingsScreen extends ConsumerWidget {
           header(l.account),
           nav(Icons.person_outline, l.profileTitle, Routes.profile),
           nav(Icons.auto_awesome_outlined, l.assistantSettings, Routes.assistantSettings),
+          nav(Icons.mosque_outlined, l.prayerSettingsTitle, Routes.prayerSettings),
           nav(Icons.workspace_premium_outlined, l.subscriptionTitle, Routes.subscription),
           if (ref.watch(authProvider.notifier).remote)
             Builder(builder: (context) {
@@ -130,9 +131,7 @@ class SettingsScreen extends ConsumerWidget {
             onChanged: (v) => up((x) => x.copyWith(use24h: v)),
           ),
           header(l.homeSections),
-          SwitchListTile(title: Text(l.upcoming), value: s.homeShowEvents, onChanged: (v) => up((x) => x.copyWith(homeShowEvents: v))),
           SwitchListTile(title: Text(l.todaysHabits), value: s.homeShowHabits, onChanged: (v) => up((x) => x.copyWith(homeShowHabits: v))),
-          SwitchListTile(title: Text(l.goalsSummary), value: s.homeShowGoals, onChanged: (v) => up((x) => x.copyWith(homeShowGoals: v))),
           ListTile(
             title: Text(l.sectionsShown),
             subtitle: Padding(

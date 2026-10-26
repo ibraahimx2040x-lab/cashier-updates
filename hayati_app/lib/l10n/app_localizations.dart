@@ -212,6 +212,18 @@ abstract class AppLocalizations {
   /// **'Add a new task'**
   String get aiChipAddTask;
 
+  /// No description provided for @aiChipFreeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'I have half an hour, what can I get done?'**
+  String get aiChipFreeTime;
+
+  /// No description provided for @aiChipLate.
+  ///
+  /// In en, this message translates to:
+  /// **'I\'m running late, rearrange the rest of my day'**
+  String get aiChipLate;
+
   /// No description provided for @aiChipOverdue.
   ///
   /// In en, this message translates to:
@@ -254,6 +266,12 @@ abstract class AppLocalizations {
   /// **'In this version the assistant runs entirely on your device; nothing is sent to an AI provider. When the cloud assistant is enabled, only the sections you allow will be sent to the provider through our server, to answer your request.'**
   String get aiDataBody;
 
+  /// No description provided for @aiDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'The assistant is turned off in assistant settings.'**
+  String get aiDisabled;
+
   /// No description provided for @aiDraftsDisabled.
   ///
   /// In en, this message translates to:
@@ -290,17 +308,23 @@ abstract class AppLocalizations {
   /// **'Something went wrong and I couldn\'t answer. Your message is kept — try again.'**
   String get aiFailed;
 
-  /// No description provided for @aiDisabled.
+  /// No description provided for @aiFreeTime.
   ///
   /// In en, this message translates to:
-  /// **'The assistant is turned off in assistant settings.'**
-  String get aiDisabled;
+  /// **'You have {minutes} min. These tasks fit:'**
+  String aiFreeTime(int minutes);
 
-  /// No description provided for @aiRefused.
+  /// No description provided for @aiFreeTimeItem.
   ///
   /// In en, this message translates to:
-  /// **'I can\'t help with that request. Try asking in a different way.'**
-  String get aiRefused;
+  /// **'• {title} ({minutes} min)'**
+  String aiFreeTimeItem(String title, int minutes);
+
+  /// No description provided for @aiFreeTimeNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No open task with an estimate fits {minutes} min. Try splitting a bigger task, or take a break.'**
+  String aiFreeTimeNone(int minutes);
 
   /// No description provided for @aiGoalFirstWeekOnly.
   ///
@@ -469,6 +493,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You asked to add a task.'**
   String get aiReasonTask;
+
+  /// No description provided for @aiRefused.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t help with that request. Try asking in a different way.'**
+  String get aiRefused;
 
   /// No description provided for @aiReviewGoal.
   ///
@@ -710,6 +740,12 @@ abstract class AppLocalizations {
   /// **'Ask the assistant'**
   String get askAssistantReview;
 
+  /// No description provided for @askHayati.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask Hayati'**
+  String get askHayati;
+
   /// No description provided for @assistantDisabled.
   ///
   /// In en, this message translates to:
@@ -889,6 +925,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Calendar'**
   String get calendar;
+
+  /// No description provided for @canMoveCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 task doesn\'t fit today and can move without hurting your goals} other{{n} tasks don\'t fit today and can move without hurting your goals}}'**
+  String canMoveCount(int n);
 
   /// No description provided for @cancel.
   ///
@@ -1117,6 +1159,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Day ends'**
   String get dayEnd;
+
+  /// No description provided for @daySchedule.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s schedule'**
+  String get daySchedule;
+
+  /// No description provided for @dayScheduleDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s schedule is done'**
+  String get dayScheduleDone;
 
   /// No description provided for @dayStart.
   ///
@@ -1387,6 +1441,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Discard changes?'**
   String get discardTitle;
+
+  /// No description provided for @dismiss.
+  ///
+  /// In en, this message translates to:
+  /// **'Dismiss'**
+  String get dismiss;
 
   /// No description provided for @displayName.
   ///
@@ -1669,6 +1729,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Estimated duration (minutes)'**
   String get estimatedMinutes;
+
+  /// No description provided for @estimatedPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated length'**
+  String get estimatedPill;
 
   /// No description provided for @eventTitle.
   ///
@@ -1970,6 +2036,12 @@ abstract class AppLocalizations {
   /// **'Free time'**
   String get freeTime;
 
+  /// No description provided for @freeTimeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Free time'**
+  String get freeTimeNow;
+
   /// No description provided for @getStarted.
   ///
   /// In en, this message translates to:
@@ -2108,6 +2180,18 @@ abstract class AppLocalizations {
   /// **'Add a habit and choose which days it\'s expected. Days it isn\'t due never count against you.'**
   String get habitsEmptyBody;
 
+  /// No description provided for @hanafiAsr.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanafi Asr'**
+  String get hanafiAsr;
+
+  /// No description provided for @hanafiAsrHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Later Asr time (shadow twice an object\'s length).'**
+  String get hanafiAsrHint;
+
   /// No description provided for @hasBreak.
   ///
   /// In en, this message translates to:
@@ -2155,6 +2239,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home screen'**
   String get homeSections;
+
+  /// No description provided for @homeViewGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get homeViewGoals;
+
+  /// No description provided for @homeViewToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get homeViewToday;
+
+  /// No description provided for @homeViewWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Week'**
+  String get homeViewWeek;
+
+  /// No description provided for @inDuration.
+  ///
+  /// In en, this message translates to:
+  /// **'in {duration}'**
+  String inDuration(String duration);
 
   /// No description provided for @inactiveHabits.
   ///
@@ -2276,11 +2384,35 @@ abstract class AppLocalizations {
   /// **'Local mode: your account and data are stored on this device.'**
   String get localModeNotice;
 
+  /// No description provided for @locationDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Location permission was denied. You can pick a city instead.'**
+  String get locationDenied;
+
+  /// No description provided for @locationError.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t get your location. Try again or pick a city.'**
+  String get locationError;
+
+  /// No description provided for @locationOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Location services are off on this device.'**
+  String get locationOff;
+
   /// No description provided for @locationOptional.
   ///
   /// In en, this message translates to:
   /// **'Location (optional)'**
   String get locationOptional;
+
+  /// No description provided for @locationPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Your location is used on this device to calculate times and saved only as coordinates in your settings.'**
+  String get locationPrivacy;
 
   /// No description provided for @manageAssistantAccess.
   ///
@@ -2335,6 +2467,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Menu'**
   String get menu;
+
+  /// No description provided for @methodEgyptian.
+  ///
+  /// In en, this message translates to:
+  /// **'Egyptian General Authority'**
+  String get methodEgyptian;
+
+  /// No description provided for @methodGulf.
+  ///
+  /// In en, this message translates to:
+  /// **'Gulf region'**
+  String get methodGulf;
+
+  /// No description provided for @methodIsna.
+  ///
+  /// In en, this message translates to:
+  /// **'ISNA (North America)'**
+  String get methodIsna;
+
+  /// No description provided for @methodKarachi.
+  ///
+  /// In en, this message translates to:
+  /// **'University of Islamic Sciences, Karachi'**
+  String get methodKarachi;
+
+  /// No description provided for @methodKuwait.
+  ///
+  /// In en, this message translates to:
+  /// **'Kuwait'**
+  String get methodKuwait;
+
+  /// No description provided for @methodMwl.
+  ///
+  /// In en, this message translates to:
+  /// **'Muslim World League'**
+  String get methodMwl;
+
+  /// No description provided for @methodQatar.
+  ///
+  /// In en, this message translates to:
+  /// **'Qatar'**
+  String get methodQatar;
+
+  /// No description provided for @methodUmmAlQura.
+  ///
+  /// In en, this message translates to:
+  /// **'Umm al-Qura (Makkah)'**
+  String get methodUmmAlQura;
 
   /// No description provided for @milestone.
   ///
@@ -2450,6 +2630,12 @@ abstract class AppLocalizations {
   /// **'My goals'**
   String get myGoals;
 
+  /// No description provided for @myLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'My location'**
+  String get myLocation;
+
   /// No description provided for @myNotes.
   ///
   /// In en, this message translates to:
@@ -2497,6 +2683,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get navNotifications;
+
+  /// No description provided for @navPrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer'**
+  String get navPrayer;
 
   /// No description provided for @navProgress.
   ///
@@ -2576,11 +2768,29 @@ abstract class AppLocalizations {
   /// **'Next'**
   String get next;
 
+  /// No description provided for @nextDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Next day'**
+  String get nextDay;
+
   /// No description provided for @nextPeriod.
   ///
   /// In en, this message translates to:
   /// **'Next'**
   String get nextPeriod;
+
+  /// No description provided for @nextPrayerIs.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {name}'**
+  String nextPrayerIs(String name);
+
+  /// No description provided for @nextUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get nextUp;
 
   /// No description provided for @noActions.
   ///
@@ -2726,6 +2936,12 @@ abstract class AppLocalizations {
   /// **'Nothing scheduled'**
   String get nothingScheduled;
 
+  /// No description provided for @nothingScheduledNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing scheduled today'**
+  String get nothingScheduledNow;
+
   /// No description provided for @nothingToPlan.
   ///
   /// In en, this message translates to:
@@ -2756,11 +2972,35 @@ abstract class AppLocalizations {
   /// **'Habit reminder: {name}'**
   String notifHabitTitle(String name);
 
+  /// No description provided for @notifPrayerSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} prayer in {minutes} min'**
+  String notifPrayerSoon(String name, int minutes);
+
+  /// No description provided for @notifPrayerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for {name} prayer'**
+  String notifPrayerTitle(String name);
+
   /// No description provided for @notifTaskTitle.
   ///
   /// In en, this message translates to:
   /// **'Reminder: {title}'**
   String notifTaskTitle(String title);
+
+  /// No description provided for @nowLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Now'**
+  String get nowLabel;
+
+  /// No description provided for @nowUntil.
+  ///
+  /// In en, this message translates to:
+  /// **'Until {time}'**
+  String nowUntil(String time);
 
   /// No description provided for @obStep1.
   ///
@@ -2954,6 +3194,12 @@ abstract class AppLocalizations {
   /// **'When you say you did a habit today.'**
   String get permLogHabitsSub;
 
+  /// No description provided for @pickCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a city'**
+  String get pickCity;
+
   /// No description provided for @pin.
   ///
   /// In en, this message translates to:
@@ -3044,6 +3290,174 @@ abstract class AppLocalizations {
   /// **'Planning'**
   String get planningPrefs;
 
+  /// No description provided for @prayerAsr.
+  ///
+  /// In en, this message translates to:
+  /// **'Asr'**
+  String get prayerAsr;
+
+  /// No description provided for @prayerBlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep time free for prayer'**
+  String get prayerBlock;
+
+  /// No description provided for @prayerBlockHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The planner won\'t put tasks in this time.'**
+  String get prayerBlockHint;
+
+  /// No description provided for @prayerCalcNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Times are calculated astronomically and may differ by a minute or two from your local mosque. You can change the method in settings.'**
+  String get prayerCalcNote;
+
+  /// No description provided for @prayerCalculation.
+  ///
+  /// In en, this message translates to:
+  /// **'Calculation'**
+  String get prayerCalculation;
+
+  /// No description provided for @prayerCurrent.
+  ///
+  /// In en, this message translates to:
+  /// **'Current prayer time'**
+  String get prayerCurrent;
+
+  /// No description provided for @prayerDhuhr.
+  ///
+  /// In en, this message translates to:
+  /// **'Dhuhr'**
+  String get prayerDhuhr;
+
+  /// No description provided for @prayerEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Show prayer times'**
+  String get prayerEnable;
+
+  /// No description provided for @prayerEnableHint.
+  ///
+  /// In en, this message translates to:
+  /// **'On the home screen, in your day plan and as reminders.'**
+  String get prayerEnableHint;
+
+  /// No description provided for @prayerFajr.
+  ///
+  /// In en, this message translates to:
+  /// **'Fajr'**
+  String get prayerFajr;
+
+  /// No description provided for @prayerIsha.
+  ///
+  /// In en, this message translates to:
+  /// **'Isha'**
+  String get prayerIsha;
+
+  /// No description provided for @prayerLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Location'**
+  String get prayerLocation;
+
+  /// No description provided for @prayerLogHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Mark it yourself after you pray. Hayati never assumes.'**
+  String get prayerLogHint;
+
+  /// No description provided for @prayerLogLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'I prayed {name}'**
+  String prayerLogLabel(String name);
+
+  /// No description provided for @prayerLogToggle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer log'**
+  String get prayerLogToggle;
+
+  /// No description provided for @prayerLogToggleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Only what you mark yourself is recorded.'**
+  String get prayerLogToggleHint;
+
+  /// No description provided for @prayerMaghrib.
+  ///
+  /// In en, this message translates to:
+  /// **'Maghrib'**
+  String get prayerMaghrib;
+
+  /// No description provided for @prayerMethodLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Method'**
+  String get prayerMethodLabel;
+
+  /// No description provided for @prayerNoLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'No location set yet'**
+  String get prayerNoLocation;
+
+  /// No description provided for @prayerNotify.
+  ///
+  /// In en, this message translates to:
+  /// **'Notify me at each prayer time'**
+  String get prayerNotify;
+
+  /// No description provided for @prayerPreview.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s times'**
+  String get prayerPreview;
+
+  /// No description provided for @prayerRemindBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'Also remind me before'**
+  String get prayerRemindBefore;
+
+  /// No description provided for @prayerReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminders and planning'**
+  String get prayerReminders;
+
+  /// No description provided for @prayerSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times settings'**
+  String get prayerSettingsTitle;
+
+  /// No description provided for @prayerSetupAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up'**
+  String get prayerSetupAction;
+
+  /// No description provided for @prayerSetupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your city to see prayer times and plan your day around them.'**
+  String get prayerSetupBody;
+
+  /// No description provided for @prayerSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer times'**
+  String get prayerSetupTitle;
+
+  /// No description provided for @prayerWeekLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{You haven\'t logged any prayers in the last 7 days.} =1{You logged 1 prayer in the last 7 days.} other{You logged {n} prayers in the last 7 days.}}'**
+  String prayerWeekLogged(int n);
+
   /// No description provided for @previous.
   ///
   /// In en, this message translates to:
@@ -3055,6 +3469,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Previous chats'**
   String get previousChats;
+
+  /// No description provided for @previousDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous day'**
+  String get previousDay;
 
   /// No description provided for @pricingNotSet.
   ///
@@ -3314,6 +3734,12 @@ abstract class AppLocalizations {
   /// **'Break'**
   String get restBlock;
 
+  /// No description provided for @restOfDayFree.
+  ///
+  /// In en, this message translates to:
+  /// **'The rest of the day is yours.'**
+  String get restOfDayFree;
+
   /// No description provided for @restore.
   ///
   /// In en, this message translates to:
@@ -3421,6 +3847,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search'**
   String get search;
+
+  /// No description provided for @searchCity.
+  ///
+  /// In en, this message translates to:
+  /// **'Search for a city'**
+  String get searchCity;
 
   /// No description provided for @sectionsShown.
   ///
@@ -3644,11 +4076,23 @@ abstract class AppLocalizations {
   /// **'Subscription'**
   String get subscriptionTitle;
 
+  /// No description provided for @suggestedPill.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested'**
+  String get suggestedPill;
+
   /// No description provided for @suggestedPlan.
   ///
   /// In en, this message translates to:
   /// **'Suggested plan'**
   String get suggestedPlan;
+
+  /// No description provided for @sunrise.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunrise'**
+  String get sunrise;
 
   /// No description provided for @switchToSignIn.
   ///
@@ -3998,6 +4442,12 @@ abstract class AppLocalizations {
   /// **'24-hour time'**
   String get use24h;
 
+  /// No description provided for @useMyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my location'**
+  String get useMyLocation;
+
   /// No description provided for @verificationLocal.
   ///
   /// In en, this message translates to:
@@ -4076,11 +4526,41 @@ abstract class AppLocalizations {
   /// **'Week'**
   String get week;
 
+  /// No description provided for @weekAhead.
+  ///
+  /// In en, this message translates to:
+  /// **'Your next 7 days'**
+  String get weekAhead;
+
+  /// No description provided for @weekBusy.
+  ///
+  /// In en, this message translates to:
+  /// **'Busy day'**
+  String get weekBusy;
+
+  /// No description provided for @weekEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{No events} =1{1 event} other{{n} events}}'**
+  String weekEvents(int n);
+
+  /// No description provided for @weekLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned load'**
+  String get weekLoad;
+
   /// No description provided for @weekStart.
   ///
   /// In en, this message translates to:
   /// **'Week starts on'**
   String get weekStart;
+
+  /// No description provided for @weekTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{No tasks due} =1{1 task due} other{{n} tasks due}}'**
+  String weekTasks(int n);
 
   /// No description provided for @welcomeBody.
   ///

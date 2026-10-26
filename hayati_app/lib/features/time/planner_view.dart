@@ -152,11 +152,12 @@ class _PlannerViewState extends ConsumerState<PlannerView> {
               contentPadding: EdgeInsets.zero,
               leading: Icon(switch (b.kind) {
                 BlockKind.event => Icons.event,
+                BlockKind.prayer => Icons.mosque_outlined,
                 BlockKind.work => Icons.work_outline,
                 BlockKind.rest => Icons.free_breakfast_outlined,
                 BlockKind.free => Icons.circle_outlined,
               }),
-              title: Text(b.label ?? (b.kind == BlockKind.work ? l.workBlock : l.restBlock)),
+              title: Text(b.label ?? blockLabel(l, b)),
               subtitle: Text('${fmt.time(b.start)} – ${fmt.time(b.end)}'),
             ),
           const SizedBox(height: Space.l),

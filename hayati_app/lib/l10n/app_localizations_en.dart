@@ -79,6 +79,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiChipAddTask => 'Add a new task';
 
   @override
+  String get aiChipFreeTime => 'I have half an hour, what can I get done?';
+
+  @override
+  String get aiChipLate => 'I\'m running late, rearrange the rest of my day';
+
+  @override
   String get aiChipOverdue => 'Sort my overdue tasks';
 
   @override
@@ -103,6 +109,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'In this version the assistant runs entirely on your device; nothing is sent to an AI provider. When the cloud assistant is enabled, only the sections you allow will be sent to the provider through our server, to answer your request.';
 
   @override
+  String get aiDisabled => 'The assistant is turned off in assistant settings.';
+
+  @override
   String get aiDraftsDisabled =>
       'Drafting plans is turned off in assistant settings, so I didn\'t prepare changes.';
 
@@ -123,11 +132,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Something went wrong and I couldn\'t answer. Your message is kept — try again.';
 
   @override
-  String get aiDisabled => 'The assistant is turned off in assistant settings.';
+  String aiFreeTime(int minutes) {
+    return 'You have $minutes min. These tasks fit:';
+  }
 
   @override
-  String get aiRefused =>
-      'I can\'t help with that request. Try asking in a different way.';
+  String aiFreeTimeItem(String title, int minutes) {
+    return '• $title ($minutes min)';
+  }
+
+  @override
+  String aiFreeTimeNone(int minutes) {
+    return 'No open task with an estimate fits $minutes min. Try splitting a bigger task, or take a break.';
+  }
 
   @override
   String get aiGoalFirstWeekOnly =>
@@ -246,6 +263,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiReasonTask => 'You asked to add a task.';
+
+  @override
+  String get aiRefused =>
+      'I can\'t help with that request. Try asking in a different way.';
 
   @override
   String aiReviewGoal(String title, int percent) {
@@ -399,6 +420,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get askAssistantReview => 'Ask the assistant';
 
   @override
+  String get askHayati => 'Ask Hayati';
+
+  @override
   String get assistantDisabled => 'The assistant is turned off';
 
   @override
@@ -501,6 +525,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get calendar => 'Calendar';
+
+  @override
+  String canMoveCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other:
+          '$n tasks don\'t fit today and can move without hurting your goals',
+      one: '1 task doesn\'t fit today and can move without hurting your goals',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get cancel => 'Cancel';
@@ -632,6 +668,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dayEnd => 'Day ends';
+
+  @override
+  String get daySchedule => 'Today\'s schedule';
+
+  @override
+  String get dayScheduleDone => 'Today\'s schedule is done';
 
   @override
   String get dayStart => 'Day starts';
@@ -795,6 +837,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discardTitle => 'Discard changes?';
 
   @override
+  String get dismiss => 'Dismiss';
+
+  @override
   String get displayName => 'Display name';
 
   @override
@@ -938,6 +983,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get estimatedMinutes => 'Estimated duration (minutes)';
+
+  @override
+  String get estimatedPill => 'Estimated length';
 
   @override
   String get eventTitle => 'Event title';
@@ -1112,6 +1160,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get freeTime => 'Free time';
 
   @override
+  String get freeTimeNow => 'Free time';
+
+  @override
   String get getStarted => 'Get started';
 
   @override
@@ -1188,6 +1239,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Add a habit and choose which days it\'s expected. Days it isn\'t due never count against you.';
 
   @override
+  String get hanafiAsr => 'Hanafi Asr';
+
+  @override
+  String get hanafiAsrHint =>
+      'Later Asr time (shadow twice an object\'s length).';
+
+  @override
   String get hasBreak => 'Add a daily break';
 
   @override
@@ -1211,6 +1269,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeSections => 'Home screen';
+
+  @override
+  String get homeViewGoals => 'Goals';
+
+  @override
+  String get homeViewToday => 'Today';
+
+  @override
+  String get homeViewWeek => 'Week';
+
+  @override
+  String inDuration(String duration) {
+    return 'in $duration';
+  }
 
   @override
   String get inactiveHabits => 'Inactive';
@@ -1275,7 +1347,22 @@ class AppLocalizationsEn extends AppLocalizations {
       'Local mode: your account and data are stored on this device.';
 
   @override
+  String get locationDenied =>
+      'Location permission was denied. You can pick a city instead.';
+
+  @override
+  String get locationError =>
+      'Couldn\'t get your location. Try again or pick a city.';
+
+  @override
+  String get locationOff => 'Location services are off on this device.';
+
+  @override
   String get locationOptional => 'Location (optional)';
+
+  @override
+  String get locationPrivacy =>
+      'Your location is used on this device to calculate times and saved only as coordinates in your settings.';
 
   @override
   String get manageAssistantAccess => 'Manage assistant permissions';
@@ -1305,6 +1392,30 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get menu => 'Menu';
+
+  @override
+  String get methodEgyptian => 'Egyptian General Authority';
+
+  @override
+  String get methodGulf => 'Gulf region';
+
+  @override
+  String get methodIsna => 'ISNA (North America)';
+
+  @override
+  String get methodKarachi => 'University of Islamic Sciences, Karachi';
+
+  @override
+  String get methodKuwait => 'Kuwait';
+
+  @override
+  String get methodMwl => 'Muslim World League';
+
+  @override
+  String get methodQatar => 'Qatar';
+
+  @override
+  String get methodUmmAlQura => 'Umm al-Qura (Makkah)';
 
   @override
   String get milestone => 'Milestone';
@@ -1369,6 +1480,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myGoals => 'My goals';
 
   @override
+  String get myLocation => 'My location';
+
+  @override
   String get myNotes => 'My notes';
 
   @override
@@ -1391,6 +1505,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navNotifications => 'Notifications';
+
+  @override
+  String get navPrayer => 'Prayer';
 
   @override
   String get navProgress => 'Progress';
@@ -1433,7 +1550,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get next => 'Next';
 
   @override
+  String get nextDay => 'Next day';
+
+  @override
   String get nextPeriod => 'Next';
+
+  @override
+  String nextPrayerIs(String name) {
+    return 'Next: $name';
+  }
+
+  @override
+  String get nextUp => 'Next';
 
   @override
   String get noActions => 'No actions yet.';
@@ -1508,6 +1636,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nothingScheduled => 'Nothing scheduled';
 
   @override
+  String get nothingScheduledNow => 'Nothing scheduled today';
+
+  @override
   String get nothingToPlan => 'No open tasks to plan for this day.';
 
   @override
@@ -1529,8 +1660,26 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String notifPrayerSoon(String name, int minutes) {
+    return '$name prayer in $minutes min';
+  }
+
+  @override
+  String notifPrayerTitle(String name) {
+    return 'Time for $name prayer';
+  }
+
+  @override
   String notifTaskTitle(String title) {
     return 'Reminder: $title';
+  }
+
+  @override
+  String get nowLabel => 'Now';
+
+  @override
+  String nowUntil(String time) {
+    return 'Until $time';
   }
 
   @override
@@ -1642,6 +1791,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permLogHabitsSub => 'When you say you did a habit today.';
 
   @override
+  String get pickCity => 'Choose a city';
+
+  @override
   String get pin => 'Pin';
 
   @override
@@ -1691,10 +1843,113 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planningPrefs => 'Planning';
 
   @override
+  String get prayerAsr => 'Asr';
+
+  @override
+  String get prayerBlock => 'Keep time free for prayer';
+
+  @override
+  String get prayerBlockHint => 'The planner won\'t put tasks in this time.';
+
+  @override
+  String get prayerCalcNote =>
+      'Times are calculated astronomically and may differ by a minute or two from your local mosque. You can change the method in settings.';
+
+  @override
+  String get prayerCalculation => 'Calculation';
+
+  @override
+  String get prayerCurrent => 'Current prayer time';
+
+  @override
+  String get prayerDhuhr => 'Dhuhr';
+
+  @override
+  String get prayerEnable => 'Show prayer times';
+
+  @override
+  String get prayerEnableHint =>
+      'On the home screen, in your day plan and as reminders.';
+
+  @override
+  String get prayerFajr => 'Fajr';
+
+  @override
+  String get prayerIsha => 'Isha';
+
+  @override
+  String get prayerLocation => 'Location';
+
+  @override
+  String get prayerLogHint =>
+      'Mark it yourself after you pray. Hayati never assumes.';
+
+  @override
+  String prayerLogLabel(String name) {
+    return 'I prayed $name';
+  }
+
+  @override
+  String get prayerLogToggle => 'Prayer log';
+
+  @override
+  String get prayerLogToggleHint =>
+      'Optional. Only what you mark yourself is recorded.';
+
+  @override
+  String get prayerMaghrib => 'Maghrib';
+
+  @override
+  String get prayerMethodLabel => 'Method';
+
+  @override
+  String get prayerNoLocation => 'No location set yet';
+
+  @override
+  String get prayerNotify => 'Notify me at each prayer time';
+
+  @override
+  String get prayerPreview => 'Today\'s times';
+
+  @override
+  String get prayerRemindBefore => 'Also remind me before';
+
+  @override
+  String get prayerReminders => 'Reminders and planning';
+
+  @override
+  String get prayerSettingsTitle => 'Prayer times settings';
+
+  @override
+  String get prayerSetupAction => 'Set up';
+
+  @override
+  String get prayerSetupBody =>
+      'Choose your city to see prayer times and plan your day around them.';
+
+  @override
+  String get prayerSetupTitle => 'Prayer times';
+
+  @override
+  String prayerWeekLogged(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'You logged $n prayers in the last 7 days.',
+      one: 'You logged 1 prayer in the last 7 days.',
+      zero: 'You haven\'t logged any prayers in the last 7 days.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get previous => 'Previous';
 
   @override
   String get previousChats => 'Previous chats';
+
+  @override
+  String get previousDay => 'Previous day';
 
   @override
   String get pricingNotSet =>
@@ -1833,6 +2088,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restBlock => 'Break';
 
   @override
+  String get restOfDayFree => 'The rest of the day is yours.';
+
+  @override
   String get restore => 'Restore';
 
   @override
@@ -1885,6 +2143,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get search => 'Search';
+
+  @override
+  String get searchCity => 'Search for a city';
 
   @override
   String get sectionsShown => 'Sections in the app';
@@ -2011,7 +2272,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionTitle => 'Subscription';
 
   @override
+  String get suggestedPill => 'Suggested';
+
+  @override
   String get suggestedPlan => 'Suggested plan';
+
+  @override
+  String get sunrise => 'Sunrise';
 
   @override
   String get switchToSignIn => 'Already have an account? Sign in';
@@ -2242,6 +2509,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get use24h => '24-hour time';
 
   @override
+  String get useMyLocation => 'Use my location';
+
+  @override
   String get verificationLocal => 'Not required in local mode';
 
   @override
@@ -2283,7 +2553,40 @@ class AppLocalizationsEn extends AppLocalizations {
   String get week => 'Week';
 
   @override
+  String get weekAhead => 'Your next 7 days';
+
+  @override
+  String get weekBusy => 'Busy day';
+
+  @override
+  String weekEvents(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n events',
+      one: '1 event',
+      zero: 'No events',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get weekLoad => 'Planned load';
+
+  @override
   String get weekStart => 'Week starts on';
+
+  @override
+  String weekTasks(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n tasks due',
+      one: '1 task due',
+      zero: 'No tasks due',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get welcomeBody =>

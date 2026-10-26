@@ -1,6 +1,7 @@
 import 'models/assistant.dart';
 import 'models/goal.dart';
 import 'models/misc.dart';
+import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
 
@@ -14,6 +15,7 @@ class AppData {
     this.milestones = const [],
     this.habits = const [],
     this.habitLogs = const [],
+    this.prayerLogs = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -34,6 +36,7 @@ class AppData {
   final List<Milestone> milestones;
   final List<Habit> habits;
   final List<HabitLog> habitLogs;
+  final List<PrayerLog> prayerLogs;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -64,6 +67,8 @@ class AppData {
   bool habitDoneOn(String habitId, String day) =>
       habitLogs.any((l) => l.habitId == habitId && l.day == day);
 
+  bool prayerLogged(Prayer p, String day) => prayerLogs.any((l) => l.prayer == p && l.day == day);
+
   int get unreadNotifications => notifications.where((n) => !n.read).length;
 
   /// Cleared notifications remain as empty tombstones (to keep their dedupe
@@ -87,6 +92,7 @@ class AppData {
     List<Milestone>? milestones,
     List<Habit>? habits,
     List<HabitLog>? habitLogs,
+    List<PrayerLog>? prayerLogs,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -107,6 +113,7 @@ class AppData {
         milestones: milestones ?? this.milestones,
         habits: habits ?? this.habits,
         habitLogs: habitLogs ?? this.habitLogs,
+        prayerLogs: prayerLogs ?? this.prayerLogs,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -129,6 +136,7 @@ class AppData {
         'milestones': milestones.map((e) => e.toJson()).toList(),
         'habits': habits.map((e) => e.toJson()).toList(),
         'habitLogs': habitLogs.map((e) => e.toJson()).toList(),
+        'prayerLogs': prayerLogs.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -155,6 +163,7 @@ class AppData {
       milestones: list('milestones', Milestone.fromJson),
       habits: list('habits', Habit.fromJson),
       habitLogs: list('habitLogs', HabitLog.fromJson),
+      prayerLogs: list('prayerLogs', PrayerLog.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

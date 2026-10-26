@@ -19,6 +19,8 @@ abstract final class Routes {
   static const subscription = '/settings/subscription';
   static const help = '/settings/help';
   static const privacy = '/settings/privacy';
+  static const prayer = '/prayer';
+  static const prayerSettings = '/prayer/settings';
 
   static String task(String id) => '/task/$id';
   static String event(String id) => '/event/$id';

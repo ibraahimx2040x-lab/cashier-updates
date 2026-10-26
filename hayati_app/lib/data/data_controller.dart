@@ -9,6 +9,7 @@ import 'auth.dart';
 import 'models/assistant.dart';
 import 'models/goal.dart';
 import 'models/misc.dart';
+import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
 import 'remote/sync.dart';
@@ -292,6 +293,20 @@ class DataController extends Notifier<AppData> {
       habitLogs: done
           ? [...state.habitLogs, HabitLog(id: newId(), habitId: habitId, day: day)]
           : state.habitLogs.where((l) => !(l.habitId == habitId && l.day == day)).toList(),
+    ));
+  }
+
+  /// Records (or un-records) a prayer the user says they prayed. Never
+  /// called automatically when a prayer time passes.
+  void setPrayerLogged(Prayer prayer, String day, bool logged) {
+    if (logged == state.prayerLogged(prayer, day)) return;
+    if (logged && dateOnly(parseDayKey(day)).isAfter(dateOnly(_now))) {
+      throw ArgumentError('future');
+    }
+    _set(state.copyWith(
+      prayerLogs: logged
+          ? [...state.prayerLogs, PrayerLog(id: newId(), day: day, prayer: prayer)]
+          : state.prayerLogs.where((l) => !(l.prayer == prayer && l.day == day)).toList(),
     ));
   }
 

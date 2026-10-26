@@ -1,6 +1,7 @@
 import '../core/utils/dates.dart';
 import '../data/models/settings.dart';
 import '../data/models/task.dart';
+import 'prayer_times.dart';
 
 /// Deterministic, explainable day planner (section 18).
 ///
@@ -35,7 +36,7 @@ class Planner {
     final d = dateOnly(day);
     final today = isSameDay(d, now);
 
-    // 1. Fixed blocks: events, work/study block, breaks.
+    // 1. Fixed blocks: events, prayers, work/study block, breaks.
     final fixed = <Block>[];
     final dayStart = atMinutes(d, settings.dayStart);
     final dayEnd = atMinutes(d, settings.dayEnd);
@@ -50,6 +51,15 @@ class Planner {
     }
     for (final b in settings.breaks) {
       fixed.add(Block(atMinutes(d, b.start), atMinutes(d, b.end), BlockKind.rest));
+    }
+    final prayers = prayerDay(settings.prayer, d);
+    if (prayers != null) {
+      for (final e in prayers.times.entries) {
+        final end = e.value.add(Duration(minutes: settings.prayer.blockMinutes));
+        if (e.value.isBefore(dayEnd) && end.isAfter(dayStart)) {
+          fixed.add(Block(e.value, end, BlockKind.prayer, refId: e.key.name));
+        }
+      }
     }
     fixed.sort((a, b) => a.start.compareTo(b.start));
 
@@ -170,7 +180,7 @@ class _Rank implements Comparable<_Rank> {
   }
 }
 
-enum BlockKind { event, work, rest, free }
+enum BlockKind { event, prayer, work, rest, free }
 
 class Block {
   const Block(this.start, this.end, this.kind, {this.label, this.refId});

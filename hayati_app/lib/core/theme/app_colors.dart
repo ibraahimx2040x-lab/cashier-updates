@@ -44,7 +44,16 @@ abstract final class Space {
 }
 
 abstract final class Radii {
-  static const button = 12.0;
-  static const card = 16.0;
-  static const sheet = 20.0;
+  static const button = 14.0;
+  static const card = 20.0;
+  static const sheet = 28.0;
+}
+
+/// Motion: one easing curve and a few durations so every transition in
+/// the app feels like the same system.
+abstract final class Motion {
+  static const curve = Curves.easeOutCubic;
+  static const fast = Duration(milliseconds: 180);
+  static const medium = Duration(milliseconds: 320);
+  static const slow = Duration(milliseconds: 480);
 }

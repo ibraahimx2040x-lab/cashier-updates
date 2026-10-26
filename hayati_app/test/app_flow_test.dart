@@ -4,14 +4,17 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/app.dart';
 import 'package:hayati/core/router/app_router.dart';
 import 'package:hayati/core/utils/dates.dart';
+import 'package:hayati/core/utils/labels.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/store/local_store.dart';
+import 'package:hayati/features/home/home_screen.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
+import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -148,7 +151,8 @@ void main() {
       await tapIn(tester, find.text(l.finishSetup));
       await tester.pumpAndSettle();
 
-      expect(find.text(l.todayPlan), findsOneWidget);
+      expect(find.text(l.homeViewToday), findsOneWidget);
+      expect(find.textContaining(l.nowLabel), findsWidgets);
       expect(find.text(l.newUserTitle), findsOneWidget);
       expect(c.read(dataProvider).settings.onboardingDone, isTrue);
     });
@@ -161,6 +165,11 @@ void main() {
         await signUp(tester, c);
         c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
         seed(c);
+        // Prayer times on (Riyadh), so the home strip, planner blocks and
+        // the prayer screens render with real times.
+        c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(
+              prayer: s.prayer.copyWith(enabled: true, place: 'الرياض', latitude: () => 24.7136, longitude: () => 46.6753),
+            ));
         await tester.pumpAndSettle();
         final router = c.read(routerProvider);
         final d = c.read(dataProvider);
@@ -191,6 +200,8 @@ void main() {
           Routes.subscription,
           Routes.help,
           Routes.privacy,
+          Routes.prayer,
+          Routes.prayerSettings,
         ];
         for (final r in routes) {
           router.go(r);
@@ -199,6 +210,16 @@ void main() {
           // Guards against a screen laying out with an empty body.
           expect(find.byType(Text).evaluate().length + find.byType(EditableText).evaluate().length, greaterThan(6), reason: r);
         }
+        // The home screen's week and goals views.
+        final l = lookupAppLocalizations(Locale(locale));
+        router.go(Routes.home);
+        await tester.pumpAndSettle();
+        for (final v in [l.homeViewWeek, l.homeViewGoals, l.homeViewToday]) {
+          await tester.tap(find.descendant(of: find.byType(SegmentedButton<HomeView>), matching: find.text(v)));
+          await tester.pumpAndSettle();
+          expect(tester.takeException(), isNull, reason: v);
+        }
+        expect(find.text(l.nextPrayerIs(l.prayerName(nextPrayer(c.read(dataProvider).settings.prayer, DateTime.now())!.$1))), findsOneWidget);
       });
     }
   }
