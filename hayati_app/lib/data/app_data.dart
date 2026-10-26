@@ -1,6 +1,7 @@
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
+import 'models/learning.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
@@ -19,6 +20,10 @@ class AppData {
     this.prayerLogs = const [],
     this.workoutPlans = const [],
     this.workoutSessions = const [],
+    this.learningPaths = const [],
+    this.lessonProgresses = const [],
+    this.assessments = const [],
+    this.vocabReviews = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -42,6 +47,12 @@ class AppData {
   final List<PrayerLog> prayerLogs;
   final List<WorkoutPlan> workoutPlans;
   final List<WorkoutSession> workoutSessions;
+
+  /// At most one (English); a list so it syncs like other tables.
+  final List<LearningPath> learningPaths;
+  final List<LessonProgress> lessonProgresses;
+  final List<Assessment> assessments;
+  final List<VocabReview> vocabReviews;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -80,6 +91,9 @@ class AppData {
 
   List<WorkoutSession> sessionsOn(String day) => workoutSessions.where((s) => s.day == day).toList();
 
+  LearningPath? get learningPath => learningPaths.firstOrNull;
+  LessonProgress? lessonProgress(String lessonId) => _find(lessonProgresses, lessonId, (p) => p.lessonId);
+
   bool prayerLogged(Prayer p, String day) => prayerLogs.any((l) => l.prayer == p && l.day == day);
 
   int get unreadNotifications => notifications.where((n) => !n.read).length;
@@ -108,6 +122,10 @@ class AppData {
     List<PrayerLog>? prayerLogs,
     List<WorkoutPlan>? workoutPlans,
     List<WorkoutSession>? workoutSessions,
+    List<LearningPath>? learningPaths,
+    List<LessonProgress>? lessonProgresses,
+    List<Assessment>? assessments,
+    List<VocabReview>? vocabReviews,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -131,6 +149,10 @@ class AppData {
         prayerLogs: prayerLogs ?? this.prayerLogs,
         workoutPlans: workoutPlans ?? this.workoutPlans,
         workoutSessions: workoutSessions ?? this.workoutSessions,
+        learningPaths: learningPaths ?? this.learningPaths,
+        lessonProgresses: lessonProgresses ?? this.lessonProgresses,
+        assessments: assessments ?? this.assessments,
+        vocabReviews: vocabReviews ?? this.vocabReviews,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -156,6 +178,10 @@ class AppData {
         'prayerLogs': prayerLogs.map((e) => e.toJson()).toList(),
         'workoutPlans': workoutPlans.map((e) => e.toJson()).toList(),
         'workoutSessions': workoutSessions.map((e) => e.toJson()).toList(),
+        'learningPaths': learningPaths.map((e) => e.toJson()).toList(),
+        'lessonProgresses': lessonProgresses.map((e) => e.toJson()).toList(),
+        'assessments': assessments.map((e) => e.toJson()).toList(),
+        'vocabReviews': vocabReviews.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -185,6 +211,10 @@ class AppData {
       prayerLogs: list('prayerLogs', PrayerLog.fromJson),
       workoutPlans: list('workoutPlans', WorkoutPlan.fromJson),
       workoutSessions: list('workoutSessions', WorkoutSession.fromJson),
+      learningPaths: list('learningPaths', LearningPath.fromJson),
+      lessonProgresses: list('lessonProgresses', LessonProgress.fromJson),
+      assessments: list('assessments', Assessment.fromJson),
+      vocabReviews: list('vocabReviews', VocabReview.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

@@ -10,6 +10,7 @@ import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
+import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/store/local_store.dart';
@@ -17,6 +18,7 @@ import 'package:hayati/features/home/home_screen.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
+import 'package:hayati/domain/learning/curriculum.dart';
 import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
@@ -123,6 +125,9 @@ void seed(ProviderContainer c) {
   );
   const gen = PlanGenerator();
   d.saveFitness(fp, {WorkoutPlace.home: gen.build(fp, WorkoutPlace.home), WorkoutPlace.gym: gen.build(fp, WorkoutPlace.gym)});
+  d.startLearning(Cefr.b1, 3);
+  d.recordLesson('b1_perfect', 60, const ['w_already', 'w_yet']);
+  d.reviewWord('w_already', 1, today); // due now, so the review screen has a question
   d.saveHabit(Habit(id: 'h1', name: 'Walk', weekdays: const {1, 2, 3, 4, 5, 6, 7}, startDate: dayKey(now.subtract(const Duration(days: 40))), reminderMinutes: 0));
   d.setHabitDone('h1', dayKey(now.subtract(const Duration(days: 1))), true);
   d.saveNote(Note(id: 'n1', title: 'Idea', body: 'Some body text', category: 'work', pinned: true, goalId: 'g1', updatedAt: now));
@@ -221,6 +226,11 @@ void main() {
           Routes.exercise('goblet_squat'),
           Routes.workout('gym', DateTime.now().weekday),
           Routes.workout('gym', DateTime.now().weekday, atHome: true),
+          Routes.english,
+          Routes.lesson('b1_passive'),
+          Routes.englishReview,
+          Routes.placement,
+          Routes.levelCheck,
         ];
         for (final r in routes) {
           router.go(r);
@@ -339,6 +349,54 @@ void main() {
     await tester.drag(find.byType(Scrollable).first, const Offset(0, 2000));
     await tester.pumpAndSettle();
     expect(find.text(l.workoutDoneToday), findsOneWidget);
+  });
+
+  testWidgets('english: placement → path → lesson mastered (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 900));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.english);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.takePlacement));
+    await tester.pumpAndSettle();
+
+    Future<void> answer(Question q, {required bool right, required bool feedback, required bool last}) async {
+      final option = q.options[right ? q.answer : (q.answer + 1) % q.options.length];
+      await tapIn(tester, find.text(option).last);
+      await tester.pumpAndSettle();
+      if (feedback) {
+        await tapIn(tester, find.text(l.checkAnswer));
+        await tester.pumpAndSettle();
+      }
+      await tapIn(tester, find.text(last ? l.seeResult : l.next));
+      await tester.pumpAndSettle();
+    }
+
+    // Right on A1–A2, wrong above: should place at A2.
+    for (var i = 0; i < placementQuestions.length; i++) {
+      final q = placementQuestions[i];
+      await answer(q, right: q.level.index <= Cefr.a2.index, feedback: false, last: i == placementQuestions.length - 1);
+    }
+    expect(find.text(l.placementResult(l.cefr(Cefr.a2))), findsOneWidget);
+    await tapIn(tester, find.text(l.startPath));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).learningPath!.level, Cefr.a2);
+    expect(c.read(dataProvider).assessments.single.kind, AssessmentKind.placement);
+
+    final lesson = lessonsAt(Cefr.a2).first;
+    await tapIn(tester, find.text(l.startLesson));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.startQuiz));
+    await tester.pumpAndSettle();
+    for (var i = 0; i < lesson.quiz.length; i++) {
+      await answer(lesson.quiz[i], right: true, feedback: true, last: i == lesson.quiz.length - 1);
+    }
+    expect(find.text('100%'), findsOneWidget);
+    expect(c.read(dataProvider).lessonProgress(lesson.id)!.mastered, isTrue);
+    expect(c.read(dataProvider).vocabReviews, hasLength(lesson.words.length));
   });
 
   testWidgets('reminders are scheduled on the device and permission is asked once', (tester) async {

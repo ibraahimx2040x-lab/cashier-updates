@@ -4,10 +4,11 @@ import '../data/models/fitness.dart';
 import '../data/models/prayer.dart';
 import '../data/models/task.dart';
 import 'fitness/today.dart';
+import 'learning/path.dart';
 import 'planner.dart';
 import 'prayer_times.dart';
 
-enum TimelineKind { prayer, event, task, workout, work, rest }
+enum TimelineKind { prayer, event, task, workout, lesson, work, rest }
 
 /// One row of "today's schedule" on the home screen.
 class TimelineItem {
@@ -82,10 +83,15 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
           createdAt: now,
           updatedAt: now,
         );
+  // Likewise today's English lesson, until one has been studied today.
+  final lesson = d.learningPath != null && !lessonDoneToday(d, now) ? nextLesson(d) : null;
+  final lessonTask = lesson == null
+      ? null
+      : Task(id: '$_lessonPrefix${lesson.id}', title: '', estimatedMinutes: lesson.minutes, createdAt: now, updatedAt: now);
   final plan = planner.plan(
     day: today,
     now: now,
-    tasks: [...d.tasks, ?workoutTask],
+    tasks: [...d.tasks, ?workoutTask, ?lessonTask],
     events: [
       ...d.events,
       // Treat user-planned tasks as busy time so suggestions don't overlap.
@@ -130,6 +136,14 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
           focus: workout!.$2.focus,
           suggested: true,
         )
+      else if (p.task.id.startsWith(_lessonPrefix))
+        TimelineItem(
+          kind: TimelineKind.lesson,
+          start: p.start,
+          end: p.end,
+          refId: p.task.id.substring(_lessonPrefix.length),
+          suggested: true,
+        )
       else
         _taskItem(p.task, p.start, p.end, suggested: true, estimated: p.estimated),
   ];
@@ -159,6 +173,7 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
 }
 
 const _workoutPrefix = 'workout:';
+const _lessonPrefix = 'lesson:';
 
 TimelineItem _taskItem(Task t, DateTime start, DateTime end, {required bool suggested, bool estimated = false}) =>
     TimelineItem(

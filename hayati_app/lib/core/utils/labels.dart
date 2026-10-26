@@ -1,5 +1,6 @@
 import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
+import '../../data/models/learning.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
@@ -93,6 +94,20 @@ extension Labels on AppLocalizations {
     final per = x.seconds != null ? secondsShort(x.seconds!) : '${x.reps}';
     return '${x.sets} × $per';
   }
+
+  /// "A2 · Elementary".
+  String cefr(Cefr c) => switch (c) {
+        Cefr.a1 => cefrA1,
+        Cefr.a2 => cefrA2,
+        Cefr.b1 => cefrB1,
+        Cefr.b2 => cefrB2,
+      };
+
+  String skill(Skill s) => switch (s) {
+        Skill.vocabulary => skillVocabulary,
+        Skill.grammar => skillGrammar,
+        Skill.reading => skillReading,
+      };
 
   String prayerMethod(PrayerMethod m) => switch (m) {
         PrayerMethod.ummAlQura => methodUmmAlQura,

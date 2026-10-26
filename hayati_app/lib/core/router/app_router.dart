@@ -11,6 +11,10 @@ import '../../features/auth/auth_screen.dart';
 import '../../features/auth/onboarding_screen.dart';
 import '../../features/auth/splash_screen.dart';
 import '../../features/auth/welcome_screen.dart';
+import '../../features/english/english_screen.dart';
+import '../../features/english/english_test_screen.dart';
+import '../../features/english/lesson_screen.dart';
+import '../../features/english/review_screen.dart';
 import '../../features/expenses/expenses_screen.dart';
 import '../../data/models/fitness.dart';
 import '../../features/fitness/exercise_screen.dart';
@@ -134,6 +138,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             weekday: int.tryParse(s.uri.queryParameters['day'] ?? '') ?? DateTime.now().weekday,
             atHome: s.uri.queryParameters['home'] == '1',
           )),
+      page(Routes.english, (_) => const EnglishScreen()),
+      page('/english/test', (s) => EnglishTestScreen(levelCheck: s.uri.queryParameters['kind'] == 'level')),
+      page('/english/lesson/:id', (s) => LessonScreen(lessonId: s.pathParameters['id']!)),
+      page(Routes.englishReview, (_) => const EnglishReviewScreen()),
       page(Routes.habits, (_) => const HabitsScreen()),
       page(Routes.notes, (_) => const NotesScreen()),
       page('/note/:id', (s) => NoteEditorScreen(noteId: s.pathParameters['id'] == 'new' ? null : s.pathParameters['id'])),

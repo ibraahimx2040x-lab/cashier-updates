@@ -19,6 +19,7 @@ import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
+import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/prayer.dart';
 import 'package:hayati/data/models/task.dart';
@@ -220,6 +221,49 @@ void main() {
     final s = d.workoutSessions.single;
     expect(d.plan(s.planId)!.version, 1);
     expect(s.sets.single.weightKg, 40);
+  }, skip: skip);
+
+  test('english path, test results, lessons and reviews sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    a.data.startLearning(
+      Cefr.a2,
+      5,
+      placement: Assessment(
+        id: newId(),
+        kind: AssessmentKind.placement,
+        level: Cefr.a2,
+        scores: const {Skill.grammar: SkillScore(3, 8)},
+        skillLevels: const {Skill.grammar: Cefr.a2},
+        passed: true,
+        takenAt: DateTime.now(),
+      ),
+    );
+    a.data.recordLesson('a2_past', 60, const ['w_yesterday', 'w_trip']);
+    a.data.recordLesson('a2_past', 100, const ['w_yesterday', 'w_trip']);
+    a.data.reviewWord('w_trip', 3, '2030-01-01');
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    expect(d.learningPath!.weeklyGoal, 5);
+    expect(d.assessments.single.skillLevels[Skill.grammar], Cefr.a2);
+    final p = d.lessonProgress('a2_past')!;
+    expect((p.bestScore, p.attempts), (100, 2));
+    expect(d.vocabReviews.firstWhere((r) => r.wordId == 'w_trip').box, 3);
+    expect(d.vocabReviews, hasLength(2));
   }, skip: skip);
 
   test('another account sees nothing', () async {

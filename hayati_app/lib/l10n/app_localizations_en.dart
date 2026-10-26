@@ -176,6 +176,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String aiLessonSlot(String time) {
+    return 'You have free time around $time today for it.';
+  }
+
+  @override
   String get aiLimitReached =>
       'You\'ve reached today\'s assistant limit. Everything else keeps working; the limit resets tomorrow.';
 
@@ -205,6 +210,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String aiNextLesson(String title, int minutes) {
+    return 'Next lesson: $title (about $minutes min).';
+  }
+
+  @override
+  String get aiNoEnglishPath =>
+      'You haven\'t started the English path yet. Open English to take the placement test.';
+
+  @override
   String get aiNoGoalToSplit =>
       'I didn\'t find an active goal without milestones. Create a goal first or tell me what you want to learn.';
 
@@ -218,6 +232,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiNoOverdue => 'You have no overdue tasks. 🎉';
+
+  @override
+  String get aiNoSlotToday =>
+      'There\'s no free slot left today; tomorrow is fine — the path waits for you.';
 
   @override
   String get aiNoteEmpty => 'What should the note say?';
@@ -282,6 +300,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aiRefused =>
       'I can\'t help with that request. Try asking in a different way.';
+
+  @override
+  String aiReviewFirst(int n) {
+    return 'Start with a quick review of $n words — it helps more than skipping ahead.';
+  }
 
   @override
   String aiReviewGoal(String title, int percent) {
@@ -369,6 +392,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String andMore(int n) {
     return 'and $n more';
+  }
+
+  @override
+  String get answerRight => 'Correct!';
+
+  @override
+  String answerWrong(String answer) {
+    return 'The right answer: $answer';
   }
 
   @override
@@ -493,6 +524,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
+  String get backToPath => 'Back to the path';
+
+  @override
   String beforeMinutes(String duration) {
     return '$duration before';
   }
@@ -592,6 +626,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryOptional => 'Category (optional)';
 
   @override
+  String get cefrA1 => 'A1 · Beginner';
+
+  @override
+  String get cefrA2 => 'A2 · Elementary';
+
+  @override
+  String get cefrB1 => 'B1 · Intermediate';
+
+  @override
+  String get cefrB2 => 'B2 · Upper intermediate';
+
+  @override
   String get changePassword => 'Change password';
 
   @override
@@ -604,6 +650,9 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get checkAnswer => 'Check';
 
   @override
   String get clear => 'Clear';
@@ -660,6 +709,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get couldNotFit => 'Couldn\'t fit';
+
+  @override
+  String get courseComplete => 'You\'ve completed the B2 course!';
 
   @override
   String get createAccount => 'Create account';
@@ -896,6 +948,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get documents => 'Documents';
 
   @override
+  String get done => 'Done';
+
+  @override
   String get doneDays => 'Done / due';
 
   @override
@@ -987,6 +1042,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get endTime => 'Ends';
 
   @override
+  String get englishIntroBody =>
+      'A short placement test finds your level in vocabulary, grammar and reading, then you get a lesson a day and reviews of what you learned.';
+
+  @override
+  String get englishIntroTitle => 'English, step by step';
+
+  @override
+  String englishLessonItem(String title) {
+    return 'English: $title';
+  }
+
+  @override
   String get eqBands => 'Resistance bands';
 
   @override
@@ -1074,6 +1141,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get everyDay => 'Every day';
 
   @override
+  String get examples => 'Examples';
+
+  @override
   String get execute => 'Apply changes';
 
   @override
@@ -1127,6 +1197,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Expenses are entered manually. No bank accounts are linked.';
 
   @override
+  String get explanation => 'Explanation';
+
+  @override
   String exportCopied(int chars) {
     return 'Copied ($chars characters)';
   }
@@ -1136,6 +1209,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exportDataSub => 'Copies all your data as JSON to the clipboard';
+
+  @override
+  String get extraLesson => 'Extra lesson';
 
   @override
   String get faq => 'Frequently asked questions';
@@ -1375,6 +1451,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get getStarted => 'Get started';
 
   @override
+  String get goBackOver => 'Go back over these lessons:';
+
+  @override
   String get goalActive => 'Active';
 
   @override
@@ -1550,7 +1629,72 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lastWeek => 'Last week';
 
   @override
+  String get leave => 'Leave';
+
+  @override
+  String get leaveTestBody => 'Your answers so far will be lost.';
+
+  @override
+  String get leaveTestTitle => 'Leave the test?';
+
+  @override
   String get leaveWithoutSaving => 'Leave without saving';
+
+  @override
+  String get lessonAgain =>
+      'Not mastered yet (80% needed). We\'ll repeat this lesson before moving on.';
+
+  @override
+  String get lessonDoneToday => 'Today\'s English lesson is done';
+
+  @override
+  String get lessonMastered => 'Lesson mastered. On to the next!';
+
+  @override
+  String lessonMinutes(int n) {
+    return 'About $n minutes';
+  }
+
+  @override
+  String get levelCheckBody =>
+      'You\'ve mastered every lesson at this level. Take the level check to move up.';
+
+  @override
+  String get levelCheckIntro =>
+      'Questions from this level. You need 75% to move up; otherwise we\'ll point you to lessons to revisit.';
+
+  @override
+  String get levelCheckReady => 'Level check ready';
+
+  @override
+  String levelCheckTitle(String level) {
+    return 'Level check: $level';
+  }
+
+  @override
+  String levelComplete(String level) {
+    return '$level lessons complete';
+  }
+
+  @override
+  String levelLessons(String level) {
+    return 'Lessons: $level';
+  }
+
+  @override
+  String levelNotYet(String level) {
+    return 'Not yet: $level';
+  }
+
+  @override
+  String levelPassed(String level) {
+    return 'Passed: $level';
+  }
+
+  @override
+  String levelUp(String level) {
+    return 'Moving up to $level!';
+  }
 
   @override
   String get limit => 'Limit';
@@ -1614,6 +1758,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get markRead => 'Mark as read';
+
+  @override
+  String masteredScore(int n) {
+    return 'Mastered · best $n%';
+  }
 
   @override
   String get memberSince => 'Member since';
@@ -1747,6 +1896,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navAssistant => 'Assistant';
 
   @override
+  String get navEnglish => 'English';
+
+  @override
   String get navExpenses => 'Expenses';
 
   @override
@@ -1786,6 +1938,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get neededTime => 'Tasks need';
 
   @override
+  String needsReviewScore(int n) {
+    return 'Needs another go · best $n%';
+  }
+
+  @override
   String get newChat => 'New chat';
 
   @override
@@ -1806,6 +1963,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get newUserTitle => 'Welcome to Hayati 👋';
+
+  @override
+  String get newWords => 'New words';
 
   @override
   String get next => 'Next';
@@ -1866,6 +2026,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noReminder => 'No reminder';
 
   @override
+  String get noReviewsDue => 'Nothing to review right now.';
+
+  @override
   String get noSearchResults => 'No results';
 
   @override
@@ -1897,6 +2060,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notSet => 'Not set';
+
+  @override
+  String get notStarted => 'Not started';
 
   @override
   String get noteBody => 'Write your note…';
@@ -2032,7 +2198,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pastDay => 'This day has passed.';
 
   @override
+  String get pathStarted => 'Your path starts at A1.';
+
+  @override
   String get pauseGoal => 'Pause';
+
+  @override
+  String perWeek(int n) {
+    return '$n a week';
+  }
 
   @override
   String periodCovers(String from, String to) {
@@ -2076,6 +2250,26 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get placeHome => 'Home';
+
+  @override
+  String get placementExplain =>
+      'Your start level is the middle of your three skill levels. You can retake the test any time.';
+
+  @override
+  String get placementIntro =>
+      '24 short questions from easy to harder. Answer what you can; guessing only makes the result less accurate.';
+
+  @override
+  String get placementNoPeek =>
+      'Answers are shown at the end as your level, not one by one.';
+
+  @override
+  String placementResult(String level) {
+    return 'Your level: $level';
+  }
+
+  @override
+  String get placementTitle => 'Placement test';
 
   @override
   String get planApplied => 'Plan applied';
@@ -2313,7 +2507,15 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your data changed since this was suggested. Ask again for a fresh suggestion.';
 
   @override
+  String questionOf(int current, int total) {
+    return '$current of $total';
+  }
+
+  @override
   String get quickAdd => 'Quick add';
+
+  @override
+  String get readThis => 'Read:';
 
   @override
   String get reason => 'Why';
@@ -2425,13 +2627,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resumeGoal => 'Make active';
 
   @override
+  String get retakePlacement => 'Retake test';
+
+  @override
   String get retry => 'Try again';
 
   @override
   String get reviewChanges => 'Review changes';
 
   @override
+  String reviewDone(int right, int total) {
+    return '$right of $total right. Missed words come back tomorrow.';
+  }
+
+  @override
+  String reviewDue(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n words to review',
+      one: '1 word to review',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get reviewMyPlan => 'Review my plan';
+
+  @override
+  String get reviewTitle => 'Word review';
+
+  @override
+  String get reviewWhy =>
+      'Words you learned come back at growing intervals so they stick.';
 
   @override
   String get sampleGoal1 => 'Learn English';
@@ -2473,6 +2701,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get scheduleGroup => 'When';
 
   @override
+  String scoreOutOf(int score, int pass) {
+    return 'You scored $score% (needed $pass%).';
+  }
+
+  @override
   String get search => 'Search';
 
   @override
@@ -2488,6 +2721,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sectionsShown => 'Sections in the app';
+
+  @override
+  String get seeResult => 'See result';
 
   @override
   String get send => 'Send';
@@ -2585,6 +2821,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'Create your account';
 
   @override
+  String get skillGrammar => 'Grammar';
+
+  @override
+  String get skillReading => 'Reading';
+
+  @override
+  String get skillVocabulary => 'Vocabulary';
+
+  @override
+  String get skillsMeasuredNote =>
+      'The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren\'t assessed yet.';
+
+  @override
   String get skip => 'Skip';
 
   @override
@@ -2598,6 +2847,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startDate => 'Start date';
+
+  @override
+  String get startFromBeginning => 'Start from the beginning';
+
+  @override
+  String get startLesson => 'Start lesson';
+
+  @override
+  String get startPath => 'Start my path';
+
+  @override
+  String get startQuiz => 'Take the short quiz';
 
   @override
   String get startTime => 'Starts';
@@ -2703,6 +2964,12 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get takeLevelCheck => 'Take the level check';
+
+  @override
+  String get takePlacement => 'Take the placement test';
+
+  @override
   String get targetDate => 'Target date';
 
   @override
@@ -2738,6 +3005,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get termsText =>
       'Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.';
+
+  @override
+  String get testHistory => 'Test history';
 
   @override
   String get theme => 'Theme';
@@ -2786,6 +3056,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todaysHabits => 'Today\'s habits';
 
   @override
+  String get todaysLesson => 'Today\'s lesson';
+
+  @override
   String todaysWorkout(String focus) {
     return 'Today\'s workout: $focus';
   }
@@ -2822,6 +3095,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get totalSpent => 'Total spent';
+
+  @override
+  String get tryAgain => 'Study it again';
 
   @override
   String typeToConfirm(String word) {
@@ -2974,6 +3250,14 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get weeklyGoalQuestion => 'How many lessons a week?';
+
+  @override
+  String weeklyLessons(int done, int goal) {
+    return '$done of $goal lessons this week';
+  }
+
+  @override
   String get weeklyPlan => 'Weekly plan';
 
   @override
@@ -2999,6 +3283,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get whyOptional => 'Why it matters (optional)';
+
+  @override
+  String get wordsAddedToReview =>
+      'This lesson\'s words are added to your reviews, starting tomorrow.';
 
   @override
   String get workBlock => 'Work / study';
@@ -3030,4 +3318,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get yourData => 'Your data';
+
+  @override
+  String get yourSkills => 'Your skills (placement test)';
 }

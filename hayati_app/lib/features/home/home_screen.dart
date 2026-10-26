@@ -18,6 +18,8 @@ import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../domain/day_timeline.dart';
 import '../../domain/fitness/today.dart';
+import '../../domain/learning/curriculum.dart';
+import '../../domain/learning/path.dart';
 import '../../domain/metrics.dart';
 import '../../domain/planner.dart';
 import '../../domain/prayer_times.dart';
@@ -250,6 +252,8 @@ class _TodayView extends ConsumerWidget {
           onPlan: () => ask(l.aiChipPlanDay),
         ),
       _PrayerStrip(d: d, now: now, fmt: fmt),
+      if (d.learningPath != null)
+        _EnglishStrip(lesson: nextLesson(d), done: lessonDoneToday(d, now), due: dueReviews(d, now).length),
       if (todaysWorkout(d, now) case (final plan, final day))
         _WorkoutStrip(done: d.sessionsOn(dayKey(now)).isNotEmpty, focus: day.focus, minutes: day.minutes, place: plan.place),
       _AskChips(onAsk: ask),
@@ -461,6 +465,43 @@ class _PrayerStrip extends ConsumerWidget {
   }
 }
 
+/// Today's English: the next lesson and words due for review.
+class _EnglishStrip extends StatelessWidget {
+  const _EnglishStrip({required this.lesson, required this.done, required this.due});
+  final Lesson? lesson;
+  final bool done;
+  final int due;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+    final title = done
+        ? l.lessonDoneToday
+        : lesson == null
+            ? l.levelCheckReady
+            : l.englishLessonItem(lesson!.title(l.localeName));
+    return AppCard(
+      onTap: () => context.push(done || lesson == null ? Routes.english : Routes.lesson(lesson!.id)),
+      child: Row(children: [
+        CircleAvatar(
+          backgroundColor: context.status.highlight,
+          child: Icon(done ? Icons.check : Icons.translate, color: done ? context.status.success : scheme.primary),
+        ),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(title, style: t.titleSmall, maxLines: 2, overflow: TextOverflow.ellipsis),
+            if (due > 0) Text(l.reviewDue(due), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          ]),
+        ),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
 /// Today's training, if today is a workout day.
 class _WorkoutStrip extends StatelessWidget {
   const _WorkoutStrip({required this.done, required this.focus, required this.minutes, required this.place});
@@ -543,6 +584,7 @@ class _Timeline extends StatelessWidget {
               TimelineKind.event => context.status.info,
               TimelineKind.task => scheme.secondary,
               TimelineKind.workout => context.status.success,
+              TimelineKind.lesson => context.status.info,
               TimelineKind.work => context.status.warning,
               TimelineKind.rest => context.status.inactive,
             };
@@ -553,6 +595,7 @@ class _Timeline extends StatelessWidget {
                 onTap: switch (it.kind) {
                   TimelineKind.task => () => context.push(Routes.task(it.refId!)),
                   TimelineKind.workout => () => context.push(Routes.fitness),
+                  TimelineKind.lesson => () => context.push(Routes.lesson(it.refId!)),
                   TimelineKind.event => () => context.push(Routes.event(it.refId!)),
                   TimelineKind.prayer => () => context.push(Routes.prayer),
                   _ => null,
@@ -619,6 +662,7 @@ IconData iconFor(TimelineItem it) => switch (it.kind) {
       TimelineKind.event => Icons.event,
       TimelineKind.task => Icons.check_circle_outline,
       TimelineKind.workout => Icons.fitness_center,
+      TimelineKind.lesson => Icons.translate,
       TimelineKind.work => Icons.work_outline,
       TimelineKind.rest => Icons.free_breakfast_outlined,
     };
@@ -626,6 +670,7 @@ IconData iconFor(TimelineItem it) => switch (it.kind) {
 String itemTitle(AppLocalizations l, TimelineItem it) => switch (it.kind) {
       TimelineKind.prayer => l.prayerName(it.prayer!),
       TimelineKind.workout => l.todaysWorkout(l.dayFocus(it.focus!)),
+      TimelineKind.lesson => l.englishLessonItem(lessonById(it.refId!)?.title(l.localeName) ?? ''),
       TimelineKind.work => l.workBlock,
       TimelineKind.rest => l.restBlock,
       _ => it.title ?? '',
@@ -784,6 +829,7 @@ class _MoreMenu extends ConsumerWidget {
       itemBuilder: (_) => [
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
+        _item(Routes.english, Icons.translate, l.navEnglish),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),
         if (settings.has(AppModule.expenses)) _item(Routes.expenses, Icons.account_balance_wallet_outlined, l.navExpenses),

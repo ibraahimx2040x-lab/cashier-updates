@@ -7,6 +7,7 @@ import '../../core/utils/dates.dart';
 import '../app_data.dart';
 import '../models/fitness.dart';
 import '../models/goal.dart';
+import '../models/learning.dart';
 import '../models/misc.dart';
 import '../models/prayer.dart';
 import '../models/settings.dart';
@@ -195,6 +196,55 @@ WorkoutSession workoutSessionFrom(Row r) => WorkoutSession(
       createdAt: _dt(r['created_at'])!,
     );
 
+Row learningPathRow(LearningPath p) =>
+    {'id': p.id, 'subject': 'english', 'level': p.level.name, 'weekly_goal': p.weeklyGoal, 'started_at': _ts(p.startedAt)};
+
+LearningPath learningPathFrom(Row r) => LearningPath(
+      id: r['id'] as String,
+      level: Cefr.values.byName(r['level'] as String),
+      weeklyGoal: r['weekly_goal'] as int,
+      startedAt: _dt(r['started_at'])!,
+    );
+
+Row lessonProgressRow(LessonProgress p) =>
+    {'id': p.id, 'lesson_id': p.lessonId, 'best_score': p.bestScore, 'attempts': p.attempts, 'last_at': _ts(p.lastAt)};
+
+LessonProgress lessonProgressFrom(Row r) => LessonProgress(
+      id: r['id'] as String,
+      lessonId: r['lesson_id'] as String,
+      bestScore: r['best_score'] as int,
+      attempts: r['attempts'] as int,
+      lastAt: _dt(r['last_at'])!,
+    );
+
+Row assessmentRow(Assessment a) {
+  final j = a.toJson();
+  return {
+    'id': a.id,
+    'kind': a.kind.name,
+    'level': a.level.name,
+    'scores': j['scores'],
+    'skill_levels': j['skillLevels'],
+    'passed': a.passed,
+    'taken_at': _ts(a.takenAt),
+  };
+}
+
+Assessment assessmentFrom(Row r) => Assessment.fromJson({
+      'id': r['id'],
+      'kind': r['kind'],
+      'level': r['level'],
+      'scores': r['scores'],
+      'skillLevels': r['skill_levels'],
+      'passed': r['passed'],
+      'takenAt': _dt(r['taken_at'])!.toUtc().toIso8601String(),
+    });
+
+Row vocabReviewRow(VocabReview v) => {'id': v.id, 'word_id': v.wordId, 'box': v.box, 'due': v.due};
+
+VocabReview vocabReviewFrom(Row r) =>
+    VocabReview(id: r['id'] as String, wordId: r['word_id'] as String, box: r['box'] as int, due: r['due'] as String);
+
 Row noteRow(Note n) => {
       'id': n.id,
       'title': n.title,
@@ -321,6 +371,10 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
   SyncTable('workout_plans', (d) => [for (final x in d.workoutPlans) workoutPlanRow(x)], workoutPlanFrom),
   SyncTable('workout_sessions', (d) => [for (final x in d.workoutSessions) workoutSessionRow(x)], workoutSessionFrom),
+  SyncTable('learning_paths', (d) => [for (final x in d.learningPaths) learningPathRow(x)], learningPathFrom),
+  SyncTable('lesson_progress', (d) => [for (final x in d.lessonProgresses) lessonProgressRow(x)], lessonProgressFrom),
+  SyncTable('assessments', (d) => [for (final x in d.assessments) assessmentRow(x)], assessmentFrom),
+  SyncTable('vocab_reviews', (d) => [for (final x in d.vocabReviews) vocabReviewRow(x)], vocabReviewFrom),
   SyncTable('notes', (d) => [for (final x in d.notes) noteRow(x)], noteFrom),
   SyncTable('expenses', (d) => [for (final x in d.expenses) expenseRow(x)], expenseFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
@@ -341,6 +395,10 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     prayerLogs: read('prayer_logs', prayerLogFrom),
     workoutPlans: read('workout_plans', workoutPlanFrom),
     workoutSessions: read('workout_sessions', workoutSessionFrom),
+    learningPaths: read('learning_paths', learningPathFrom),
+    lessonProgresses: read('lesson_progress', lessonProgressFrom),
+    assessments: read('assessments', assessmentFrom),
+    vocabReviews: read('vocab_reviews', vocabReviewFrom),
     notes: read('notes', noteFrom),
     expenses: read('expenses', expenseFrom),
     budgets: read('budgets', budgetFrom),
