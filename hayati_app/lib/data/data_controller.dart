@@ -9,6 +9,7 @@ import 'auth.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
+import 'models/learning.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
@@ -347,6 +348,70 @@ class DataController extends Notifier<AppData> {
 
   void deleteWorkout(String id) =>
       _set(state.copyWith(workoutSessions: state.workoutSessions.where((s) => s.id != id).toList()));
+
+  // ---------------------------------------------------------------- learning
+
+  /// Starts (or restarts) the English path at [level], keeping history.
+  void startLearning(Cefr level, int weeklyGoal, {Assessment? placement}) {
+    if (weeklyGoal < 1 || weeklyGoal > 7) throw ArgumentError('weeklyGoal');
+    final current = state.learningPath;
+    _set(state.copyWith(
+      learningPaths: [
+        current == null
+            ? LearningPath(id: newId(), level: level, weeklyGoal: weeklyGoal, startedAt: _now)
+            : current.copyWith(level: level, weeklyGoal: weeklyGoal),
+      ],
+      assessments: placement == null ? null : [...state.assessments, placement],
+    ));
+  }
+
+  void setWeeklyLessons(int goal) {
+    final p = state.learningPath;
+    if (p == null || goal < 1 || goal > 7) return;
+    _set(state.copyWith(learningPaths: [p.copyWith(weeklyGoal: goal)]));
+  }
+
+  /// Records a lesson quiz (best score kept). The lesson's words join the
+  /// review schedule the first time it's taken.
+  void recordLesson(String lessonId, int score, List<String> wordIds) {
+    if (score < 0 || score > 100) throw ArgumentError('score');
+    final old = state.lessonProgress(lessonId);
+    final p = LessonProgress(
+      id: old?.id ?? newId(),
+      lessonId: lessonId,
+      bestScore: old == null || score > old.bestScore ? score : old.bestScore,
+      attempts: (old?.attempts ?? 0) + 1,
+      lastAt: _now,
+    );
+    final known = {for (final r in state.vocabReviews) r.wordId};
+    final tomorrow = dayKey(dateOnly(_now).add(const Duration(days: 1)));
+    _set(state.copyWith(
+      lessonProgresses: _upsert(state.lessonProgresses, p, (e) => e.id),
+      vocabReviews: [
+        ...state.vocabReviews,
+        for (final w in wordIds)
+          if (!known.contains(w)) VocabReview(id: newId(), wordId: w, box: 1, due: tomorrow),
+      ],
+    ));
+  }
+
+  /// Moves a reviewed word to its next box (or back to 1 when missed).
+  void reviewWord(String wordId, int box, String due) {
+    final r = state.vocabReviews.where((x) => x.wordId == wordId).firstOrNull;
+    if (r == null) return;
+    _set(state.copyWith(
+      vocabReviews: _upsert(state.vocabReviews, VocabReview(id: r.id, wordId: wordId, box: box, due: due), (e) => e.id),
+    ));
+  }
+
+  /// Saves an end-of-level check; passing moves the path to [next].
+  void recordLevelCheck(Assessment a, {Cefr? next}) {
+    final p = state.learningPath;
+    _set(state.copyWith(
+      assessments: [...state.assessments, a],
+      learningPaths: p != null && a.passed && next != null ? [p.copyWith(level: next)] : null,
+    ));
+  }
 
   // ------------------------------------------------------------------- notes
 

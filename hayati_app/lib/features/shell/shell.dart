@@ -196,6 +196,7 @@ class _Sidebar extends ConsumerWidget {
               const Divider(height: Space.xl),
               item(Icons.mosque_outlined, l.navPrayer, () => context.push(Routes.prayer)),
               item(Icons.fitness_center, l.navFitness, () => context.push(Routes.fitness)),
+              item(Icons.translate, l.navEnglish, () => context.push(Routes.english)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))
                 item(Icons.sticky_note_2_outlined, l.navNotes, () => context.push(Routes.notes)),

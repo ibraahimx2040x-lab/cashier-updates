@@ -182,5 +182,42 @@ exception when foreign_key_violation then raise notice 'ok: cannot link to anoth
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Learning: one path per subject, one progress row per lesson and word.
+insert into learning_paths (level, weekly_goal) values ('a2', 3);
+do $$ begin
+  insert into learning_paths (level, weekly_goal) values ('b1', 3);
+  raise exception 'FAILED: two English paths';
+exception when unique_violation then raise notice 'ok: one path per subject';
+end $$;
+do $$ begin
+  insert into learning_paths (subject, level, weekly_goal) values ('french', 'a1', 3);
+  raise exception 'FAILED: unknown subject';
+exception when check_violation then raise notice 'ok: only known subjects';
+end $$;
+insert into lesson_progress (lesson_id, best_score, attempts) values ('a2_past', 60, 1);
+do $$ begin
+  insert into lesson_progress (lesson_id, best_score, attempts) values ('a2_past', 90, 1);
+  raise exception 'FAILED: duplicate lesson progress';
+exception when unique_violation then raise notice 'ok: one progress row per lesson';
+end $$;
+do $$ begin
+  insert into lesson_progress (lesson_id, best_score, attempts) values ('a2_compare', 120, 1);
+  raise exception 'FAILED: score over 100';
+exception when check_violation then raise notice 'ok: score 0-100';
+end $$;
+insert into vocab_reviews (word_id, box, due) values ('w_yesterday', 1, current_date + 1);
+do $$ begin
+  insert into vocab_reviews (word_id, box, due) values ('w_trip', 6, current_date);
+  raise exception 'FAILED: box out of range';
+exception when check_violation then raise notice 'ok: review box 1-5';
+end $$;
+insert into assessments (kind, level, scores, passed) values ('placement', 'a2', '{"grammar": {"correct": 3, "total": 4}}', true);
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from learning_paths) + (select count(*) from lesson_progress)
+    + (select count(*) from vocab_reviews) + (select count(*) from assessments) = 0,
+  'B cannot read A''s learning data');
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

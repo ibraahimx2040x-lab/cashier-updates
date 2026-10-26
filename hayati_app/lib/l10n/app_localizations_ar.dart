@@ -178,6 +178,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String aiLessonSlot(String time) {
+    return 'لديك وقت فارغ قرابة $time اليوم لهذا الدرس.';
+  }
+
+  @override
   String get aiLimitReached =>
       'وصلت إلى حد استخدام المساعد اليوم. بقية التطبيق يعمل كالمعتاد، ويتجدد الحد غدًا.';
 
@@ -207,6 +212,15 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String aiNextLesson(String title, int minutes) {
+    return 'الدرس التالي: $title (حوالي $minutes دقيقة).';
+  }
+
+  @override
+  String get aiNoEnglishPath =>
+      'لم تبدأ مسار الإنجليزية بعد. افتح قسم الإنجليزية لتجري اختبار تحديد المستوى.';
+
+  @override
   String get aiNoGoalToSplit =>
       'لم أجد هدفًا نشطًا بلا مراحل. أنشئ هدفًا أولًا أو أخبرني بما تريد تعلمه.';
 
@@ -219,6 +233,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiNoOverdue => 'لا توجد لديك مهام متأخرة. 🎉';
+
+  @override
+  String get aiNoSlotToday =>
+      'لا يوجد وقت فارغ متبقٍ اليوم، ولا بأس بالغد؛ المسار ينتظرك.';
 
   @override
   String get aiNoteEmpty => 'ماذا تريد أن تكتب في الملاحظة؟';
@@ -281,6 +299,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get aiRefused =>
       'لا أستطيع المساعدة في هذا الطلب. جرّب صياغته بطريقة أخرى.';
+
+  @override
+  String aiReviewFirst(int n) {
+    return 'ابدأ بمراجعة سريعة لـ $n كلمات، فهي تفيد أكثر من القفز للأمام.';
+  }
 
   @override
   String aiReviewGoal(String title, int percent) {
@@ -368,6 +391,14 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String andMore(int n) {
     return 'و$n أخرى';
+  }
+
+  @override
+  String get answerRight => 'إجابة صحيحة!';
+
+  @override
+  String answerWrong(String answer) {
+    return 'الإجابة الصحيحة: $answer';
   }
 
   @override
@@ -493,6 +524,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get back => 'السابق';
 
   @override
+  String get backToPath => 'العودة إلى المسار';
+
+  @override
   String beforeMinutes(String duration) {
     return 'قبل $duration';
   }
@@ -592,6 +626,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get categoryOptional => 'التصنيف (اختياري)';
 
   @override
+  String get cefrA1 => 'A1 · مبتدئ';
+
+  @override
+  String get cefrA2 => 'A2 · أساسي';
+
+  @override
+  String get cefrB1 => 'B1 · متوسط';
+
+  @override
+  String get cefrB2 => 'B2 · فوق المتوسط';
+
+  @override
   String get changePassword => 'تغيير كلمة المرور';
 
   @override
@@ -606,6 +652,9 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get checkAnswer => 'تحقق';
 
   @override
   String get clear => 'مسح';
@@ -662,6 +711,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get couldNotFit => 'لم يتسع لها الوقت';
+
+  @override
+  String get courseComplete => 'أكملت مستوى B2!';
 
   @override
   String get createAccount => 'إنشاء الحساب';
@@ -900,6 +952,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get documents => 'المستندات';
 
   @override
+  String get done => 'تم';
+
+  @override
   String get doneDays => 'منجز / مستحق';
 
   @override
@@ -991,6 +1046,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get endTime => 'النهاية';
 
   @override
+  String get englishIntroBody =>
+      'اختبار قصير يحدد مستواك في المفردات والقواعد والقراءة، ثم درس يومي ومراجعة لما تعلمته.';
+
+  @override
+  String get englishIntroTitle => 'الإنجليزية خطوة بخطوة';
+
+  @override
+  String englishLessonItem(String title) {
+    return 'الإنجليزية: $title';
+  }
+
+  @override
   String get eqBands => 'حبال مطاطية';
 
   @override
@@ -1078,6 +1145,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get everyDay => 'كل يوم';
 
   @override
+  String get examples => 'أمثلة';
+
+  @override
   String get execute => 'تنفيذ';
 
   @override
@@ -1135,6 +1205,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'تُسجّل المصروفات يدويًا، ولا يُربط أي حساب بنكي.';
 
   @override
+  String get explanation => 'الشرح';
+
+  @override
   String exportCopied(int chars) {
     return 'تم النسخ ($chars حرفًا)';
   }
@@ -1144,6 +1217,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exportDataSub => 'ينسخ كل بياناتك بصيغة JSON إلى الحافظة';
+
+  @override
+  String get extraLesson => 'درس إضافي';
 
   @override
   String get faq => 'الأسئلة الشائعة';
@@ -1383,6 +1459,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get getStarted => 'ابدأ الآن';
 
   @override
+  String get goBackOver => 'راجع هذه الدروس:';
+
+  @override
   String get goalActive => 'نشط';
 
   @override
@@ -1556,7 +1635,72 @@ class AppLocalizationsAr extends AppLocalizations {
   String get lastWeek => 'الأسبوع الماضي';
 
   @override
+  String get leave => 'خروج';
+
+  @override
+  String get leaveTestBody => 'ستضيع إجاباتك حتى الآن.';
+
+  @override
+  String get leaveTestTitle => 'الخروج من الاختبار؟';
+
+  @override
   String get leaveWithoutSaving => 'الخروج دون حفظ';
+
+  @override
+  String get lessonAgain =>
+      'لم تتقنه بعد (المطلوب 80%). سنعيد هذا الدرس قبل الانتقال.';
+
+  @override
+  String get lessonDoneToday => 'أنجزت درس الإنجليزية اليوم';
+
+  @override
+  String get lessonMastered => 'أتقنت الدرس. إلى التالي!';
+
+  @override
+  String lessonMinutes(int n) {
+    return 'حوالي $n دقيقة';
+  }
+
+  @override
+  String get levelCheckBody =>
+      'أتقنت كل دروس هذا المستوى. أجرِ اختبار المستوى للانتقال.';
+
+  @override
+  String get levelCheckIntro =>
+      'أسئلة من هذا المستوى. تحتاج 75% للانتقال، وإلا سنرشدك للدروس التي تحتاج مراجعة.';
+
+  @override
+  String get levelCheckReady => 'اختبار المستوى جاهز';
+
+  @override
+  String levelCheckTitle(String level) {
+    return 'اختبار المستوى: $level';
+  }
+
+  @override
+  String levelComplete(String level) {
+    return 'اكتملت دروس $level';
+  }
+
+  @override
+  String levelLessons(String level) {
+    return 'دروس $level';
+  }
+
+  @override
+  String levelNotYet(String level) {
+    return 'لم تجتز بعد: $level';
+  }
+
+  @override
+  String levelPassed(String level) {
+    return 'اجتزت: $level';
+  }
+
+  @override
+  String levelUp(String level) {
+    return 'انتقلت إلى $level!';
+  }
 
   @override
   String get limit => 'الحد';
@@ -1619,6 +1763,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get markRead => 'تحديد كمقروء';
+
+  @override
+  String masteredScore(int n) {
+    return 'متقن · أفضل نتيجة $n%';
+  }
 
   @override
   String get memberSince => 'تاريخ إنشاء الحساب';
@@ -1752,6 +1901,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navAssistant => 'المساعد';
 
   @override
+  String get navEnglish => 'الإنجليزية';
+
+  @override
   String get navExpenses => 'المصروفات';
 
   @override
@@ -1791,6 +1943,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get neededTime => 'تحتاج المهام';
 
   @override
+  String needsReviewScore(int n) {
+    return 'يحتاج إعادة · أفضل نتيجة $n%';
+  }
+
+  @override
   String get newChat => 'محادثة جديدة';
 
   @override
@@ -1811,6 +1968,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get newUserTitle => 'أهلًا بك في حياتي 👋';
+
+  @override
+  String get newWords => 'كلمات جديدة';
 
   @override
   String get next => 'التالي';
@@ -1871,6 +2031,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noReminder => 'بدون تذكير';
 
   @override
+  String get noReviewsDue => 'لا توجد مراجعة الآن.';
+
+  @override
   String get noSearchResults => 'لا توجد نتائج';
 
   @override
@@ -1902,6 +2065,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notSet => 'غير محدد';
+
+  @override
+  String get notStarted => 'لم يبدأ';
 
   @override
   String get noteBody => 'اكتب ملاحظتك…';
@@ -2034,7 +2200,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pastDay => 'هذا اليوم انقضى.';
 
   @override
+  String get pathStarted => 'بدأ مسارك من المستوى A1.';
+
+  @override
   String get pauseGoal => 'إيقاف مؤقت';
+
+  @override
+  String perWeek(int n) {
+    return '$n أسبوعيًا';
+  }
 
   @override
   String periodCovers(String from, String to) {
@@ -2078,6 +2252,26 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get placeHome => 'المنزل';
+
+  @override
+  String get placementExplain =>
+      'مستوى البداية هو الأوسط بين مستويات مهاراتك الثلاث. يمكنك إعادة الاختبار في أي وقت.';
+
+  @override
+  String get placementIntro =>
+      '24 سؤالًا قصيرًا من السهل إلى الأصعب. أجب بما تعرفه؛ التخمين يقلل دقة النتيجة فقط.';
+
+  @override
+  String get placementNoPeek =>
+      'لا تظهر الإجابات سؤالًا بسؤال، بل تظهر النتيجة في النهاية.';
+
+  @override
+  String placementResult(String level) {
+    return 'مستواك: $level';
+  }
+
+  @override
+  String get placementTitle => 'اختبار تحديد المستوى';
 
   @override
   String get planApplied => 'تم اعتماد الخطة';
@@ -2314,7 +2508,15 @@ class AppLocalizationsAr extends AppLocalizations {
       'تغيرت بياناتك منذ هذا الاقتراح. اطلب اقتراحًا جديدًا.';
 
   @override
+  String questionOf(int current, int total) {
+    return '$current من $total';
+  }
+
+  @override
   String get quickAdd => 'إضافة سريعة';
+
+  @override
+  String get readThis => 'اقرأ:';
 
   @override
   String get reason => 'السبب';
@@ -2424,13 +2626,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get resumeGoal => 'تفعيل';
 
   @override
+  String get retakePlacement => 'أعد الاختبار';
+
+  @override
   String get retry => 'إعادة المحاولة';
 
   @override
   String get reviewChanges => 'مراجعة التغييرات';
 
   @override
+  String reviewDone(int right, int total) {
+    return '$right من $total صحيحة. الكلمات التي أخطأت فيها تعود غدًا.';
+  }
+
+  @override
+  String reviewDue(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n كلمة للمراجعة',
+      few: '$n كلمات للمراجعة',
+      two: 'كلمتان للمراجعة',
+      one: 'كلمة للمراجعة',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get reviewMyPlan => 'راجع خطتي';
+
+  @override
+  String get reviewTitle => 'مراجعة الكلمات';
+
+  @override
+  String get reviewWhy =>
+      'الكلمات التي تعلمتها تعود على فترات متزايدة لتثبت في الذاكرة.';
 
   @override
   String get sampleGoal1 => 'تعلم الإنجليزية';
@@ -2472,6 +2702,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get scheduleGroup => 'الموعد';
 
   @override
+  String scoreOutOf(int score, int pass) {
+    return 'نتيجتك $score% (المطلوب $pass%).';
+  }
+
+  @override
   String get search => 'بحث';
 
   @override
@@ -2487,6 +2722,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sectionsShown => 'الأقسام الظاهرة في التطبيق';
+
+  @override
+  String get seeResult => 'اعرض النتيجة';
 
   @override
   String get send => 'إرسال';
@@ -2586,6 +2824,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signUpTitle => 'إنشاء حساب';
 
   @override
+  String get skillGrammar => 'القواعد';
+
+  @override
+  String get skillReading => 'القراءة';
+
+  @override
+  String get skillVocabulary => 'المفردات';
+
+  @override
+  String get skillsMeasuredNote =>
+      'يقيس التطبيق المفردات والقواعد والقراءة. أما الاستماع والمحادثة فيحتاجان أدوات صوتية ولا يُقيّمان بعد.';
+
+  @override
   String get skip => 'تخطٍ';
 
   @override
@@ -2599,6 +2850,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get startDate => 'تاريخ البداية';
+
+  @override
+  String get startFromBeginning => 'ابدأ من البداية';
+
+  @override
+  String get startLesson => 'ابدأ الدرس';
+
+  @override
+  String get startPath => 'ابدأ مساري';
+
+  @override
+  String get startQuiz => 'ابدأ الاختبار القصير';
 
   @override
   String get startTime => 'البداية';
@@ -2711,6 +2974,12 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get takeLevelCheck => 'أجرِ اختبار المستوى';
+
+  @override
+  String get takePlacement => 'اختبار تحديد المستوى';
+
+  @override
   String get targetDate => 'التاريخ المستهدف';
 
   @override
@@ -2749,6 +3018,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get termsText =>
       'حياتي — شروط الاستخدام (مسودة)\n\nيساعدك حياتي في تنظيم وقتك وأهدافك وعاداتك وملاحظاتك ومصروفاتك. الخطط والاقتراحات تقديرية وليست ضمانات. حياتي ليس خدمة مصرفية أو استشارة مالية أو طبية. أنت مسؤول عن البيانات التي تدخلها وعن القرارات التي تتخذها بناءً عليها.\n\nيجب مراجعة هذه المسودة واستبدالها بالشروط النهائية قبل الإطلاق العام.';
+
+  @override
+  String get testHistory => 'سجل الاختبارات';
 
   @override
   String get theme => 'السمة';
@@ -2797,6 +3069,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get todaysHabits => 'عادات اليوم';
 
   @override
+  String get todaysLesson => 'درس اليوم';
+
+  @override
   String todaysWorkout(String focus) {
     return 'تمرين اليوم: $focus';
   }
@@ -2833,6 +3108,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get totalSpent => 'إجمالي المصروفات';
+
+  @override
+  String get tryAgain => 'ذاكره مرة أخرى';
 
   @override
   String typeToConfirm(String word) {
@@ -2996,6 +3274,14 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get weeklyGoalQuestion => 'كم درسًا في الأسبوع؟';
+
+  @override
+  String weeklyLessons(int done, int goal) {
+    return '$done من $goal دروس هذا الأسبوع';
+  }
+
+  @override
   String get weeklyPlan => 'خطة الأسبوع';
 
   @override
@@ -3021,6 +3307,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get whyOptional => 'لماذا هذا الهدف مهم؟ (اختياري)';
+
+  @override
+  String get wordsAddedToReview =>
+      'أُضيفت كلمات هذا الدرس إلى مراجعاتك بدءًا من الغد.';
 
   @override
   String get workBlock => 'العمل / الدراسة';
@@ -3052,4 +3342,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get yourData => 'بياناتك';
+
+  @override
+  String get yourSkills => 'مهاراتك (اختبار تحديد المستوى)';
 }

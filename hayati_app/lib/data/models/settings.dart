@@ -31,6 +31,7 @@ class AssistantPermissions {
     this.shareNotes = false,
     this.shareExpenses = false,
     this.shareFitness = true,
+    this.shareLearning = true,
     this.retentionDays = 90,
   });
 
@@ -52,6 +53,7 @@ class AssistantPermissions {
   final bool shareNotes;
   final bool shareExpenses;
   final bool shareFitness;
+  final bool shareLearning;
 
   /// Conversation retention; 0 = keep until deleted.
   final int retentionDays;
@@ -70,6 +72,7 @@ class AssistantPermissions {
     bool? shareNotes,
     bool? shareExpenses,
     bool? shareFitness,
+    bool? shareLearning,
     int? retentionDays,
   }) =>
       AssistantPermissions(
@@ -86,6 +89,7 @@ class AssistantPermissions {
         shareNotes: shareNotes ?? this.shareNotes,
         shareExpenses: shareExpenses ?? this.shareExpenses,
         shareFitness: shareFitness ?? this.shareFitness,
+        shareLearning: shareLearning ?? this.shareLearning,
         retentionDays: retentionDays ?? this.retentionDays,
       );
 
@@ -103,6 +107,7 @@ class AssistantPermissions {
         'shareNotes': shareNotes,
         'shareExpenses': shareExpenses,
         'shareFitness': shareFitness,
+        'shareLearning': shareLearning,
         'retentionDays': retentionDays,
       };
 
@@ -123,6 +128,7 @@ class AssistantPermissions {
       shareNotes: b('shareNotes', d.shareNotes),
       shareExpenses: b('shareExpenses', d.shareExpenses),
       shareFitness: b('shareFitness', d.shareFitness),
+      shareLearning: b('shareLearning', d.shareLearning),
       retentionDays: (j['retentionDays'] as int?) ?? d.retentionDays,
     );
   }

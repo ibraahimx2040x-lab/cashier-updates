@@ -72,6 +72,7 @@ class AssistantSettingsScreen extends ConsumerWidget {
           sw(l.navNotes, l.shareNotesSub, p.shareNotes, (v) => up((x) => x.copyWith(shareNotes: v))),
           sw(l.navExpenses, l.shareSub, p.shareExpenses, (v) => up((x) => x.copyWith(shareExpenses: v))),
           sw(l.navFitness, l.shareSub, p.shareFitness, (v) => up((x) => x.copyWith(shareFitness: v))),
+          sw(l.navEnglish, l.shareSub, p.shareLearning, (v) => up((x) => x.copyWith(shareLearning: v))),
           header(l.privacyRetention),
           ListTile(
             title: Text(l.keepChats),

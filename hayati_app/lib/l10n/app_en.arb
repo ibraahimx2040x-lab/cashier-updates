@@ -116,6 +116,14 @@
       }
     }
   },
+  "aiLessonSlot": "You have free time around {time} today for it.",
+  "@aiLessonSlot": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "aiLimitReached": "You've reached today's assistant limit. Everything else keeps working; the limit resets tomorrow.",
   "aiMs1": "Assess your level and pick resources for {subject}",
   "@aiMs1": {
@@ -157,10 +165,23 @@
       }
     }
   },
+  "aiNextLesson": "Next lesson: {title} (about {minutes} min).",
+  "@aiNextLesson": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "aiNoEnglishPath": "You haven't started the English path yet. Open English to take the placement test.",
   "aiNoGoalToSplit": "I didn't find an active goal without milestones. Create a goal first or tell me what you want to learn.",
   "aiNoGymPlan": "You don't have a gym plan yet. Set one up in Fitness.",
   "aiNoGymToday": "Today isn't a gym day in your plan, so there's nothing to replace.",
   "aiNoOverdue": "You have no overdue tasks. 🎉",
+  "aiNoSlotToday": "There's no free slot left today; tomorrow is fine — the path waits for you.",
   "aiNoteEmpty": "What should the note say?",
   "aiNoteReady": "I'll save this note.",
   "aiOverdueSummary": "You have {total} overdue tasks. I can fit {today} today; {tomorrow} would move to tomorrow.",
@@ -224,6 +245,14 @@
   },
   "aiReasonTask": "You asked to add a task.",
   "aiRefused": "I can't help with that request. Try asking in a different way.",
+  "aiReviewFirst": "Start with a quick review of {n} words — it helps more than skipping ahead.",
+  "@aiReviewFirst": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "aiReviewGoal": "“{title}” is at {percent}%.",
   "@aiReviewGoal": {
     "placeholders": {
@@ -321,6 +350,15 @@
       }
     }
   },
+  "answerRight": "Correct!",
+  "answerWrong": "The right answer: {answer}",
+  "@answerWrong": {
+    "placeholders": {
+      "answer": {
+        "type": "String"
+      }
+    }
+  },
   "any": "Any",
   "appName": "Hayati",
   "appVersion": "App version",
@@ -383,6 +421,7 @@
   "autoActions": "May do without asking",
   "autoActionsSub": "Each permission is separate and can be withdrawn at any time.",
   "back": "Back",
+  "backToPath": "Back to the path",
   "beforeMinutes": "{duration} before",
   "@beforeMinutes": {
     "placeholders": {
@@ -434,6 +473,10 @@
   "catWork": "Work",
   "category": "Category",
   "categoryOptional": "Category (optional)",
+  "cefrA1": "A1 · Beginner",
+  "cefrA2": "A2 · Elementary",
+  "cefrB1": "B1 · Intermediate",
+  "cefrB2": "B2 · Upper intermediate",
   "changePassword": "Change password",
   "changesCount": "{n, plural, =1{1 change} other{{n} changes}}",
   "@changesCount": {
@@ -443,6 +486,7 @@
       }
     }
   },
+  "checkAnswer": "Check",
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
@@ -483,6 +527,7 @@
   },
   "contactSupport": "Contact support",
   "couldNotFit": "Couldn't fit",
+  "courseComplete": "You've completed the B2 course!",
   "createAccount": "Create account",
   "createFirstPlan": "Create my first plan",
   "createMyPlan": "Create my plan",
@@ -573,6 +618,7 @@
   "displayName": "Display name",
   "displayNameOptional": "Your name (optional)",
   "documents": "Documents",
+  "done": "Done",
   "doneDays": "Done / due",
   "dragHint": "Long-press and drag a task onto an hour to plan it.",
   "due": "Due",
@@ -607,6 +653,16 @@
   "enableAssistant": "Assistant",
   "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
   "endTime": "Ends",
+  "englishIntroBody": "A short placement test finds your level in vocabulary, grammar and reading, then you get a lesson a day and reviews of what you learned.",
+  "englishIntroTitle": "English, step by step",
+  "englishLessonItem": "English: {title}",
+  "@englishLessonItem": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
   "eqBands": "Resistance bands",
   "eqBench": "Bench",
   "eqDumbbells": "Dumbbells",
@@ -635,6 +691,7 @@
   "eventTitle": "Event title",
   "eventsLabel": "Events",
   "everyDay": "Every day",
+  "examples": "Examples",
   "execute": "Apply changes",
   "executedCount": "{n, plural, =1{Done — 1 change applied} other{Done — {n} changes applied}}",
   "@executedCount": {
@@ -661,6 +718,7 @@
   "expTransport": "Transport",
   "expenseList": "Expenses",
   "expensesManualNote": "Expenses are entered manually. No bank accounts are linked.",
+  "explanation": "Explanation",
   "exportCopied": "Copied ({chars} characters)",
   "@exportCopied": {
     "placeholders": {
@@ -671,6 +729,7 @@
   },
   "exportData": "Export my data",
   "exportDataSub": "Copies all your data as JSON to the clipboard",
+  "extraLesson": "Extra lesson",
   "faq": "Frequently asked questions",
   "faq1a": "The deadline is when a task must be finished. Planned time is when you intend to work on it — the planner sets it, and you can change it.",
   "faq1q": "What's the difference between a deadline and planned time?",
@@ -768,6 +827,7 @@
     }
   },
   "getStarted": "Get started",
+  "goBackOver": "Go back over these lessons:",
   "goalActive": "Active",
   "goalArchived": "Archived",
   "goalCompleted": "Completed",
@@ -849,7 +909,72 @@
   "kindOther": "Other",
   "language": "Language",
   "lastWeek": "Last week",
+  "leave": "Leave",
+  "leaveTestBody": "Your answers so far will be lost.",
+  "leaveTestTitle": "Leave the test?",
   "leaveWithoutSaving": "Leave without saving",
+  "lessonAgain": "Not mastered yet (80% needed). We'll repeat this lesson before moving on.",
+  "lessonDoneToday": "Today's English lesson is done",
+  "lessonMastered": "Lesson mastered. On to the next!",
+  "lessonMinutes": "About {n} minutes",
+  "@lessonMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "levelCheckBody": "You've mastered every lesson at this level. Take the level check to move up.",
+  "levelCheckIntro": "Questions from this level. You need 75% to move up; otherwise we'll point you to lessons to revisit.",
+  "levelCheckReady": "Level check ready",
+  "levelCheckTitle": "Level check: {level}",
+  "@levelCheckTitle": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelComplete": "{level} lessons complete",
+  "@levelComplete": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelLessons": "Lessons: {level}",
+  "@levelLessons": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelNotYet": "Not yet: {level}",
+  "@levelNotYet": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelPassed": "Passed: {level}",
+  "@levelPassed": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "levelUp": "Moving up to {level}!",
+  "@levelUp": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
   "limit": "Limit",
   "linkTask": "Add task",
   "linkedGoal": "Goal",
@@ -876,6 +1001,14 @@
   },
   "markGoalComplete": "Mark as completed",
   "markRead": "Mark as read",
+  "masteredScore": "Mastered · best {n}%",
+  "@masteredScore": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "memberSince": "Member since",
   "menu": "Menu",
   "methodEgyptian": "Egyptian General Authority",
@@ -935,6 +1068,7 @@
   "myLocation": "My location",
   "myNotes": "My notes",
   "navAssistant": "Assistant",
+  "navEnglish": "English",
   "navExpenses": "Expenses",
   "navFitness": "Fitness",
   "navGoals": "Goals",
@@ -948,6 +1082,14 @@
   "navTasks": "Tasks",
   "navTime": "My time",
   "neededTime": "Tasks need",
+  "needsReviewScore": "Needs another go · best {n}%",
+  "@needsReviewScore": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "newChat": "New chat",
   "newEvent": "New event",
   "newGoal": "New goal",
@@ -955,6 +1097,7 @@
   "newTask": "New task",
   "newUserBody": "Start with one task and one goal. Then ask the assistant to plan your day.",
   "newUserTitle": "Welcome to Hayati 👋",
+  "newWords": "New words",
   "next": "Next",
   "nextDay": "Next day",
   "nextPeriod": "Next",
@@ -987,6 +1130,7 @@
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
   "noReminder": "No reminder",
+  "noReviewsDue": "Nothing to review right now.",
   "noSearchResults": "No results",
   "noSetsBody": "Nothing will be saved. Leave the workout?",
   "noSetsTitle": "No sets ticked",
@@ -998,6 +1142,7 @@
   "notDue": "Not due",
   "notLogged": "Not logged",
   "notSet": "Not set",
+  "notStarted": "Not started",
   "noteBody": "Write your note…",
   "noteTitle": "Title",
   "notesOptional": "Notes (optional)",
@@ -1094,7 +1239,16 @@
   "passwordChanged": "Password changed",
   "passwordRule": "At least 8 characters, with a letter and a number",
   "pastDay": "This day has passed.",
+  "pathStarted": "Your path starts at A1.",
   "pauseGoal": "Pause",
+  "perWeek": "{n} a week",
+  "@perWeek": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "periodCovers": "Covers {from} – {to}",
   "@periodCovers": {
     "placeholders": {
@@ -1118,6 +1272,18 @@
   "pin": "Pin",
   "placeGym": "Gym",
   "placeHome": "Home",
+  "placementExplain": "Your start level is the middle of your three skill levels. You can retake the test any time.",
+  "placementIntro": "24 short questions from easy to harder. Answer what you can; guessing only makes the result less accurate.",
+  "placementNoPeek": "Answers are shown at the end as your level, not one by one.",
+  "placementResult": "Your level: {level}",
+  "@placementResult": {
+    "placeholders": {
+      "level": {
+        "type": "String"
+      }
+    }
+  },
+  "placementTitle": "Placement test",
   "planApplied": "Plan applied",
   "planEmptyToday": "Nothing planned for today yet.",
   "planExplain": "Plans are built from your answers: full body up to 3 days a week, upper/lower from 4, with core work in every session and rest days between hard ones. Saving keeps your previous plan as an earlier version.",
@@ -1228,7 +1394,19 @@
   "proposalNotFound": "This suggestion no longer exists.",
   "proposalRejected": "Rejected",
   "proposalStale": "Your data changed since this was suggested. Ask again for a fresh suggestion.",
+  "questionOf": "{current} of {total}",
+  "@questionOf": {
+    "placeholders": {
+      "current": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "quickAdd": "Quick add",
+  "readThis": "Read:",
   "reason": "Why",
   "reasonDeadline": "Would finish after its deadline time",
   "reasonNoSlot": "No free slot is long enough",
@@ -1276,9 +1454,31 @@
   "restore": "Restore",
   "restorePurchases": "Restore purchases",
   "resumeGoal": "Make active",
+  "retakePlacement": "Retake test",
   "retry": "Try again",
   "reviewChanges": "Review changes",
+  "reviewDone": "{right} of {total} right. Missed words come back tomorrow.",
+  "@reviewDone": {
+    "placeholders": {
+      "right": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewDue": "{n, plural, =1{1 word to review} other{{n} words to review}}",
+  "@reviewDue": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "reviewMyPlan": "Review my plan",
+  "reviewTitle": "Word review",
+  "reviewWhy": "Words you learned come back at growing intervals so they stick.",
   "sampleGoal1": "Learn English",
   "sampleGoal2": "Learn programming",
   "sampleGoal3": "Exercise regularly",
@@ -1292,6 +1492,17 @@
   "saved": "Saved",
   "saving": "Saving…",
   "scheduleGroup": "When",
+  "scoreOutOf": "You scored {score}% (needed {pass}%).",
+  "@scoreOutOf": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      },
+      "pass": {
+        "type": "int"
+      }
+    }
+  },
   "search": "Search",
   "searchCity": "Search for a city",
   "secondsLabel": "Seconds",
@@ -1304,6 +1515,7 @@
     }
   },
   "sectionsShown": "Sections in the app",
+  "seeResult": "See result",
   "send": "Send",
   "sendResetLink": "Send link",
   "sessionCompleted": "Completed",
@@ -1355,11 +1567,19 @@
   "signOutBody": "Your data stays saved for when you sign in again.",
   "signUpSubtitle": "It takes less than a minute.",
   "signUpTitle": "Create your account",
+  "skillGrammar": "Grammar",
+  "skillReading": "Reading",
+  "skillVocabulary": "Vocabulary",
+  "skillsMeasuredNote": "The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren't assessed yet.",
   "skip": "Skip",
   "skipRest": "Skip",
   "spending": "Spending",
   "splashFailed": "We couldn't start Hayati.",
   "startDate": "Start date",
+  "startFromBeginning": "Start from the beginning",
+  "startLesson": "Start lesson",
+  "startPath": "Start my path",
+  "startQuiz": "Take the short quiz",
   "startTime": "Starts",
   "startWorkout": "Start workout",
   "statusCancelled": "Cancelled",
@@ -1422,6 +1642,8 @@
       }
     }
   },
+  "takeLevelCheck": "Take the level check",
+  "takePlacement": "Take the placement test",
   "targetDate": "Target date",
   "targetOn": "Target {date}",
   "@targetOn": {
@@ -1454,6 +1676,7 @@
   },
   "terms": "Terms of use",
   "termsText": "Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.",
+  "testHistory": "Test history",
   "theme": "Theme",
   "themeDark": "Dark",
   "themeLight": "Light",
@@ -1469,6 +1692,7 @@
   "today": "Today",
   "todayPlan": "Today's plan",
   "todaysHabits": "Today's habits",
+  "todaysLesson": "Today's lesson",
   "todaysWorkout": "Today's workout: {focus}",
   "@todaysWorkout": {
     "placeholders": {
@@ -1488,6 +1712,7 @@
   "toolPlanTask": "Set planned time",
   "topPriorities": "Top priorities",
   "totalSpent": "Total spent",
+  "tryAgain": "Study it again",
   "typeToConfirm": "Type “{word}” to confirm",
   "@typeToConfirm": {
     "placeholders": {
@@ -1586,6 +1811,18 @@
       }
     }
   },
+  "weeklyGoalQuestion": "How many lessons a week?",
+  "weeklyLessons": "{done} of {goal} lessons this week",
+  "@weeklyLessons": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
   "weeklyPlan": "Weekly plan",
   "weightKg": "kg",
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
@@ -1594,6 +1831,7 @@
   "whatWeStoreBody": "Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.",
   "whatWeStoreBodyRemote": "Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.",
   "whyOptional": "Why it matters (optional)",
+  "wordsAddedToReview": "This lesson's words are added to your reviews, starting tomorrow.",
   "workBlock": "Work / study",
   "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",
   "workEnd": "Until",
@@ -1603,5 +1841,6 @@
   "workoutNoteHint": "e.g. knee felt tight on lunges",
   "workoutSaved": "Workout saved. Well done!",
   "workoutSavedPartial": "Saved what you did. Every bit counts.",
-  "yourData": "Your data"
+  "yourData": "Your data",
+  "yourSkills": "Your skills (placement test)"
 }

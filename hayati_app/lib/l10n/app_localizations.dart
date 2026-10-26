@@ -368,6 +368,12 @@ abstract class AppLocalizations {
   /// **'I\'ll log “{name}” as done today.'**
   String aiHabitLogged(String name);
 
+  /// No description provided for @aiLessonSlot.
+  ///
+  /// In en, this message translates to:
+  /// **'You have free time around {time} today for it.'**
+  String aiLessonSlot(String time);
+
   /// No description provided for @aiLimitReached.
   ///
   /// In en, this message translates to:
@@ -404,6 +410,18 @@ abstract class AppLocalizations {
   /// **'You haven\'t allowed me to read your {section}. You can change this in assistant settings.'**
   String aiNeedsSharing(String section);
 
+  /// No description provided for @aiNextLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Next lesson: {title} (about {minutes} min).'**
+  String aiNextLesson(String title, int minutes);
+
+  /// No description provided for @aiNoEnglishPath.
+  ///
+  /// In en, this message translates to:
+  /// **'You haven\'t started the English path yet. Open English to take the placement test.'**
+  String get aiNoEnglishPath;
+
   /// No description provided for @aiNoGoalToSplit.
   ///
   /// In en, this message translates to:
@@ -427,6 +445,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You have no overdue tasks. 🎉'**
   String get aiNoOverdue;
+
+  /// No description provided for @aiNoSlotToday.
+  ///
+  /// In en, this message translates to:
+  /// **'There\'s no free slot left today; tomorrow is fine — the path waits for you.'**
+  String get aiNoSlotToday;
 
   /// No description provided for @aiNoteEmpty.
   ///
@@ -523,6 +547,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I can\'t help with that request. Try asking in a different way.'**
   String get aiRefused;
+
+  /// No description provided for @aiReviewFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Start with a quick review of {n} words — it helps more than skipping ahead.'**
+  String aiReviewFirst(int n);
 
   /// No description provided for @aiReviewGoal.
   ///
@@ -655,6 +685,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'and {n} more'**
   String andMore(int n);
+
+  /// No description provided for @answerRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Correct!'**
+  String get answerRight;
+
+  /// No description provided for @answerWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'The right answer: {answer}'**
+  String answerWrong(String answer);
 
   /// No description provided for @any.
   ///
@@ -866,6 +908,12 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get back;
 
+  /// No description provided for @backToPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the path'**
+  String get backToPath;
+
   /// No description provided for @beforeMinutes.
   ///
   /// In en, this message translates to:
@@ -1028,6 +1076,30 @@ abstract class AppLocalizations {
   /// **'Category (optional)'**
   String get categoryOptional;
 
+  /// No description provided for @cefrA1.
+  ///
+  /// In en, this message translates to:
+  /// **'A1 · Beginner'**
+  String get cefrA1;
+
+  /// No description provided for @cefrA2.
+  ///
+  /// In en, this message translates to:
+  /// **'A2 · Elementary'**
+  String get cefrA2;
+
+  /// No description provided for @cefrB1.
+  ///
+  /// In en, this message translates to:
+  /// **'B1 · Intermediate'**
+  String get cefrB1;
+
+  /// No description provided for @cefrB2.
+  ///
+  /// In en, this message translates to:
+  /// **'B2 · Upper intermediate'**
+  String get cefrB2;
+
   /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
@@ -1039,6 +1111,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n, plural, =1{1 change} other{{n} changes}}'**
   String changesCount(int n);
+
+  /// No description provided for @checkAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get checkAnswer;
 
   /// No description provided for @clear.
   ///
@@ -1135,6 +1213,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn\'t fit'**
   String get couldNotFit;
+
+  /// No description provided for @courseComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve completed the B2 course!'**
+  String get courseComplete;
 
   /// No description provided for @createAccount.
   ///
@@ -1550,6 +1634,12 @@ abstract class AppLocalizations {
   /// **'Documents'**
   String get documents;
 
+  /// No description provided for @done.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get done;
+
   /// No description provided for @doneDays.
   ///
   /// In en, this message translates to:
@@ -1711,6 +1801,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ends'**
   String get endTime;
+
+  /// No description provided for @englishIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short placement test finds your level in vocabulary, grammar and reading, then you get a lesson a day and reviews of what you learned.'**
+  String get englishIntroBody;
+
+  /// No description provided for @englishIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'English, step by step'**
+  String get englishIntroTitle;
+
+  /// No description provided for @englishLessonItem.
+  ///
+  /// In en, this message translates to:
+  /// **'English: {title}'**
+  String englishLessonItem(String title);
 
   /// No description provided for @eqBands.
   ///
@@ -1880,6 +1988,12 @@ abstract class AppLocalizations {
   /// **'Every day'**
   String get everyDay;
 
+  /// No description provided for @examples.
+  ///
+  /// In en, this message translates to:
+  /// **'Examples'**
+  String get examples;
+
   /// No description provided for @execute.
   ///
   /// In en, this message translates to:
@@ -1952,6 +2066,12 @@ abstract class AppLocalizations {
   /// **'Expenses are entered manually. No bank accounts are linked.'**
   String get expensesManualNote;
 
+  /// No description provided for @explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get explanation;
+
   /// No description provided for @exportCopied.
   ///
   /// In en, this message translates to:
@@ -1969,6 +2089,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copies all your data as JSON to the clipboard'**
   String get exportDataSub;
+
+  /// No description provided for @extraLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra lesson'**
+  String get extraLesson;
 
   /// No description provided for @faq.
   ///
@@ -2384,6 +2510,12 @@ abstract class AppLocalizations {
   /// **'Get started'**
   String get getStarted;
 
+  /// No description provided for @goBackOver.
+  ///
+  /// In en, this message translates to:
+  /// **'Go back over these lessons:'**
+  String get goBackOver;
+
   /// No description provided for @goalActive.
   ///
   /// In en, this message translates to:
@@ -2708,11 +2840,107 @@ abstract class AppLocalizations {
   /// **'Last week'**
   String get lastWeek;
 
+  /// No description provided for @leave.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave'**
+  String get leave;
+
+  /// No description provided for @leaveTestBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers so far will be lost.'**
+  String get leaveTestBody;
+
+  /// No description provided for @leaveTestTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave the test?'**
+  String get leaveTestTitle;
+
   /// No description provided for @leaveWithoutSaving.
   ///
   /// In en, this message translates to:
   /// **'Leave without saving'**
   String get leaveWithoutSaving;
+
+  /// No description provided for @lessonAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not mastered yet (80% needed). We\'ll repeat this lesson before moving on.'**
+  String get lessonAgain;
+
+  /// No description provided for @lessonDoneToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s English lesson is done'**
+  String get lessonDoneToday;
+
+  /// No description provided for @lessonMastered.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson mastered. On to the next!'**
+  String get lessonMastered;
+
+  /// No description provided for @lessonMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'About {n} minutes'**
+  String lessonMinutes(int n);
+
+  /// No description provided for @levelCheckBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'ve mastered every lesson at this level. Take the level check to move up.'**
+  String get levelCheckBody;
+
+  /// No description provided for @levelCheckIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions from this level. You need 75% to move up; otherwise we\'ll point you to lessons to revisit.'**
+  String get levelCheckIntro;
+
+  /// No description provided for @levelCheckReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Level check ready'**
+  String get levelCheckReady;
+
+  /// No description provided for @levelCheckTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Level check: {level}'**
+  String levelCheckTitle(String level);
+
+  /// No description provided for @levelComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'{level} lessons complete'**
+  String levelComplete(String level);
+
+  /// No description provided for @levelLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Lessons: {level}'**
+  String levelLessons(String level);
+
+  /// No description provided for @levelNotYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet: {level}'**
+  String levelNotYet(String level);
+
+  /// No description provided for @levelPassed.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed: {level}'**
+  String levelPassed(String level);
+
+  /// No description provided for @levelUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Moving up to {level}!'**
+  String levelUp(String level);
 
   /// No description provided for @limit.
   ///
@@ -2827,6 +3055,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mark as read'**
   String get markRead;
+
+  /// No description provided for @masteredScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastered · best {n}%'**
+  String masteredScore(int n);
 
   /// No description provided for @memberSince.
   ///
@@ -3080,6 +3314,12 @@ abstract class AppLocalizations {
   /// **'Assistant'**
   String get navAssistant;
 
+  /// No description provided for @navEnglish.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get navEnglish;
+
   /// No description provided for @navExpenses.
   ///
   /// In en, this message translates to:
@@ -3158,6 +3398,12 @@ abstract class AppLocalizations {
   /// **'Tasks need'**
   String get neededTime;
 
+  /// No description provided for @needsReviewScore.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs another go · best {n}%'**
+  String needsReviewScore(int n);
+
   /// No description provided for @newChat.
   ///
   /// In en, this message translates to:
@@ -3199,6 +3445,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Welcome to Hayati 👋'**
   String get newUserTitle;
+
+  /// No description provided for @newWords.
+  ///
+  /// In en, this message translates to:
+  /// **'New words'**
+  String get newWords;
 
   /// No description provided for @next.
   ///
@@ -3308,6 +3560,12 @@ abstract class AppLocalizations {
   /// **'No reminder'**
   String get noReminder;
 
+  /// No description provided for @noReviewsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing to review right now.'**
+  String get noReviewsDue;
+
   /// No description provided for @noSearchResults.
   ///
   /// In en, this message translates to:
@@ -3373,6 +3631,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not set'**
   String get notSet;
+
+  /// No description provided for @notStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Not started'**
+  String get notStarted;
 
   /// No description provided for @noteBody.
   ///
@@ -3596,11 +3860,23 @@ abstract class AppLocalizations {
   /// **'This day has passed.'**
   String get pastDay;
 
+  /// No description provided for @pathStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your path starts at A1.'**
+  String get pathStarted;
+
   /// No description provided for @pauseGoal.
   ///
   /// In en, this message translates to:
   /// **'Pause'**
   String get pauseGoal;
+
+  /// No description provided for @perWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} a week'**
+  String perWeek(int n);
 
   /// No description provided for @periodCovers.
   ///
@@ -3679,6 +3955,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Home'**
   String get placeHome;
+
+  /// No description provided for @placementExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Your start level is the middle of your three skill levels. You can retake the test any time.'**
+  String get placementExplain;
+
+  /// No description provided for @placementIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'24 short questions from easy to harder. Answer what you can; guessing only makes the result less accurate.'**
+  String get placementIntro;
+
+  /// No description provided for @placementNoPeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Answers are shown at the end as your level, not one by one.'**
+  String get placementNoPeek;
+
+  /// No description provided for @placementResult.
+  ///
+  /// In en, this message translates to:
+  /// **'Your level: {level}'**
+  String placementResult(String level);
+
+  /// No description provided for @placementTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Placement test'**
+  String get placementTitle;
 
   /// No description provided for @planApplied.
   ///
@@ -4094,11 +4400,23 @@ abstract class AppLocalizations {
   /// **'Your data changed since this was suggested. Ask again for a fresh suggestion.'**
   String get proposalStale;
 
+  /// No description provided for @questionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'{current} of {total}'**
+  String questionOf(int current, int total);
+
   /// No description provided for @quickAdd.
   ///
   /// In en, this message translates to:
   /// **'Quick add'**
   String get quickAdd;
+
+  /// No description provided for @readThis.
+  ///
+  /// In en, this message translates to:
+  /// **'Read:'**
+  String get readThis;
 
   /// No description provided for @reason.
   ///
@@ -4298,6 +4616,12 @@ abstract class AppLocalizations {
   /// **'Make active'**
   String get resumeGoal;
 
+  /// No description provided for @retakePlacement.
+  ///
+  /// In en, this message translates to:
+  /// **'Retake test'**
+  String get retakePlacement;
+
   /// No description provided for @retry.
   ///
   /// In en, this message translates to:
@@ -4310,11 +4634,35 @@ abstract class AppLocalizations {
   /// **'Review changes'**
   String get reviewChanges;
 
+  /// No description provided for @reviewDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{right} of {total} right. Missed words come back tomorrow.'**
+  String reviewDone(int right, int total);
+
+  /// No description provided for @reviewDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 word to review} other{{n} words to review}}'**
+  String reviewDue(int n);
+
   /// No description provided for @reviewMyPlan.
   ///
   /// In en, this message translates to:
   /// **'Review my plan'**
   String get reviewMyPlan;
+
+  /// No description provided for @reviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Word review'**
+  String get reviewTitle;
+
+  /// No description provided for @reviewWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Words you learned come back at growing intervals so they stick.'**
+  String get reviewWhy;
 
   /// No description provided for @sampleGoal1.
   ///
@@ -4394,6 +4742,12 @@ abstract class AppLocalizations {
   /// **'When'**
   String get scheduleGroup;
 
+  /// No description provided for @scoreOutOf.
+  ///
+  /// In en, this message translates to:
+  /// **'You scored {score}% (needed {pass}%).'**
+  String scoreOutOf(int score, int pass);
+
   /// No description provided for @search.
   ///
   /// In en, this message translates to:
@@ -4423,6 +4777,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sections in the app'**
   String get sectionsShown;
+
+  /// No description provided for @seeResult.
+  ///
+  /// In en, this message translates to:
+  /// **'See result'**
+  String get seeResult;
 
   /// No description provided for @send.
   ///
@@ -4586,6 +4946,30 @@ abstract class AppLocalizations {
   /// **'Create your account'**
   String get signUpTitle;
 
+  /// No description provided for @skillGrammar.
+  ///
+  /// In en, this message translates to:
+  /// **'Grammar'**
+  String get skillGrammar;
+
+  /// No description provided for @skillReading.
+  ///
+  /// In en, this message translates to:
+  /// **'Reading'**
+  String get skillReading;
+
+  /// No description provided for @skillVocabulary.
+  ///
+  /// In en, this message translates to:
+  /// **'Vocabulary'**
+  String get skillVocabulary;
+
+  /// No description provided for @skillsMeasuredNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren\'t assessed yet.'**
+  String get skillsMeasuredNote;
+
   /// No description provided for @skip.
   ///
   /// In en, this message translates to:
@@ -4615,6 +4999,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Start date'**
   String get startDate;
+
+  /// No description provided for @startFromBeginning.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from the beginning'**
+  String get startFromBeginning;
+
+  /// No description provided for @startLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Start lesson'**
+  String get startLesson;
+
+  /// No description provided for @startPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Start my path'**
+  String get startPath;
+
+  /// No description provided for @startQuiz.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the short quiz'**
+  String get startQuiz;
 
   /// No description provided for @startTime.
   ///
@@ -4760,6 +5168,18 @@ abstract class AppLocalizations {
   /// **'Up to date · {time}'**
   String syncUpToDate(String time);
 
+  /// No description provided for @takeLevelCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the level check'**
+  String get takeLevelCheck;
+
+  /// No description provided for @takePlacement.
+  ///
+  /// In en, this message translates to:
+  /// **'Take the placement test'**
+  String get takePlacement;
+
   /// No description provided for @targetDate.
   ///
   /// In en, this message translates to:
@@ -4807,6 +5227,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.'**
   String get termsText;
+
+  /// No description provided for @testHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Test history'**
+  String get testHistory;
 
   /// No description provided for @theme.
   ///
@@ -4898,6 +5324,12 @@ abstract class AppLocalizations {
   /// **'Today\'s habits'**
   String get todaysHabits;
 
+  /// No description provided for @todaysLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lesson'**
+  String get todaysLesson;
+
   /// No description provided for @todaysWorkout.
   ///
   /// In en, this message translates to:
@@ -4969,6 +5401,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Total spent'**
   String get totalSpent;
+
+  /// No description provided for @tryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Study it again'**
+  String get tryAgain;
 
   /// No description provided for @typeToConfirm.
   ///
@@ -5186,6 +5624,18 @@ abstract class AppLocalizations {
   /// **'{done} of {planned} workouts done this week'**
   String weekWorkouts(int done, int planned);
 
+  /// No description provided for @weeklyGoalQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'How many lessons a week?'**
+  String get weeklyGoalQuestion;
+
+  /// No description provided for @weeklyLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {goal} lessons this week'**
+  String weeklyLessons(int done, int goal);
+
   /// No description provided for @weeklyPlan.
   ///
   /// In en, this message translates to:
@@ -5233,6 +5683,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Why it matters (optional)'**
   String get whyOptional;
+
+  /// No description provided for @wordsAddedToReview.
+  ///
+  /// In en, this message translates to:
+  /// **'This lesson\'s words are added to your reviews, starting tomorrow.'**
+  String get wordsAddedToReview;
 
   /// No description provided for @workBlock.
   ///
@@ -5293,6 +5749,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your data'**
   String get yourData;
+
+  /// No description provided for @yourSkills.
+  ///
+  /// In en, this message translates to:
+  /// **'Your skills (placement test)'**
+  String get yourSkills;
 }
 
 class _AppLocalizationsDelegate

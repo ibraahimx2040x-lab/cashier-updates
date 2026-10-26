@@ -6,8 +6,10 @@ import '../../data/models/goal.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../l10n/app_localizations.dart';
+import '../day_timeline.dart';
 import '../fitness/exercises.dart';
 import '../fitness/plan_generator.dart';
+import '../learning/path.dart';
 import '../metrics.dart';
 import '../planner.dart';
 import 'tools.dart';
@@ -50,6 +52,7 @@ class AssistantContext {
         settings = d.settings,
         fitness = p.shareFitness ? d.settings.fitness : null,
         gymPlan = p.shareFitness ? d.activePlan(WorkoutPlace.gym) : null,
+        learning = p.shareLearning ? d : null,
         perms = p,
         _data = d;
 
@@ -62,6 +65,9 @@ class AssistantContext {
   final UserSettings settings;
   final FitnessProfile? fitness;
   final WorkoutPlan? gymPlan;
+
+  /// Learning data, when shared.
+  final AppData? learning;
   final AssistantPermissions perms;
   final AppData _data;
 
@@ -105,6 +111,9 @@ class LocalAssistantEngine {
     if (_has(t, const ['النادي', 'الجيم', 'النادى', 'gym']) &&
         _has(t, const ['ما اقدر', 'ما قدرت', 'مقدر', 'ما راح', 'لن اذهب', 'ما اروح', 'can\'t', 'cannot', 'cant', 'unable', 'skip'])) {
       return _gymAtHome(ctx, now);
+    }
+    if (_has(t, const ['فاتني الدرس', 'فاتني درس', 'ما ذاكرت', 'ما درست', 'missed my lesson', 'missed the lesson', 'skipped my lesson'])) {
+      return _missedLesson(ctx, now);
     }
     final free = _durationMinutes(t);
     if (free != null && _has(t, const ['عندي', 'فاضي', 'وقت', 'i have', 'free', 'spare'])) {
@@ -156,6 +165,23 @@ class LocalAssistantEngine {
         },
     ];
     return EngineReply('${l.aiGymAtHome}\n${lines.join('\n')}\n${l.aiGymAtHomeHint}', kind: MessageKind.info);
+  }
+
+  /// "I missed my lesson": what's next, whether review comes first, and a
+  /// slot today if there's one. Nothing is changed.
+  EngineReply _missedLesson(AssistantContext ctx, DateTime now) {
+    final d = ctx.learning;
+    if (d == null) return EngineReply(l.aiNeedsSharing(l.navEnglish), kind: MessageKind.info);
+    if (d.learningPath == null) return EngineReply(l.aiNoEnglishPath, kind: MessageKind.info);
+    final lesson = nextLesson(d);
+    final due = dueReviews(d, now).length;
+    final parts = <String>[
+      lesson == null ? l.levelCheckReady : l.aiNextLesson(lesson.title(l.localeName), lesson.minutes),
+      if (due > 0) l.aiReviewFirst(due),
+    ];
+    final slot = buildTimeline(d, now).items.where((i) => i.kind == TimelineKind.lesson).firstOrNull;
+    parts.add(slot == null ? l.aiNoSlotToday : l.aiLessonSlot(minutesToHm(slot.start.hour * 60 + slot.start.minute)));
+    return EngineReply(parts.join('\n'), kind: MessageKind.info);
   }
 
   /// Suggests open tasks that fit into [minutes] (no changes proposed).
