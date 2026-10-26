@@ -104,7 +104,15 @@ async function chat(db: SupabaseClient, body: Body) {
   // Conversation + user message are stored before calling the model, so a
   // provider failure never loses what the user wrote.
   let conversationId = body.conversationId;
-  if (!conversationId) {
+  if (conversationId) {
+    // The app names conversations itself (it keeps a device copy); create
+    // the server row on first use. RLS stops reuse of another user's id.
+    if (!/^[0-9a-f-]{36}$/i.test(conversationId)) return json({ error: "conversationId" }, 400);
+    const { error } = await db
+      .from("assistant_conversations")
+      .upsert({ id: conversationId, title: message.slice(0, 40) }, { onConflict: "id", ignoreDuplicates: true });
+    if (error) return json({ error: "conversation" }, 500);
+  } else {
     const { data, error } = await db.from("assistant_conversations").insert({ title: message.slice(0, 40) }).select("id").single();
     if (error) return json({ error: "conversation" }, 500);
     conversationId = data.id;

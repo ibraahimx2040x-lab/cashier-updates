@@ -125,6 +125,13 @@ class AppLocalizationsAr extends AppLocalizations {
       'حدث خطأ ولم أستطع الرد. رسالتك محفوظة، حاول مرة أخرى.';
 
   @override
+  String get aiDisabled => 'المساعد متوقف من إعدادات المساعد.';
+
+  @override
+  String get aiRefused =>
+      'لا أستطيع المساعدة في هذا الطلب. جرّب صياغته بطريقة أخرى.';
+
+  @override
   String get aiGoalFirstWeekOnly =>
       'تُنشأ جلسات الأسبوع الأول فقط، ويمكنك إضافة المزيد لاحقًا.';
 

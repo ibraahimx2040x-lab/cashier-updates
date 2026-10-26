@@ -3,19 +3,27 @@
 //
 //   SUPABASE_TEST_URL=http://127.0.0.1:54321 SUPABASE_TEST_ANON_KEY=... \
 //     flutter test test/supabase_integration_test.dart
+//
+// The cloud assistant test also needs the Edge Function served against a
+// fake Messages API (see supabase/README.md) and ASSISTANT_TEST=1.
 import 'dart:io';
 import 'dart:math';
 
+import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/core/config.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
+import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
+import 'package:hayati/domain/assistant/assistant_service.dart';
+import 'package:hayati/domain/assistant/executor.dart';
+import 'package:hayati/l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show AuthClientOptions, AuthFlowType, SupabaseClient;
 
 final url = Platform.environment['SUPABASE_TEST_URL'];
@@ -222,4 +230,39 @@ void main() {
     expect(a.c.read(localStoreProvider).readJson('hayati.data.$uid'), isNull);
     expect(client.auth.currentSession, isNull);
   }, skip: skip);
+
+  test('cloud assistant: proposals run on the server only after approval', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    await a.auth.signUp(email(), 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    final l = lookupAppLocalizations(const Locale('ar'));
+    final svc = a.c.read(assistantProvider.notifier);
+
+    // The fake model answers "أضف" with a create_task call.
+    final conv = await svc.send(null, 'أضف مهمة مراجعة', l);
+    final p = a.data.snapshot.proposals.single;
+    expect(p.remote, isTrue);
+    expect(p.status, ProposalStatus.pending);
+    expect(p.calls.single.tool, 'create_task');
+    expect(a.data.snapshot.tasks, isEmpty, reason: 'nothing changes before approval');
+
+    final r = await svc.approve(p.id);
+    expect(r.outcome, ExecOutcome.executed);
+    expect(r.count, 1);
+    await a.settle();
+    expect(a.data.snapshot.tasks.single.title, 'مراجعة');
+    expect((await svc.approve(p.id)).outcome, ExecOutcome.alreadyExecuted);
+
+    // "plan" → plan_task on the task the server knows about; rejected.
+    await svc.send(conv, 'plan it', l);
+    final plan = a.data.snapshot.proposals.firstWhere((x) => x.id != p.id);
+    expect(plan.calls.single.args['taskId'], a.data.snapshot.tasks.single.id);
+    await svc.reject(plan.id);
+    expect(a.data.snapshot.proposal(plan.id)!.status, ProposalStatus.rejected);
+    final row = await a.client.from('assistant_actions').select('status').eq('id', plan.remoteId!).single();
+    expect(row['status'], 'rejected');
+  }, skip: skip ?? (Platform.environment['ASSISTANT_TEST'] == '1' ? null : 'set ASSISTANT_TEST=1 with the function served'));
 }

@@ -355,19 +355,19 @@ class _ProposalCard extends ConsumerWidget {
           Wrap(spacing: Space.s, runSpacing: Space.s, children: [
             FilledButton(
               style: FilledButton.styleFrom(minimumSize: const Size(64, 40)),
-              onPressed: () {
-                final r = ref.read(assistantProvider.notifier).executor.executeProposal(p.id);
-                _report(context, ref, r);
+              onPressed: () async {
+                final r = await ref.read(assistantProvider.notifier).approve(p.id);
+                if (context.mounted) _report(context, ref, r);
               },
               child: Text(l.approve),
             ),
             OutlinedButton(
               style: OutlinedButton.styleFrom(minimumSize: const Size(64, 40)),
               onPressed: () => context.push(Routes.review(p.id)),
-              child: Text(l.edit),
+              child: Text(p.remote ? l.details : l.edit),
             ),
             TextButton(
-              onPressed: () => ref.read(assistantProvider.notifier).executor.reject(p.id),
+              onPressed: () => ref.read(assistantProvider.notifier).reject(p.id),
               child: Text(l.cancel),
             ),
           ]),

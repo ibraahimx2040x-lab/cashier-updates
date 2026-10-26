@@ -97,6 +97,7 @@ class ActionProposal {
     required this.createdAt,
     this.decidedAt,
     this.result = '',
+    this.remoteId,
   });
 
   final String id;
@@ -116,6 +117,12 @@ class ActionProposal {
   final DateTime? decidedAt;
   final String result;
 
+  /// The server's action id when the cloud assistant proposed this. Such
+  /// proposals are executed by the server, so they can't be edited here.
+  final String? remoteId;
+
+  bool get remote => remoteId != null;
+
   ActionProposal copyWith({
     ProposalStatus? status,
     DateTime? decidedAt,
@@ -134,6 +141,7 @@ class ActionProposal {
         createdAt: createdAt,
         decidedAt: decidedAt ?? this.decidedAt,
         result: result ?? this.result,
+        remoteId: remoteId,
       );
 
   Map<String, Object?> toJson() => {
@@ -148,6 +156,7 @@ class ActionProposal {
         'createdAt': encodeInstant(createdAt),
         'decidedAt': encodeInstant(decidedAt),
         'result': result,
+        if (remoteId != null) 'remoteId': remoteId,
       };
 
   factory ActionProposal.fromJson(Map<String, Object?> j) => ActionProposal(
@@ -162,6 +171,7 @@ class ActionProposal {
         createdAt: decodeInstant(j['createdAt'])!,
         decidedAt: decodeInstant(j['decidedAt']),
         result: (j['result'] as String?) ?? '',
+        remoteId: j['remoteId'] as String?,
       );
 }
 

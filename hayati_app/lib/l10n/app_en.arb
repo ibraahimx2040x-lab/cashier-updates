@@ -53,6 +53,8 @@
   "aiExample3": "Plan my day",
   "aiExecFailed": "I couldn't apply that. Nothing was changed.",
   "aiFailed": "Something went wrong and I couldn't answer. Your message is kept — try again.",
+  "aiDisabled": "The assistant is turned off in assistant settings.",
+  "aiRefused": "I can't help with that request. Try asking in a different way.",
   "aiGoalFirstWeekOnly": "Only the first week of sessions is created; you can add more later.",
   "aiGoalNoSubject": "What would you like to learn?",
   "aiGoalReady": "Here's a plan to learn {subject}: {minutes}-minute daily sessions over {days} days, with four milestones and your first week of sessions. Nothing is created until you approve.",

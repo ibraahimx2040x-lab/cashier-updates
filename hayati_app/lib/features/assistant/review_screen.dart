@@ -103,9 +103,9 @@ class ReviewScreen extends ConsumerWidget {
                           Text(dsc.subject, style: t.titleSmall),
                         ]),
                       ),
-                      if (pending && editable.contains(p.calls[i].tool))
+                      if (pending && !p.remote && editable.contains(p.calls[i].tool))
                         IconButton(tooltip: l.edit, icon: const Icon(Icons.edit_outlined), onPressed: () => _editTitle(context, ref, p, i)),
-                      if (pending)
+                      if (pending && !p.remote)
                         IconButton(tooltip: l.removeItem, icon: const Icon(Icons.remove_circle_outline), onPressed: () => svc.removeCall(p.id, i)),
                     ]),
                     for (final line in dsc.lines)
@@ -142,7 +142,7 @@ class ReviewScreen extends ConsumerWidget {
                       child: SecondaryButton(
                         label: l.reject,
                         onPressed: () {
-                          svc.executor.reject(p.id);
+                          svc.reject(p.id);
                           context.pop();
                         },
                       ),
@@ -151,8 +151,9 @@ class ReviewScreen extends ConsumerWidget {
                     Expanded(
                       child: PrimaryButton(
                         label: l.execute,
-                        onPressed: () {
-                          final r = svc.executor.executeProposal(p.id);
+                        onPressed: () async {
+                          final r = await svc.approve(p.id);
+                          if (!context.mounted) return;
                           reportExecution(context, ref, r);
                           if (r.ok) context.pop();
                         },

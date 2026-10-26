@@ -1,7 +1,15 @@
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'dart:async';
 
+import 'package:flutter/foundation.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_timezone/flutter_timezone.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+import '../../core/config.dart';
+import '../../core/utils/dates.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/assistant.dart';
+import '../../data/remote/sync.dart';
 import '../../l10n/app_localizations.dart';
 import 'engine.dart';
 import 'executor.dart';
@@ -55,8 +63,17 @@ class AssistantService extends Notifier<AssistantUiState> {
 
     final gen = ++_generation;
     state = const AssistantUiState(busy: true);
-    // Keeps the "thinking" state visible and the UI responsive; a remote
-    // provider call goes here in connected mode.
+
+    // Connected: the cloud assistant (Supabase Edge Function) answers and
+    // the server enforces limits and executes. If it can't be reached the
+    // on-device assistant answers instead.
+    final client = ref.read(supabaseClientProvider);
+    if (client != null && client.auth.currentSession != null && settings.assistant.enabled) {
+      final done = await _sendRemote(client, convId, trimmed, l, gen);
+      if (done || gen != _generation) return convId;
+    }
+
+    // Keeps the "thinking" state visible and the UI responsive.
     await Future<void>.delayed(const Duration(milliseconds: 450));
     if (gen != _generation) return convId; // cancelled
 
@@ -121,10 +138,161 @@ class AssistantService extends Notifier<AssistantUiState> {
     );
   }
 
+  /// Returns false when the on-device assistant should answer instead.
+  Future<bool> _sendRemote(SupabaseClient client, String convId, String text, AppLocalizations l, int gen) async {
+    final Map<String, Object?> r;
+    try {
+      // The server reads the user's data from the database, so send any
+      // queued local changes first.
+      await ref.read(syncProvider.notifier).sync().timeout(const Duration(seconds: 8));
+      final res = await client.functions.invoke('assistant', body: {
+        'conversationId': convId,
+        'message': text,
+        'now': encodeInstant(_clock()),
+        'timeZone': ?await _timeZone(),
+        'locale': l.localeName,
+      }).timeout(const Duration(seconds: 90));
+      r = (res.data as Map).cast<String, Object?>();
+    } on FunctionException catch (e) {
+      final error = (e.details is Map) ? (e.details as Map)['error'] : null;
+      if (gen != _generation) return true;
+      switch (error) {
+        case 'limit_reached':
+          _data.addMessage(convId, MessageRole.assistant, l.aiLimitReached, kind: MessageKind.error);
+          state = AssistantUiState(suggestions: state.suggestions);
+          return true;
+        case 'assistant_disabled':
+          _data.addMessage(convId, MessageRole.assistant, l.aiDisabled, kind: MessageKind.info);
+          state = AssistantUiState(suggestions: state.suggestions);
+          return true;
+      }
+      debugPrint('cloud assistant unavailable: ${e.status} $error');
+      return false;
+    } catch (e) {
+      debugPrint('cloud assistant unavailable: $e');
+      return false;
+    }
+    if (gen != _generation) return true;
+
+    final reply = (r['reply'] as String?)?.trim() ?? '';
+    final kind = r['kind'] as String?;
+    final calls = ((r['calls'] as List?) ?? const [])
+        .map((c) => ToolCall.fromJson((c as Map).cast<String, Object?>()))
+        .toList();
+    final actionId = r['actionId'] as String?;
+
+    if (kind == 'error' || (actionId == null && reply.isEmpty)) {
+      final msg = r['error'] == 'refusal' ? l.aiRefused : l.aiFailed;
+      _data.addMessage(convId, MessageRole.assistant, msg, kind: MessageKind.error);
+      state = AssistantUiState(failedDraft: text);
+      return true;
+    }
+    if (actionId == null || calls.isEmpty) {
+      final note = r['note'] == 'drafts_disabled' ? '\n${l.aiDraftsDisabled}' : '';
+      _data.addMessage(convId, MessageRole.assistant, '$reply$note',
+          kind: kind == 'info' ? MessageKind.info : MessageKind.text);
+      state = const AssistantUiState();
+      return true;
+    }
+
+    final status = r['actionStatus'] as String?;
+    if (status != null && status != 'pending') {
+      // Allowed to run automatically; the server already applied it.
+      final ok = status == 'executed';
+      _data.addMessage(convId, MessageRole.assistant, ok ? '$reply\n${l.aiAutoDone}' : l.aiExecFailed,
+          kind: ok ? MessageKind.text : MessageKind.error);
+      if (ok) unawaited(ref.read(syncProvider.notifier).sync());
+      state = const AssistantUiState();
+      return true;
+    }
+
+    final p = ActionProposal(
+      id: newId(),
+      conversationId: convId,
+      reason: reply,
+      calls: calls,
+      idempotencyKey: actionId,
+      createdAt: _clock(),
+      remoteId: actionId,
+    );
+    _data.saveProposal(p);
+    _data.addMessage(convId, MessageRole.assistant, reply,
+        kind: kind == 'plan' ? MessageKind.plan : MessageKind.proposal, proposalId: p.id);
+    state = const AssistantUiState();
+    return true;
+  }
+
+  static Future<String?> _timeZone() async {
+    try {
+      return (await FlutterTimezone.getLocalTimezone()).identifier;
+    } catch (_) {
+      return null; // the server falls back to the profile's zone
+    }
+  }
+
+  /// Executes an approved proposal: on the server for cloud proposals,
+  /// otherwise on the device.
+  Future<ExecResult> approve(String proposalId) async {
+    final p = ref.read(dataProvider).proposal(proposalId);
+    final client = ref.read(supabaseClientProvider);
+    if (p == null || !p.remote) return executor.executeProposal(proposalId);
+    if (p.status == ProposalStatus.executed) return const ExecResult(ExecOutcome.alreadyExecuted);
+    if (p.status != ProposalStatus.pending) return const ExecResult(ExecOutcome.notPending);
+    if (client == null) return const ExecResult(ExecOutcome.failed, error: 'offline');
+
+    Map<String, Object?> r;
+    try {
+      final res = await client.functions
+          .invoke('assistant/execute', body: {'actionId': p.remoteId})
+          .timeout(const Duration(seconds: 30));
+      r = (res.data as Map).cast<String, Object?>();
+    } catch (e) {
+      // Not decided: the user can try again (execution is idempotent).
+      return ExecResult(ExecOutcome.failed, error: '$e');
+    }
+    final outcome = switch (r['outcome']) {
+      'executed' => ExecOutcome.executed,
+      'already_executed' => ExecOutcome.alreadyExecuted,
+      'stale' => ExecOutcome.stale,
+      'not_pending' => ExecOutcome.notPending,
+      'not_found' => ExecOutcome.invalid,
+      _ => ExecOutcome.failed,
+    };
+    final count = switch (r['applied'] ?? (r['result'] as Map?)?['applied']) { num n => n.toInt(), _ => 0 };
+    final current = ref.read(dataProvider).proposal(proposalId) ?? p;
+    _data.saveProposal(current.copyWith(
+      status: switch (outcome) {
+        ExecOutcome.executed || ExecOutcome.alreadyExecuted => ProposalStatus.executed,
+        ExecOutcome.stale => ProposalStatus.stale,
+        ExecOutcome.notPending => ProposalStatus.rejected,
+        _ => ProposalStatus.failed,
+      },
+      decidedAt: _clock(),
+      result: (r['error'] as String?) ?? '$count',
+    ));
+    if (outcome == ExecOutcome.executed) {
+      // Bring the server's changes to the device.
+      unawaited(ref.read(syncProvider.notifier).sync());
+    }
+    return ExecResult(outcome, count: count, error: r['error'] as String?);
+  }
+
+  Future<void> reject(String proposalId) async {
+    final p = ref.read(dataProvider).proposal(proposalId);
+    executor.reject(proposalId);
+    final client = ref.read(supabaseClientProvider);
+    if (p == null || !p.remote || p.status != ProposalStatus.pending || client == null) return;
+    try {
+      await client.functions.invoke('assistant/reject', body: {'actionId': p.remoteId});
+    } catch (_) {
+      // Rejected on the device either way; the server row just stays pending.
+    }
+  }
+
   /// Replaces one call's args before approval (the review screen's "edit").
   void editCall(String proposalId, int index, Map<String, Object?> args) {
     final p = ref.read(dataProvider).proposal(proposalId);
-    if (p == null || p.status != ProposalStatus.pending) return;
+    if (p == null || p.remote || p.status != ProposalStatus.pending) return;
     final calls = [...p.calls];
     calls[index] = ToolCall(calls[index].tool, args);
     _data.saveProposal(p.copyWith(calls: calls));
@@ -132,7 +300,7 @@ class AssistantService extends Notifier<AssistantUiState> {
 
   void removeCall(String proposalId, int index) {
     final p = ref.read(dataProvider).proposal(proposalId);
-    if (p == null || p.status != ProposalStatus.pending) return;
+    if (p == null || p.remote || p.status != ProposalStatus.pending) return;
     final calls = [...p.calls]..removeAt(index);
     if (calls.isEmpty) {
       executor.reject(proposalId);

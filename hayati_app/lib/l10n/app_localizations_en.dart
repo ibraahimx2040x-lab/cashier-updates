@@ -123,6 +123,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Something went wrong and I couldn\'t answer. Your message is kept — try again.';
 
   @override
+  String get aiDisabled => 'The assistant is turned off in assistant settings.';
+
+  @override
+  String get aiRefused =>
+      'I can\'t help with that request. Try asking in a different way.';
+
+  @override
   String get aiGoalFirstWeekOnly =>
       'Only the first week of sessions is created; you can add more later.';
 

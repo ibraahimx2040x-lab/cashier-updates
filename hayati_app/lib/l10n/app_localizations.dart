@@ -290,6 +290,18 @@ abstract class AppLocalizations {
   /// **'Something went wrong and I couldn\'t answer. Your message is kept — try again.'**
   String get aiFailed;
 
+  /// No description provided for @aiDisabled.
+  ///
+  /// In en, this message translates to:
+  /// **'The assistant is turned off in assistant settings.'**
+  String get aiDisabled;
+
+  /// No description provided for @aiRefused.
+  ///
+  /// In en, this message translates to:
+  /// **'I can\'t help with that request. Try asking in a different way.'**
+  String get aiRefused;
+
   /// No description provided for @aiGoalFirstWeekOnly.
   ///
   /// In en, this message translates to:
