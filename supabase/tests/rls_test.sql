@@ -146,5 +146,41 @@ exception when insufficient_privilege then raise notice 'ok: cannot log for anot
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Fitness: one active plan per place, versions kept, sessions validated.
+insert into workout_plans (id, place, version, goal, days) values
+  ('aaaaaaaa-0000-0000-0000-0000000000d1', 'home', 1, 'general', '[{"weekday":1,"focus":"fullBody","minutes":30,"exercises":[]}]');
+do $$ begin
+  insert into workout_plans (place, version, goal, days) values ('home', 2, 'general', '[{"weekday":1}]');
+  raise exception 'FAILED: two active plans for one place';
+exception when unique_violation then raise notice 'ok: one active plan per place';
+end $$;
+update workout_plans set active = false where id = 'aaaaaaaa-0000-0000-0000-0000000000d1';
+insert into workout_plans (place, version, goal, days) values ('home', 2, 'general', '[{"weekday":1}]');
+select pg_temp.check((select count(*) = 2 from workout_plans), 'earlier plan version kept');
+insert into workout_sessions (plan_id, day, place, focus, status, difficulty, sets)
+  values ('aaaaaaaa-0000-0000-0000-0000000000d1', current_date, 'home', 'fullBody', 'partial', 3,
+          '[{"exerciseId":"bw_squat","setIndex":0,"reps":10}]');
+select pg_temp.check((select plan_id = 'aaaaaaaa-0000-0000-0000-0000000000d1' from workout_sessions), 'session keeps the plan version');
+do $$ begin
+  insert into workout_sessions (day, place, focus, status) values (current_date + 2, 'home', 'upper', 'completed');
+  raise exception 'FAILED: future workout';
+exception when check_violation then raise notice 'ok: no workout logged for a future day';
+end $$;
+do $$ begin
+  insert into workout_sessions (day, place, focus, status, difficulty) values (current_date, 'home', 'upper', 'completed', 6);
+  raise exception 'FAILED: difficulty out of range';
+exception when check_violation then raise notice 'ok: difficulty 1-5';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check((select count(*) = 0 from workout_plans) and (select count(*) = 0 from workout_sessions),
+  'B cannot read A''s plans or workouts');
+do $$ begin
+  insert into workout_sessions (plan_id, day, place, focus, status)
+    values ('aaaaaaaa-0000-0000-0000-0000000000d1', current_date, 'home', 'upper', 'completed');
+  raise exception 'FAILED: linked a workout to another user''s plan';
+exception when foreign_key_violation then raise notice 'ok: cannot link to another user''s plan';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

@@ -1,3 +1,4 @@
+import 'fitness.dart';
 import 'prayer.dart';
 
 /// Per-user preferences (the `profiles` table on the server).
@@ -29,6 +30,7 @@ class AssistantPermissions {
     this.shareHabits = true,
     this.shareNotes = false,
     this.shareExpenses = false,
+    this.shareFitness = true,
     this.retentionDays = 90,
   });
 
@@ -49,6 +51,7 @@ class AssistantPermissions {
   final bool shareHabits;
   final bool shareNotes;
   final bool shareExpenses;
+  final bool shareFitness;
 
   /// Conversation retention; 0 = keep until deleted.
   final int retentionDays;
@@ -66,6 +69,7 @@ class AssistantPermissions {
     bool? shareHabits,
     bool? shareNotes,
     bool? shareExpenses,
+    bool? shareFitness,
     int? retentionDays,
   }) =>
       AssistantPermissions(
@@ -81,6 +85,7 @@ class AssistantPermissions {
         shareHabits: shareHabits ?? this.shareHabits,
         shareNotes: shareNotes ?? this.shareNotes,
         shareExpenses: shareExpenses ?? this.shareExpenses,
+        shareFitness: shareFitness ?? this.shareFitness,
         retentionDays: retentionDays ?? this.retentionDays,
       );
 
@@ -97,6 +102,7 @@ class AssistantPermissions {
         'shareHabits': shareHabits,
         'shareNotes': shareNotes,
         'shareExpenses': shareExpenses,
+        'shareFitness': shareFitness,
         'retentionDays': retentionDays,
       };
 
@@ -116,6 +122,7 @@ class AssistantPermissions {
       shareHabits: b('shareHabits', d.shareHabits),
       shareNotes: b('shareNotes', d.shareNotes),
       shareExpenses: b('shareExpenses', d.shareExpenses),
+      shareFitness: b('shareFitness', d.shareFitness),
       retentionDays: (j['retentionDays'] as int?) ?? d.retentionDays,
     );
   }
@@ -147,6 +154,7 @@ class UserSettings {
     this.homeShowGoals = true,
     this.assistant = const AssistantPermissions(),
     this.prayer = const PrayerSettings(),
+    this.fitness,
   });
 
   final String displayName;
@@ -170,6 +178,9 @@ class UserSettings {
   final AssistantPermissions assistant;
   final PrayerSettings prayer;
 
+  /// Null until the user sets up a training plan.
+  final FitnessProfile? fitness;
+
   bool has(AppModule m) => modules.contains(m);
 
   UserSettings copyWith({
@@ -191,6 +202,7 @@ class UserSettings {
     bool? homeShowGoals,
     AssistantPermissions? assistant,
     PrayerSettings? prayer,
+    FitnessProfile? Function()? fitness,
   }) =>
       UserSettings(
         displayName: displayName ?? this.displayName,
@@ -211,6 +223,7 @@ class UserSettings {
         homeShowGoals: homeShowGoals ?? this.homeShowGoals,
         assistant: assistant ?? this.assistant,
         prayer: prayer ?? this.prayer,
+        fitness: fitness != null ? fitness() : this.fitness,
       );
 
   Map<String, Object?> toJson() => {
@@ -232,6 +245,7 @@ class UserSettings {
         'homeShowGoals': homeShowGoals,
         'assistant': assistant.toJson(),
         'prayer': prayer.toJson(),
+        'fitness': fitness?.toJson(),
       };
 
   factory UserSettings.fromJson(Map<String, Object?> j) {
@@ -260,6 +274,7 @@ class UserSettings {
           ? d.assistant
           : AssistantPermissions.fromJson((j['assistant'] as Map).cast()),
       prayer: j['prayer'] == null ? d.prayer : PrayerSettings.fromJson((j['prayer'] as Map).cast()),
+      fitness: FitnessProfile.fromJson((j['fitness'] as Map?)?.cast()),
     );
   }
 }

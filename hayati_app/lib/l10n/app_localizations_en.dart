@@ -164,6 +164,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get aiGymAtHome => 'Here\'s today\'s gym workout at home:';
+
+  @override
+  String get aiGymAtHomeHint =>
+      'Open Fitness and tap \"Can\'t go to the gym\" to start it.';
+
+  @override
   String aiHabitLogged(String name) {
     return 'I\'ll log “$name” as done today.';
   }
@@ -200,6 +207,14 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aiNoGoalToSplit =>
       'I didn\'t find an active goal without milestones. Create a goal first or tell me what you want to learn.';
+
+  @override
+  String get aiNoGymPlan =>
+      'You don\'t have a gym plan yet. Set one up in Fitness.';
+
+  @override
+  String get aiNoGymToday =>
+      'Today isn\'t a gym day in your plan, so there\'s nothing to replace.';
 
   @override
   String get aiNoOverdue => 'You have no overdue tasks. 🎉';
@@ -340,6 +355,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get alreadyExecuted => 'Already applied — nothing was repeated.';
 
   @override
+  String get alternatives => 'Alternatives';
+
+  @override
   String get alwaysRequired => 'Always required — cannot be turned off';
 
   @override
@@ -400,6 +418,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get approved => 'Approved';
+
+  @override
+  String approximateSwap(String from, String to) {
+    return '$from → $to (approximate)';
+  }
 
   @override
   String get archive => 'Archive';
@@ -500,6 +523,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Paid features are only enabled after your purchase is verified by our server through the app store.';
 
   @override
+  String get bodyweight => 'Body weight';
+
+  @override
   String get breakEnd => 'Until';
 
   @override
@@ -540,6 +566,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cancel => 'Cancel';
+
+  @override
+  String get cantGoToGym => 'Can\'t go to the gym';
 
   @override
   String get catHealth => 'Health';
@@ -637,6 +666,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get createFirstPlan => 'Create my first plan';
+
+  @override
+  String get createMyPlan => 'Create my plan';
 
   @override
   String get currency => 'Currency';
@@ -789,6 +821,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteTaskTitle => 'Delete task?';
 
   @override
+  String get deleteWorkoutBody => 'Its logged sets will be removed.';
+
+  @override
+  String get deleteWorkoutTitle => 'Delete this workout?';
+
+  @override
   String get deleted => 'Deleted';
 
   @override
@@ -825,6 +863,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get devNotifTitle => 'Phone notifications';
+
+  @override
+  String get diffEasy => 'Easy';
+
+  @override
+  String get diffHard => 'Hard';
+
+  @override
+  String get diffMedium => 'Medium';
 
   @override
   String get discard => 'Discard';
@@ -876,7 +923,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editMilestone => 'Edit milestone';
 
   @override
+  String get editPlan => 'Change plan';
+
+  @override
   String get editTask => 'Edit task';
+
+  @override
+  String effort(String n) {
+    String _temp0 = intl.Intl.selectLogic(n, {
+      '1': 'easy',
+      '2': 'fairly easy',
+      '3': 'moderate',
+      '4': 'hard',
+      'other': 'very hard',
+    });
+    return '$_temp0';
+  }
 
   @override
   String get email => 'Email';
@@ -923,6 +985,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get endTime => 'Ends';
+
+  @override
+  String get eqBands => 'Resistance bands';
+
+  @override
+  String get eqBench => 'Bench';
+
+  @override
+  String get eqDumbbells => 'Dumbbells';
+
+  @override
+  String get eqKettlebell => 'Kettlebell';
+
+  @override
+  String get eqPullupBar => 'Pull-up bar';
 
   @override
   String get errAgree => 'Please accept the terms and privacy policy';
@@ -1006,6 +1083,17 @@ class AppLocalizationsEn extends AppLocalizations {
       locale: localeName,
       other: 'Done — $n changes applied',
       one: 'Done — 1 change applied',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exerciseCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n exercises',
+      one: '1 exercise',
     );
     return '$_temp0';
   }
@@ -1116,6 +1204,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get featTemplates => 'Goal templates';
 
   @override
+  String feltLike(String effort) {
+    return 'felt $effort';
+  }
+
+  @override
+  String get fgFatLoss => 'Lose fat';
+
+  @override
+  String get fgFatLossHint =>
+      'Strength work plus cardio. Food matters most; the app gives no diet advice.';
+
+  @override
+  String get fgGeneral => 'General fitness';
+
+  @override
+  String get fgGeneralHint => 'Balanced strength, cardio and movement.';
+
+  @override
+  String get fgMobility => 'Mobility and moving better';
+
+  @override
+  String get fgMobilityHint =>
+      'Gentle sessions for flexibility, posture and recovery.';
+
+  @override
+  String get fgMuscle => 'Build muscle';
+
+  @override
+  String get fgMuscleHint =>
+      'Moderate reps and enough weekly volume for each muscle.';
+
+  @override
+  String get fgStrength => 'Get stronger';
+
+  @override
+  String get fgStrengthHint =>
+      'Fewer reps, longer rest, steady progress on key lifts.';
+
+  @override
   String get filterAll => 'All';
 
   @override
@@ -1137,10 +1264,51 @@ class AppLocalizationsEn extends AppLocalizations {
   String get finishSetup => 'Finish setup';
 
   @override
+  String get finishWorkout => 'Finish workout';
+
+  @override
+  String get fitnessIntroBody =>
+      'Answer a few questions and get a plan for home, the gym, or both — with alternatives when equipment is missing.';
+
+  @override
+  String get fitnessIntroTitle => 'Training that fits your week';
+
+  @override
+  String get fitnessSafety =>
+      'Hayati gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.';
+
+  @override
+  String get fitnessSetupTitle => 'Your training plan';
+
+  @override
   String get fixedBlocks => 'Fixed blocks';
 
   @override
   String get fixedCommitments => 'Fixed commitments';
+
+  @override
+  String get flAdvanced => 'Advanced';
+
+  @override
+  String get flBeginner => 'Beginner';
+
+  @override
+  String get flIntermediate => 'Intermediate';
+
+  @override
+  String get focusConditioning => 'Conditioning';
+
+  @override
+  String get focusFullBody => 'Full body';
+
+  @override
+  String get focusLower => 'Lower body';
+
+  @override
+  String get focusMobility => 'Mobility and recovery';
+
+  @override
+  String get focusUpper => 'Upper body';
 
   @override
   String get forgotLocalMode =>
@@ -1161,6 +1329,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get freeTimeNow => 'Free time';
+
+  @override
+  String get fsDays => 'Days per week';
+
+  @override
+  String get fsEquipment => 'Equipment at home';
+
+  @override
+  String get fsEquipmentHint => 'Leave empty for body-weight only.';
+
+  @override
+  String get fsGoal => 'What\'s your main goal?';
+
+  @override
+  String get fsLevel => 'Your experience';
+
+  @override
+  String get fsMinutes => 'Minutes per session';
+
+  @override
+  String fsPickDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Pick $n more days',
+      one: 'Pick 1 more day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fsPlaces => 'Where will you train?';
+
+  @override
+  String get fsPlacesHint =>
+      'Choose both to get two plans and switch between them any day.';
+
+  @override
+  String fsWhichDays(int n) {
+    return 'Pick $n days';
+  }
 
   @override
   String get getStarted => 'Get started';
@@ -1268,7 +1477,17 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tap a past day to correct it. Days the habit isn\'t due are neutral.';
 
   @override
+  String get homeInstead => 'At home instead';
+
+  @override
   String get homeSections => 'Home screen';
+
+  @override
+  String get homeVersionBody =>
+      'Exercises are swapped for ones you can do with your home equipment. Not every exercise has an exact match.';
+
+  @override
+  String get homeVersionTitle => 'Today\'s gym workout, at home';
 
   @override
   String get homeViewGoals => 'Goals';
@@ -1278,6 +1497,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get homeViewWeek => 'Week';
+
+  @override
+  String get howDidItFeel => 'How did it feel? (optional)';
+
+  @override
+  String get howTo => 'How to do it';
 
   @override
   String inDuration(String duration) {
@@ -1323,6 +1548,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get lastWeek => 'Last week';
+
+  @override
+  String get leaveWithoutSaving => 'Leave without saving';
 
   @override
   String get limit => 'Limit';
@@ -1473,6 +1701,36 @@ class AppLocalizationsEn extends AppLocalizations {
   String get movedTomorrow => 'Moved to tomorrow';
 
   @override
+  String get muArms => 'Arms';
+
+  @override
+  String get muBack => 'Back';
+
+  @override
+  String get muCardio => 'Cardio';
+
+  @override
+  String get muChest => 'Chest';
+
+  @override
+  String get muCore => 'Core';
+
+  @override
+  String get muFullBody => 'Full body';
+
+  @override
+  String get muGlutes => 'Glutes';
+
+  @override
+  String get muLegs => 'Legs';
+
+  @override
+  String get muMobility => 'Mobility';
+
+  @override
+  String get muShoulders => 'Shoulders';
+
+  @override
   String get multiCurrencyNote =>
       'Each currency is totalled separately — amounts are never combined across currencies.';
 
@@ -1490,6 +1748,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get navExpenses => 'Expenses';
+
+  @override
+  String get navFitness => 'Fitness';
 
   @override
   String get navGoals => 'Goals';
@@ -1585,6 +1846,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noHabitsYet => 'No habits yet';
 
   @override
+  String noHomeAlternative(String name) {
+    return '$name: no home alternative, skipped today';
+  }
+
+  @override
   String get noLinkedTasks => 'No tasks linked to this goal yet.';
 
   @override
@@ -1603,6 +1869,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noSearchResults => 'No results';
 
   @override
+  String get noSetsBody => 'Nothing will be saved. Leave the workout?';
+
+  @override
+  String get noSetsTitle => 'No sets ticked';
+
+  @override
   String get noTasksToday => 'No tasks for today.';
 
   @override
@@ -1610,6 +1882,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noUpcoming => 'No upcoming events.';
+
+  @override
+  String get noWorkoutThatDay => 'No workout is planned for that day.';
 
   @override
   String get none => 'None';
@@ -1797,10 +2072,25 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pin => 'Pin';
 
   @override
+  String get placeGym => 'Gym';
+
+  @override
+  String get placeHome => 'Home';
+
+  @override
   String get planApplied => 'Plan applied';
 
   @override
   String get planEmptyToday => 'Nothing planned for today yet.';
+
+  @override
+  String get planExplain =>
+      'Plans are built from your answers: full body up to 3 days a week, upper/lower from 4, with core work in every session and rest days between hard ones. Saving keeps your previous plan as an earlier version.';
+
+  @override
+  String planFor(String place) {
+    return 'Plan: $place';
+  }
 
   @override
   String get planFree => 'Free';
@@ -1816,8 +2106,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planPro => 'Hayati Pro';
 
   @override
+  String get planSaved => 'Plan saved';
+
+  @override
   String planSummary(int done, int total) {
     return '$done of $total tasks done today';
+  }
+
+  @override
+  String planVersion(int version, String date) {
+    return 'Plan version $version · created $date';
   }
 
   @override
@@ -2030,6 +2328,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reasonNoTime => 'Not enough free time left today';
 
   @override
+  String get recentWorkouts => 'Recent workouts';
+
+  @override
+  String get recoveryWarning =>
+      'Two demanding sessions fall on back-to-back days. Consider a rest day between them.';
+
+  @override
   String get regional => 'Region & time';
 
   @override
@@ -2081,6 +2386,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Report saved. It will be sent when the support service is connected.';
 
   @override
+  String get repsLabel => 'Reps';
+
+  @override
   String get resetLinkSent =>
       'If an account exists for this email, a reset link is on its way.';
 
@@ -2088,7 +2396,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get restBlock => 'Break';
 
   @override
+  String get restDayBody =>
+      'Recovery is part of the plan. A walk or light stretching is plenty.';
+
+  @override
+  String get restDayTitle => 'Rest day';
+
+  @override
+  String restFor(int n) {
+    return 'Rest $n s';
+  }
+
+  @override
   String get restOfDayFree => 'The rest of the day is yours.';
+
+  @override
+  String restSeconds(int n) {
+    return 'rest $n s';
+  }
 
   @override
   String get restore => 'Restore';
@@ -2130,7 +2455,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveGoal => 'Save goal';
 
   @override
+  String get savePlan => 'Save plan';
+
+  @override
   String get saveTask => 'Save task';
+
+  @override
+  String get saveWorkout => 'Save workout';
 
   @override
   String get saved => 'Saved';
@@ -2148,6 +2479,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get searchCity => 'Search for a city';
 
   @override
+  String get secondsLabel => 'Seconds';
+
+  @override
+  String secondsShort(int n) {
+    return '$n s';
+  }
+
+  @override
   String get sectionsShown => 'Sections in the app';
 
   @override
@@ -2157,7 +2496,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sendResetLink => 'Send link';
 
   @override
+  String get sessionCompleted => 'Completed';
+
+  @override
   String get sessionLength => 'Session length';
+
+  @override
+  String get sessionPartial => 'Partly done';
 
   @override
   String get sessions => 'Sessions';
@@ -2169,6 +2514,27 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sessionsRemote =>
       'Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.';
+
+  @override
+  String setN(int n) {
+    return 'Set $n';
+  }
+
+  @override
+  String setsLogged(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n sets',
+      one: '1 set',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String setsProgress(int done, int total) {
+    return '$done/$total sets';
+  }
 
   @override
   String get shareNotesSub => 'Off by default';
@@ -2184,6 +2550,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get showCompleted => 'Show completed & archived';
+
+  @override
+  String get showMyPlan => 'Show my plan';
 
   @override
   String get showNameGreeting => 'Show my name in the greeting';
@@ -2219,6 +2588,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skip => 'Skip';
 
   @override
+  String get skipRest => 'Skip';
+
+  @override
   String get spending => 'Spending';
 
   @override
@@ -2229,6 +2601,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get startTime => 'Starts';
+
+  @override
+  String get startWorkout => 'Start workout';
 
   @override
   String get statusCancelled => 'Cancelled';
@@ -2411,6 +2786,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get todaysHabits => 'Today\'s habits';
 
   @override
+  String todaysWorkout(String focus) {
+    return 'Today\'s workout: $focus';
+  }
+
+  @override
   String get tomorrow => 'Tomorrow';
 
   @override
@@ -2589,6 +2969,17 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String weekWorkouts(int done, int planned) {
+    return '$done of $planned workouts done this week';
+  }
+
+  @override
+  String get weeklyPlan => 'Weekly plan';
+
+  @override
+  String get weightKg => 'kg';
+
+  @override
   String get welcomeBody =>
       'Your time, goals, habits, notes and spending — in one place that plans with you.';
 
@@ -2621,6 +3012,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workStart => 'Work/study from';
+
+  @override
+  String get workoutDoneToday => 'Today\'s workout is done';
+
+  @override
+  String get workoutNote => 'Note';
+
+  @override
+  String get workoutNoteHint => 'e.g. knee felt tight on lunges';
+
+  @override
+  String get workoutSaved => 'Workout saved. Well done!';
+
+  @override
+  String get workoutSavedPartial => 'Saved what you did. Every bit counts.';
 
   @override
   String get yourData => 'Your data';

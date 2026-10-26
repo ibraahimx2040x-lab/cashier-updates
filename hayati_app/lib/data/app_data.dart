@@ -1,4 +1,5 @@
 import 'models/assistant.dart';
+import 'models/fitness.dart';
 import 'models/goal.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
@@ -16,6 +17,8 @@ class AppData {
     this.habits = const [],
     this.habitLogs = const [],
     this.prayerLogs = const [],
+    this.workoutPlans = const [],
+    this.workoutSessions = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -37,6 +40,8 @@ class AppData {
   final List<Habit> habits;
   final List<HabitLog> habitLogs;
   final List<PrayerLog> prayerLogs;
+  final List<WorkoutPlan> workoutPlans;
+  final List<WorkoutSession> workoutSessions;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -67,6 +72,14 @@ class AppData {
   bool habitDoneOn(String habitId, String day) =>
       habitLogs.any((l) => l.habitId == habitId && l.day == day);
 
+  /// The plan currently followed at [place], if any.
+  WorkoutPlan? activePlan(WorkoutPlace place) =>
+      workoutPlans.where((p) => p.place == place && p.active).firstOrNull;
+
+  WorkoutPlan? plan(String? id) => _find(workoutPlans, id, (p) => p.id);
+
+  List<WorkoutSession> sessionsOn(String day) => workoutSessions.where((s) => s.day == day).toList();
+
   bool prayerLogged(Prayer p, String day) => prayerLogs.any((l) => l.prayer == p && l.day == day);
 
   int get unreadNotifications => notifications.where((n) => !n.read).length;
@@ -93,6 +106,8 @@ class AppData {
     List<Habit>? habits,
     List<HabitLog>? habitLogs,
     List<PrayerLog>? prayerLogs,
+    List<WorkoutPlan>? workoutPlans,
+    List<WorkoutSession>? workoutSessions,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -114,6 +129,8 @@ class AppData {
         habits: habits ?? this.habits,
         habitLogs: habitLogs ?? this.habitLogs,
         prayerLogs: prayerLogs ?? this.prayerLogs,
+        workoutPlans: workoutPlans ?? this.workoutPlans,
+        workoutSessions: workoutSessions ?? this.workoutSessions,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -137,6 +154,8 @@ class AppData {
         'habits': habits.map((e) => e.toJson()).toList(),
         'habitLogs': habitLogs.map((e) => e.toJson()).toList(),
         'prayerLogs': prayerLogs.map((e) => e.toJson()).toList(),
+        'workoutPlans': workoutPlans.map((e) => e.toJson()).toList(),
+        'workoutSessions': workoutSessions.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -164,6 +183,8 @@ class AppData {
       habits: list('habits', Habit.fromJson),
       habitLogs: list('habitLogs', HabitLog.fromJson),
       prayerLogs: list('prayerLogs', PrayerLog.fromJson),
+      workoutPlans: list('workoutPlans', WorkoutPlan.fromJson),
+      workoutSessions: list('workoutSessions', WorkoutSession.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

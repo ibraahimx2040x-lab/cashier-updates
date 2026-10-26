@@ -12,6 +12,11 @@ import '../../features/auth/onboarding_screen.dart';
 import '../../features/auth/splash_screen.dart';
 import '../../features/auth/welcome_screen.dart';
 import '../../features/expenses/expenses_screen.dart';
+import '../../data/models/fitness.dart';
+import '../../features/fitness/exercise_screen.dart';
+import '../../features/fitness/fitness_screen.dart';
+import '../../features/fitness/fitness_setup_screen.dart';
+import '../../features/fitness/workout_session_screen.dart';
 import '../../features/goals/goal_edit_screen.dart';
 import '../../features/goals/goals_screen.dart';
 import '../../features/habits/habits_screen.dart';
@@ -121,6 +126,14 @@ final routerProvider = Provider<GoRouter>((ref) {
       page('/assistant/review/:id', (s) => ReviewScreen(proposalId: s.pathParameters['id']!)),
       page(Routes.prayer, (_) => const PrayerScreen()),
       page(Routes.prayerSettings, (_) => const PrayerSettingsScreen()),
+      page(Routes.fitness, (_) => const FitnessScreen()),
+      page(Routes.fitnessSetup, (_) => const FitnessSetupScreen()),
+      page('/fitness/exercise/:id', (s) => ExerciseScreen(exerciseId: s.pathParameters['id']!)),
+      page('/fitness/session', (s) => WorkoutSessionScreen(
+            place: WorkoutPlace.values.where((p) => p.name == s.uri.queryParameters['place']).firstOrNull ?? WorkoutPlace.home,
+            weekday: int.tryParse(s.uri.queryParameters['day'] ?? '') ?? DateTime.now().weekday,
+            atHome: s.uri.queryParameters['home'] == '1',
+          )),
       page(Routes.habits, (_) => const HabitsScreen()),
       page(Routes.notes, (_) => const NotesScreen()),
       page('/note/:id', (s) => NoteEditorScreen(noteId: s.pathParameters['id'] == 'new' ? null : s.pathParameters['id'])),

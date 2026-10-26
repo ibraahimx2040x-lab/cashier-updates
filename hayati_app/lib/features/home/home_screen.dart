@@ -12,10 +12,12 @@ import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/app_data.dart';
 import '../../data/data_controller.dart';
+import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../domain/day_timeline.dart';
+import '../../domain/fitness/today.dart';
 import '../../domain/metrics.dart';
 import '../../domain/planner.dart';
 import '../../domain/prayer_times.dart';
@@ -248,6 +250,8 @@ class _TodayView extends ConsumerWidget {
           onPlan: () => ask(l.aiChipPlanDay),
         ),
       _PrayerStrip(d: d, now: now, fmt: fmt),
+      if (todaysWorkout(d, now) case (final plan, final day))
+        _WorkoutStrip(done: d.sessionsOn(dayKey(now)).isNotEmpty, focus: day.focus, minutes: day.minutes, place: plan.place),
       _AskChips(onAsk: ask),
       if (wide)
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -457,6 +461,40 @@ class _PrayerStrip extends ConsumerWidget {
   }
 }
 
+/// Today's training, if today is a workout day.
+class _WorkoutStrip extends StatelessWidget {
+  const _WorkoutStrip({required this.done, required this.focus, required this.minutes, required this.place});
+  final bool done;
+  final DayFocus focus;
+  final int minutes;
+  final WorkoutPlace place;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final scheme = Theme.of(context).colorScheme;
+    return AppCard(
+      onTap: () => context.push(Routes.fitness),
+      child: Row(children: [
+        CircleAvatar(
+          backgroundColor: context.status.highlight,
+          child: Icon(done ? Icons.check : Icons.fitness_center, color: done ? context.status.success : scheme.primary),
+        ),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(done ? l.workoutDoneToday : l.todaysWorkout(l.dayFocus(focus)), style: t.titleSmall),
+            Text('${l.workoutPlace(place)} · ${l.unitMinutes(minutes)}',
+                style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          ]),
+        ),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
 class _AskChips extends StatelessWidget {
   const _AskChips({required this.onAsk});
   final ValueChanged<String> onAsk;
@@ -504,6 +542,7 @@ class _Timeline extends StatelessWidget {
               TimelineKind.prayer => scheme.primary,
               TimelineKind.event => context.status.info,
               TimelineKind.task => scheme.secondary,
+              TimelineKind.workout => context.status.success,
               TimelineKind.work => context.status.warning,
               TimelineKind.rest => context.status.inactive,
             };
@@ -513,6 +552,7 @@ class _Timeline extends StatelessWidget {
               child: InkWell(
                 onTap: switch (it.kind) {
                   TimelineKind.task => () => context.push(Routes.task(it.refId!)),
+                  TimelineKind.workout => () => context.push(Routes.fitness),
                   TimelineKind.event => () => context.push(Routes.event(it.refId!)),
                   TimelineKind.prayer => () => context.push(Routes.prayer),
                   _ => null,
@@ -578,12 +618,14 @@ IconData iconFor(TimelineItem it) => switch (it.kind) {
       TimelineKind.prayer => Icons.mosque_outlined,
       TimelineKind.event => Icons.event,
       TimelineKind.task => Icons.check_circle_outline,
+      TimelineKind.workout => Icons.fitness_center,
       TimelineKind.work => Icons.work_outline,
       TimelineKind.rest => Icons.free_breakfast_outlined,
     };
 
 String itemTitle(AppLocalizations l, TimelineItem it) => switch (it.kind) {
       TimelineKind.prayer => l.prayerName(it.prayer!),
+      TimelineKind.workout => l.todaysWorkout(l.dayFocus(it.focus!)),
       TimelineKind.work => l.workBlock,
       TimelineKind.rest => l.restBlock,
       _ => it.title ?? '',
@@ -741,6 +783,7 @@ class _MoreMenu extends ConsumerWidget {
       onSelected: (r) => r == 'add' ? showQuickAdd(context, ref) : context.push(r),
       itemBuilder: (_) => [
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
+        _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),
         if (settings.has(AppModule.expenses)) _item(Routes.expenses, Icons.account_balance_wallet_outlined, l.navExpenses),

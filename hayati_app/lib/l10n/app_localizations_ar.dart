@@ -166,6 +166,13 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get aiGymAtHome => 'هذا تمرين النادي لليوم بنسخة منزلية:';
+
+  @override
+  String get aiGymAtHomeHint =>
+      'افتح الرياضة واضغط «لا أستطيع الذهاب للنادي» لتبدأها.';
+
+  @override
   String aiHabitLogged(String name) {
     return 'سأسجّل «$name» كمنجزة اليوم.';
   }
@@ -202,6 +209,13 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get aiNoGoalToSplit =>
       'لم أجد هدفًا نشطًا بلا مراحل. أنشئ هدفًا أولًا أو أخبرني بما تريد تعلمه.';
+
+  @override
+  String get aiNoGymPlan => 'ليس لديك خطة للنادي بعد. أنشئها من قسم الرياضة.';
+
+  @override
+  String get aiNoGymToday =>
+      'اليوم ليس يوم نادٍ في خطتك، فلا شيء يحتاج بديلًا.';
 
   @override
   String get aiNoOverdue => 'لا توجد لديك مهام متأخرة. 🎉';
@@ -340,6 +354,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get alreadyExecuted => 'طُبّق مسبقًا، ولم يُكرَّر شيء.';
 
   @override
+  String get alternatives => 'البدائل';
+
+  @override
   String get alwaysRequired => 'مطلوبة دائمًا ولا يمكن تعطيلها';
 
   @override
@@ -402,6 +419,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get approved => 'بموافقتك';
+
+  @override
+  String approximateSwap(String from, String to) {
+    return '$from ← $to (بديل تقريبي)';
+  }
 
   @override
   String get archive => 'أرشفة';
@@ -500,6 +522,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا تُفعّل المزايا المدفوعة إلا بعد تحقق خادمنا من الشراء عبر المتجر.';
 
   @override
+  String get bodyweight => 'وزن الجسم';
+
+  @override
   String get breakEnd => 'إلى';
 
   @override
@@ -541,6 +566,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cancel => 'إلغاء';
+
+  @override
+  String get cantGoToGym => 'لا أستطيع الذهاب للنادي';
 
   @override
   String get catHealth => 'الصحة';
@@ -640,6 +668,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get createFirstPlan => 'أنشئ خطتي الأولى';
+
+  @override
+  String get createMyPlan => 'إنشاء خطتي';
 
   @override
   String get currency => 'العملة';
@@ -794,6 +825,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteTaskTitle => 'حذف المهمة؟';
 
   @override
+  String get deleteWorkoutBody => 'ستُحذف المجموعات المسجلة فيه.';
+
+  @override
+  String get deleteWorkoutTitle => 'حذف هذا التمرين؟';
+
+  @override
   String get deleted => 'تم الحذف';
 
   @override
@@ -830,6 +867,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get devNotifTitle => 'إشعارات الجهاز';
+
+  @override
+  String get diffEasy => 'سهل';
+
+  @override
+  String get diffHard => 'صعب';
+
+  @override
+  String get diffMedium => 'متوسط';
 
   @override
   String get discard => 'تجاهل';
@@ -881,7 +927,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editMilestone => 'تعديل المرحلة';
 
   @override
+  String get editPlan => 'تعديل الخطة';
+
+  @override
   String get editTask => 'تعديل المهمة';
+
+  @override
+  String effort(String n) {
+    String _temp0 = intl.Intl.selectLogic(n, {
+      '1': 'سهل',
+      '2': 'سهل نسبيًا',
+      '3': 'متوسط',
+      '4': 'صعب',
+      'other': 'صعب جدًا',
+    });
+    return '$_temp0';
+  }
 
   @override
   String get email => 'البريد الإلكتروني';
@@ -928,6 +989,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get endTime => 'النهاية';
+
+  @override
+  String get eqBands => 'حبال مطاطية';
+
+  @override
+  String get eqBench => 'بنش';
+
+  @override
+  String get eqDumbbells => 'دمبلز';
+
+  @override
+  String get eqKettlebell => 'كيتلبل';
+
+  @override
+  String get eqPullupBar => 'عقلة';
 
   @override
   String get errAgree => 'يرجى الموافقة على الشروط وسياسة الخصوصية';
@@ -1013,6 +1089,19 @@ class AppLocalizationsAr extends AppLocalizations {
       few: 'تم — طُبّقت $n تغييرات',
       two: 'تم — طُبّق تغييران',
       one: 'تم — طُبّق تغيير واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String exerciseCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n تمرينًا',
+      few: '$n تمارين',
+      two: 'تمرينان',
+      one: 'تمرين واحد',
     );
     return '$_temp0';
   }
@@ -1123,6 +1212,43 @@ class AppLocalizationsAr extends AppLocalizations {
   String get featTemplates => 'قوالب جاهزة للأهداف';
 
   @override
+  String feltLike(String effort) {
+    return 'الإحساس: $effort';
+  }
+
+  @override
+  String get fgFatLoss => 'خسارة الدهون';
+
+  @override
+  String get fgFatLossHint =>
+      'تمارين قوة مع نشاط هوائي. الغذاء هو الأهم، والتطبيق لا يقدم نصائح غذائية.';
+
+  @override
+  String get fgGeneral => 'لياقة عامة';
+
+  @override
+  String get fgGeneralHint => 'توازن بين القوة والنشاط الهوائي والحركة.';
+
+  @override
+  String get fgMobility => 'المرونة والحركة';
+
+  @override
+  String get fgMobilityHint => 'حصص لطيفة للمرونة والقوام والتعافي.';
+
+  @override
+  String get fgMuscle => 'بناء العضلات';
+
+  @override
+  String get fgMuscleHint => 'تكرارات متوسطة وحجم أسبوعي كافٍ لكل عضلة.';
+
+  @override
+  String get fgStrength => 'زيادة القوة';
+
+  @override
+  String get fgStrengthHint =>
+      'تكرارات أقل وراحة أطول وتقدم ثابت في التمارين الأساسية.';
+
+  @override
   String get filterAll => 'الكل';
 
   @override
@@ -1144,10 +1270,51 @@ class AppLocalizationsAr extends AppLocalizations {
   String get finishSetup => 'إنهاء الإعداد';
 
   @override
+  String get finishWorkout => 'إنهاء التمرين';
+
+  @override
+  String get fitnessIntroBody =>
+      'أجب عن أسئلة قليلة لتحصل على خطة للمنزل أو النادي أو كليهما، مع بدائل عند غياب المعدات.';
+
+  @override
+  String get fitnessIntroTitle => 'تمارين تناسب أسبوعك';
+
+  @override
+  String get fitnessSafety =>
+      'يقدم التطبيق إرشادات تمارين عامة وليست نصيحة طبية. إن كانت لديك إصابة أو حالة صحية فاستشر مختصًا أولًا، وتوقف عند الشعور بالألم.';
+
+  @override
+  String get fitnessSetupTitle => 'خطتك الرياضية';
+
+  @override
   String get fixedBlocks => 'التزامات ثابتة';
 
   @override
   String get fixedCommitments => 'الالتزامات الثابتة';
+
+  @override
+  String get flAdvanced => 'متقدم';
+
+  @override
+  String get flBeginner => 'مبتدئ';
+
+  @override
+  String get flIntermediate => 'متوسط';
+
+  @override
+  String get focusConditioning => 'لياقة هوائية';
+
+  @override
+  String get focusFullBody => 'الجسم كامل';
+
+  @override
+  String get focusLower => 'الجزء السفلي';
+
+  @override
+  String get focusMobility => 'مرونة وتعافٍ';
+
+  @override
+  String get focusUpper => 'الجزء العلوي';
 
   @override
   String get forgotLocalMode =>
@@ -1168,6 +1335,49 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get freeTimeNow => 'وقت حر';
+
+  @override
+  String get fsDays => 'عدد الأيام في الأسبوع';
+
+  @override
+  String get fsEquipment => 'المعدات في المنزل';
+
+  @override
+  String get fsEquipmentHint => 'اتركها فارغة للتمارين بوزن الجسم فقط.';
+
+  @override
+  String get fsGoal => 'ما هدفك الأساسي؟';
+
+  @override
+  String get fsLevel => 'مستوى خبرتك';
+
+  @override
+  String get fsMinutes => 'مدة الحصة';
+
+  @override
+  String fsPickDays(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'اختر $n يومًا آخر',
+      few: 'اختر $n أيام أخرى',
+      two: 'اختر يومين آخرين',
+      one: 'اختر يومًا آخر',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get fsPlaces => 'أين ستتمرن؟';
+
+  @override
+  String get fsPlacesHint =>
+      'اختر الاثنين لتحصل على خطتين وتنتقل بينهما في أي يوم.';
+
+  @override
+  String fsWhichDays(int n) {
+    return 'اختر $n أيام';
+  }
 
   @override
   String get getStarted => 'ابدأ الآن';
@@ -1273,7 +1483,17 @@ class AppLocalizationsAr extends AppLocalizations {
       'اضغط على يوم سابق لتصحيحه. الأيام غير المستحقة محايدة.';
 
   @override
+  String get homeInstead => 'في المنزل بدلًا من النادي';
+
+  @override
   String get homeSections => 'الصفحة الرئيسية';
+
+  @override
+  String get homeVersionBody =>
+      'استُبدلت التمارين بما يمكنك أداؤه بمعداتك المنزلية. ليس لكل تمرين بديل مطابق تمامًا.';
+
+  @override
+  String get homeVersionTitle => 'تمرين النادي لليوم في المنزل';
 
   @override
   String get homeViewGoals => 'الأهداف';
@@ -1283,6 +1503,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get homeViewWeek => 'الأسبوع';
+
+  @override
+  String get howDidItFeel => 'كيف كان التمرين؟ (اختياري)';
+
+  @override
+  String get howTo => 'طريقة الأداء';
 
   @override
   String inDuration(String duration) {
@@ -1328,6 +1554,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get lastWeek => 'الأسبوع الماضي';
+
+  @override
+  String get leaveWithoutSaving => 'الخروج دون حفظ';
 
   @override
   String get limit => 'الحد';
@@ -1477,6 +1706,36 @@ class AppLocalizationsAr extends AppLocalizations {
   String get movedTomorrow => 'نُقلت إلى الغد';
 
   @override
+  String get muArms => 'الذراعان';
+
+  @override
+  String get muBack => 'الظهر';
+
+  @override
+  String get muCardio => 'هوائي';
+
+  @override
+  String get muChest => 'الصدر';
+
+  @override
+  String get muCore => 'الجذع';
+
+  @override
+  String get muFullBody => 'الجسم كامل';
+
+  @override
+  String get muGlutes => 'الأرداف';
+
+  @override
+  String get muLegs => 'الأرجل';
+
+  @override
+  String get muMobility => 'مرونة';
+
+  @override
+  String get muShoulders => 'الأكتاف';
+
+  @override
   String get multiCurrencyNote =>
       'يُجمع كل مبلغ بعملته — لا تُجمع العملات المختلفة معًا.';
 
@@ -1494,6 +1753,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navExpenses => 'المصروفات';
+
+  @override
+  String get navFitness => 'الرياضة';
 
   @override
   String get navGoals => 'أهدافي';
@@ -1589,6 +1851,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noHabitsYet => 'لا توجد عادات بعد';
 
   @override
+  String noHomeAlternative(String name) {
+    return '$name: لا يوجد بديل منزلي، يُتخطى اليوم';
+  }
+
+  @override
   String get noLinkedTasks => 'لا توجد مهام مرتبطة بهذا الهدف بعد.';
 
   @override
@@ -1607,6 +1874,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noSearchResults => 'لا توجد نتائج';
 
   @override
+  String get noSetsBody => 'لن يُحفظ شيء. هل تريد الخروج من التمرين؟';
+
+  @override
+  String get noSetsTitle => 'لم تحدد أي مجموعة';
+
+  @override
   String get noTasksToday => 'لا توجد مهام لليوم.';
 
   @override
@@ -1614,6 +1887,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noUpcoming => 'لا توجد مواعيد قادمة.';
+
+  @override
+  String get noWorkoutThatDay => 'لا يوجد تمرين مخطط لذلك اليوم.';
 
   @override
   String get none => 'بدون';
@@ -1798,10 +2074,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pin => 'تثبيت';
 
   @override
+  String get placeGym => 'النادي';
+
+  @override
+  String get placeHome => 'المنزل';
+
+  @override
   String get planApplied => 'تم اعتماد الخطة';
 
   @override
   String get planEmptyToday => 'لا شيء مخطط لليوم بعد.';
+
+  @override
+  String get planExplain =>
+      'تُبنى الخطة من إجاباتك: الجسم كامل حتى 3 أيام أسبوعيًا، وعلوي/سفلي من 4 أيام، مع تمارين الجذع في كل حصة وأيام راحة بين الحصص الشاقة. عند الحفظ تبقى خطتك السابقة كإصدار سابق.';
+
+  @override
+  String planFor(String place) {
+    return 'خطة $place';
+  }
 
   @override
   String get planFree => 'المجانية';
@@ -1817,8 +2108,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get planPro => 'حياتي برو';
 
   @override
+  String get planSaved => 'حُفظت الخطة';
+
+  @override
   String planSummary(int done, int total) {
     return 'أنجزت $done من $total مهام اليوم';
+  }
+
+  @override
+  String planVersion(int version, String date) {
+    return 'الخطة: الإصدار $version · أُنشئت في $date';
   }
 
   @override
@@ -2030,6 +2329,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reasonNoTime => 'لا يكفي الوقت المتبقي اليوم';
 
   @override
+  String get recentWorkouts => 'آخر التمارين';
+
+  @override
+  String get recoveryWarning =>
+      'حصتان شاقتان في يومين متتاليين. يُفضّل يوم راحة بينهما.';
+
+  @override
   String get regional => 'المنطقة والوقت';
 
   @override
@@ -2080,6 +2386,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reportSaved => 'حُفظ البلاغ، وسيُرسل عند ربط خدمة الدعم.';
 
   @override
+  String get repsLabel => 'التكرارات';
+
+  @override
   String get resetLinkSent =>
       'إن وُجد حساب بهذا البريد فسيصله رابط إعادة التعيين.';
 
@@ -2087,7 +2396,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get restBlock => 'استراحة';
 
   @override
+  String get restDayBody => 'التعافي جزء من الخطة. يكفي مشي أو إطالة خفيفة.';
+
+  @override
+  String get restDayTitle => 'يوم راحة';
+
+  @override
+  String restFor(int n) {
+    return 'راحة $n ث';
+  }
+
+  @override
   String get restOfDayFree => 'بقية اليوم لك.';
+
+  @override
+  String restSeconds(int n) {
+    return 'راحة $n ث';
+  }
 
   @override
   String get restore => 'استعادة';
@@ -2129,7 +2454,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get saveGoal => 'حفظ الهدف';
 
   @override
+  String get savePlan => 'حفظ الخطة';
+
+  @override
   String get saveTask => 'حفظ المهمة';
+
+  @override
+  String get saveWorkout => 'حفظ التمرين';
 
   @override
   String get saved => 'تم الحفظ';
@@ -2147,6 +2478,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get searchCity => 'ابحث عن مدينة';
 
   @override
+  String get secondsLabel => 'الثواني';
+
+  @override
+  String secondsShort(int n) {
+    return '$n ث';
+  }
+
+  @override
   String get sectionsShown => 'الأقسام الظاهرة في التطبيق';
 
   @override
@@ -2156,7 +2495,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sendResetLink => 'إرسال الرابط';
 
   @override
+  String get sessionCompleted => 'مكتمل';
+
+  @override
   String get sessionLength => 'مدة الجلسة';
+
+  @override
+  String get sessionPartial => 'منجز جزئيًا';
 
   @override
   String get sessions => 'الجلسات';
@@ -2168,6 +2513,29 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get sessionsRemote =>
       'تسجيل الخروج ينهي الجلسة على هذا الجهاز. تغيير كلمة المرور يُخرج الأجهزة الأخرى عند تجديد جلستها.';
+
+  @override
+  String setN(int n) {
+    return 'مجموعة $n';
+  }
+
+  @override
+  String setsLogged(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n مجموعة',
+      few: '$n مجموعات',
+      two: 'مجموعتان',
+      one: 'مجموعة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String setsProgress(int done, int total) {
+    return '$done/$total مجموعة';
+  }
 
   @override
   String get shareNotesSub => 'معطّل افتراضيًا';
@@ -2183,6 +2551,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get showCompleted => 'عرض المكتملة والمؤرشفة';
+
+  @override
+  String get showMyPlan => 'اعرض خطتي';
 
   @override
   String get showNameGreeting => 'إظهار اسمي في التحية';
@@ -2218,6 +2589,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skip => 'تخطٍ';
 
   @override
+  String get skipRest => 'تخطَّ';
+
+  @override
   String get spending => 'المصروفات';
 
   @override
@@ -2228,6 +2602,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get startTime => 'البداية';
+
+  @override
+  String get startWorkout => 'ابدأ التمرين';
 
   @override
   String get statusCancelled => 'ملغاة';
@@ -2420,6 +2797,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get todaysHabits => 'عادات اليوم';
 
   @override
+  String todaysWorkout(String focus) {
+    return 'تمرين اليوم: $focus';
+  }
+
+  @override
   String get tomorrow => 'غدًا';
 
   @override
@@ -2609,6 +2991,17 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String weekWorkouts(int done, int planned) {
+    return 'أنجزت $done من $planned تمارين هذا الأسبوع';
+  }
+
+  @override
+  String get weeklyPlan => 'خطة الأسبوع';
+
+  @override
+  String get weightKg => 'كجم';
+
+  @override
   String get welcomeBody =>
       'وقتك وأهدافك وعاداتك وملاحظاتك ومصروفاتك في مكان واحد يخطط معك.';
 
@@ -2641,6 +3034,21 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get workStart => 'العمل/الدراسة من';
+
+  @override
+  String get workoutDoneToday => 'أنجزت تمرين اليوم';
+
+  @override
+  String get workoutNote => 'ملاحظة';
+
+  @override
+  String get workoutNoteHint => 'مثال: شعرت بشد في الركبة مع الطعن';
+
+  @override
+  String get workoutSaved => 'حُفظ التمرين. أحسنت!';
+
+  @override
+  String get workoutSavedPartial => 'حُفظ ما أنجزته. كل جهد يُحسب.';
 
   @override
   String get yourData => 'بياناتك';

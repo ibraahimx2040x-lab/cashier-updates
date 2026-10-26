@@ -7,6 +7,7 @@ import '../core/utils/dates.dart';
 import 'app_data.dart';
 import 'auth.dart';
 import 'models/assistant.dart';
+import 'models/fitness.dart';
 import 'models/goal.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
@@ -309,6 +310,43 @@ class DataController extends Notifier<AppData> {
           : state.prayerLogs.where((l) => !(l.prayer == prayer && l.day == day)).toList(),
     ));
   }
+
+  // ----------------------------------------------------------------- fitness
+
+  /// Saves the training profile and a new version of each generated plan.
+  /// Previous versions are kept (inactive) so past sessions still show the
+  /// plan that was followed.
+  void saveFitness(FitnessProfile profile, Map<WorkoutPlace, List<WorkoutDay>> plans) {
+    if (plans.isEmpty || plans.values.any((d) => d.isEmpty)) throw ArgumentError('empty');
+    final now = _now;
+    final updated = [
+      // Deactivations first: the server allows one active plan per place.
+      for (final p in state.workoutPlans) plans.containsKey(p.place) && p.active ? p.copyWith(active: false) : p,
+      for (final e in plans.entries)
+        WorkoutPlan(
+          id: newId(),
+          place: e.key,
+          version: state.workoutPlans.where((p) => p.place == e.key).fold(0, (m, p) => p.version > m ? p.version : m) + 1,
+          active: true,
+          goal: profile.goal,
+          days: e.value,
+          createdAt: now,
+        ),
+    ];
+    _set(state.copyWith(
+      settings: state.settings.copyWith(fitness: () => profile),
+      workoutPlans: updated,
+    ));
+  }
+
+  /// Records a finished session (only sets the user entered).
+  void logWorkout(WorkoutSession s) {
+    if (dateOnly(parseDayKey(s.day)).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    _set(state.copyWith(workoutSessions: _upsert(state.workoutSessions, s, (e) => e.id)));
+  }
+
+  void deleteWorkout(String id) =>
+      _set(state.copyWith(workoutSessions: state.workoutSessions.where((s) => s.id != id).toList()));
 
   // ------------------------------------------------------------------- notes
 
