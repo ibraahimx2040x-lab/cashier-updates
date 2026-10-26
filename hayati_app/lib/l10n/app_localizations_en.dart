@@ -543,6 +543,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearRead => 'Clear read notifications';
 
   @override
+  String get cloudModeNotice =>
+      'Your data is saved to your account and kept on this device for offline use.';
+
+  @override
   String get comingSoon => 'Coming soon';
 
   @override
@@ -558,6 +562,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String completionRateDef(int done, int total) {
     return '$done of $total due in period (cancelled excluded)';
   }
+
+  @override
+  String get confirmEmailSent =>
+      'Account created. We sent a confirmation link to your email — open it, then sign in.';
 
   @override
   String get confirmPassword => 'Confirm password';
@@ -656,6 +664,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'This permanently deletes your account and everything in it from this device: tasks, events, goals, habits, notes, expenses and assistant chats. This can\'t be undone. Consider exporting your data first (Privacy & data).';
 
   @override
+  String get deleteAccountConsequencesRemote =>
+      'This requests permanent deletion of your account and everything in it: tasks, events, goals, habits, notes, expenses and assistant chats. You\'ll be signed out now and this device\'s copy will be removed; the server removes the rest per our retention policy. This can\'t be undone. Consider exporting your data first.';
+
+  @override
   String get deleteAccountSub => 'Permanently remove your account and data';
 
   @override
@@ -731,6 +743,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleted => 'Deleted';
 
   @override
+  String get deletionRequested =>
+      'Deletion requested. Your account and data will be removed from our servers.';
+
+  @override
   String get descriptionOptional => 'Description (optional)';
 
   @override
@@ -789,10 +805,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get email => 'Email';
 
   @override
+  String get emailNotVerified => 'Not verified yet';
+
+  @override
   String get emailPassword => 'Email and password';
 
   @override
   String get emailVerification => 'Email verification';
+
+  @override
+  String get emailVerified => 'Verified';
 
   @override
   String get emptyAll => 'No tasks yet.';
@@ -841,6 +863,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errEmailExists => 'An account with this email already exists';
 
   @override
+  String get errEmailNotConfirmed =>
+      'Please confirm your email first using the link we sent.';
+
+  @override
   String get errEndBeforeStart => 'End time must be after the start time';
 
   @override
@@ -861,6 +887,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errPositiveMinutes => 'Enter minutes between 1 and 1440';
+
+  @override
+  String get errRateLimited =>
+      'Too many attempts. Please wait a little and try again.';
 
   @override
   String get errRequired => 'This field is required';
@@ -976,6 +1006,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'In local mode, on this device only. You can export it any time from Privacy & data.';
 
   @override
+  String get faq5aRemote =>
+      'In your account on our servers, protected so only you can read it, with a copy on this device for offline use. You can export it any time from Privacy & data.';
+
+  @override
   String get faq5q => 'Where is my data stored?';
 
   @override
@@ -1034,6 +1068,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get forgotRemoteBody =>
+      'Enter your email and we\'ll send you a link to set a new password.';
 
   @override
   String get forgotTitle => 'Recover access';
@@ -1760,6 +1798,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Report saved. It will be sent when the support service is connected.';
 
   @override
+  String get resetLinkSent =>
+      'If an account exists for this email, a reset link is on its way.';
+
+  @override
   String get restBlock => 'Break';
 
   @override
@@ -1823,6 +1865,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get send => 'Send';
 
   @override
+  String get sendResetLink => 'Send link';
+
+  @override
   String get sessionLength => 'Session length';
 
   @override
@@ -1831,6 +1876,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sessionsLocal =>
       'Local mode has one session per device. Signing out ends it.';
+
+  @override
+  String get sessionsRemote =>
+      'Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.';
 
   @override
   String get shareNotesSub => 'Off by default';
@@ -1941,6 +1990,47 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get switchToSignUp => 'New here? Create an account';
+
+  @override
+  String get syncNever => 'Not synced yet';
+
+  @override
+  String get syncNow => 'Sync now';
+
+  @override
+  String syncOffline(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Offline — $n changes will sync when you\'re back online.',
+      one: 'Offline — 1 change will sync when you\'re back online.',
+      zero: 'Offline — showing saved data.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String syncPending(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n changes waiting to upload',
+      one: '1 change waiting to upload',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get syncRejected =>
+      'Some changes couldn\'t be saved to your account and were replaced with the saved version.';
+
+  @override
+  String get syncStatus => 'Sync';
+
+  @override
+  String syncUpToDate(String time) {
+    return 'Up to date · $time';
+  }
 
   @override
   String get targetDate => 'Target date';
@@ -2180,6 +2270,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get whatWeStoreBody =>
       'Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.';
+
+  @override
+  String get whatWeStoreBodyRemote =>
+      'Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.';
 
   @override
   String get whyOptional => 'Why it matters (optional)';

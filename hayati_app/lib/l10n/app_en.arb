@@ -389,6 +389,7 @@
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
+  "cloudModeNotice": "Your data is saved to your account and kept on this device for offline use.",
   "comingSoon": "Coming soon",
   "completedAndArchived": "Completed & archived",
   "completedPerDay": "Completed per day",
@@ -404,6 +405,7 @@
       }
     }
   },
+  "confirmEmailSent": "Account created. We sent a confirmation link to your email — open it, then sign in.",
   "confirmPassword": "Confirm password",
   "conflict": "Conflict",
   "conflictKeep": "This time overlaps with “{title}”. Keep it anyway?",
@@ -452,6 +454,7 @@
   "delete": "Delete",
   "deleteAccount": "Delete account",
   "deleteAccountConsequences": "This permanently deletes your account and everything in it from this device: tasks, events, goals, habits, notes, expenses and assistant chats. This can't be undone. Consider exporting your data first (Privacy & data).",
+  "deleteAccountConsequencesRemote": "This requests permanent deletion of your account and everything in it: tasks, events, goals, habits, notes, expenses and assistant chats. You'll be signed out now and this device's copy will be removed; the server removes the rest per our retention policy. This can't be undone. Consider exporting your data first.",
   "deleteAccountSub": "Permanently remove your account and data",
   "deleteAllChats": "Delete all chats",
   "deleteAllChatsBody": "All conversations and pending suggestions will be deleted. Applied changes stay.",
@@ -488,6 +491,7 @@
   },
   "deleteTaskTitle": "Delete task?",
   "deleted": "Deleted",
+  "deletionRequested": "Deletion requested. Your account and data will be removed from our servers.",
   "descriptionOptional": "Description (optional)",
   "details": "Details",
   "discard": "Discard",
@@ -507,8 +511,10 @@
   "editMilestone": "Edit milestone",
   "editTask": "Edit task",
   "email": "Email",
+  "emailNotVerified": "Not verified yet",
   "emailPassword": "Email and password",
   "emailVerification": "Email verification",
+  "emailVerified": "Verified",
   "emptyAll": "No tasks yet.",
   "emptyArchived": "Nothing archived.",
   "emptyCompleted": "No completed tasks yet.",
@@ -524,6 +530,7 @@
   "errCurrentPassword": "Current password is incorrect",
   "errEmail": "Enter a valid email address",
   "errEmailExists": "An account with this email already exists",
+  "errEmailNotConfirmed": "Please confirm your email first using the link we sent.",
   "errEndBeforeStart": "End time must be after the start time",
   "errNetwork": "Connection problem. Please try again.",
   "errPasswordMatch": "Passwords don't match",
@@ -531,6 +538,7 @@
   "errPickDays": "Pick at least one day",
   "errPositiveAmount": "Enter an amount greater than zero",
   "errPositiveMinutes": "Enter minutes between 1 and 1440",
+  "errRateLimited": "Too many attempts. Please wait a little and try again.",
   "errRequired": "This field is required",
   "errSave": "Couldn't save. Check the fields and try again.",
   "errTargetBeforeStart": "Target date must be after the start date",
@@ -577,6 +585,7 @@
   "faq4a": "In this version reminders appear in the notification centre while the app is open. Make sure the task has a reminder and a deadline or planned time.",
   "faq4q": "I'm not getting reminders",
   "faq5a": "In local mode, on this device only. You can export it any time from Privacy & data.",
+  "faq5aRemote": "In your account on our servers, protected so only you can read it, with a copy on this device for offline use. You can export it any time from Privacy & data.",
   "faq5q": "Where is my data stored?",
   "featAdvancedReports": "Detailed reports and insights",
   "featAssistantLimited": "Assistant: up to {limit} requests a day",
@@ -603,6 +612,7 @@
   "fixedCommitments": "Fixed commitments",
   "forgotLocalMode": "In this version, accounts are stored on this device only, so password reset by email isn't available yet. It will be enabled once the cloud account service is connected.",
   "forgotPassword": "Forgot password?",
+  "forgotRemoteBody": "Enter your email and we'll send you a link to set a new password.",
   "forgotTitle": "Recover access",
   "freeTime": "Free time",
   "getStarted": "Get started",
@@ -927,6 +937,7 @@
   "reportProblem": "Report a problem",
   "reportProblemSub": "Describe what happened",
   "reportSaved": "Report saved. It will be sent when the support service is connected.",
+  "resetLinkSent": "If an account exists for this email, a reset link is on its way.",
   "restBlock": "Break",
   "restore": "Restore",
   "restorePurchases": "Restore purchases",
@@ -948,9 +959,11 @@
   "search": "Search",
   "sectionsShown": "Sections in the app",
   "send": "Send",
+  "sendResetLink": "Send link",
   "sessionLength": "Session length",
   "sessions": "Sessions",
   "sessionsLocal": "Local mode has one session per device. Signing out ends it.",
+  "sessionsRemote": "Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.",
   "shareNotesSub": "Off by default",
   "shareSub": "Used to plan and summarize",
   "showActive": "Show active",
@@ -1001,6 +1014,34 @@
   "suggestedPlan": "Suggested plan",
   "switchToSignIn": "Already have an account? Sign in",
   "switchToSignUp": "New here? Create an account",
+  "syncNever": "Not synced yet",
+  "syncNow": "Sync now",
+  "syncOffline": "{n, plural, =0{Offline — showing saved data.} =1{Offline — 1 change will sync when you're back online.} other{Offline — {n} changes will sync when you're back online.}}",
+  "@syncOffline": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "syncPending": "{n, plural, =1{1 change waiting to upload} other{{n} changes waiting to upload}}",
+  "@syncPending": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "syncRejected": "Some changes couldn't be saved to your account and were replaced with the saved version.",
+  "syncStatus": "Sync",
+  "syncUpToDate": "Up to date · {time}",
+  "@syncUpToDate": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "targetDate": "Target date",
   "targetOn": "Target {date}",
   "@targetOn": {
@@ -1130,6 +1171,7 @@
   "welcomeTitle": "Organize your life, step by step",
   "whatWeStore": "What Hayati stores",
   "whatWeStoreBody": "Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.",
+  "whatWeStoreBodyRemote": "Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.",
   "whyOptional": "Why it matters (optional)",
   "workBlock": "Work / study",
   "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",

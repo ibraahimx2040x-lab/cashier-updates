@@ -98,7 +98,7 @@ class ProfileScreen extends ConsumerWidget {
             title: Text(l.deleteAccount),
             content: SingleChildScrollView(
               child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Text(l.deleteAccountConsequences),
+                Text(ref.read(authProvider.notifier).remote ? l.deleteAccountConsequencesRemote : l.deleteAccountConsequences),
                 const SizedBox(height: Space.m),
                 TextField(controller: pw, obscureText: true, decoration: InputDecoration(labelText: l.password)),
                 const SizedBox(height: Space.m),
@@ -113,10 +113,11 @@ class ProfileScreen extends ConsumerWidget {
               TextButton(onPressed: () => Navigator.pop(ctx, false), child: Text(l.cancel)),
               FilledButton(
                 style: FilledButton.styleFrom(backgroundColor: Theme.of(ctx).colorScheme.error),
-                onPressed: () {
+                onPressed: () async {
                   if (confirm.text.trim() != word) return set(() => error = l.typeToConfirm(word));
-                  if (!ref.read(authProvider.notifier).verifyPassword(pw.text)) return set(() => error = l.errCurrentPassword);
-                  Navigator.pop(ctx, true);
+                  final ok = await ref.read(authProvider.notifier).verifyPassword(pw.text);
+                  if (!ok) return set(() => error = l.errCurrentPassword);
+                  if (ctx.mounted) Navigator.pop(ctx, true);
                 },
                 child: Text(l.deleteForever),
               ),
@@ -125,9 +126,15 @@ class ProfileScreen extends ConsumerWidget {
     );
     pw.dispose();
     confirm.dispose();
-    if (ok == true) {
-      await ref.read(dataProvider.notifier).wipe();
-      await ref.read(authProvider.notifier).deleteAccount();
+    if (ok != true) return;
+    final remote = ref.read(authProvider.notifier).remote;
+    try {
+      // Remote: the request is recorded first; the device copy is cleared
+      // only once the server has it.
+      await ref.read(authProvider.notifier).deleteAccount(clearLocal: ref.read(dataProvider.notifier).wipe);
+      if (remote && context.mounted) showSnack(context, l.deletionRequested);
+    } on AuthException {
+      if (context.mounted) showSnack(context, l.errNetwork);
     }
   }
 
@@ -152,7 +159,13 @@ class ProfileScreen extends ConsumerWidget {
           ),
           ListTile(leading: const Icon(Icons.email_outlined), title: Text(l.email), subtitle: Text(user.email)),
           ListTile(leading: const Icon(Icons.key_outlined), title: Text(l.signInMethod), subtitle: Text(l.emailPassword)),
-          ListTile(leading: const Icon(Icons.verified_outlined), title: Text(l.emailVerification), subtitle: Text(l.verificationLocal)),
+          ListTile(
+            leading: const Icon(Icons.verified_outlined),
+            title: Text(l.emailVerification),
+            subtitle: Text(!ref.read(authProvider.notifier).remote
+                ? l.verificationLocal
+                : (user.emailConfirmed ? l.emailVerified : l.emailNotVerified)),
+          ),
           ListTile(leading: const Icon(Icons.event_available_outlined), title: Text(l.memberSince), subtitle: Text(fmt.date(user.createdAt))),
           const Divider(),
           ListTile(leading: const Icon(Icons.password), title: Text(l.changePassword), onTap: () => _changePassword(context, ref)),

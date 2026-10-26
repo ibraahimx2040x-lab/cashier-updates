@@ -11,6 +11,7 @@ import 'models/goal.dart';
 import 'models/misc.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
+import 'remote/sync.dart';
 import 'store/local_store.dart';
 
 /// Injectable clock so planning, reminders and reports are testable.
@@ -44,7 +45,20 @@ class DataController extends Notifier<AppData> {
     if (_userId == null) return const AppData();
     final raw = _store.readJson(_key);
     final data = raw == null ? const AppData() : AppData.fromJson(raw);
+    // Connected mode: the device copy is a cache. Start syncing once built
+    // (providers can't be modified during build).
+    final user = _userId;
+    Future.microtask(() {
+      if (_userId == user) ref.read(syncProvider.notifier).start(hasCache: raw != null, apply: _applyRemote);
+    });
     return _applyRetention(data);
+  }
+
+  /// Applies a server snapshot without queueing it back to the server.
+  void _applyRemote(AppData Function(AppData) merge) {
+    if (_userId == null) return;
+    state = merge(state);
+    _store.writeJson(_key, state.toJson());
   }
 
   AppData _applyRetention(AppData d) {
@@ -61,8 +75,11 @@ class DataController extends Notifier<AppData> {
   }
 
   void _set(AppData next) {
+    final prev = state;
     state = next;
-    if (_userId != null) _store.writeJson(_key, next.toJson());
+    if (_userId == null) return;
+    _store.writeJson(_key, next.toJson());
+    ref.read(syncProvider.notifier).enqueue(prev, next);
   }
 
   static List<T> _upsert<T>(List<T> list, T item, String Function(T) id) {
@@ -407,6 +424,7 @@ class DataController extends Notifier<AppData> {
   String exportJson() => const JsonEncoder.withIndent('  ').convert(state.toJson());
 
   Future<void> wipe() async {
+    await ref.read(syncProvider.notifier).clear();
     if (_userId != null) await _store.remove(_key);
     state = const AppData();
   }

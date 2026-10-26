@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../data/auth.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/misc.dart';
 import '../../l10n/app_localizations.dart';
@@ -23,7 +24,7 @@ class HelpScreen extends ConsumerWidget {
       (l.faq2q, l.faq2a),
       (l.faq3q, l.faq3a),
       (l.faq4q, l.faq4a),
-      (l.faq5q, l.faq5a),
+      (l.faq5q, ref.watch(authProvider.notifier).remote ? l.faq5aRemote : l.faq5a),
     ];
     return Scaffold(
       appBar: AppBar(title: Text(l.helpTitle)),

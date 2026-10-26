@@ -8,6 +8,7 @@ import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/settings.dart';
+import '../../data/remote/sync.dart';
 import '../../domain/reminders.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
@@ -42,7 +43,10 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
-    if (state == AppLifecycleState.resumed) _sync();
+    if (state == AppLifecycleState.resumed) {
+      _sync();
+      ref.read(syncProvider.notifier).sync();
+    }
   }
 
   void _sync() {
@@ -78,14 +82,14 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
           children: [
             _Sidebar(index: i, onSelect: _go, dests: dests),
             const VerticalDivider(width: 1),
-            Expanded(child: widget.shell),
+            Expanded(child: Column(children: [Expanded(child: widget.shell), const SyncBanner()])),
           ],
         ),
         floatingActionButton: fab,
       );
     }
     return Scaffold(
-      body: widget.shell,
+      body: Column(children: [Expanded(child: widget.shell), const SyncBanner()]),
       floatingActionButton: fab,
       bottomNavigationBar: NavigationBar(
         selectedIndex: i,
@@ -160,6 +164,38 @@ class _Sidebar extends ConsumerWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+/// Shown only in connected mode when changes are waiting or were refused.
+class SyncBanner extends ConsumerWidget {
+  const SyncBanner({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final l = AppLocalizations.of(context);
+    final s = ref.watch(syncProvider);
+    final (show, icon, text) = switch (s.phase) {
+      SyncPhase.offline => (true, Icons.cloud_off_outlined, l.syncOffline(s.pending)),
+      SyncPhase.error => (true, Icons.sync_problem_outlined, l.syncRejected),
+      _ => (false, Icons.cloud_done_outlined, ''),
+    };
+    if (!show) return const SizedBox.shrink();
+    return Material(
+      color: Theme.of(context).colorScheme.surfaceContainerHigh,
+      child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: Space.gutter, vertical: Space.s),
+          child: Semantics(
+            liveRegion: true,
+            child: Row(children: [
+              Icon(icon, size: 18),
+              const SizedBox(width: Space.s),
+              Expanded(child: Text(text, style: Theme.of(context).textTheme.bodySmall)),
+              TextButton(onPressed: () => ref.read(syncProvider.notifier).sync(), child: Text(l.retry)),
+            ]),
+          ),
+        ),
     );
   }
 }

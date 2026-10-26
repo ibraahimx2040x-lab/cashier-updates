@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../data/auth.dart';
 import '../../data/data_controller.dart';
+import '../../data/remote/sync.dart';
 import '../../features/assistant/assistant_screen.dart';
 import '../../features/assistant/review_screen.dart';
 import '../../features/auth/auth_screen.dart';
@@ -68,6 +69,7 @@ final routerProvider = Provider<GoRouter>((ref) {
   final refresh = ValueNotifier<int>(0);
   ref.listen(authProvider, (_, _) => refresh.value++);
   ref.listen(settingsProvider.select((s) => s.onboardingDone), (_, _) => refresh.value++);
+  ref.listen(syncProvider.select((s) => s.ready), (_, _) => refresh.value++);
   ref.onDispose(refresh.dispose);
 
   GoRoute page(String path, Widget Function(GoRouterState) build) => GoRoute(
@@ -88,6 +90,11 @@ final routerProvider = Provider<GoRouter>((ref) {
         return loc == Routes.splash ? null : '${Routes.splash}?from=${Uri.encodeComponent(state.uri.toString())}';
       }
       if (!auth.signedIn) return _publicRoutes.contains(loc) ? null : Routes.welcome;
+      // New device, connected mode: wait for the account's data before
+      // deciding between onboarding and home.
+      if (!ref.read(syncProvider).ready) {
+        return loc == Routes.splash ? null : '${Routes.splash}?from=${Uri.encodeComponent(state.uri.toString())}';
+      }
       final onboarded = ref.read(settingsProvider).onboardingDone;
       if (!onboarded) return loc == Routes.onboarding ? null : Routes.onboarding;
       if (loc == Routes.splash) {

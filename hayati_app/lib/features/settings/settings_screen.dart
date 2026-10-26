@@ -7,7 +7,9 @@ import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
+import '../../data/auth.dart';
 import '../../data/data_controller.dart';
+import '../../data/remote/sync.dart';
 import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
@@ -50,6 +52,20 @@ class SettingsScreen extends ConsumerWidget {
           nav(Icons.person_outline, l.profileTitle, Routes.profile),
           nav(Icons.auto_awesome_outlined, l.assistantSettings, Routes.assistantSettings),
           nav(Icons.workspace_premium_outlined, l.subscriptionTitle, Routes.subscription),
+          if (ref.watch(authProvider.notifier).remote)
+            Builder(builder: (context) {
+              final sync = ref.watch(syncProvider);
+              return ListTile(
+                leading: Icon(sync.phase == SyncPhase.offline ? Icons.cloud_off_outlined : Icons.cloud_done_outlined),
+                title: Text(l.syncStatus),
+                subtitle: Text(sync.pending > 0
+                    ? l.syncPending(sync.pending)
+                    : (sync.lastSynced == null ? l.syncNever : l.syncUpToDate(fmt.dateTime(sync.lastSynced!)))),
+                trailing: sync.phase == SyncPhase.syncing
+                    ? const SizedBox.square(dimension: 20, child: CircularProgressIndicator(strokeWidth: 2))
+                    : TextButton(onPressed: () => ref.read(syncProvider.notifier).sync(), child: Text(l.syncNow)),
+              );
+            }),
           header(l.appearance),
           ListTile(
             leading: const Icon(Icons.translate),

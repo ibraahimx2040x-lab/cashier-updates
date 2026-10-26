@@ -545,6 +545,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clearRead => 'مسح المقروءة';
 
   @override
+  String get cloudModeNotice =>
+      'تُحفظ بياناتك في حسابك، مع نسخة على هذا الجهاز للعمل دون اتصال.';
+
+  @override
   String get comingSoon => 'قريبًا';
 
   @override
@@ -560,6 +564,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String completionRateDef(int done, int total) {
     return '$done من $total مستحقة في الفترة (دون الملغاة)';
   }
+
+  @override
+  String get confirmEmailSent =>
+      'أُنشئ الحساب. أرسلنا رابط تأكيد إلى بريدك، افتحه ثم سجّل الدخول.';
 
   @override
   String get confirmPassword => 'تأكيد كلمة المرور';
@@ -660,6 +668,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'سيُحذف حسابك وكل ما فيه نهائيًا من هذا الجهاز: المهام والمواعيد والأهداف والعادات والملاحظات والمصروفات ومحادثات المساعد. لا يمكن التراجع. يُنصح بتصدير بياناتك أولًا (الخصوصية وإدارة البيانات).';
 
   @override
+  String get deleteAccountConsequencesRemote =>
+      'سيُطلب حذف حسابك وكل ما فيه نهائيًا: المهام والمواعيد والأهداف والعادات والملاحظات والمصروفات ومحادثات المساعد. ستُسجَّل خارجًا الآن وتُحذف نسخة هذا الجهاز، ويحذف الخادم الباقي وفق سياسة الاحتفاظ. لا يمكن التراجع، ويُنصح بتصدير بياناتك أولًا.';
+
+  @override
   String get deleteAccountSub => 'إزالة حسابك وبياناتك نهائيًا';
 
   @override
@@ -735,6 +747,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleted => 'تم الحذف';
 
   @override
+  String get deletionRequested =>
+      'سُجّل طلب الحذف، وستُزال بيانات حسابك من خوادمنا.';
+
+  @override
   String get descriptionOptional => 'الوصف (اختياري)';
 
   @override
@@ -793,10 +809,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get email => 'البريد الإلكتروني';
 
   @override
+  String get emailNotVerified => 'لم يُؤكَّد بعد';
+
+  @override
   String get emailPassword => 'البريد وكلمة المرور';
 
   @override
   String get emailVerification => 'التحقق من البريد';
+
+  @override
+  String get emailVerified => 'مؤكَّد';
 
   @override
   String get emptyAll => 'لا توجد مهام بعد.';
@@ -845,6 +867,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get errEmailExists => 'يوجد حساب مسجل بهذا البريد';
 
   @override
+  String get errEmailNotConfirmed =>
+      'يرجى تأكيد بريدك أولًا عبر الرابط الذي أرسلناه.';
+
+  @override
   String get errEndBeforeStart => 'يجب أن يكون وقت النهاية بعد البداية';
 
   @override
@@ -865,6 +891,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errPositiveMinutes => 'أدخل عدد دقائق بين 1 و1440';
+
+  @override
+  String get errRateLimited => 'محاولات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.';
 
   @override
   String get errRequired => 'هذا الحقل مطلوب';
@@ -982,6 +1011,10 @@ class AppLocalizationsAr extends AppLocalizations {
       'في الوضع المحلي على هذا الجهاز فقط. يمكنك تصديرها في أي وقت من الخصوصية وإدارة البيانات.';
 
   @override
+  String get faq5aRemote =>
+      'في حسابك على خوادمنا، محمية بحيث لا يقرؤها غيرك، مع نسخة على هذا الجهاز للعمل دون اتصال. يمكنك تصديرها في أي وقت من الخصوصية وإدارة البيانات.';
+
+  @override
   String get faq5q => 'أين تُحفظ بياناتي؟';
 
   @override
@@ -1041,6 +1074,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get forgotPassword => 'نسيت كلمة المرور؟';
+
+  @override
+  String get forgotRemoteBody =>
+      'أدخل بريدك وسنرسل لك رابطًا لتعيين كلمة مرور جديدة.';
 
   @override
   String get forgotTitle => 'استعادة الوصول';
@@ -1762,6 +1799,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reportSaved => 'حُفظ البلاغ، وسيُرسل عند ربط خدمة الدعم.';
 
   @override
+  String get resetLinkSent =>
+      'إن وُجد حساب بهذا البريد فسيصله رابط إعادة التعيين.';
+
+  @override
   String get restBlock => 'استراحة';
 
   @override
@@ -1825,6 +1866,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get send => 'إرسال';
 
   @override
+  String get sendResetLink => 'إرسال الرابط';
+
+  @override
   String get sessionLength => 'مدة الجلسة';
 
   @override
@@ -1833,6 +1877,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get sessionsLocal =>
       'في الوضع المحلي جلسة واحدة لكل جهاز، وتسجيل الخروج ينهيها.';
+
+  @override
+  String get sessionsRemote =>
+      'تسجيل الخروج ينهي الجلسة على هذا الجهاز. تغيير كلمة المرور يُخرج الأجهزة الأخرى عند تجديد جلستها.';
 
   @override
   String get shareNotesSub => 'معطّل افتراضيًا';
@@ -1946,6 +1994,51 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get switchToSignUp => 'جديد هنا؟ أنشئ حسابًا';
+
+  @override
+  String get syncNever => 'لم تتم المزامنة بعد';
+
+  @override
+  String get syncNow => 'زامن الآن';
+
+  @override
+  String syncOffline(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'لا يوجد اتصال — سيُرفع $n تغييرًا عند عودة الاتصال.',
+      few: 'لا يوجد اتصال — ستُرفع $n تغييرات عند عودة الاتصال.',
+      two: 'لا يوجد اتصال — سيُرفع تغييران عند عودة الاتصال.',
+      one: 'لا يوجد اتصال — سيُرفع تغيير واحد عند عودة الاتصال.',
+      zero: 'لا يوجد اتصال — تُعرض البيانات المحفوظة.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String syncPending(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n تغييرًا بانتظار الرفع',
+      few: '$n تغييرات بانتظار الرفع',
+      two: 'تغييران بانتظار الرفع',
+      one: 'تغيير واحد بانتظار الرفع',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get syncRejected =>
+      'تعذر حفظ بعض التغييرات في حسابك، فاستُبدلت بالنسخة المحفوظة.';
+
+  @override
+  String get syncStatus => 'المزامنة';
+
+  @override
+  String syncUpToDate(String time) {
+    return 'محدّثة · $time';
+  }
 
   @override
   String get targetDate => 'التاريخ المستهدف';
@@ -2195,6 +2288,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get whatWeStoreBody =>
       'حسابك (البريد وبصمة مملّحة لكلمة المرور)، وتفضيلاتك، والمهام والمواعيد والأهداف ومراحلها، والعادات وسجلاتها، والملاحظات، والمصروفات والميزانيات، ومحادثات المساعد (بحسب إعداد الاحتفاظ)، وسجل إجراءات دون محتوى الرسائل. في الوضع المحلي يبقى كل ذلك على هذا الجهاز.';
+
+  @override
+  String get whatWeStoreBodyRemote =>
+      'حسابك (البريد؛ وكلمة المرور تديرها خدمة المصادقة ولا يحفظها التطبيق)، وتفضيلاتك، والمهام والمواعيد والأهداف ومراحلها، والعادات وسجلاتها، والملاحظات، والمصروفات والميزانيات، تُحفظ في حسابك على خوادمنا ولا يقرؤها غيرك (أمان على مستوى الصف)، مع نسخة على هذا الجهاز للعمل دون اتصال. محادثات المساعد تبقى حاليًا على هذا الجهاز بحسب إعداد الاحتفاظ.';
 
   @override
   String get whyOptional => 'لماذا هذا الهدف مهم؟ (اختياري)';

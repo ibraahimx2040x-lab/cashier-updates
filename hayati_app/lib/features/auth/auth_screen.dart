@@ -28,6 +28,9 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   bool _loading = false;
   String? _error;
 
+  /// The message above is information, not an error.
+  bool _info = false;
+
   @override
   void dispose() {
     _email.dispose();
@@ -42,11 +45,17 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
         AuthErrorCode.emailExists => l.errEmailExists,
         AuthErrorCode.invalidCredentials => l.errCredentials,
         AuthErrorCode.network => l.errNetwork,
+        AuthErrorCode.confirmEmail => l.confirmEmailSent,
+        AuthErrorCode.emailNotConfirmed => l.errEmailNotConfirmed,
+        AuthErrorCode.rateLimited => l.errRateLimited,
       };
 
   Future<void> _submit() async {
     final l = AppLocalizations.of(context);
-    setState(() => _error = null);
+    setState(() {
+      _error = null;
+      _info = false;
+    });
     if (!_form.currentState!.validate()) return;
     if (_signUp && !_agree) {
       setState(() => _error = l.errAgree);
@@ -63,7 +72,14 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       TextInput.finishAutofillContext();
       // Router redirect navigates once the session is confirmed.
     } on AuthException catch (e) {
-      setState(() => _error = _message(l, e.code));
+      setState(() {
+        _error = _message(l, e.code);
+        // Account created; the next step is the link in the email.
+        if (e.code == AuthErrorCode.confirmEmail) {
+          _info = true;
+          _signUp = false;
+        }
+      });
     } catch (_) {
       setState(() => _error = l.errNetwork);
     } finally {
@@ -71,16 +87,46 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     }
   }
 
-  void _forgot() {
+  Future<void> _forgot() async {
     final l = AppLocalizations.of(context);
-    showDialog<void>(
+    final auth = ref.read(authProvider.notifier);
+    if (!auth.remote) {
+      await showDialog<void>(
+        context: context,
+        builder: (c) => AlertDialog(
+          title: Text(l.forgotTitle),
+          content: Text(l.forgotLocalMode),
+          actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(l.ok))],
+        ),
+      );
+      return;
+    }
+    final email = TextEditingController(text: _email.text.trim());
+    final send = await showDialog<bool>(
       context: context,
       builder: (c) => AlertDialog(
         title: Text(l.forgotTitle),
-        content: Text(l.forgotLocalMode),
-        actions: [TextButton(onPressed: () => Navigator.pop(c), child: Text(l.ok))],
+        content: Column(mainAxisSize: MainAxisSize.min, children: [
+          Text(l.forgotRemoteBody),
+          const SizedBox(height: Space.m),
+          TextField(controller: email, keyboardType: TextInputType.emailAddress, decoration: InputDecoration(labelText: l.email)),
+        ]),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(c, false), child: Text(l.cancel)),
+          FilledButton(onPressed: () => Navigator.pop(c, true), child: Text(l.sendResetLink)),
+        ],
       ),
     );
+    final address = email.text;
+    email.dispose();
+    if (send != true || !mounted) return;
+    try {
+      await auth.sendPasswordReset(address);
+      // Same message whether or not the address has an account.
+      if (mounted) showSnack(context, l.resetLinkSent);
+    } on AuthException catch (e) {
+      if (mounted) showSnack(context, _message(l, e.code));
+    }
   }
 
   @override
@@ -164,11 +210,13 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     child: Container(
                       padding: const EdgeInsets.all(Space.m),
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.error.withValues(alpha: 0.08),
+                        color: (_info ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.error)
+                            .withValues(alpha: 0.08),
                         borderRadius: BorderRadius.circular(Radii.button),
                       ),
                       child: Row(children: [
-                        Icon(Icons.error_outline, color: Theme.of(context).colorScheme.error),
+                        Icon(_info ? Icons.mark_email_read_outlined : Icons.error_outline,
+                            color: _info ? Theme.of(context).colorScheme.secondary : Theme.of(context).colorScheme.error),
                         const SizedBox(width: Space.s),
                         Expanded(child: Text(_error!)),
                       ]),
@@ -188,7 +236,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                   child: Text(_signUp ? l.switchToSignIn : l.switchToSignUp),
                 ),
                 const SizedBox(height: Space.l),
-                Text(l.localModeNotice, style: t.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant), textAlign: TextAlign.center),
+                Text(ref.read(authProvider.notifier).remote ? l.cloudModeNotice : l.localModeNotice, style: t.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant), textAlign: TextAlign.center),
               ]),
             ),
           ),

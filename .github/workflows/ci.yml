@@ -33,3 +33,24 @@ jobs:
         run: |
           sudo cp -r supabase /tmp/supabase && sudo chown -R postgres /tmp/supabase
           sudo -u postgres PG_BIN=/usr/lib/postgresql/16/bin /tmp/supabase/tests/run.sh
+
+  integration:
+    # Starts a real local Supabase (auth + REST + Postgres) and runs the
+    # app's sync/auth tests against it.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: supabase/setup-cli@v1
+        with:
+          version: 2.122.0
+      - run: supabase start -x studio,imgproxy,storage-api,realtime,edge-runtime,logflare,vector,supavisor,postgres-meta
+      - name: Export local API URL and anon key
+        run: supabase status -o env | sed -n 's/^API_URL=/SUPABASE_TEST_URL=/p; s/^ANON_KEY=/SUPABASE_TEST_ANON_KEY=/p' | tr -d '"' >> "$GITHUB_ENV"
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          flutter-version: 3.47.8
+      - working-directory: hayati_app
+        run: |
+          flutter pub get
+          flutter test test/supabase_integration_test.dart

@@ -956,6 +956,12 @@ abstract class AppLocalizations {
   /// **'Clear read notifications'**
   String get clearRead;
 
+  /// No description provided for @cloudModeNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data is saved to your account and kept on this device for offline use.'**
+  String get cloudModeNotice;
+
   /// No description provided for @comingSoon.
   ///
   /// In en, this message translates to:
@@ -985,6 +991,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{done} of {total} due in period (cancelled excluded)'**
   String completionRateDef(int done, int total);
+
+  /// No description provided for @confirmEmailSent.
+  ///
+  /// In en, this message translates to:
+  /// **'Account created. We sent a confirmation link to your email — open it, then sign in.'**
+  String get confirmEmailSent;
 
   /// No description provided for @confirmPassword.
   ///
@@ -1148,6 +1160,12 @@ abstract class AppLocalizations {
   /// **'This permanently deletes your account and everything in it from this device: tasks, events, goals, habits, notes, expenses and assistant chats. This can\'t be undone. Consider exporting your data first (Privacy & data).'**
   String get deleteAccountConsequences;
 
+  /// No description provided for @deleteAccountConsequencesRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'This requests permanent deletion of your account and everything in it: tasks, events, goals, habits, notes, expenses and assistant chats. You\'ll be signed out now and this device\'s copy will be removed; the server removes the rest per our retention policy. This can\'t be undone. Consider exporting your data first.'**
+  String get deleteAccountConsequencesRemote;
+
   /// No description provided for @deleteAccountSub.
   ///
   /// In en, this message translates to:
@@ -1280,6 +1298,12 @@ abstract class AppLocalizations {
   /// **'Deleted'**
   String get deleted;
 
+  /// No description provided for @deletionRequested.
+  ///
+  /// In en, this message translates to:
+  /// **'Deletion requested. Your account and data will be removed from our servers.'**
+  String get deletionRequested;
+
   /// No description provided for @descriptionOptional.
   ///
   /// In en, this message translates to:
@@ -1394,6 +1418,12 @@ abstract class AppLocalizations {
   /// **'Email'**
   String get email;
 
+  /// No description provided for @emailNotVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Not verified yet'**
+  String get emailNotVerified;
+
   /// No description provided for @emailPassword.
   ///
   /// In en, this message translates to:
@@ -1405,6 +1435,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Email verification'**
   String get emailVerification;
+
+  /// No description provided for @emailVerified.
+  ///
+  /// In en, this message translates to:
+  /// **'Verified'**
+  String get emailVerified;
 
   /// No description provided for @emptyAll.
   ///
@@ -1496,6 +1532,12 @@ abstract class AppLocalizations {
   /// **'An account with this email already exists'**
   String get errEmailExists;
 
+  /// No description provided for @errEmailNotConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Please confirm your email first using the link we sent.'**
+  String get errEmailNotConfirmed;
+
   /// No description provided for @errEndBeforeStart.
   ///
   /// In en, this message translates to:
@@ -1537,6 +1579,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Enter minutes between 1 and 1440'**
   String get errPositiveMinutes;
+
+  /// No description provided for @errRateLimited.
+  ///
+  /// In en, this message translates to:
+  /// **'Too many attempts. Please wait a little and try again.'**
+  String get errRateLimited;
 
   /// No description provided for @errRequired.
   ///
@@ -1730,6 +1778,12 @@ abstract class AppLocalizations {
   /// **'In local mode, on this device only. You can export it any time from Privacy & data.'**
   String get faq5a;
 
+  /// No description provided for @faq5aRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'In your account on our servers, protected so only you can read it, with a copy on this device for offline use. You can export it any time from Privacy & data.'**
+  String get faq5aRemote;
+
   /// No description provided for @faq5q.
   ///
   /// In en, this message translates to:
@@ -1843,6 +1897,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Forgot password?'**
   String get forgotPassword;
+
+  /// No description provided for @forgotRemoteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and we\'ll send you a link to set a new password.'**
+  String get forgotRemoteBody;
 
   /// No description provided for @forgotTitle.
   ///
@@ -3194,6 +3254,12 @@ abstract class AppLocalizations {
   /// **'Report saved. It will be sent when the support service is connected.'**
   String get reportSaved;
 
+  /// No description provided for @resetLinkSent.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account exists for this email, a reset link is on its way.'**
+  String get resetLinkSent;
+
   /// No description provided for @restBlock.
   ///
   /// In en, this message translates to:
@@ -3320,6 +3386,12 @@ abstract class AppLocalizations {
   /// **'Send'**
   String get send;
 
+  /// No description provided for @sendResetLink.
+  ///
+  /// In en, this message translates to:
+  /// **'Send link'**
+  String get sendResetLink;
+
   /// No description provided for @sessionLength.
   ///
   /// In en, this message translates to:
@@ -3337,6 +3409,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Local mode has one session per device. Signing out ends it.'**
   String get sessionsLocal;
+
+  /// No description provided for @sessionsRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.'**
+  String get sessionsRemote;
 
   /// No description provided for @shareNotesSub.
   ///
@@ -3535,6 +3613,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New here? Create an account'**
   String get switchToSignUp;
+
+  /// No description provided for @syncNever.
+  ///
+  /// In en, this message translates to:
+  /// **'Not synced yet'**
+  String get syncNever;
+
+  /// No description provided for @syncNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync now'**
+  String get syncNow;
+
+  /// No description provided for @syncOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{Offline — showing saved data.} =1{Offline — 1 change will sync when you\'re back online.} other{Offline — {n} changes will sync when you\'re back online.}}'**
+  String syncOffline(int n);
+
+  /// No description provided for @syncPending.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 change waiting to upload} other{{n} changes waiting to upload}}'**
+  String syncPending(int n);
+
+  /// No description provided for @syncRejected.
+  ///
+  /// In en, this message translates to:
+  /// **'Some changes couldn\'t be saved to your account and were replaced with the saved version.'**
+  String get syncRejected;
+
+  /// No description provided for @syncStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Sync'**
+  String get syncStatus;
+
+  /// No description provided for @syncUpToDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to date · {time}'**
+  String syncUpToDate(String time);
 
   /// No description provided for @targetDate.
   ///
@@ -3937,6 +4057,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.'**
   String get whatWeStoreBody;
+
+  /// No description provided for @whatWeStoreBodyRemote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.'**
+  String get whatWeStoreBodyRemote;
 
   /// No description provided for @whyOptional.
   ///

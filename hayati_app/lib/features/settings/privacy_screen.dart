@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
+import '../../data/auth.dart';
 import '../../data/data_controller.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
@@ -46,7 +47,7 @@ class PrivacyScreen extends ConsumerWidget {
           header(l.whatWeStore),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Space.gutter),
-            child: Text(l.whatWeStoreBody),
+            child: Text(ref.watch(authProvider.notifier).remote ? l.whatWeStoreBodyRemote : l.whatWeStoreBody),
           ),
           header(l.aiData),
           Padding(
@@ -78,7 +79,7 @@ class PrivacyScreen extends ConsumerWidget {
             onTap: () => context.push(Routes.profile),
           ),
           header(l.sessions),
-          ListTile(leading: const Icon(Icons.devices_outlined), title: Text(l.thisDevice), subtitle: Text(l.sessionsLocal)),
+          ListTile(leading: const Icon(Icons.devices_outlined), title: Text(l.thisDevice), subtitle: Text(ref.watch(authProvider.notifier).remote ? l.sessionsRemote : l.sessionsLocal)),
         ]),
       ),
     );

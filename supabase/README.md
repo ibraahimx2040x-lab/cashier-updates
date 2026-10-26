@@ -14,4 +14,9 @@ supabase secrets set ANTHROPIC_API_KEY=...        # never shipped in the app
 supabase functions deploy assistant
 ```
 
-The function uses the caller's JWT for every query, so RLS applies; the service-role key is not used. Status: type-checked and its validator unit-checked; not yet exercised against the live Claude API or a deployed Supabase project, and the Flutter app does not call it yet (see `docs/ROADMAP.md`).
+The function uses the caller's JWT for every query, so RLS applies; the service-role key is not used. The Flutter app connects with `--dart-define=SUPABASE_URL=… --dart-define=SUPABASE_ANON_KEY=…` (auth + data sync; see `hayati_app/README.md`). Verified against a local `supabase start` stack by `hayati_app/test/supabase_integration_test.dart`, which CI also runs. The assistant Edge Function is type-checked and its validator unit-checked, but not yet exercised against the live Claude API, and the app does not call it yet (see `docs/ROADMAP.md`).
+
+```bash
+supabase start          # local stack on :54321, applies migrations/
+supabase migration up   # apply new migrations to it
+```
