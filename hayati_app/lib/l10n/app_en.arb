@@ -1,0 +1,1139 @@
+{
+  "@@locale": "en",
+  "account": "Account",
+  "actionLog": "Action log",
+  "actionLogSub": "What the assistant changed, and when. No message content is stored here.",
+  "active": "Active",
+  "addEvent": "Add event",
+  "addExpense": "Add expense",
+  "addFirstGoal": "Add a goal",
+  "addFirstTask": "Add your first task",
+  "addGoal": "Add goal",
+  "addHabit": "Add habit",
+  "addMilestone": "Add milestone",
+  "addNote": "Add note",
+  "addTask": "Add task",
+  "adherence30": "Last 30 days",
+  "affectedItems": "{n, plural, =1{1 item affected} other{{n} items affected}}",
+  "@affectedItems": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "agreePrefix": "I agree to the ",
+  "aiAskAmPm": "Do you mean {hour} in the morning or in the evening?",
+  "@aiAskAmPm": {
+    "placeholders": {
+      "hour": {
+        "type": "int"
+      }
+    }
+  },
+  "aiAutoDone": "Done automatically (you allowed this in assistant settings).",
+  "aiChipAddTask": "Add a new task",
+  "aiChipOverdue": "Sort my overdue tasks",
+  "aiChipPlanDay": "Plan my day",
+  "aiChipReview": "Review my progress this week",
+  "aiChipSplitGoal": "Help me break down my goal",
+  "aiConflictWith": "This overlaps with “{title}”.",
+  "@aiConflictWith": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "aiData": "Assistant and your data",
+  "aiDataBody": "In this version the assistant runs entirely on your device; nothing is sent to an AI provider. When the cloud assistant is enabled, only the sections you allow will be sent to the provider through our server, to answer your request.",
+  "aiDraftsDisabled": "Drafting plans is turned off in assistant settings, so I didn't prepare changes.",
+  "aiExample1": "Add a task to review English tomorrow at 8 pm",
+  "aiExample2": "I want to learn English, 30 minutes every day",
+  "aiExample3": "Plan my day",
+  "aiExecFailed": "I couldn't apply that. Nothing was changed.",
+  "aiFailed": "Something went wrong and I couldn't answer. Your message is kept — try again.",
+  "aiGoalFirstWeekOnly": "Only the first week of sessions is created; you can add more later.",
+  "aiGoalNoSubject": "What would you like to learn?",
+  "aiGoalReady": "Here's a plan to learn {subject}: {minutes}-minute daily sessions over {days} days, with four milestones and your first week of sessions. Nothing is created until you approve.",
+  "@aiGoalReady": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      },
+      "minutes": {
+        "type": "int"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "aiGoalTitle": "Learn {subject}",
+  "@aiGoalTitle": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      }
+    }
+  },
+  "aiHabitLogged": "I'll log “{name}” as done today.",
+  "@aiHabitLogged": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "aiLimitReached": "You've reached today's assistant limit. Everything else keeps working; the limit resets tomorrow.",
+  "aiMs1": "Assess your level and pick resources for {subject}",
+  "@aiMs1": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      }
+    }
+  },
+  "aiMs2": "Learn the fundamentals of {subject}",
+  "@aiMs2": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      }
+    }
+  },
+  "aiMs3": "Practice {subject} regularly",
+  "@aiMs3": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      }
+    }
+  },
+  "aiMs4": "Complete a small project or self-test in {subject}",
+  "@aiMs4": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      }
+    }
+  },
+  "aiNeedsSharing": "You haven't allowed me to read your {section}. You can change this in assistant settings.",
+  "@aiNeedsSharing": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
+  "aiNoGoalToSplit": "I didn't find an active goal without milestones. Create a goal first or tell me what you want to learn.",
+  "aiNoOverdue": "You have no overdue tasks. 🎉",
+  "aiNoteEmpty": "What should the note say?",
+  "aiNoteReady": "I'll save this note.",
+  "aiOverdueSummary": "You have {total} overdue tasks. I can fit {today} today; {tomorrow} would move to tomorrow.",
+  "@aiOverdueSummary": {
+    "placeholders": {
+      "total": {
+        "type": "int"
+      },
+      "today": {
+        "type": "int"
+      },
+      "tomorrow": {
+        "type": "int"
+      }
+    }
+  },
+  "aiPlanEstimated": "Some tasks have no duration; I assumed 30 minutes for them.",
+  "aiPlanNoEvents": "I can't see your events (sharing is off), so the plan may overlap them.",
+  "aiPlanNothing": "There are no open tasks to plan for today.",
+  "aiPlanSummary": "Here's a suggested plan: {planned} tasks in your free time (about {hours} h {minutes} min available). Review it before applying.",
+  "@aiPlanSummary": {
+    "placeholders": {
+      "planned": {
+        "type": "int"
+      },
+      "hours": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "aiPlanUnscheduled": "{n} tasks don't fit today — consider moving them or shortening them.",
+  "@aiPlanUnscheduled": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiReasonGoal": "You asked for a learning goal with regular practice.",
+  "aiReasonHabit": "You said you completed “{name}”.",
+  "@aiReasonHabit": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "aiReasonNote": "You asked to add a note.",
+  "aiReasonOverdue": "Reschedule overdue tasks into today's free time, moving the rest to tomorrow.",
+  "aiReasonPlan": "Distribute today's open tasks around fixed commitments, by priority and deadline.",
+  "aiReasonSplit": "Break “{title}” into clear milestones.",
+  "@aiReasonSplit": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "aiReasonTask": "You asked to add a task.",
+  "aiReviewGoal": "“{title}” is at {percent}%.",
+  "@aiReviewGoal": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "int"
+      }
+    }
+  },
+  "aiReviewHabits": "Habits: {done} of {total} due check-ins logged.",
+  "@aiReviewHabits": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiReviewNote": "These are descriptive numbers from what you recorded — not judgments about why.",
+  "aiReviewOverdue": "{n} tasks due this week are still open past their deadline.",
+  "@aiReviewOverdue": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiReviewRate": "You finished {percent}% of the {total} tasks due this week.",
+  "@aiReviewRate": {
+    "placeholders": {
+      "percent": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "aiReviewTasks": "This week you completed {n} tasks.",
+  "@aiReviewTasks": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiSessionTitle": "{subject} — session {n}",
+  "@aiSessionTitle": {
+    "placeholders": {
+      "subject": {
+        "type": "String"
+      },
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "aiSplitReady": "Here's a suggested breakdown for “{title}”.",
+  "@aiSplitReady": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTaskNoTitle": "What's the task? For example: “Add task review English tomorrow at 8 pm”.",
+  "aiTaskReady": "I'll create the task “{title}”.",
+  "@aiTaskReady": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "aiTimeInPast": "That time has already passed.",
+  "aiUnsupported": "I can't do that yet. I can plan your day, sort overdue tasks, add tasks or notes, log habits, break a goal into milestones, or review your week.",
+  "allCategories": "All categories",
+  "allDoneToday": "You've finished everything planned for today.",
+  "allMilestonesDone": "All milestones are done. Mark the goal as completed?",
+  "allTasks": "All tasks",
+  "alreadyExecuted": "Already applied — nothing was repeated.",
+  "alwaysRequired": "Always required — cannot be turned off",
+  "amount": "Amount",
+  "and": "and",
+  "andMore": "and {n} more",
+  "@andMore": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "any": "Any",
+  "appName": "Hayati",
+  "appVersion": "App version",
+  "appearance": "Appearance",
+  "applyPlan": "Apply plan",
+  "applyPlanBody": "{n, plural, =1{1 task will get a planned time:} other{{n} tasks will get planned times:}}",
+  "@applyPlanBody": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "approvals": "Always ask before",
+  "approve": "Approve",
+  "approveBulk": "Changes to several items at once",
+  "approveDelete": "Deleting anything",
+  "approveReschedule": "Changing a time or deadline",
+  "approveRescheduleSub": "Recommended. Applies to single changes only.",
+  "approved": "Approved",
+  "archive": "Archive",
+  "archiveGoal": "Archive",
+  "archived": "Archived",
+  "archivedNotes": "Archived notes",
+  "askAssistantReplan": "Ask the assistant to rearrange my day",
+  "askAssistantReview": "Ask the assistant",
+  "assistantDisabled": "The assistant is turned off",
+  "assistantDisabledBody": "Everything else in Hayati keeps working. Turn it on in settings any time.",
+  "assistantHint": "Ask me to plan, add or review…",
+  "assistantIntroBody": "I work with your own tasks, events and goals. I prepare changes; you decide what gets applied.",
+  "assistantIntroTitle": "How can I help today?",
+  "assistantSettings": "Assistant settings",
+  "assistantSubtitle": "I help you organize your time and goals",
+  "assistantTitle": "Hayati assistant",
+  "assistantUsage": "Assistant today: {used} of {limit}",
+  "@assistantUsage": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "atTime": "At the time",
+  "auto": "Automatic",
+  "autoActions": "May do without asking",
+  "autoActionsSub": "Each permission is separate and can be withdrawn at any time.",
+  "back": "Back",
+  "beforeMinutes": "{duration} before",
+  "@beforeMinutes": {
+    "placeholders": {
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "benefit1Body": "Fits tasks around your fixed commitments and leaves room to breathe.",
+  "benefit1Title": "A realistic daily plan",
+  "benefit2Body": "Progress updates from what you actually complete.",
+  "benefit2Title": "Goals that move forward",
+  "benefit3Body": "Suggests and prepares; sensitive changes always wait for your approval.",
+  "benefit3Title": "An assistant you control",
+  "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
+  "breakEnd": "Until",
+  "breakStart": "Break from",
+  "budget": "Budget",
+  "budgetUsed": "{spent} of {cap}",
+  "@budgetUsed": {
+    "placeholders": {
+      "spent": {
+        "type": "String"
+      },
+      "cap": {
+        "type": "String"
+      }
+    }
+  },
+  "byCategory": "By category",
+  "byMilestones": "By milestones",
+  "byMilestonesHint": "Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.",
+  "calendar": "Calendar",
+  "cancel": "Cancel",
+  "catHealth": "Health",
+  "catLearning": "Learning",
+  "catMoney": "Money",
+  "catPersonal": "Personal",
+  "catWork": "Work",
+  "category": "Category",
+  "categoryOptional": "Category (optional)",
+  "changePassword": "Change password",
+  "changesCount": "{n, plural, =1{1 change} other{{n} changes}}",
+  "@changesCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "clear": "Clear",
+  "clearLog": "Clear log",
+  "clearRead": "Clear read notifications",
+  "comingSoon": "Coming soon",
+  "completedAndArchived": "Completed & archived",
+  "completedPerDay": "Completed per day",
+  "completionRate": "Completion rate",
+  "completionRateDef": "{done} of {total} due in period (cancelled excluded)",
+  "@completionRateDef": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "confirmPassword": "Confirm password",
+  "conflict": "Conflict",
+  "conflictKeep": "This time overlaps with “{title}”. Keep it anyway?",
+  "@conflictKeep": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "conflictWith": "Overlaps with “{title}”",
+  "@conflictWith": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "contactSupport": "Contact support",
+  "couldNotFit": "Couldn't fit",
+  "createAccount": "Create account",
+  "createFirstPlan": "Create my first plan",
+  "currency": "Currency",
+  "currencyChangeNote": "Existing expenses keep their original currency.",
+  "currentPassword": "Current password",
+  "currentPlan": "Current plan",
+  "currentStreak": "Current streak",
+  "dataAccess": "What the assistant can read",
+  "dataAccessSub": "Only enabled sections are used to answer you.",
+  "date": "Date",
+  "day": "Day",
+  "dayEnd": "Day ends",
+  "dayStart": "Day starts",
+  "daysCount": "{n, plural, =1{1 day} other{{n} days}}",
+  "@daysCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "deadlineDate": "Deadline",
+  "deadlineTime": "Deadline time",
+  "deadlineVsPlanned": "Deadline = when it must be done. Planned time = when you intend to work on it.",
+  "defaultCurrency": "Default currency",
+  "delete": "Delete",
+  "deleteAccount": "Delete account",
+  "deleteAccountConsequences": "This permanently deletes your account and everything in it from this device: tasks, events, goals, habits, notes, expenses and assistant chats. This can't be undone. Consider exporting your data first (Privacy & data).",
+  "deleteAccountSub": "Permanently remove your account and data",
+  "deleteAllChats": "Delete all chats",
+  "deleteAllChatsBody": "All conversations and pending suggestions will be deleted. Applied changes stay.",
+  "deleteChatBody": "This chat and its pending suggestions will be deleted. Changes you already applied stay.",
+  "deleteChatTitle": "Delete chat?",
+  "deleteConfirmWord": "DELETE",
+  "deleteDataRequest": "Delete my data",
+  "deleteDataRequestSub": "Done by deleting your account",
+  "deleteEventBody": "“{title}” will be permanently deleted.",
+  "@deleteEventBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteEventTitle": "Delete event?",
+  "deleteExpenseBody": "This expense will be deleted.",
+  "deleteExpenseTitle": "Delete expense?",
+  "deleteForever": "Delete permanently",
+  "deleteGoalBody": "The goal and its milestones will be deleted. Linked tasks are kept and unlinked.",
+  "deleteGoalTitle": "Delete goal?",
+  "deleteHabitBody": "The habit and its whole history will be deleted. You can make it inactive instead.",
+  "deleteHabitTitle": "Delete habit?",
+  "deleteNoteBody": "This note will be permanently deleted. You can archive it instead.",
+  "deleteNoteTitle": "Delete note?",
+  "deleteTaskBody": "“{title}” will be permanently deleted. You can archive it instead.",
+  "@deleteTaskBody": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteTaskTitle": "Delete task?",
+  "deleted": "Deleted",
+  "descriptionOptional": "Description (optional)",
+  "details": "Details",
+  "discard": "Discard",
+  "discardMessage": "You have unsaved changes. Leave without saving?",
+  "discardTitle": "Discard changes?",
+  "displayName": "Display name",
+  "displayNameOptional": "Your name (optional)",
+  "documents": "Documents",
+  "doneDays": "Done / due",
+  "dragHint": "Long-press and drag a task onto an hour to plan it.",
+  "due": "Due",
+  "dueShort": "due",
+  "edit": "Edit",
+  "editEvent": "Edit event",
+  "editGoal": "Goal",
+  "editHabit": "Edit habit",
+  "editMilestone": "Edit milestone",
+  "editTask": "Edit task",
+  "email": "Email",
+  "emailPassword": "Email and password",
+  "emailVerification": "Email verification",
+  "emptyAll": "No tasks yet.",
+  "emptyArchived": "Nothing archived.",
+  "emptyCompleted": "No completed tasks yet.",
+  "emptyOverdue": "Nothing overdue.",
+  "emptyToday": "Nothing due today. Add a task or plan ahead.",
+  "emptyTodayDone": "All of today's tasks are done. Nice work!",
+  "emptyUpcoming": "No upcoming tasks with a deadline.",
+  "enableAssistant": "Assistant",
+  "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
+  "endTime": "Ends",
+  "errAgree": "Please accept the terms and privacy policy",
+  "errCredentials": "Email or password is incorrect",
+  "errCurrentPassword": "Current password is incorrect",
+  "errEmail": "Enter a valid email address",
+  "errEmailExists": "An account with this email already exists",
+  "errEndBeforeStart": "End time must be after the start time",
+  "errNetwork": "Connection problem. Please try again.",
+  "errPasswordMatch": "Passwords don't match",
+  "errPasswordWeak": "Password must be at least 8 characters and include a letter and a number",
+  "errPickDays": "Pick at least one day",
+  "errPositiveAmount": "Enter an amount greater than zero",
+  "errPositiveMinutes": "Enter minutes between 1 and 1440",
+  "errRequired": "This field is required",
+  "errSave": "Couldn't save. Check the fields and try again.",
+  "errTargetBeforeStart": "Target date must be after the start date",
+  "estimatedDuration": "Estimated 30 min",
+  "estimatedMinutes": "Estimated duration (minutes)",
+  "eventTitle": "Event title",
+  "eventsLabel": "Events",
+  "everyDay": "Every day",
+  "execute": "Apply changes",
+  "executedCount": "{n, plural, =1{Done — 1 change applied} other{Done — {n} changes applied}}",
+  "@executedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "expBills": "Bills",
+  "expEducation": "Education",
+  "expEntertainment": "Entertainment",
+  "expFood": "Food",
+  "expOther": "Other",
+  "expShopping": "Shopping",
+  "expTransport": "Transport",
+  "expenseList": "Expenses",
+  "expensesManualNote": "Expenses are entered manually. No bank accounts are linked.",
+  "exportCopied": "Copied ({chars} characters)",
+  "@exportCopied": {
+    "placeholders": {
+      "chars": {
+        "type": "int"
+      }
+    }
+  },
+  "exportData": "Export my data",
+  "exportDataSub": "Copies all your data as JSON to the clipboard",
+  "faq": "Frequently asked questions",
+  "faq1a": "The deadline is when a task must be finished. Planned time is when you intend to work on it — the planner sets it, and you can change it.",
+  "faq1q": "What's the difference between a deadline and planned time?",
+  "faq2a": "Each goal uses one method: completed milestones ÷ all milestones, or a percentage you set manually. A goal is never marked complete just because its date passed.",
+  "faq2q": "How is goal progress calculated?",
+  "faq3a": "Only what you allow in assistant settings — e.g. creating a single task. Deleting, bulk changes and rescheduling many items always need your approval.",
+  "faq3q": "What can the assistant do on its own?",
+  "faq4a": "In this version reminders appear in the notification centre while the app is open. Make sure the task has a reminder and a deadline or planned time.",
+  "faq4q": "I'm not getting reminders",
+  "faq5a": "In local mode, on this device only. You can export it any time from Privacy & data.",
+  "faq5q": "Where is my data stored?",
+  "featAdvancedReports": "Detailed reports and insights",
+  "featAssistantLimited": "Assistant: up to {limit} requests a day",
+  "@featAssistantLimited": {
+    "placeholders": {
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "featBasicReports": "Basic weekly reports",
+  "featCore": "Tasks, calendar, goals, habits, notes and expenses",
+  "featMoreAssistant": "More assistant usage",
+  "featSmartPlanning": "Advanced smart planning",
+  "featTemplates": "Goal templates",
+  "filterAll": "All",
+  "filterArchived": "Archived",
+  "filterCompleted": "Completed",
+  "filterOverdue": "Overdue",
+  "filterToday": "Today",
+  "filterUpcoming": "Upcoming",
+  "finishSetup": "Finish setup",
+  "fixedBlocks": "Fixed blocks",
+  "fixedCommitments": "Fixed commitments",
+  "forgotLocalMode": "In this version, accounts are stored on this device only, so password reset by email isn't available yet. It will be enabled once the cloud account service is connected.",
+  "forgotPassword": "Forgot password?",
+  "forgotTitle": "Recover access",
+  "freeTime": "Free time",
+  "getStarted": "Get started",
+  "goalActive": "Active",
+  "goalArchived": "Archived",
+  "goalCompleted": "Completed",
+  "goalPaused": "Paused",
+  "goalStepHint": "Choose an example or write your own. You can skip this.",
+  "goalTitle": "Goal title",
+  "goalTitleHint": "e.g. Learn Flutter basics",
+  "goalsEmptyBody": "A goal can have milestones and linked tasks. Progress follows what you complete.",
+  "goalsProgress": "Goals",
+  "goalsSummary": "Goals",
+  "goodAfternoon": "Good afternoon",
+  "goodEvening": "Good evening",
+  "goodMorning": "Good morning",
+  "habitAdherence": "Habit check-ins",
+  "habitAdherenceDef": "{done} of {total} due days (non-due days excluded)",
+  "@habitAdherenceDef": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "habitDone": "Done",
+  "habitDoneToday": "Done today",
+  "habitDueToday": "Due today",
+  "habitName": "Habit name",
+  "habitNotDueToday": "Not due today",
+  "habitsDoneOf": "{done} of {total} logged today",
+  "@habitsDoneOf": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "habitsEmptyBody": "Add a habit and choose which days it's expected. Days it isn't due never count against you.",
+  "hasBreak": "Add a daily break",
+  "hasWorkHours": "I have fixed work or study hours",
+  "haveAccount": "I have an account",
+  "helpTitle": "Help & support",
+  "hidePassword": "Hide password",
+  "highlights": "Highlights",
+  "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
+  "homeSections": "Home screen",
+  "inactiveHabits": "Inactive",
+  "includeTechInfo": "Include technical info",
+  "initialTasks": "First tasks",
+  "interestsHint": "Pick any — you can change this later. Sections you don't pick are hidden, not deleted.",
+  "itemGone": "This item no longer exists.",
+  "keepAnyway": "Keep anyway",
+  "keepChats": "Keep chats for",
+  "kindAssistant": "Assistant",
+  "kindBug": "Bug",
+  "kindNotifications": "Notifications",
+  "kindOther": "Other",
+  "language": "Language",
+  "lastWeek": "Last week",
+  "limit": "Limit",
+  "linkTask": "Add task",
+  "linkedGoal": "Goal",
+  "linkedGoalOptional": "Linked goal (optional)",
+  "linkedMilestoneOptional": "Milestone (optional)",
+  "linkedTasks": "Linked tasks",
+  "localModeNotice": "Local mode: your account and data are stored on this device.",
+  "locationOptional": "Location (optional)",
+  "manageAssistantAccess": "Manage assistant permissions",
+  "manual": "Manually",
+  "manualHint": "You set the percentage yourself.",
+  "markAllRead": "Mark all as read",
+  "markDone": "Mark “{title}” done",
+  "@markDone": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "markGoalComplete": "Mark as completed",
+  "markRead": "Mark as read",
+  "memberSince": "Member since",
+  "menu": "Menu",
+  "milestone": "Milestone",
+  "milestoneHint": "e.g. Understand Dart basics",
+  "milestones": "Milestones",
+  "milestonesDone": "{done}/{total} milestones",
+  "@milestonesDone": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "modExpenses": "Expenses",
+  "modHabits": "Habits",
+  "modLearning": "Learning",
+  "modNotes": "Notes",
+  "modTime": "Time management",
+  "month": "Month",
+  "monthlyBudget": "Monthly budget",
+  "more": "More",
+  "moreFilters": "More filters",
+  "moreOptions": "More options",
+  "moveTomorrow": "Move to tomorrow",
+  "movedTo": "Moved to {time}",
+  "@movedTo": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "movedTomorrow": "Moved to tomorrow",
+  "multiCurrencyNote": "Each currency is totalled separately — amounts are never combined across currencies.",
+  "myGoals": "My goals",
+  "myNotes": "My notes",
+  "navAssistant": "Assistant",
+  "navExpenses": "Expenses",
+  "navGoals": "Goals",
+  "navHabits": "Habits",
+  "navHome": "Home",
+  "navNotes": "Notes",
+  "navNotifications": "Notifications",
+  "navProgress": "Progress",
+  "navSettings": "Settings",
+  "navTasks": "Tasks",
+  "navTime": "My time",
+  "neededTime": "Tasks need",
+  "newChat": "New chat",
+  "newEvent": "New event",
+  "newGoal": "New goal",
+  "newPassword": "New password",
+  "newTask": "New task",
+  "newUserBody": "Start with one task and one goal. Then ask the assistant to plan your day.",
+  "newUserTitle": "Welcome to Hayati 👋",
+  "next": "Next",
+  "nextPeriod": "Next",
+  "noActions": "No actions yet.",
+  "noActiveGoals": "No active goals right now.",
+  "noConversations": "No previous chats.",
+  "noExpensesPeriod": "No expenses in this period",
+  "noGoalsYet": "No goals yet",
+  "noHabitsDueToday": "No habits are due today.",
+  "noHabitsYet": "No habits yet",
+  "noLinkedTasks": "No tasks linked to this goal yet.",
+  "noMilestones": "No milestones yet.",
+  "noNotesYet": "No notes yet",
+  "noNotifications": "No notifications",
+  "noReminder": "No reminder",
+  "noSearchResults": "No results",
+  "noTasksToday": "No tasks for today.",
+  "noUnread": "You're all caught up",
+  "noUpcoming": "No upcoming events.",
+  "none": "None",
+  "notDue": "Not due",
+  "notLogged": "Not logged",
+  "notSet": "Not set",
+  "noteBody": "Write your note…",
+  "noteTitle": "Title",
+  "notesOptional": "Notes (optional)",
+  "nothingScheduled": "Nothing scheduled",
+  "nothingToPlan": "No open tasks to plan for this day.",
+  "notifDue": "Check its deadline in your tasks.",
+  "notifEventBody": "Starts in {minutes} min",
+  "@notifEventBody": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "notifEventTitle": "Upcoming: {title}",
+  "@notifEventTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifHabitTitle": "Habit reminder: {name}",
+  "@notifHabitTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "notifTaskTitle": "Reminder: {title}",
+  "@notifTaskTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "obStep1": "Language and region",
+  "obStep2": "What would you like to organize?",
+  "obStep3": "A first goal (optional)",
+  "obStep4": "Your day",
+  "obsFew": "Fewer than half of the tasks due were completed. Planning fewer tasks per day may help.",
+  "obsHalf": "You completed about half of the tasks due in this period.",
+  "obsMost": "You completed most of the tasks you set for this period.",
+  "obsNoDeadlines": "You completed {n} tasks. None had a deadline in this period, so there's no completion rate.",
+  "@obsNoDeadlines": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "observations": "Observations",
+  "ok": "OK",
+  "onboardingNoAuto": "Nothing is created or scheduled automatically. You'll choose what to add next.",
+  "openSettings": "Open settings",
+  "organizeGroup": "Organize",
+  "osNotificationsNote": "Reminders appear here while Hayati is open. Phone/system notifications will be added with the cloud service.",
+  "overBudget": "Over budget",
+  "overCapacity": "Your tasks need more time than you have. Some can't fit today — move them or shorten them.",
+  "overdue": "Overdue",
+  "overdueDef": "Due in period, deadline passed, still open",
+  "overdueTasks": "Overdue",
+  "password": "Password",
+  "passwordChanged": "Password changed",
+  "passwordRule": "At least 8 characters, with a letter and a number",
+  "pastDay": "This day has passed.",
+  "pauseGoal": "Pause",
+  "periodCovers": "Covers {from} – {to}",
+  "@periodCovers": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "permAddNotes": "Add notes",
+  "permAddNotesSub": "Save a note you dictate.",
+  "permCreateTasks": "Create a single task",
+  "permCreateTasksSub": "From a clear request like “add task … tomorrow at 8 pm”.",
+  "permDraftPlans": "Draft plans",
+  "permDraftPlansSub": "Prepare plans for you to review. Drafts are never applied without approval.",
+  "permLogHabits": "Log habit completion",
+  "permLogHabitsSub": "When you say you did a habit today.",
+  "pin": "Pin",
+  "planApplied": "Plan applied",
+  "planEmptyToday": "Nothing planned for today yet.",
+  "planFree": "Free",
+  "planIsEstimate": "This plan is an estimate based on durations and priorities. It keeps some free time for breaks and surprises.",
+  "planLabel": "Plan",
+  "planPro": "Hayati Pro",
+  "planSummary": "{done} of {total} tasks done today",
+  "@planSummary": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "planWithAssistant": "Plan with assistant",
+  "plannedDate": "Planned day",
+  "plannedShort": "planned",
+  "plannedTime": "Planned time",
+  "planner": "Planner",
+  "planningHint": "This helps the planner place tasks in time you actually have.",
+  "planningPrefs": "Planning",
+  "previous": "Previous",
+  "previousChats": "Previous chats",
+  "pricingNotSet": "Price, billing period, taxes and renewal terms will be shown clearly here before purchase is enabled.",
+  "priorityHigh": "High",
+  "priorityLabel": "Priority",
+  "priorityLow": "Low",
+  "priorityMedium": "Medium",
+  "privacyPolicy": "Privacy policy",
+  "privacyRetention": "Chat history",
+  "privacyText": "Hayati — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it's stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.",
+  "privacyTitle": "Privacy & data",
+  "problemDescription": "What went wrong?",
+  "profileTitle": "Profile & account",
+  "progress": "Progress",
+  "progressManual": "Manual progress",
+  "progressMethod": "How is progress measured?",
+  "progressNotMeasured": "Not measured yet",
+  "proposalExecuted": "Applied",
+  "proposalFailed": "Failed — nothing was changed",
+  "proposalNotFound": "This suggestion no longer exists.",
+  "proposalRejected": "Rejected",
+  "proposalStale": "Your data changed since this was suggested. Ask again for a fresh suggestion.",
+  "quickAdd": "Quick add",
+  "reason": "Why",
+  "reasonDeadline": "Would finish after its deadline time",
+  "reasonNoSlot": "No free slot is long enough",
+  "reasonNoTime": "Not enough free time left today",
+  "regional": "Region & time",
+  "reject": "Reject",
+  "reminder": "Reminder",
+  "reminderNeedsTime": "Set a deadline or a planned time for the reminder.",
+  "reminderTimeOptional": "Reminder time (optional)",
+  "removeFromPlan": "Remove from today's plan",
+  "removeItem": "Remove this change",
+  "removedFromPlan": "Removed from this plan",
+  "reorder": "Reorder",
+  "reorderHint": "Drag to change the order; times are recalculated.",
+  "repeatDays": "Days",
+  "reportNoData": "Not enough data for this period yet.",
+  "reportPrivacy": "Your chats, notes and expenses are never included in reports.",
+  "reportProblem": "Report a problem",
+  "reportProblemSub": "Describe what happened",
+  "reportSaved": "Report saved. It will be sent when the support service is connected.",
+  "restBlock": "Break",
+  "restore": "Restore",
+  "restorePurchases": "Restore purchases",
+  "resumeGoal": "Make active",
+  "retry": "Try again",
+  "reviewChanges": "Review changes",
+  "reviewMyPlan": "Review my plan",
+  "sampleGoal1": "Learn English",
+  "sampleGoal2": "Learn programming",
+  "sampleGoal3": "Exercise regularly",
+  "sampleGoal4": "Read 12 books this year",
+  "save": "Save",
+  "saveEvent": "Save event",
+  "saveGoal": "Save goal",
+  "saveTask": "Save task",
+  "saved": "Saved",
+  "saving": "Saving…",
+  "scheduleGroup": "When",
+  "search": "Search",
+  "sectionsShown": "Sections in the app",
+  "send": "Send",
+  "sessionLength": "Session length",
+  "sessions": "Sessions",
+  "sessionsLocal": "Local mode has one session per device. Signing out ends it.",
+  "shareNotesSub": "Off by default",
+  "shareSub": "Used to plan and summarize",
+  "showActive": "Show active",
+  "showArchived": "Show archived",
+  "showCompleted": "Show completed & archived",
+  "showNameGreeting": "Show my name in the greeting",
+  "showPassword": "Show password",
+  "signIn": "Sign in",
+  "signInMethod": "Sign-in method",
+  "signInSubtitle": "Sign in to continue.",
+  "signInTitle": "Welcome back",
+  "signOut": "Sign out",
+  "signOutBody": "Your data stays saved for when you sign in again.",
+  "signUpSubtitle": "It takes less than a minute.",
+  "signUpTitle": "Create your account",
+  "skip": "Skip",
+  "spending": "Spending",
+  "splashFailed": "We couldn't start Hayati.",
+  "startDate": "Start date",
+  "startTime": "Starts",
+  "statusCancelled": "Cancelled",
+  "statusDone": "Done",
+  "statusInProgress": "In progress",
+  "statusLabel": "Status",
+  "statusTodo": "To do",
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "stepsOptional": "Steps to reproduce (optional)",
+  "stop": "Stop",
+  "streakDays": "{n, plural, =0{No streak yet} =1{1-day streak} other{{n}-day streak}}",
+  "@streakDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "subscriptionTitle": "Subscription",
+  "suggestedPlan": "Suggested plan",
+  "switchToSignIn": "Already have an account? Sign in",
+  "switchToSignUp": "New here? Create an account",
+  "targetDate": "Target date",
+  "targetOn": "Target {date}",
+  "@targetOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "taskTitleRequired": "Task title",
+  "tasksCompleted": "Tasks completed",
+  "tasksCount": "{n, plural, =1{1 task} other{{n} tasks}}",
+  "@tasksCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "tasksDoneOf": "{done}/{total} tasks done",
+  "@tasksDoneOf": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "terms": "Terms of use",
+  "termsText": "Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.",
+  "theme": "Theme",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "themeSystem": "System",
+  "thinking": "Thinking…",
+  "thisDevice": "This device",
+  "thisMonth": "This month",
+  "thisWeek": "This week",
+  "time": "Time",
+  "timezone": "Time zone",
+  "timezoneDetected": "Detected from your device. Times are shown in your device's time zone.",
+  "timezoneDeviceNote": "follows your device",
+  "today": "Today",
+  "todayPlan": "Today's plan",
+  "todaysHabits": "Today's habits",
+  "tomorrow": "Tomorrow",
+  "toolAddMilestones": "Add milestones",
+  "toolAddNote": "Add note",
+  "toolCreateGoal": "Create goal",
+  "toolCreateTask": "Create task",
+  "toolDeleteTask": "Delete task",
+  "toolLogHabit": "Log habit",
+  "toolMoveTask": "Change deadline",
+  "toolPlanTask": "Set planned time",
+  "topPriorities": "Top priorities",
+  "totalSpent": "Total spent",
+  "typeToConfirm": "Type “{word}” to confirm",
+  "@typeToConfirm": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "unarchive": "Restore from archive",
+  "unarchived": "Restored",
+  "undo": "Undo",
+  "unitHours": "{n, plural, =1{1 h} other{{n} h}}",
+  "@unitHours": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "unitMinutes": "{n, plural, =1{1 min} other{{n} min}}",
+  "@unitMinutes": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "unpin": "Unpin",
+  "unread": "Unread",
+  "unscheduled": "Unscheduled",
+  "untilDeleted": "Until I delete them",
+  "untitled": "Untitled",
+  "upcoming": "Upcoming",
+  "upgrade": "Upgrade",
+  "usageToday": "{used}/{limit} assistant requests today",
+  "@usageToday": {
+    "placeholders": {
+      "used": {
+        "type": "int"
+      },
+      "limit": {
+        "type": "int"
+      }
+    }
+  },
+  "use24h": "24-hour time",
+  "verificationLocal": "Not required in local mode",
+  "viewAll": "View all",
+  "viewAllGoals": "View all goals",
+  "viewCalendar": "Calendar",
+  "vsLastMonth": "Last month: {amount}",
+  "@vsLastMonth": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      }
+    }
+  },
+  "wdFri": "Fri",
+  "wdMon": "Mon",
+  "wdSat": "Sat",
+  "wdSun": "Sun",
+  "wdThu": "Thu",
+  "wdTue": "Tue",
+  "wdWed": "Wed",
+  "week": "Week",
+  "weekStart": "Week starts on",
+  "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
+  "welcomeTitle": "Organize your life, step by step",
+  "whatWeStore": "What Hayati stores",
+  "whatWeStoreBody": "Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.",
+  "whyOptional": "Why it matters (optional)",
+  "workBlock": "Work / study",
+  "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",
+  "workEnd": "Until",
+  "workStart": "Work/study from",
+  "yourData": "Your data"
+}
