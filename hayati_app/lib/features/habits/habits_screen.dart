@@ -12,6 +12,7 @@ import '../../domain/metrics.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/device_notifications_card.dart';
 
 /// Screen 12 — habits and their history.
 class HabitsScreen extends ConsumerWidget {
@@ -170,6 +171,7 @@ class _HabitEditorState extends ConsumerState<_HabitEditor> {
           reminderMinutes: _reminder,
           active: _active,
         ));
+    if (_reminder != null) askForNotificationsIfUnknown(context);
     Navigator.pop(context);
   }
 

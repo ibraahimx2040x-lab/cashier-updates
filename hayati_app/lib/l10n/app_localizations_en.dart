@@ -753,6 +753,31 @@ class AppLocalizationsEn extends AppLocalizations {
   String get details => 'Details';
 
   @override
+  String get devNotifBody => 'Get reminders even when Hayati is closed.';
+
+  @override
+  String get devNotifBodyWeb =>
+      'Show reminders as browser notifications while Hayati is open.';
+
+  @override
+  String get devNotifDenied =>
+      'Notifications are blocked. To get reminders, allow them for Hayati in your device or browser settings.';
+
+  @override
+  String get devNotifEnable => 'Turn on';
+
+  @override
+  String get devNotifOn =>
+      'On — reminders arrive even when Hayati is closed (sometimes a few minutes late).';
+
+  @override
+  String get devNotifOnWeb =>
+      'On — browsers show reminders only while Hayati is open.';
+
+  @override
+  String get devNotifTitle => 'Phone notifications';
+
+  @override
   String get discard => 'Discard';
 
   @override
@@ -996,7 +1021,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get faq4a =>
-      'In this version reminders appear in the notification centre while the app is open. Make sure the task has a reminder and a deadline or planned time.';
+      'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Hayati is open.';
 
   @override
   String get faq4q => 'I\'m not getting reminders';
@@ -1545,10 +1570,6 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get organizeGroup => 'Organize';
-
-  @override
-  String get osNotificationsNote =>
-      'Reminders appear here while Hayati is open. Phone/system notifications will be added with the cloud service.';
 
   @override
   String get overBudget => 'Over budget';

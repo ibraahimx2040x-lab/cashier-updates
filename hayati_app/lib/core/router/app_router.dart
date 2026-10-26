@@ -31,37 +31,11 @@ import '../../features/time/event_edit_screen.dart';
 import '../../features/time/task_edit_screen.dart';
 import '../../features/time/time_screen.dart';
 
+import 'route_paths.dart';
+
+export 'route_paths.dart';
+
 final rootNavigatorKey = GlobalKey<NavigatorState>();
-
-/// Route paths in one place.
-abstract final class Routes {
-  static const splash = '/splash';
-  static const welcome = '/welcome';
-  static const auth = '/auth';
-  static const onboarding = '/onboarding';
-  static const home = '/home';
-  static const time = '/time';
-  static const goals = '/goals';
-  static const assistant = '/assistant';
-  static const progress = '/progress';
-  static const habits = '/habits';
-  static const notes = '/notes';
-  static const expenses = '/expenses';
-  static const notifications = '/notifications';
-  static const settings = '/settings';
-  static const assistantSettings = '/settings/assistant';
-  static const profile = '/settings/profile';
-  static const subscription = '/settings/subscription';
-  static const help = '/settings/help';
-  static const privacy = '/settings/privacy';
-
-  static String task(String id) => '/task/$id';
-  static String event(String id) => '/event/$id';
-  static String goal(String id) => '/goal/$id';
-  static String note(String id) => '/note/$id';
-  static String review(String id) => '/assistant/review/$id';
-  static String timeTab(String tab) => '/time?tab=$tab';
-}
 
 const _publicRoutes = {Routes.welcome, Routes.auth};
 

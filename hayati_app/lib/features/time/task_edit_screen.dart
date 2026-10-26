@@ -12,6 +12,7 @@ import '../../data/models/task.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/device_notifications_card.dart';
 
 /// Screen 7 — create or edit a task.
 class TaskEditScreen extends ConsumerStatefulWidget {
@@ -95,6 +96,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
       if (_orig != null && _status != _orig.status) data.setTaskStatus(base.id, _status);
       _dirty = false;
       showSnack(context, l.saved);
+      if (reminderAt != null) askForNotificationsIfUnknown(context);
       context.pop();
     } on ArgumentError {
       showSnack(context, l.errSave);

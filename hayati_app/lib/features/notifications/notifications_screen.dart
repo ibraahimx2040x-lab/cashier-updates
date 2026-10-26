@@ -11,6 +11,7 @@ import '../../data/models/misc.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/device_notifications_card.dart';
 import '../habits/habits_screen.dart';
 
 /// Screen 18 — in-app notification centre. Removing a notification never
@@ -98,7 +99,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
           ),
           Padding(
             padding: const EdgeInsets.fromLTRB(Space.gutter, Space.m, Space.gutter, 0),
-            child: Text(l.osNotificationsNote, style: Theme.of(context).textTheme.bodySmall),
+            child: const DeviceNotificationsCard(),
           ),
           Expanded(
             child: list.isEmpty

@@ -63,8 +63,7 @@ List<AppNotification> dueReminders(AppData d, DateTime now, AppLocalizations l) 
   return out;
 }
 
-void syncReminders(DataController c, DateTime now, AppLocalizations l) {
-  for (final n in dueReminders(c.snapshot, now, l)) {
-    c.notify(n);
-  }
-}
+/// Adds due reminders to the notification centre; returns the ones that
+/// were new (not delivered before).
+List<AppNotification> syncReminders(DataController c, DateTime now, AppLocalizations l) =>
+    [for (final n in dueReminders(c.snapshot, now, l)) if (c.notify(n)) n];

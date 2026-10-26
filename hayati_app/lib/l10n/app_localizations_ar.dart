@@ -757,6 +757,31 @@ class AppLocalizationsAr extends AppLocalizations {
   String get details => 'التفاصيل';
 
   @override
+  String get devNotifBody => 'تصلك التذكيرات حتى لو كان التطبيق مغلقًا.';
+
+  @override
+  String get devNotifBodyWeb =>
+      'اعرض التذكيرات كإشعارات المتصفح أثناء فتح التطبيق.';
+
+  @override
+  String get devNotifDenied =>
+      'الإشعارات محظورة. لتصلك التذكيرات، اسمح بها لتطبيق حياتي من إعدادات جهازك أو متصفحك.';
+
+  @override
+  String get devNotifEnable => 'تفعيل';
+
+  @override
+  String get devNotifOn =>
+      'مفعّلة — تصلك التذكيرات حتى والتطبيق مغلق (قد تتأخر دقائق قليلة).';
+
+  @override
+  String get devNotifOnWeb =>
+      'مفعّلة — يعرض المتصفح التذكيرات أثناء فتح التطبيق فقط.';
+
+  @override
+  String get devNotifTitle => 'إشعارات الجهاز';
+
+  @override
   String get discard => 'تجاهل';
 
   @override
@@ -1001,7 +1026,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get faq4a =>
-      'في هذا الإصدار تظهر التذكيرات في مركز الإشعارات أثناء فتح التطبيق. تأكد أن للمهمة تذكيرًا وموعدًا نهائيًا أو وقتًا مخططًا.';
+      'فعّل إشعارات الجهاز من شاشة الإشعارات أو الإعدادات، وأضف للمهمة تذكيرًا مع موعد نهائي أو وقت مخطط. على الجوال تصلك التذكيرات حتى والتطبيق مغلق (قد تتأخر دقائق قليلة)، وفي المتصفح تظهر فقط أثناء فتح التطبيق.';
 
   @override
   String get faq4q => 'لا تصلني التذكيرات';
@@ -1548,10 +1573,6 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get organizeGroup => 'التنظيم';
-
-  @override
-  String get osNotificationsNote =>
-      'تظهر التذكيرات هنا أثناء فتح التطبيق. ستُضاف إشعارات الجهاز مع الخدمة السحابية.';
 
   @override
   String get overBudget => 'تجاوز الميزانية';

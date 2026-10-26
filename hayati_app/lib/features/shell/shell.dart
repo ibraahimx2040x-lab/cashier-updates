@@ -7,10 +7,13 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/data_controller.dart';
+import '../../data/models/misc.dart';
 import '../../data/models/settings.dart';
 import '../../data/remote/sync.dart';
+import '../../domain/device_reminders.dart';
 import '../../domain/reminders.dart';
 import '../../l10n/app_localizations.dart';
+import '../../services/device_notifications.dart';
 import '../../widgets/common.dart';
 import 'quick_add.dart';
 
@@ -25,18 +28,46 @@ class AppShell extends ConsumerStatefulWidget {
 
 class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver {
   Timer? _timer;
+  Timer? _plan;
+  ProviderSubscription<Object>? _dataSub;
+
+  // Captured up front: `ref` is unusable in dispose().
+  late final DeviceNotifications _device = ref.read(deviceNotificationsProvider);
 
   @override
   void initState() {
     super.initState();
+    _device;
     WidgetsBinding.instance.addObserver(this);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _sync());
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      _sync();
+      await _device.init(onOpen: (route) {
+        if (mounted) ref.read(routerProvider).push(route);
+      });
+      _schedule();
+    });
     _timer = Timer.periodic(const Duration(minutes: 1), (_) => _sync());
+    // Re-plan device reminders shortly after any data change.
+    _dataSub = ref.listenManual(dataProvider, (_, _) {
+      _plan?.cancel();
+      _plan = Timer(const Duration(seconds: 2), _schedule);
+    });
+  }
+
+  void _schedule() {
+    if (!mounted) return;
+    final l = AppLocalizations.of(context);
+    _device.reschedule(planDeviceReminders(ref.read(dataProvider), ref.read(clockProvider)(), l));
   }
 
   @override
   void dispose() {
     _timer?.cancel();
+    _plan?.cancel();
+    _dataSub?.close();
+    // Leaving the main app means signing out (or deleting the account):
+    // no reminders should fire for a signed-out user.
+    _device.reschedule(const []);
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
@@ -51,8 +82,22 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   void _sync() {
     if (!mounted) return;
-    syncReminders(ref.read(dataProvider.notifier), ref.read(clockProvider)(), AppLocalizations.of(context));
+    final added = syncReminders(ref.read(dataProvider.notifier), ref.read(clockProvider)(), AppLocalizations.of(context));
+    // Browsers can't schedule ahead: surface new reminders as browser
+    // notifications while the app is open. Phones already scheduled them.
+    if (!_device.canSchedule) {
+      for (final n in added) {
+        _device.showNow(stableId(n.dedupeKey), n.title, n.body, _routeFor(n));
+      }
+    }
   }
+
+  static String _routeFor(AppNotification n) => switch (n.type) {
+        NotificationType.task when n.refId != null => Routes.task(n.refId!),
+        NotificationType.event when n.refId != null => Routes.event(n.refId!),
+        NotificationType.habit => Routes.habits,
+        _ => Routes.notifications,
+      };
 
   void _go(int i) => widget.shell.goBranch(i, initialLocation: i == widget.shell.currentIndex);
 

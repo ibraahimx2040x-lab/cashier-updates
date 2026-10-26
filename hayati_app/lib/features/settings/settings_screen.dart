@@ -14,6 +14,7 @@ import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/device_notifications_card.dart';
 import '../auth/onboarding_screen.dart' show currencies;
 
 /// Screen 19 — general settings. Changes apply immediately; none of them
@@ -66,6 +67,8 @@ class SettingsScreen extends ConsumerWidget {
                     : TextButton(onPressed: () => ref.read(syncProvider.notifier).sync(), child: Text(l.syncNow)),
               );
             }),
+          header(l.navNotifications),
+          const Padding(padding: EdgeInsets.symmetric(horizontal: Space.gutter), child: DeviceNotificationsCard()),
           header(l.appearance),
           ListTile(
             leading: const Icon(Icons.translate),

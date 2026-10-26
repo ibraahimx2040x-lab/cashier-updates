@@ -12,6 +12,7 @@ import '../../data/models/task.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/device_notifications_card.dart';
 
 /// Event (fixed appointment) editor — part of the calendar (screen 8).
 /// Overlaps are allowed but always flagged.
@@ -74,6 +75,7 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
     ref.read(dataProvider.notifier).saveEvent(e);
     _dirty = false;
     showSnack(context, l.saved);
+    if (_reminder != null) askForNotificationsIfUnknown(context);
     context.pop();
   }
 

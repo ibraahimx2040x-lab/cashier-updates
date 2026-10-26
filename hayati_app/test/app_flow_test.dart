@@ -11,9 +11,34 @@ import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
+import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/l10n/app_localizations.dart';
+import 'package:hayati/services/device_notifications.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+/// Records what would be scheduled with the OS.
+class FakeDeviceNotifications implements DeviceNotifications {
+  List<DeviceReminder> scheduled = [];
+  DevicePermission state = DevicePermission.unknown;
+  int requests = 0;
+
+  @override
+  bool get canSchedule => true;
+  @override
+  Future<void> init({required void Function(String route) onOpen}) async {}
+  @override
+  Future<DevicePermission> permission() async => state;
+  @override
+  Future<DevicePermission> requestPermission() async {
+    requests++;
+    return state = DevicePermission.granted;
+  }
+  @override
+  Future<void> reschedule(List<DeviceReminder> reminders) async => scheduled = reminders;
+  @override
+  Future<void> showNow(int id, String title, String body, String route) async {}
+}
 
 Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size}) async {
   tester.view.physicalSize = size;
@@ -21,7 +46,10 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
   addTearDown(tester.view.reset);
   SharedPreferences.setMockInitialValues({DevicePrefs.localeKey: locale});
   final prefs = await SharedPreferences.getInstance();
-  final container = ProviderContainer(overrides: [localStoreProvider.overrideWithValue(LocalStore(prefs))]);
+  final container = ProviderContainer(overrides: [
+    localStoreProvider.overrideWithValue(LocalStore(prefs)),
+    deviceNotificationsProvider.overrideWithValue(FakeDeviceNotifications()),
+  ]);
   addTearDown(container.dispose);
   await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const HayatiApp()));
   await tester.pumpAndSettle();
@@ -215,5 +243,46 @@ void main() {
     await tapIn(tester, find.text(l.saveTask));
     await tester.pumpAndSettle();
     expect(c.read(dataProvider).tasks.single.title, 'Write report');
+  });
+
+  testWidgets('reminders are scheduled on the device and permission is asked once', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final fake = c.read(deviceNotificationsProvider) as FakeDeviceNotifications;
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    expect(fake.scheduled, isEmpty);
+
+    final d = c.read(dataProvider.notifier);
+    final due = DateTime.now().add(const Duration(days: 1));
+    final t = d.newTask(
+      title: 'Call the bank',
+      dueDate: dayKey(due),
+      dueTime: 20 * 60,
+      reminderAt: DateTime(due.year, due.month, due.day, 19, 30),
+    );
+    d.saveTask(t);
+    await tester.pump(const Duration(seconds: 3)); // debounce
+    await tester.pumpAndSettle();
+    expect(fake.scheduled.single.route, '/task/${t.id}');
+
+    // Completing the task removes its reminder.
+    d.toggleTaskDone(t.id);
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
+    expect(fake.scheduled, isEmpty);
+
+    // Saving a reminder from the editor asks for permission, once.
+    final l = lookupAppLocalizations(const Locale('en'));
+    c.read(routerProvider).push(Routes.task(t.id));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.saveTask));
+    await tester.pumpAndSettle();
+    expect(fake.requests, 1);
+    c.read(routerProvider).push(Routes.task(t.id));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.saveTask));
+    await tester.pumpAndSettle();
+    expect(fake.requests, 1, reason: 'already answered');
   });
 }

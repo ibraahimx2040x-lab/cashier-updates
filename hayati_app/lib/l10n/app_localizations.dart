@@ -1316,6 +1316,48 @@ abstract class AppLocalizations {
   /// **'Details'**
   String get details;
 
+  /// No description provided for @devNotifBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Get reminders even when Hayati is closed.'**
+  String get devNotifBody;
+
+  /// No description provided for @devNotifBodyWeb.
+  ///
+  /// In en, this message translates to:
+  /// **'Show reminders as browser notifications while Hayati is open.'**
+  String get devNotifBodyWeb;
+
+  /// No description provided for @devNotifDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications are blocked. To get reminders, allow them for Hayati in your device or browser settings.'**
+  String get devNotifDenied;
+
+  /// No description provided for @devNotifEnable.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on'**
+  String get devNotifEnable;
+
+  /// No description provided for @devNotifOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On — reminders arrive even when Hayati is closed (sometimes a few minutes late).'**
+  String get devNotifOn;
+
+  /// No description provided for @devNotifOnWeb.
+  ///
+  /// In en, this message translates to:
+  /// **'On — browsers show reminders only while Hayati is open.'**
+  String get devNotifOnWeb;
+
+  /// No description provided for @devNotifTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone notifications'**
+  String get devNotifTitle;
+
   /// No description provided for @discard.
   ///
   /// In en, this message translates to:
@@ -1763,7 +1805,7 @@ abstract class AppLocalizations {
   /// No description provided for @faq4a.
   ///
   /// In en, this message translates to:
-  /// **'In this version reminders appear in the notification centre while the app is open. Make sure the task has a reminder and a deadline or planned time.'**
+  /// **'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Hayati is open.'**
   String get faq4a;
 
   /// No description provided for @faq4q.
@@ -2785,12 +2827,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Organize'**
   String get organizeGroup;
-
-  /// No description provided for @osNotificationsNote.
-  ///
-  /// In en, this message translates to:
-  /// **'Reminders appear here while Hayati is open. Phone/system notifications will be added with the cloud service.'**
-  String get osNotificationsNote;
 
   /// No description provided for @overBudget.
   ///
