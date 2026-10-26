@@ -16,6 +16,7 @@ import 'package:hayati/core/config.dart';
 import 'package:hayati/core/utils/dates.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
+import 'package:hayati/data/models/accountability.dart';
 import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
@@ -264,6 +265,41 @@ void main() {
     expect((p.bestScore, p.attempts), (100, 2));
     expect(d.vocabReviews.firstWhere((r) => r.wordId == 'w_trip').box, 3);
     expect(d.vocabReviews, hasLength(2));
+  }, skip: skip);
+
+  test('commitments and their answers sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final task = a.data.newTask(title: 'Essay', dueDate: '2026-01-01');
+    a.data.saveTask(task);
+    final rule = AccountabilityRule(
+        id: newId(), taskId: task.id, graceDays: 3, consequence: Consequence.custom, customText: 'Tidy my desk', createdAt: DateTime.now());
+    a.data.saveRule(rule);
+    final eventId = newId();
+    a.data.addAccountabilityEvent(
+        AccountabilityEvent(id: eventId, ruleId: rule.id, taskId: task.id, dueDate: '2026-01-01', triggeredOn: '2026-01-04'));
+    await a.settle();
+    a.data.resolveAccountability(eventId, DelayReason.illness, newDueDate: '2030-01-10', note: 'flu');
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    expect(d.ruleForTask(task.id)!.customText, 'Tidy my desk');
+    final e = d.accountabilityEvent(eventId)!;
+    expect((e.reason, e.outcome, e.newDueDate, e.note), (DelayReason.illness, EventOutcome.rescheduled, '2030-01-10', 'flu'));
+    expect(d.task(task.id)!.dueDate, '2030-01-10');
   }, skip: skip);
 
   test('another account sees nothing', () async {

@@ -11,6 +11,9 @@ import '../../features/auth/auth_screen.dart';
 import '../../features/auth/onboarding_screen.dart';
 import '../../features/auth/splash_screen.dart';
 import '../../features/auth/welcome_screen.dart';
+import '../../features/accountability/accountability_event_screen.dart';
+import '../../features/accountability/accountability_screen.dart';
+import '../../features/accountability/rule_editor_screen.dart';
 import '../../features/english/english_screen.dart';
 import '../../features/english/english_test_screen.dart';
 import '../../features/english/lesson_screen.dart';
@@ -142,6 +145,9 @@ final routerProvider = Provider<GoRouter>((ref) {
       page('/english/test', (s) => EnglishTestScreen(levelCheck: s.uri.queryParameters['kind'] == 'level')),
       page('/english/lesson/:id', (s) => LessonScreen(lessonId: s.pathParameters['id']!)),
       page(Routes.englishReview, (_) => const EnglishReviewScreen()),
+      page(Routes.accountability, (_) => const AccountabilityScreen()),
+      page('/accountability/rule', (s) => RuleEditorScreen(ruleId: s.uri.queryParameters['id'], taskId: s.uri.queryParameters['task'])),
+      page('/accountability/event/:id', (s) => AccountabilityEventScreen(eventId: s.pathParameters['id']!)),
       page(Routes.habits, (_) => const HabitsScreen()),
       page(Routes.notes, (_) => const NotesScreen()),
       page('/note/:id', (s) => NoteEditorScreen(noteId: s.pathParameters['id'] == 'new' ? null : s.pathParameters['id'])),

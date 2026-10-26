@@ -98,6 +98,282 @@ abstract class AppLocalizations {
     Locale('en'),
   ];
 
+  /// No description provided for @accAddRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a commitment'**
+  String get accAddRule;
+
+  /// No description provided for @accAgree.
+  ///
+  /// In en, this message translates to:
+  /// **'I agree to this rule, and I can edit or pause it anytime'**
+  String get accAgree;
+
+  /// No description provided for @accAgreedConsequence.
+  ///
+  /// In en, this message translates to:
+  /// **'What you agreed to'**
+  String get accAgreedConsequence;
+
+  /// No description provided for @accAnsweredOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered {date}'**
+  String accAnsweredOn(String date);
+
+  /// No description provided for @accCloseTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Close the task'**
+  String get accCloseTask;
+
+  /// No description provided for @accConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Confirm'**
+  String get accConfirm;
+
+  /// No description provided for @accConsequenceAsTask.
+  ///
+  /// In en, this message translates to:
+  /// **'It will be added as a small task for today, and the task gets the new deadline below.'**
+  String get accConsequenceAsTask;
+
+  /// No description provided for @accCustomEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Write what you agree to do'**
+  String get accCustomEmpty;
+
+  /// No description provided for @accCustomLong.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it under 200 characters'**
+  String get accCustomLong;
+
+  /// No description provided for @accCustomUnsafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose something that doesn\'t touch sleep, food, prayer, health care, or add exercise'**
+  String get accCustomUnsafe;
+
+  /// No description provided for @accDaysLate.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 day late} other{{n} days late}}'**
+  String accDaysLate(int n);
+
+  /// No description provided for @accDeleteRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this commitment?'**
+  String get accDeleteRule;
+
+  /// No description provided for @accDeleteRuleBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The task stays. Past records are kept without the rule.'**
+  String get accDeleteRuleBody;
+
+  /// No description provided for @accDropNote.
+  ///
+  /// In en, this message translates to:
+  /// **'No problem. The task will be closed and its rule paused. Nothing else happens.'**
+  String get accDropNote;
+
+  /// No description provided for @accDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due {date}'**
+  String accDue(String date);
+
+  /// No description provided for @accEditRule.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit commitment'**
+  String get accEditRule;
+
+  /// No description provided for @accEmergencyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Emergencies happen. No consequence — just pick a new deadline that works.'**
+  String get accEmergencyNote;
+
+  /// No description provided for @accHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'What happened before'**
+  String get accHistory;
+
+  /// No description provided for @accIllnessNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your health comes first. No consequence — pick a new deadline when you\'re ready.'**
+  String get accIllnessNote;
+
+  /// No description provided for @accLateBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 day past {date}} other{{n} days past {date}}}'**
+  String accLateBy(int n, String date);
+
+  /// No description provided for @accMakeupPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Make-up plan: a new deadline'**
+  String get accMakeupPlan;
+
+  /// No description provided for @accMissedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Was due {date}'**
+  String accMissedOn(String date);
+
+  /// No description provided for @accNeedsAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Needs your answer'**
+  String get accNeedsAnswer;
+
+  /// No description provided for @accNewDeadline.
+  ///
+  /// In en, this message translates to:
+  /// **'New deadline'**
+  String get accNewDeadline;
+
+  /// No description provided for @accNewDue.
+  ///
+  /// In en, this message translates to:
+  /// **'New deadline {date}'**
+  String accNewDue(String date);
+
+  /// No description provided for @accNoBlame.
+  ///
+  /// In en, this message translates to:
+  /// **'No blame. Tell us what happened and we\'ll adjust together.'**
+  String get accNoBlame;
+
+  /// No description provided for @accNoEligibleTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an open task with a deadline first.'**
+  String get accNoEligibleTasks;
+
+  /// No description provided for @accNoRules.
+  ///
+  /// In en, this message translates to:
+  /// **'No commitments yet. Add one for a task you keep putting off.'**
+  String get accNoRules;
+
+  /// No description provided for @accNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note (optional)'**
+  String get accNote;
+
+  /// No description provided for @accOpenTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the task'**
+  String get accOpenTask;
+
+  /// No description provided for @accPickTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a task'**
+  String get accPickTask;
+
+  /// No description provided for @accPrinciple1.
+  ///
+  /// In en, this message translates to:
+  /// **'You choose the consequence in advance.'**
+  String get accPrinciple1;
+
+  /// No description provided for @accPrinciple2.
+  ///
+  /// In en, this message translates to:
+  /// **'Only a deliberate postponement brings it — never an emergency or illness.'**
+  String get accPrinciple2;
+
+  /// No description provided for @accPrinciple3.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing is rescheduled or closed without your OK.'**
+  String get accPrinciple3;
+
+  /// No description provided for @accPrinciple4.
+  ///
+  /// In en, this message translates to:
+  /// **'Never sleep, food, prayer, health care, or extra exercise.'**
+  String get accPrinciple4;
+
+  /// No description provided for @accRuleRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'The rule was removed — nothing extra.'**
+  String get accRuleRemoved;
+
+  /// No description provided for @accRuleSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Commitment saved'**
+  String get accRuleSaved;
+
+  /// No description provided for @accRuleSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{days, plural, =1{After 1 day late} other{After {days} days late}}: {consequence}'**
+  String accRuleSummary(int days, String consequence);
+
+  /// No description provided for @accRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Your commitments'**
+  String get accRules;
+
+  /// No description provided for @accSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Consequences are always harmless: they never take away sleep, food, prayer or health care, and never add exercise.'**
+  String get accSafety;
+
+  /// No description provided for @accSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved. Thanks for being honest.'**
+  String get accSaved;
+
+  /// No description provided for @accTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Commitments, kindly'**
+  String get accTitle;
+
+  /// No description provided for @accWhatHappens.
+  ///
+  /// In en, this message translates to:
+  /// **'Then what?'**
+  String get accWhatHappens;
+
+  /// No description provided for @accWhenLate.
+  ///
+  /// In en, this message translates to:
+  /// **'When is it late?'**
+  String get accWhenLate;
+
+  /// No description provided for @accWhichTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Which task?'**
+  String get accWhichTask;
+
+  /// No description provided for @accWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Why was it late?'**
+  String get accWhy;
+
   /// No description provided for @account.
   ///
   /// In en, this message translates to:
@@ -1172,6 +1448,72 @@ abstract class AppLocalizations {
   /// **'{done} of {total} due in period (cancelled excluded)'**
   String completionRateDef(int done, int total);
 
+  /// No description provided for @conCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Something of my own'**
+  String get conCustom;
+
+  /// No description provided for @conCustomHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Your own harmless wording.'**
+  String get conCustomHint;
+
+  /// No description provided for @conExtraReview.
+  ///
+  /// In en, this message translates to:
+  /// **'An extra review session'**
+  String get conExtraReview;
+
+  /// No description provided for @conExtraReviewHint.
+  ///
+  /// In en, this message translates to:
+  /// **'20 minutes to look at what\'s blocking the task.'**
+  String get conExtraReviewHint;
+
+  /// No description provided for @conFirstStep.
+  ///
+  /// In en, this message translates to:
+  /// **'First step before leisure'**
+  String get conFirstStep;
+
+  /// No description provided for @conFirstStepHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Do a 15-minute first step before optional leisure time.'**
+  String get conFirstStepHint;
+
+  /// No description provided for @conPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'A short planning session'**
+  String get conPlanning;
+
+  /// No description provided for @conPlanningHint.
+  ///
+  /// In en, this message translates to:
+  /// **'15 minutes to break the task into small steps.'**
+  String get conPlanningHint;
+
+  /// No description provided for @conTaskFirstStep.
+  ///
+  /// In en, this message translates to:
+  /// **'First step: {task}'**
+  String conTaskFirstStep(String task);
+
+  /// No description provided for @conTaskPlanning.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan the steps: {task}'**
+  String conTaskPlanning(String task);
+
+  /// No description provided for @conTaskReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Review what\'s blocking: {task}'**
+  String conTaskReview(String task);
+
   /// No description provided for @confirmEmailSent.
   ///
   /// In en, this message translates to:
@@ -1646,6 +1988,30 @@ abstract class AppLocalizations {
   /// **'Done / due'**
   String get doneDays;
 
+  /// No description provided for @drEmergency.
+  ///
+  /// In en, this message translates to:
+  /// **'An emergency'**
+  String get drEmergency;
+
+  /// No description provided for @drIllness.
+  ///
+  /// In en, this message translates to:
+  /// **'I was ill'**
+  String get drIllness;
+
+  /// No description provided for @drNotImportant.
+  ///
+  /// In en, this message translates to:
+  /// **'It\'s no longer important'**
+  String get drNotImportant;
+
+  /// No description provided for @drPostponed.
+  ///
+  /// In en, this message translates to:
+  /// **'I put it off on purpose'**
+  String get drPostponed;
+
   /// No description provided for @dragHint.
   ///
   /// In en, this message translates to:
@@ -1819,6 +2185,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'English: {title}'**
   String englishLessonItem(String title);
+
+  /// No description provided for @eoAccepted.
+  ///
+  /// In en, this message translates to:
+  /// **'Consequence accepted'**
+  String get eoAccepted;
+
+  /// No description provided for @eoDropped.
+  ///
+  /// In en, this message translates to:
+  /// **'Task closed'**
+  String get eoDropped;
+
+  /// No description provided for @eoPending.
+  ///
+  /// In en, this message translates to:
+  /// **'Waiting'**
+  String get eoPending;
+
+  /// No description provided for @eoRescheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Rescheduled'**
+  String get eoRescheduled;
 
   /// No description provided for @eqBands.
   ///
@@ -3308,6 +3698,12 @@ abstract class AppLocalizations {
   /// **'My notes'**
   String get myNotes;
 
+  /// No description provided for @navAccountability.
+  ///
+  /// In en, this message translates to:
+  /// **'Commitments'**
+  String get navAccountability;
+
   /// No description provided for @navAssistant.
   ///
   /// In en, this message translates to:
@@ -3673,6 +4069,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No open tasks to plan for this day.'**
   String get nothingToPlan;
+
+  /// No description provided for @notifAccountability.
+  ///
+  /// In en, this message translates to:
+  /// **'\"{task}\" is late'**
+  String notifAccountability(String task);
+
+  /// No description provided for @notifAccountabilityBody.
+  ///
+  /// In en, this message translates to:
+  /// **'No blame — tell us what happened and pick what\'s next.'**
+  String get notifAccountabilityBody;
 
   /// No description provided for @notifDue.
   ///

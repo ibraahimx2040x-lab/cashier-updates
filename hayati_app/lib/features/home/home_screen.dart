@@ -830,6 +830,7 @@ class _MoreMenu extends ConsumerWidget {
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         _item(Routes.english, Icons.translate, l.navEnglish),
+        _item(Routes.accountability, Icons.handshake_outlined, l.navAccountability),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),
         if (settings.has(AppModule.expenses)) _item(Routes.expenses, Icons.account_balance_wallet_outlined, l.navExpenses),

@@ -5,6 +5,7 @@ library;
 
 import '../../core/utils/dates.dart';
 import '../app_data.dart';
+import '../models/accountability.dart';
 import '../models/fitness.dart';
 import '../models/goal.dart';
 import '../models/learning.dart';
@@ -245,6 +246,52 @@ Row vocabReviewRow(VocabReview v) => {'id': v.id, 'word_id': v.wordId, 'box': v.
 VocabReview vocabReviewFrom(Row r) =>
     VocabReview(id: r['id'] as String, wordId: r['word_id'] as String, box: r['box'] as int, due: r['due'] as String);
 
+Row ruleRow(AccountabilityRule r) => {
+      'id': r.id,
+      'task_id': r.taskId,
+      'grace_days': r.graceDays,
+      'consequence': r.consequence.name,
+      'custom_text': r.customText,
+      'active': r.active,
+      'created_at': _ts(r.createdAt),
+    };
+
+AccountabilityRule ruleFrom(Row r) => AccountabilityRule(
+      id: r['id'] as String,
+      taskId: r['task_id'] as String,
+      graceDays: r['grace_days'] as int,
+      consequence: Consequence.values.byName(r['consequence'] as String),
+      customText: r['custom_text'] as String,
+      active: r['active'] as bool,
+      createdAt: _dt(r['created_at'])!,
+    );
+
+Row eventRowA(AccountabilityEvent e) => {
+      'id': e.id,
+      'rule_id': e.ruleId,
+      'task_id': e.taskId,
+      'due_date': e.dueDate,
+      'triggered_on': e.triggeredOn,
+      'reason': e.reason?.name,
+      'outcome': e.outcome.name,
+      'new_due_date': e.newDueDate,
+      'note': e.note,
+      'resolved_at': _ts(e.resolvedAt),
+    };
+
+AccountabilityEvent eventFromA(Row r) => AccountabilityEvent(
+      id: r['id'] as String,
+      ruleId: r['rule_id'] as String?,
+      taskId: r['task_id'] as String?,
+      dueDate: r['due_date'] as String,
+      triggeredOn: r['triggered_on'] as String,
+      reason: r['reason'] == null ? null : DelayReason.values.byName(r['reason'] as String),
+      outcome: EventOutcome.values.byName(r['outcome'] as String),
+      newDueDate: r['new_due_date'] as String?,
+      note: r['note'] as String,
+      resolvedAt: _dt(r['resolved_at']),
+    );
+
 Row noteRow(Note n) => {
       'id': n.id,
       'title': n.title,
@@ -375,6 +422,8 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('lesson_progress', (d) => [for (final x in d.lessonProgresses) lessonProgressRow(x)], lessonProgressFrom),
   SyncTable('assessments', (d) => [for (final x in d.assessments) assessmentRow(x)], assessmentFrom),
   SyncTable('vocab_reviews', (d) => [for (final x in d.vocabReviews) vocabReviewRow(x)], vocabReviewFrom),
+  SyncTable('accountability_rules', (d) => [for (final x in d.accountabilityRules) ruleRow(x)], ruleFrom),
+  SyncTable('accountability_events', (d) => [for (final x in d.accountabilityEvents) eventRowA(x)], eventFromA),
   SyncTable('notes', (d) => [for (final x in d.notes) noteRow(x)], noteFrom),
   SyncTable('expenses', (d) => [for (final x in d.expenses) expenseRow(x)], expenseFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
@@ -399,6 +448,8 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     lessonProgresses: read('lesson_progress', lessonProgressFrom),
     assessments: read('assessments', assessmentFrom),
     vocabReviews: read('vocab_reviews', vocabReviewFrom),
+    accountabilityRules: read('accountability_rules', ruleFrom),
+    accountabilityEvents: read('accountability_events', eventFromA),
     notes: read('notes', noteFrom),
     expenses: read('expenses', expenseFrom),
     budgets: read('budgets', budgetFrom),

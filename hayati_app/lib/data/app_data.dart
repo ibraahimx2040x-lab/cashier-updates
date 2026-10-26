@@ -1,3 +1,4 @@
+import 'models/accountability.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
@@ -24,6 +25,8 @@ class AppData {
     this.lessonProgresses = const [],
     this.assessments = const [],
     this.vocabReviews = const [],
+    this.accountabilityRules = const [],
+    this.accountabilityEvents = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -53,6 +56,8 @@ class AppData {
   final List<LessonProgress> lessonProgresses;
   final List<Assessment> assessments;
   final List<VocabReview> vocabReviews;
+  final List<AccountabilityRule> accountabilityRules;
+  final List<AccountabilityEvent> accountabilityEvents;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -91,6 +96,10 @@ class AppData {
 
   List<WorkoutSession> sessionsOn(String day) => workoutSessions.where((s) => s.day == day).toList();
 
+  AccountabilityRule? rule(String? id) => _find(accountabilityRules, id, (r) => r.id);
+  AccountabilityRule? ruleForTask(String taskId) => accountabilityRules.where((r) => r.taskId == taskId).firstOrNull;
+  AccountabilityEvent? accountabilityEvent(String? id) => _find(accountabilityEvents, id, (e) => e.id);
+
   LearningPath? get learningPath => learningPaths.firstOrNull;
   LessonProgress? lessonProgress(String lessonId) => _find(lessonProgresses, lessonId, (p) => p.lessonId);
 
@@ -126,6 +135,8 @@ class AppData {
     List<LessonProgress>? lessonProgresses,
     List<Assessment>? assessments,
     List<VocabReview>? vocabReviews,
+    List<AccountabilityRule>? accountabilityRules,
+    List<AccountabilityEvent>? accountabilityEvents,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -153,6 +164,8 @@ class AppData {
         lessonProgresses: lessonProgresses ?? this.lessonProgresses,
         assessments: assessments ?? this.assessments,
         vocabReviews: vocabReviews ?? this.vocabReviews,
+        accountabilityRules: accountabilityRules ?? this.accountabilityRules,
+        accountabilityEvents: accountabilityEvents ?? this.accountabilityEvents,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -182,6 +195,8 @@ class AppData {
         'lessonProgresses': lessonProgresses.map((e) => e.toJson()).toList(),
         'assessments': assessments.map((e) => e.toJson()).toList(),
         'vocabReviews': vocabReviews.map((e) => e.toJson()).toList(),
+        'accountabilityRules': accountabilityRules.map((e) => e.toJson()).toList(),
+        'accountabilityEvents': accountabilityEvents.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -215,6 +230,8 @@ class AppData {
       lessonProgresses: list('lessonProgresses', LessonProgress.fromJson),
       assessments: list('assessments', Assessment.fromJson),
       vocabReviews: list('vocabReviews', VocabReview.fromJson),
+      accountabilityRules: list('accountabilityRules', AccountabilityRule.fromJson),
+      accountabilityEvents: list('accountabilityEvents', AccountabilityEvent.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

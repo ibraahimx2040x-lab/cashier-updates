@@ -10,6 +10,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/settings.dart';
 import '../../data/remote/sync.dart';
+import '../../domain/accountability.dart';
 import '../../domain/device_reminders.dart';
 import '../../domain/reminders.dart';
 import '../../l10n/app_localizations.dart';
@@ -48,10 +49,14 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
       _schedule();
     });
     _timer = Timer.periodic(const Duration(minutes: 1), (_) => _sync());
-    // Re-plan device reminders shortly after any data change.
+    // Re-check reminders and commitments, and re-plan device reminders,
+    // shortly after any data change. _sync writes only when something is new.
     _dataSub = ref.listenManual(dataProvider, (_, _) {
       _plan?.cancel();
-      _plan = Timer(const Duration(seconds: 2), _schedule);
+      _plan = Timer(const Duration(seconds: 2), () {
+        _sync();
+        _schedule();
+      });
     });
   }
 
@@ -83,7 +88,10 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   void _sync() {
     if (!mounted) return;
-    final added = syncReminders(ref.read(dataProvider.notifier), ref.read(clockProvider)(), AppLocalizations.of(context));
+    final l = AppLocalizations.of(context);
+    final c = ref.read(dataProvider.notifier);
+    final now = ref.read(clockProvider)();
+    final added = [...syncReminders(c, now, l), ...syncAccountability(c, now, l)];
     // Browsers can't schedule ahead: surface new reminders as browser
     // notifications while the app is open. Phones already scheduled them.
     if (!_device.canSchedule) {
@@ -97,6 +105,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
         NotificationType.task when n.refId != null => Routes.task(n.refId!),
         NotificationType.event when n.refId != null => Routes.event(n.refId!),
         NotificationType.habit => Routes.habits,
+        NotificationType.accountability when n.refId != null => Routes.accountabilityEvent(n.refId!),
         _ => Routes.notifications,
       };
 
@@ -197,6 +206,7 @@ class _Sidebar extends ConsumerWidget {
               item(Icons.mosque_outlined, l.navPrayer, () => context.push(Routes.prayer)),
               item(Icons.fitness_center, l.navFitness, () => context.push(Routes.fitness)),
               item(Icons.translate, l.navEnglish, () => context.push(Routes.english)),
+              item(Icons.handshake_outlined, l.navAccountability, () => context.push(Routes.accountability)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))
                 item(Icons.sticky_note_2_outlined, l.navNotes, () => context.push(Routes.notes)),

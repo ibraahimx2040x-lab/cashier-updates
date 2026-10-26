@@ -6,6 +6,7 @@ import 'package:uuid/uuid.dart';
 import '../core/utils/dates.dart';
 import 'app_data.dart';
 import 'auth.dart';
+import 'models/accountability.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
@@ -348,6 +349,84 @@ class DataController extends Notifier<AppData> {
 
   void deleteWorkout(String id) =>
       _set(state.copyWith(workoutSessions: state.workoutSessions.where((s) => s.id != id).toList()));
+
+  // ---------------------------------------------------------- accountability
+
+  /// Saves a rule the user agreed to. The task needs a deadline, and a
+  /// custom consequence must pass the safety check.
+  void saveRule(AccountabilityRule r) {
+    final t = state.task(r.taskId);
+    if (t == null || t.dueDate == null) throw ArgumentError('task');
+    if (r.graceDays < 1 || r.graceDays > 30) throw ArgumentError('graceDays');
+    if (r.consequence == Consequence.custom && unsafeConsequence(r.customText) != null) {
+      throw ArgumentError('consequence');
+    }
+    _set(state.copyWith(accountabilityRules: _upsert(state.accountabilityRules, r, (e) => e.id)));
+  }
+
+  /// Deletes a rule; its past events stay in the history.
+  void deleteRule(String id) => _set(state.copyWith(
+        accountabilityRules: state.accountabilityRules.where((r) => r.id != id).toList(),
+        accountabilityEvents: [
+          for (final e in state.accountabilityEvents)
+            e.ruleId == id
+                ? AccountabilityEvent(
+                    id: e.id,
+                    taskId: e.taskId,
+                    dueDate: e.dueDate,
+                    triggeredOn: e.triggeredOn,
+                    reason: e.reason,
+                    outcome: e.outcome,
+                    newDueDate: e.newDueDate,
+                    note: e.note,
+                    resolvedAt: e.resolvedAt,
+                  )
+                : e,
+        ],
+      ));
+
+  void addAccountabilityEvent(AccountabilityEvent e) {
+    if (state.accountabilityEvents.any((x) => x.ruleId == e.ruleId && x.dueDate == e.dueDate)) return;
+    _set(state.copyWith(accountabilityEvents: [...state.accountabilityEvents, e]));
+  }
+
+  /// The user's answer to a triggered rule. Postponed: the agreed
+  /// consequence (as [consequenceTask]) and a new date. Emergency or
+  /// illness: a new date only. No longer important: the task is cancelled
+  /// and its rule paused. Changes the task only with this explicit answer.
+  void resolveAccountability(String eventId, DelayReason reason, {String? newDueDate, String note = '', Task? consequenceTask}) {
+    final e = state.accountabilityEvent(eventId);
+    if (e == null || !e.pending) return;
+    if (reason != DelayReason.notImportant && newDueDate == null) throw ArgumentError('newDueDate');
+    final outcome = switch (reason) {
+      DelayReason.postponed => EventOutcome.consequenceAccepted,
+      DelayReason.emergency || DelayReason.illness => EventOutcome.rescheduled,
+      DelayReason.notImportant => EventOutcome.dropped,
+    };
+    final now = _now;
+    final t = state.task(e.taskId);
+    final tasks = [
+      for (final x in state.tasks)
+        if (x.id != e.taskId)
+          x
+        else if (reason == DelayReason.notImportant)
+          x.copyWith(status: TaskStatus.cancelled, updatedAt: now)
+        else
+          x.copyWith(dueDate: () => newDueDate, dueTime: () => null, updatedAt: now),
+      if (reason == DelayReason.postponed && consequenceTask != null && t != null) consequenceTask,
+    ];
+    _set(state.copyWith(
+      tasks: tasks,
+      accountabilityEvents: _upsert(
+        state.accountabilityEvents,
+        e.resolve(reason, outcome, newDueDate: reason == DelayReason.notImportant ? null : newDueDate, note: note, at: now),
+        (x) => x.id,
+      ),
+      accountabilityRules: reason == DelayReason.notImportant
+          ? [for (final r in state.accountabilityRules) r.id == e.ruleId ? r.copyWith(active: false) : r]
+          : null,
+    ));
+  }
 
   // ---------------------------------------------------------------- learning
 

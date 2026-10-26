@@ -1,3 +1,4 @@
+import '../../data/models/accountability.dart';
 import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/learning.dart';
@@ -109,6 +110,27 @@ extension Labels on AppLocalizations {
         Skill.reading => skillReading,
       };
 
+  String consequence(Consequence c, {String custom = ''}) => switch (c) {
+        Consequence.extraReview => conExtraReview,
+        Consequence.planningSession => conPlanning,
+        Consequence.firstStepFirst => conFirstStep,
+        Consequence.custom => custom,
+      };
+
+  String delayReason(DelayReason r) => switch (r) {
+        DelayReason.postponed => drPostponed,
+        DelayReason.emergency => drEmergency,
+        DelayReason.illness => drIllness,
+        DelayReason.notImportant => drNotImportant,
+      };
+
+  String eventOutcome(EventOutcome o) => switch (o) {
+        EventOutcome.pending => eoPending,
+        EventOutcome.consequenceAccepted => eoAccepted,
+        EventOutcome.rescheduled => eoRescheduled,
+        EventOutcome.dropped => eoDropped,
+      };
+
   String prayerMethod(PrayerMethod m) => switch (m) {
         PrayerMethod.ummAlQura => methodUmmAlQura,
         PrayerMethod.muslimWorldLeague => methodMwl,
@@ -174,6 +196,7 @@ extension Labels on AppLocalizations {
         NotificationType.plan => planLabel,
         NotificationType.assistant => navAssistant,
         NotificationType.billing => subscriptionTitle,
+        NotificationType.accountability => navAccountability,
       };
 
   /// 1 = Monday … 7 = Sunday.

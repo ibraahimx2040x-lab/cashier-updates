@@ -10,6 +10,192 @@ class AppLocalizationsAr extends AppLocalizations {
   AppLocalizationsAr([String locale = 'ar']) : super(locale);
 
   @override
+  String get accAddRule => 'أضف التزامًا';
+
+  @override
+  String get accAgree =>
+      'أوافق على هذه القاعدة، وأقدر أعدّلها أو أوقفها متى ما أبي';
+
+  @override
+  String get accAgreedConsequence => 'اللي اتفقت عليه مسبقًا';
+
+  @override
+  String accAnsweredOn(String date) {
+    return 'تم الرد $date';
+  }
+
+  @override
+  String get accCloseTask => 'أغلق المهمة';
+
+  @override
+  String get accConfirm => 'تأكيد';
+
+  @override
+  String get accConsequenceAsTask =>
+      'بتنضاف كمهمة صغيرة لليوم، والمهمة تاخذ الموعد الجديد تحت.';
+
+  @override
+  String get accCustomEmpty => 'اكتب وش توافق تسوي';
+
+  @override
+  String get accCustomLong => 'خلّها أقل من 200 حرف';
+
+  @override
+  String get accCustomUnsafe =>
+      'اختر شي ما يمس النوم أو الأكل أو الصلاة أو الرعاية الصحية، ولا يضيف تمارين';
+
+  @override
+  String accDaysLate(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n يوم تأخير',
+      few: '$n أيام تأخير',
+      two: 'يومين تأخير',
+      one: 'يوم تأخير',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get accDeleteRule => 'تحذف هذا الالتزام؟';
+
+  @override
+  String get accDeleteRuleBody =>
+      'المهمة تبقى، والسجل السابق يبقى بدون القاعدة.';
+
+  @override
+  String get accDropNote =>
+      'ما فيه مشكلة. بتنقفل المهمة وتتوقف قاعدتها، وما يصير شي ثاني.';
+
+  @override
+  String accDue(String date) {
+    return 'الموعد $date';
+  }
+
+  @override
+  String get accEditRule => 'تعديل الالتزام';
+
+  @override
+  String get accEmergencyNote =>
+      'الطوارئ تصير. ما فيه أي نتيجة، بس اختر موعد جديد يناسبك.';
+
+  @override
+  String get accHistory => 'اللي صار قبل';
+
+  @override
+  String get accIllnessNote =>
+      'صحتك أولًا. ما فيه أي نتيجة، اختر موعد جديد لما تكون جاهز.';
+
+  @override
+  String accLateBy(int n, String date) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'متأخرة $n يوم عن $date',
+      few: 'متأخرة $n أيام عن $date',
+      two: 'متأخرة يومين عن $date',
+      one: 'متأخرة يوم عن $date',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get accMakeupPlan => 'خطة التعويض: موعد جديد';
+
+  @override
+  String accMissedOn(String date) {
+    return 'كان موعدها $date';
+  }
+
+  @override
+  String get accNeedsAnswer => 'تحتاج ردّك';
+
+  @override
+  String get accNewDeadline => 'الموعد الجديد';
+
+  @override
+  String accNewDue(String date) {
+    return 'الموعد الجديد $date';
+  }
+
+  @override
+  String get accNoBlame => 'بدون لوم. قل لنا وش صار ونعدّل سوا.';
+
+  @override
+  String get accNoEligibleTasks => 'أضف مهمة مفتوحة لها موعد نهائي أولًا.';
+
+  @override
+  String get accNoRules => 'ما فيه التزامات للحين. أضف واحد لمهمة تأجلها دايم.';
+
+  @override
+  String get accNote => 'ملاحظة (اختياري)';
+
+  @override
+  String get accOpenTask => 'افتح المهمة';
+
+  @override
+  String get accPickTask => 'اختر مهمة';
+
+  @override
+  String get accPrinciple1 => 'أنت تختار النتيجة مسبقًا.';
+
+  @override
+  String get accPrinciple2 =>
+      'بس التأجيل المتعمد يجيبها، أبدًا مو الطوارئ أو المرض.';
+
+  @override
+  String get accPrinciple3 => 'ما يتغير موعد أو تنقفل مهمة بدون موافقتك.';
+
+  @override
+  String get accPrinciple4 =>
+      'أبدًا ما تمس النوم أو الأكل أو الصلاة أو الرعاية الصحية أو تمارين زيادة.';
+
+  @override
+  String get accRuleRemoved => 'القاعدة انحذفت، ما فيه شي زيادة.';
+
+  @override
+  String get accRuleSaved => 'انحفظ الالتزام';
+
+  @override
+  String accRuleSummary(int days, String consequence) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'بعد $days يوم تأخير',
+      few: 'بعد $days أيام تأخير',
+      two: 'بعد يومين تأخير',
+      one: 'بعد يوم تأخير',
+    );
+    return '$_temp0: $consequence';
+  }
+
+  @override
+  String get accRules => 'التزاماتك';
+
+  @override
+  String get accSafety =>
+      'النتائج دايم آمنة: ما تاخذ من نومك أو أكلك أو صلاتك أو رعايتك الصحية، ولا تضيف تمارين.';
+
+  @override
+  String get accSaved => 'انحفظ. شكرًا على صراحتك.';
+
+  @override
+  String get accTitle => 'التزام بلطف';
+
+  @override
+  String get accWhatHappens => 'وش يصير بعدها؟';
+
+  @override
+  String get accWhenLate => 'متى تعتبر متأخرة؟';
+
+  @override
+  String get accWhichTask => 'أي مهمة؟';
+
+  @override
+  String get accWhy => 'ليش تأخرت؟';
+
+  @override
   String get account => 'الحساب';
 
   @override
@@ -687,6 +873,46 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get conCustom => 'شي من اختياري';
+
+  @override
+  String get conCustomHint => 'بكلامك، بشرط تكون آمنة.';
+
+  @override
+  String get conExtraReview => 'جلسة مراجعة إضافية';
+
+  @override
+  String get conExtraReviewHint => '20 دقيقة تشوف وش اللي معطّل المهمة.';
+
+  @override
+  String get conFirstStep => 'الخطوة الأولى قبل الترفيه';
+
+  @override
+  String get conFirstStepHint =>
+      'سوّ أول خطوة 15 دقيقة قبل وقت الترفيه الاختياري.';
+
+  @override
+  String get conPlanning => 'جلسة تخطيط قصيرة';
+
+  @override
+  String get conPlanningHint => '15 دقيقة تقسّم فيها المهمة لخطوات صغيرة.';
+
+  @override
+  String conTaskFirstStep(String task) {
+    return 'الخطوة الأولى: $task';
+  }
+
+  @override
+  String conTaskPlanning(String task) {
+    return 'خطّط الخطوات: $task';
+  }
+
+  @override
+  String conTaskReview(String task) {
+    return 'راجع وش المعطّل: $task';
+  }
+
+  @override
   String get confirmEmailSent =>
       'أُنشئ الحساب. أرسلنا رابط تأكيد إلى بريدك، افتحه ثم سجّل الدخول.';
 
@@ -958,6 +1184,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get doneDays => 'منجز / مستحق';
 
   @override
+  String get drEmergency => 'ظرف طارئ';
+
+  @override
+  String get drIllness => 'كنت مريض';
+
+  @override
+  String get drNotImportant => 'ما عادت مهمة';
+
+  @override
+  String get drPostponed => 'أجّلتها بنفسي';
+
+  @override
   String get dragHint => 'اضغط مطولًا واسحب المهمة إلى ساعة لجدولتها.';
 
   @override
@@ -1056,6 +1294,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String englishLessonItem(String title) {
     return 'الإنجليزية: $title';
   }
+
+  @override
+  String get eoAccepted => 'قبلت النتيجة';
+
+  @override
+  String get eoDropped => 'انقفلت المهمة';
+
+  @override
+  String get eoPending => 'بالانتظار';
+
+  @override
+  String get eoRescheduled => 'تأجلت بدون نتيجة';
 
   @override
   String get eqBands => 'حبال مطاطية';
@@ -1898,6 +2148,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myNotes => 'ملاحظاتي';
 
   @override
+  String get navAccountability => 'الالتزام';
+
+  @override
   String get navAssistant => 'المساعد';
 
   @override
@@ -2086,6 +2339,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get nothingToPlan => 'لا توجد مهام مفتوحة للتخطيط لهذا اليوم.';
+
+  @override
+  String notifAccountability(String task) {
+    return '«$task» متأخرة';
+  }
+
+  @override
+  String get notifAccountabilityBody =>
+      'بدون لوم، قل لنا وش صار واختر الخطوة الجاية.';
 
   @override
   String get notifDue => 'راجع موعدها في المهام.';
