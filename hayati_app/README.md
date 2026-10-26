@@ -25,6 +25,14 @@ flutter run \
   --dart-define=SUPABASE_ANON_KEY=<anon/publishable key>
 ```
 
+مشروع حياتي الحالي:
+
+```bash
+flutter run \
+  --dart-define=SUPABASE_URL=https://ldptcpbqbgarypzplbwy.supabase.co \
+  --dart-define=SUPABASE_ANON_KEY=sb_publishable_gxM3jE1D_xIAjgChGATTXg_HQp3knyD
+```
+
 في هذا الوضع:
 - تسجيل الدخول عبر Supabase Auth: تأكيد البريد (إن كان مفعّلًا في المشروع)، رابط استعادة كلمة المرور، وتغييرها.
 - المهام والمواعيد والأهداف ومراحلها والعادات وسجلاتها والملاحظات والمصروفات والميزانيات والإعدادات تُحفظ في الخادم، مع نسخة على الجهاز تجعل التطبيق يفتح ويعمل دون اتصال.
