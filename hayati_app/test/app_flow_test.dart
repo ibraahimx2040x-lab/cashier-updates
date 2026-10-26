@@ -4,9 +4,11 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/app.dart';
 import 'package:hayati/core/router/app_router.dart';
 import 'package:hayati/core/utils/dates.dart';
+import 'package:hayati/core/utils/format.dart';
 import 'package:hayati/core/utils/labels.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
+import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
@@ -14,6 +16,7 @@ import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/features/home/home_screen.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
+import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
@@ -109,6 +112,17 @@ void seed(ProviderContainer c) {
     updatedAt: now,
   ));
   d.saveEvent(CalendarEvent(id: 'e2', title: 'Overlap', start: DateTime(now.year, now.month, now.day, 11), end: DateTime(now.year, now.month, now.day, 13), updatedAt: now));
+  final fp = FitnessProfile(
+    goal: FitnessGoal.general,
+    level: FitnessLevel.beginner,
+    daysPerWeek: 6,
+    minutesPerSession: 45,
+    weekdays: [now.weekday, for (var i = 1; i < 6; i++) (now.weekday + i - 1) % 7 + 1],
+    places: const {WorkoutPlace.home, WorkoutPlace.gym},
+    preferredPlace: WorkoutPlace.gym,
+  );
+  const gen = PlanGenerator();
+  d.saveFitness(fp, {WorkoutPlace.home: gen.build(fp, WorkoutPlace.home), WorkoutPlace.gym: gen.build(fp, WorkoutPlace.gym)});
   d.saveHabit(Habit(id: 'h1', name: 'Walk', weekdays: const {1, 2, 3, 4, 5, 6, 7}, startDate: dayKey(now.subtract(const Duration(days: 40))), reminderMinutes: 0));
   d.setHabitDone('h1', dayKey(now.subtract(const Duration(days: 1))), true);
   d.saveNote(Note(id: 'n1', title: 'Idea', body: 'Some body text', category: 'work', pinned: true, goalId: 'g1', updatedAt: now));
@@ -202,6 +216,11 @@ void main() {
           Routes.privacy,
           Routes.prayer,
           Routes.prayerSettings,
+          Routes.fitness,
+          Routes.fitnessSetup,
+          Routes.exercise('goblet_squat'),
+          Routes.workout('gym', DateTime.now().weekday),
+          Routes.workout('gym', DateTime.now().weekday, atHome: true),
         ];
         for (final r in routes) {
           router.go(r);
@@ -264,6 +283,62 @@ void main() {
     await tapIn(tester, find.text(l.saveTask));
     await tester.pumpAndSettle();
     expect(c.read(dataProvider).tasks.single.title, 'Write report');
+  });
+
+  testWidgets('fitness: set up a plan, do a workout, save only the ticked sets (ar)', (tester) async {
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.fitness);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.createMyPlan));
+    await tester.pumpAndSettle();
+
+    // Default answers, but train every day of the week starting today.
+    await tapIn(tester, find.text('6'));
+    await tester.pumpAndSettle();
+    final today = DateTime.now().weekday;
+    final picked = c.read(dataProvider).settings.weekStart;
+    // Make sure today is among the six days.
+    final chosen = [for (var i = 0; i < 6; i++) (picked - 1 + i) % 7 + 1];
+    if (!chosen.contains(today)) {
+      final drop = chosen.last;
+      await tapIn(tester, find.widgetWithText(FilterChip, Fmt('ar').weekdayShort(DateTime(2026, 1, 5).add(Duration(days: drop - 1)))));
+      await tester.pumpAndSettle();
+      await tapIn(tester, find.widgetWithText(FilterChip, Fmt('ar').weekdayShort(DateTime(2026, 1, 5).add(Duration(days: today - 1)))));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.text(l.showMyPlan));
+    await tester.pumpAndSettle();
+    expect(find.text(l.savePlan), findsOneWidget, reason: 'preview shown');
+    await tester.tap(find.text(l.savePlan));
+    await tester.pumpAndSettle();
+    final plan = c.read(dataProvider).activePlan(WorkoutPlace.home)!;
+    expect(plan.version, 1);
+    expect(plan.dayFor(today), isNotNull);
+
+    await tapIn(tester, find.text(l.startWorkout));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byType(Checkbox).first);
+    await tester.pump(const Duration(seconds: 200)); // let the rest timer run out
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.finishWorkout));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.effort('3')));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.saveWorkout));
+    await tester.pumpAndSettle();
+    final s = c.read(dataProvider).workoutSessions.single;
+    expect(s.sets, hasLength(1), reason: 'only the ticked set');
+    expect(s.status, SessionStatus.partial);
+    expect(s.difficulty, 3);
+    expect(s.planId, plan.id);
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 2000));
+    await tester.pumpAndSettle();
+    expect(find.text(l.workoutDoneToday), findsOneWidget);
   });
 
   testWidgets('reminders are scheduled on the device and permission is asked once', (tester) async {

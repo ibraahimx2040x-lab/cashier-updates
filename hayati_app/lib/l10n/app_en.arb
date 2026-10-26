@@ -1,5 +1,4 @@
 {
-  "@@locale": "en",
   "account": "Account",
   "actionLog": "Action log",
   "actionLogSub": "What the assistant changed, and when. No message content is stored here.",
@@ -107,6 +106,8 @@
       }
     }
   },
+  "aiGymAtHome": "Here's today's gym workout at home:",
+  "aiGymAtHomeHint": "Open Fitness and tap \"Can't go to the gym\" to start it.",
   "aiHabitLogged": "I'll log “{name}” as done today.",
   "@aiHabitLogged": {
     "placeholders": {
@@ -157,6 +158,8 @@
     }
   },
   "aiNoGoalToSplit": "I didn't find an active goal without milestones. Create a goal first or tell me what you want to learn.",
+  "aiNoGymPlan": "You don't have a gym plan yet. Set one up in Fitness.",
+  "aiNoGymToday": "Today isn't a gym day in your plan, so there's nothing to replace.",
   "aiNoOverdue": "You have no overdue tasks. 🎉",
   "aiNoteEmpty": "What should the note say?",
   "aiNoteReady": "I'll save this note.",
@@ -306,6 +309,7 @@
   "allMilestonesDone": "All milestones are done. Mark the goal as completed?",
   "allTasks": "All tasks",
   "alreadyExecuted": "Already applied — nothing was repeated.",
+  "alternatives": "Alternatives",
   "alwaysRequired": "Always required — cannot be turned off",
   "amount": "Amount",
   "and": "and",
@@ -337,6 +341,17 @@
   "approveReschedule": "Changing a time or deadline",
   "approveRescheduleSub": "Recommended. Applies to single changes only.",
   "approved": "Approved",
+  "approximateSwap": "{from} → {to} (approximate)",
+  "@approximateSwap": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
   "archive": "Archive",
   "archiveGoal": "Archive",
   "archived": "Archived",
@@ -383,6 +398,7 @@
   "benefit3Body": "Suggests and prepares; sensitive changes always wait for your approval.",
   "benefit3Title": "An assistant you control",
   "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
+  "bodyweight": "Body weight",
   "breakEnd": "Until",
   "breakStart": "Break from",
   "budget": "Budget",
@@ -410,6 +426,7 @@
     }
   },
   "cancel": "Cancel",
+  "cantGoToGym": "Can't go to the gym",
   "catHealth": "Health",
   "catLearning": "Learning",
   "catMoney": "Money",
@@ -468,6 +485,7 @@
   "couldNotFit": "Couldn't fit",
   "createAccount": "Create account",
   "createFirstPlan": "Create my first plan",
+  "createMyPlan": "Create my plan",
   "currency": "Currency",
   "currencyChangeNote": "Existing expenses keep their original currency.",
   "currentPassword": "Current password",
@@ -532,6 +550,8 @@
     }
   },
   "deleteTaskTitle": "Delete task?",
+  "deleteWorkoutBody": "Its logged sets will be removed.",
+  "deleteWorkoutTitle": "Delete this workout?",
   "deleted": "Deleted",
   "deletionRequested": "Deletion requested. Your account and data will be removed from our servers.",
   "descriptionOptional": "Description (optional)",
@@ -543,6 +563,9 @@
   "devNotifOn": "On — reminders arrive even when Hayati is closed (sometimes a few minutes late).",
   "devNotifOnWeb": "On — browsers show reminders only while Hayati is open.",
   "devNotifTitle": "Phone notifications",
+  "diffEasy": "Easy",
+  "diffHard": "Hard",
+  "diffMedium": "Medium",
   "discard": "Discard",
   "discardMessage": "You have unsaved changes. Leave without saving?",
   "discardTitle": "Discard changes?",
@@ -559,7 +582,16 @@
   "editGoal": "Goal",
   "editHabit": "Edit habit",
   "editMilestone": "Edit milestone",
+  "editPlan": "Change plan",
   "editTask": "Edit task",
+  "effort": "{n, select, 1{easy} 2{fairly easy} 3{moderate} 4{hard} other{very hard}}",
+  "@effort": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "email": "Email",
   "emailNotVerified": "Not verified yet",
   "emailPassword": "Email and password",
@@ -575,6 +607,11 @@
   "enableAssistant": "Assistant",
   "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
   "endTime": "Ends",
+  "eqBands": "Resistance bands",
+  "eqBench": "Bench",
+  "eqDumbbells": "Dumbbells",
+  "eqKettlebell": "Kettlebell",
+  "eqPullupBar": "Pull-up bar",
   "errAgree": "Please accept the terms and privacy policy",
   "errCredentials": "Email or password is incorrect",
   "errCurrentPassword": "Current password is incorrect",
@@ -601,6 +638,14 @@
   "execute": "Apply changes",
   "executedCount": "{n, plural, =1{Done — 1 change applied} other{Done — {n} changes applied}}",
   "@executedCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "exerciseCount": "{n, plural, =1{1 exercise} other{{n} exercises}}",
+  "@exerciseCount": {
     "placeholders": {
       "n": {
         "type": "int"
@@ -652,6 +697,24 @@
   "featMoreAssistant": "More assistant usage",
   "featSmartPlanning": "Advanced smart planning",
   "featTemplates": "Goal templates",
+  "feltLike": "felt {effort}",
+  "@feltLike": {
+    "placeholders": {
+      "effort": {
+        "type": "String"
+      }
+    }
+  },
+  "fgFatLoss": "Lose fat",
+  "fgFatLossHint": "Strength work plus cardio. Food matters most; the app gives no diet advice.",
+  "fgGeneral": "General fitness",
+  "fgGeneralHint": "Balanced strength, cardio and movement.",
+  "fgMobility": "Mobility and moving better",
+  "fgMobilityHint": "Gentle sessions for flexibility, posture and recovery.",
+  "fgMuscle": "Build muscle",
+  "fgMuscleHint": "Moderate reps and enough weekly volume for each muscle.",
+  "fgStrength": "Get stronger",
+  "fgStrengthHint": "Fewer reps, longer rest, steady progress on key lifts.",
   "filterAll": "All",
   "filterArchived": "Archived",
   "filterCompleted": "Completed",
@@ -659,14 +722,51 @@
   "filterToday": "Today",
   "filterUpcoming": "Upcoming",
   "finishSetup": "Finish setup",
+  "finishWorkout": "Finish workout",
+  "fitnessIntroBody": "Answer a few questions and get a plan for home, the gym, or both — with alternatives when equipment is missing.",
+  "fitnessIntroTitle": "Training that fits your week",
+  "fitnessSafety": "Hayati gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.",
+  "fitnessSetupTitle": "Your training plan",
   "fixedBlocks": "Fixed blocks",
   "fixedCommitments": "Fixed commitments",
+  "flAdvanced": "Advanced",
+  "flBeginner": "Beginner",
+  "flIntermediate": "Intermediate",
+  "focusConditioning": "Conditioning",
+  "focusFullBody": "Full body",
+  "focusLower": "Lower body",
+  "focusMobility": "Mobility and recovery",
+  "focusUpper": "Upper body",
   "forgotLocalMode": "In this version, accounts are stored on this device only, so password reset by email isn't available yet. It will be enabled once the cloud account service is connected.",
   "forgotPassword": "Forgot password?",
   "forgotRemoteBody": "Enter your email and we'll send you a link to set a new password.",
   "forgotTitle": "Recover access",
   "freeTime": "Free time",
   "freeTimeNow": "Free time",
+  "fsDays": "Days per week",
+  "fsEquipment": "Equipment at home",
+  "fsEquipmentHint": "Leave empty for body-weight only.",
+  "fsGoal": "What's your main goal?",
+  "fsLevel": "Your experience",
+  "fsMinutes": "Minutes per session",
+  "fsPickDays": "{n, plural, =1{Pick 1 more day} other{Pick {n} more days}}",
+  "@fsPickDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "fsPlaces": "Where will you train?",
+  "fsPlacesHint": "Choose both to get two plans and switch between them any day.",
+  "fsWhichDays": "Pick {n} days",
+  "@fsWhichDays": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "getStarted": "Get started",
   "goalActive": "Active",
   "goalArchived": "Archived",
@@ -719,10 +819,15 @@
   "hidePassword": "Hide password",
   "highlights": "Highlights",
   "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
+  "homeInstead": "At home instead",
   "homeSections": "Home screen",
+  "homeVersionBody": "Exercises are swapped for ones you can do with your home equipment. Not every exercise has an exact match.",
+  "homeVersionTitle": "Today's gym workout, at home",
   "homeViewGoals": "Goals",
   "homeViewToday": "Today",
   "homeViewWeek": "Week",
+  "howDidItFeel": "How did it feel? (optional)",
+  "howTo": "How to do it",
   "inDuration": "in {duration}",
   "@inDuration": {
     "placeholders": {
@@ -744,6 +849,7 @@
   "kindOther": "Other",
   "language": "Language",
   "lastWeek": "Last week",
+  "leaveWithoutSaving": "Leave without saving",
   "limit": "Limit",
   "linkTask": "Add task",
   "linkedGoal": "Goal",
@@ -814,12 +920,23 @@
     }
   },
   "movedTomorrow": "Moved to tomorrow",
+  "muArms": "Arms",
+  "muBack": "Back",
+  "muCardio": "Cardio",
+  "muChest": "Chest",
+  "muCore": "Core",
+  "muFullBody": "Full body",
+  "muGlutes": "Glutes",
+  "muLegs": "Legs",
+  "muMobility": "Mobility",
+  "muShoulders": "Shoulders",
   "multiCurrencyNote": "Each currency is totalled separately — amounts are never combined across currencies.",
   "myGoals": "My goals",
   "myLocation": "My location",
   "myNotes": "My notes",
   "navAssistant": "Assistant",
   "navExpenses": "Expenses",
+  "navFitness": "Fitness",
   "navGoals": "Goals",
   "navHabits": "Habits",
   "navHome": "Home",
@@ -857,15 +974,26 @@
   "noGoalsYet": "No goals yet",
   "noHabitsDueToday": "No habits are due today.",
   "noHabitsYet": "No habits yet",
+  "noHomeAlternative": "{name}: no home alternative, skipped today",
+  "@noHomeAlternative": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
   "noLinkedTasks": "No tasks linked to this goal yet.",
   "noMilestones": "No milestones yet.",
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
   "noReminder": "No reminder",
   "noSearchResults": "No results",
+  "noSetsBody": "Nothing will be saved. Leave the workout?",
+  "noSetsTitle": "No sets ticked",
   "noTasksToday": "No tasks for today.",
   "noUnread": "You're all caught up",
   "noUpcoming": "No upcoming events.",
+  "noWorkoutThatDay": "No workout is planned for that day.",
   "none": "None",
   "notDue": "Not due",
   "notLogged": "Not logged",
@@ -988,12 +1116,24 @@
   "permLogHabitsSub": "When you say you did a habit today.",
   "pickCity": "Choose a city",
   "pin": "Pin",
+  "placeGym": "Gym",
+  "placeHome": "Home",
   "planApplied": "Plan applied",
   "planEmptyToday": "Nothing planned for today yet.",
+  "planExplain": "Plans are built from your answers: full body up to 3 days a week, upper/lower from 4, with core work in every session and rest days between hard ones. Saving keeps your previous plan as an earlier version.",
+  "planFor": "Plan: {place}",
+  "@planFor": {
+    "placeholders": {
+      "place": {
+        "type": "String"
+      }
+    }
+  },
   "planFree": "Free",
   "planIsEstimate": "This plan is an estimate based on durations and priorities. It keeps some free time for breaks and surprises.",
   "planLabel": "Plan",
   "planPro": "Hayati Pro",
+  "planSaved": "Plan saved",
   "planSummary": "{done} of {total} tasks done today",
   "@planSummary": {
     "placeholders": {
@@ -1002,6 +1142,17 @@
       },
       "total": {
         "type": "int"
+      }
+    }
+  },
+  "planVersion": "Plan version {version} · created {date}",
+  "@planVersion": {
+    "placeholders": {
+      "version": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
       }
     }
   },
@@ -1082,6 +1233,8 @@
   "reasonDeadline": "Would finish after its deadline time",
   "reasonNoSlot": "No free slot is long enough",
   "reasonNoTime": "Not enough free time left today",
+  "recentWorkouts": "Recent workouts",
+  "recoveryWarning": "Two demanding sessions fall on back-to-back days. Consider a rest day between them.",
   "regional": "Region & time",
   "reject": "Reject",
   "reminder": "Reminder",
@@ -1098,9 +1251,28 @@
   "reportProblem": "Report a problem",
   "reportProblemSub": "Describe what happened",
   "reportSaved": "Report saved. It will be sent when the support service is connected.",
+  "repsLabel": "Reps",
   "resetLinkSent": "If an account exists for this email, a reset link is on its way.",
   "restBlock": "Break",
+  "restDayBody": "Recovery is part of the plan. A walk or light stretching is plenty.",
+  "restDayTitle": "Rest day",
+  "restFor": "Rest {n} s",
+  "@restFor": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "restOfDayFree": "The rest of the day is yours.",
+  "restSeconds": "rest {n} s",
+  "@restSeconds": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "restore": "Restore",
   "restorePurchases": "Restore purchases",
   "resumeGoal": "Make active",
@@ -1114,24 +1286,65 @@
   "save": "Save",
   "saveEvent": "Save event",
   "saveGoal": "Save goal",
+  "savePlan": "Save plan",
   "saveTask": "Save task",
+  "saveWorkout": "Save workout",
   "saved": "Saved",
   "saving": "Saving…",
   "scheduleGroup": "When",
   "search": "Search",
   "searchCity": "Search for a city",
+  "secondsLabel": "Seconds",
+  "secondsShort": "{n} s",
+  "@secondsShort": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "sectionsShown": "Sections in the app",
   "send": "Send",
   "sendResetLink": "Send link",
+  "sessionCompleted": "Completed",
   "sessionLength": "Session length",
+  "sessionPartial": "Partly done",
   "sessions": "Sessions",
   "sessionsLocal": "Local mode has one session per device. Signing out ends it.",
   "sessionsRemote": "Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.",
+  "setN": "Set {n}",
+  "@setN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "setsLogged": "{n, plural, =1{1 set} other{{n} sets}}",
+  "@setsLogged": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "setsProgress": "{done}/{total} sets",
+  "@setsProgress": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "shareNotesSub": "Off by default",
   "shareSub": "Used to plan and summarize",
   "showActive": "Show active",
   "showArchived": "Show archived",
   "showCompleted": "Show completed & archived",
+  "showMyPlan": "Show my plan",
   "showNameGreeting": "Show my name in the greeting",
   "showPassword": "Show password",
   "signIn": "Sign in",
@@ -1143,10 +1356,12 @@
   "signUpSubtitle": "It takes less than a minute.",
   "signUpTitle": "Create your account",
   "skip": "Skip",
+  "skipRest": "Skip",
   "spending": "Spending",
   "splashFailed": "We couldn't start Hayati.",
   "startDate": "Start date",
   "startTime": "Starts",
+  "startWorkout": "Start workout",
   "statusCancelled": "Cancelled",
   "statusDone": "Done",
   "statusInProgress": "In progress",
@@ -1254,6 +1469,14 @@
   "today": "Today",
   "todayPlan": "Today's plan",
   "todaysHabits": "Today's habits",
+  "todaysWorkout": "Today's workout: {focus}",
+  "@todaysWorkout": {
+    "placeholders": {
+      "focus": {
+        "type": "String"
+      }
+    }
+  },
   "tomorrow": "Tomorrow",
   "toolAddMilestones": "Add milestones",
   "toolAddNote": "Add note",
@@ -1352,6 +1575,19 @@
       }
     }
   },
+  "weekWorkouts": "{done} of {planned} workouts done this week",
+  "@weekWorkouts": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "planned": {
+        "type": "int"
+      }
+    }
+  },
+  "weeklyPlan": "Weekly plan",
+  "weightKg": "kg",
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
   "welcomeTitle": "Organize your life, step by step",
   "whatWeStore": "What Hayati stores",
@@ -1362,5 +1598,10 @@
   "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",
   "workEnd": "Until",
   "workStart": "Work/study from",
+  "workoutDoneToday": "Today's workout is done",
+  "workoutNote": "Note",
+  "workoutNoteHint": "e.g. knee felt tight on lunges",
+  "workoutSaved": "Workout saved. Well done!",
+  "workoutSavedPartial": "Saved what you did. Every bit counts.",
   "yourData": "Your data"
 }

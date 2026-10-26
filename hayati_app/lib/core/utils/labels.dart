@@ -1,8 +1,10 @@
+import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../domain/fitness/exercises.dart';
 import '../../domain/planner.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -21,6 +23,75 @@ extension Labels on AppLocalizations {
     if (minutes < 60) return unitMinutes(minutes);
     final h = minutes ~/ 60, m = minutes % 60;
     return m == 0 ? unitHours(h) : '${unitHours(h)} ${unitMinutes(m)}';
+  }
+
+  String dayFocus(DayFocus f) => switch (f) {
+        DayFocus.fullBody => focusFullBody,
+        DayFocus.upper => focusUpper,
+        DayFocus.lower => focusLower,
+        DayFocus.conditioning => focusConditioning,
+        DayFocus.mobility => focusMobility,
+      };
+
+  String fitnessGoal(FitnessGoal g) => switch (g) {
+        FitnessGoal.strength => fgStrength,
+        FitnessGoal.muscle => fgMuscle,
+        FitnessGoal.fatLoss => fgFatLoss,
+        FitnessGoal.general => fgGeneral,
+        FitnessGoal.mobility => fgMobility,
+      };
+
+  String fitnessGoalHint(FitnessGoal g) => switch (g) {
+        FitnessGoal.strength => fgStrengthHint,
+        FitnessGoal.muscle => fgMuscleHint,
+        FitnessGoal.fatLoss => fgFatLossHint,
+        FitnessGoal.general => fgGeneralHint,
+        FitnessGoal.mobility => fgMobilityHint,
+      };
+
+  String fitnessLevel(FitnessLevel v) => switch (v) {
+        FitnessLevel.beginner => flBeginner,
+        FitnessLevel.intermediate => flIntermediate,
+        FitnessLevel.advanced => flAdvanced,
+      };
+
+  String workoutPlace(WorkoutPlace p) => switch (p) {
+        WorkoutPlace.home => placeHome,
+        WorkoutPlace.gym => placeGym,
+      };
+
+  String equipment(Equipment e) => switch (e) {
+        Equipment.dumbbells => eqDumbbells,
+        Equipment.kettlebell => eqKettlebell,
+        Equipment.bands => eqBands,
+        Equipment.pullupBar => eqPullupBar,
+        Equipment.bench => eqBench,
+      };
+
+  String muscle(Muscle m) => switch (m) {
+        Muscle.chest => muChest,
+        Muscle.back => muBack,
+        Muscle.legs => muLegs,
+        Muscle.glutes => muGlutes,
+        Muscle.shoulders => muShoulders,
+        Muscle.arms => muArms,
+        Muscle.core => muCore,
+        Muscle.fullBody => muFullBody,
+        Muscle.cardio => muCardio,
+        Muscle.mobility => muMobility,
+      };
+
+  String difficulty(int d) => switch (d) {
+        1 => diffEasy,
+        2 => diffMedium,
+        _ => diffHard,
+      };
+
+  /// "3 × 10" or "3 × 30 s" / "20 min".
+  String prescription(PlannedExercise x) {
+    if (x.seconds != null && x.seconds! >= 300) return unitMinutes(x.seconds! ~/ 60);
+    final per = x.seconds != null ? secondsShort(x.seconds!) : '${x.reps}';
+    return '${x.sets} × $per';
   }
 
   String prayerMethod(PrayerMethod m) => switch (m) {

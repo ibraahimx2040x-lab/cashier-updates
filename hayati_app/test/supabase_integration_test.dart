@@ -17,6 +17,7 @@ import 'package:hayati/core/utils/dates.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/assistant.dart';
+import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/prayer.dart';
@@ -24,6 +25,7 @@ import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
+import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/assistant/executor.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:supabase_flutter/supabase_flutter.dart' show AuthClientOptions, AuthFlowType, SupabaseClient;
@@ -166,6 +168,58 @@ void main() {
     expect(p.active, isTrue);
     expect(p.remindBefore, 10);
     expect(b.data.snapshot.prayerLogged(Prayer.fajr, today), isTrue);
+  }, skip: skip);
+
+  test('fitness plans (with versions) and workouts sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    const gen = PlanGenerator();
+    final p = FitnessProfile(
+      goal: FitnessGoal.muscle,
+      level: FitnessLevel.intermediate,
+      daysPerWeek: 4,
+      minutesPerSession: 60,
+      weekdays: PlanGenerator.defaultWeekdays(4, 7),
+      places: const {WorkoutPlace.gym},
+    );
+    a.data.saveFitness(p, {WorkoutPlace.gym: gen.build(p, WorkoutPlace.gym)});
+    await a.settle();
+    final v1 = a.data.snapshot.activePlan(WorkoutPlace.gym)!;
+    a.data.logWorkout(WorkoutSession(
+      id: newId(),
+      planId: v1.id,
+      day: dayKey(DateTime.now()),
+      place: WorkoutPlace.gym,
+      focus: DayFocus.upper,
+      status: SessionStatus.completed,
+      difficulty: 4,
+      sets: const [SetLog(exerciseId: 'lat_pulldown', setIndex: 0, reps: 10, weightKg: 40)],
+      createdAt: DateTime.now(),
+    ));
+    // A new version: the old one is deactivated before the new one is inserted.
+    a.data.saveFitness(p, {WorkoutPlace.gym: gen.build(p, WorkoutPlace.gym)});
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    expect(d.settings.fitness!.goal, FitnessGoal.muscle);
+    expect(d.workoutPlans, hasLength(2));
+    expect(d.activePlan(WorkoutPlace.gym)!.version, 2);
+    final s = d.workoutSessions.single;
+    expect(d.plan(s.planId)!.version, 1);
+    expect(s.sets.single.weightKg, 40);
   }, skip: skip);
 
   test('another account sees nothing', () async {

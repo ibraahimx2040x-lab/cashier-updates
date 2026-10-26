@@ -195,6 +195,7 @@ class _Sidebar extends ConsumerWidget {
                 item(index == i ? dests[i].$2 : dests[i].$1, dests[i].$3, () => onSelect(i), selected: index == i),
               const Divider(height: Space.xl),
               item(Icons.mosque_outlined, l.navPrayer, () => context.push(Routes.prayer)),
+              item(Icons.fitness_center, l.navFitness, () => context.push(Routes.fitness)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))
                 item(Icons.sticky_note_2_outlined, l.navNotes, () => context.push(Routes.notes)),

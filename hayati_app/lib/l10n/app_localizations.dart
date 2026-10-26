@@ -350,6 +350,18 @@ abstract class AppLocalizations {
   /// **'Learn {subject}'**
   String aiGoalTitle(String subject);
 
+  /// No description provided for @aiGymAtHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s today\'s gym workout at home:'**
+  String get aiGymAtHome;
+
+  /// No description provided for @aiGymAtHomeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Open Fitness and tap \"Can\'t go to the gym\" to start it.'**
+  String get aiGymAtHomeHint;
+
   /// No description provided for @aiHabitLogged.
   ///
   /// In en, this message translates to:
@@ -397,6 +409,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I didn\'t find an active goal without milestones. Create a goal first or tell me what you want to learn.'**
   String get aiNoGoalToSplit;
+
+  /// No description provided for @aiNoGymPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'You don\'t have a gym plan yet. Set one up in Fitness.'**
+  String get aiNoGymPlan;
+
+  /// No description provided for @aiNoGymToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today isn\'t a gym day in your plan, so there\'s nothing to replace.'**
+  String get aiNoGymToday;
 
   /// No description provided for @aiNoOverdue.
   ///
@@ -602,6 +626,12 @@ abstract class AppLocalizations {
   /// **'Already applied — nothing was repeated.'**
   String get alreadyExecuted;
 
+  /// No description provided for @alternatives.
+  ///
+  /// In en, this message translates to:
+  /// **'Alternatives'**
+  String get alternatives;
+
   /// No description provided for @alwaysRequired.
   ///
   /// In en, this message translates to:
@@ -703,6 +733,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Approved'**
   String get approved;
+
+  /// No description provided for @approximateSwap.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} → {to} (approximate)'**
+  String approximateSwap(String from, String to);
 
   /// No description provided for @archive.
   ///
@@ -878,6 +914,12 @@ abstract class AppLocalizations {
   /// **'Paid features are only enabled after your purchase is verified by our server through the app store.'**
   String get billingNote;
 
+  /// No description provided for @bodyweight.
+  ///
+  /// In en, this message translates to:
+  /// **'Body weight'**
+  String get bodyweight;
+
   /// No description provided for @breakEnd.
   ///
   /// In en, this message translates to:
@@ -937,6 +979,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Cancel'**
   String get cancel;
+
+  /// No description provided for @cantGoToGym.
+  ///
+  /// In en, this message translates to:
+  /// **'Can\'t go to the gym'**
+  String get cantGoToGym;
 
   /// No description provided for @catHealth.
   ///
@@ -1099,6 +1147,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Create my first plan'**
   String get createFirstPlan;
+
+  /// No description provided for @createMyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Create my plan'**
+  String get createMyPlan;
 
   /// No description provided for @currency.
   ///
@@ -1358,6 +1412,18 @@ abstract class AppLocalizations {
   /// **'Delete task?'**
   String get deleteTaskTitle;
 
+  /// No description provided for @deleteWorkoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its logged sets will be removed.'**
+  String get deleteWorkoutBody;
+
+  /// No description provided for @deleteWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this workout?'**
+  String get deleteWorkoutTitle;
+
   /// No description provided for @deleted.
   ///
   /// In en, this message translates to:
@@ -1423,6 +1489,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone notifications'**
   String get devNotifTitle;
+
+  /// No description provided for @diffEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get diffEasy;
+
+  /// No description provided for @diffHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get diffHard;
+
+  /// No description provided for @diffMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get diffMedium;
 
   /// No description provided for @discard.
   ///
@@ -1520,11 +1604,23 @@ abstract class AppLocalizations {
   /// **'Edit milestone'**
   String get editMilestone;
 
+  /// No description provided for @editPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Change plan'**
+  String get editPlan;
+
   /// No description provided for @editTask.
   ///
   /// In en, this message translates to:
   /// **'Edit task'**
   String get editTask;
+
+  /// No description provided for @effort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, select, 1{easy} 2{fairly easy} 3{moderate} 4{hard} other{very hard}}'**
+  String effort(String n);
 
   /// No description provided for @email.
   ///
@@ -1615,6 +1711,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ends'**
   String get endTime;
+
+  /// No description provided for @eqBands.
+  ///
+  /// In en, this message translates to:
+  /// **'Resistance bands'**
+  String get eqBands;
+
+  /// No description provided for @eqBench.
+  ///
+  /// In en, this message translates to:
+  /// **'Bench'**
+  String get eqBench;
+
+  /// No description provided for @eqDumbbells.
+  ///
+  /// In en, this message translates to:
+  /// **'Dumbbells'**
+  String get eqDumbbells;
+
+  /// No description provided for @eqKettlebell.
+  ///
+  /// In en, this message translates to:
+  /// **'Kettlebell'**
+  String get eqKettlebell;
+
+  /// No description provided for @eqPullupBar.
+  ///
+  /// In en, this message translates to:
+  /// **'Pull-up bar'**
+  String get eqPullupBar;
 
   /// No description provided for @errAgree.
   ///
@@ -1765,6 +1891,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n, plural, =1{Done — 1 change applied} other{Done — {n} changes applied}}'**
   String executedCount(int n);
+
+  /// No description provided for @exerciseCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 exercise} other{{n} exercises}}'**
+  String exerciseCount(int n);
 
   /// No description provided for @expBills.
   ///
@@ -1952,6 +2084,72 @@ abstract class AppLocalizations {
   /// **'Goal templates'**
   String get featTemplates;
 
+  /// No description provided for @feltLike.
+  ///
+  /// In en, this message translates to:
+  /// **'felt {effort}'**
+  String feltLike(String effort);
+
+  /// No description provided for @fgFatLoss.
+  ///
+  /// In en, this message translates to:
+  /// **'Lose fat'**
+  String get fgFatLoss;
+
+  /// No description provided for @fgFatLossHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength work plus cardio. Food matters most; the app gives no diet advice.'**
+  String get fgFatLossHint;
+
+  /// No description provided for @fgGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'General fitness'**
+  String get fgGeneral;
+
+  /// No description provided for @fgGeneralHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Balanced strength, cardio and movement.'**
+  String get fgGeneralHint;
+
+  /// No description provided for @fgMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobility and moving better'**
+  String get fgMobility;
+
+  /// No description provided for @fgMobilityHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Gentle sessions for flexibility, posture and recovery.'**
+  String get fgMobilityHint;
+
+  /// No description provided for @fgMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build muscle'**
+  String get fgMuscle;
+
+  /// No description provided for @fgMuscleHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Moderate reps and enough weekly volume for each muscle.'**
+  String get fgMuscleHint;
+
+  /// No description provided for @fgStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Get stronger'**
+  String get fgStrength;
+
+  /// No description provided for @fgStrengthHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Fewer reps, longer rest, steady progress on key lifts.'**
+  String get fgStrengthHint;
+
   /// No description provided for @filterAll.
   ///
   /// In en, this message translates to:
@@ -1994,6 +2192,36 @@ abstract class AppLocalizations {
   /// **'Finish setup'**
   String get finishSetup;
 
+  /// No description provided for @finishWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish workout'**
+  String get finishWorkout;
+
+  /// No description provided for @fitnessIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer a few questions and get a plan for home, the gym, or both — with alternatives when equipment is missing.'**
+  String get fitnessIntroBody;
+
+  /// No description provided for @fitnessIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Training that fits your week'**
+  String get fitnessIntroTitle;
+
+  /// No description provided for @fitnessSafety.
+  ///
+  /// In en, this message translates to:
+  /// **'Hayati gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.'**
+  String get fitnessSafety;
+
+  /// No description provided for @fitnessSetupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your training plan'**
+  String get fitnessSetupTitle;
+
   /// No description provided for @fixedBlocks.
   ///
   /// In en, this message translates to:
@@ -2005,6 +2233,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fixed commitments'**
   String get fixedCommitments;
+
+  /// No description provided for @flAdvanced.
+  ///
+  /// In en, this message translates to:
+  /// **'Advanced'**
+  String get flAdvanced;
+
+  /// No description provided for @flBeginner.
+  ///
+  /// In en, this message translates to:
+  /// **'Beginner'**
+  String get flBeginner;
+
+  /// No description provided for @flIntermediate.
+  ///
+  /// In en, this message translates to:
+  /// **'Intermediate'**
+  String get flIntermediate;
+
+  /// No description provided for @focusConditioning.
+  ///
+  /// In en, this message translates to:
+  /// **'Conditioning'**
+  String get focusConditioning;
+
+  /// No description provided for @focusFullBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Full body'**
+  String get focusFullBody;
+
+  /// No description provided for @focusLower.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower body'**
+  String get focusLower;
+
+  /// No description provided for @focusMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobility and recovery'**
+  String get focusMobility;
+
+  /// No description provided for @focusUpper.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper body'**
+  String get focusUpper;
 
   /// No description provided for @forgotLocalMode.
   ///
@@ -2041,6 +2317,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Free time'**
   String get freeTimeNow;
+
+  /// No description provided for @fsDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Days per week'**
+  String get fsDays;
+
+  /// No description provided for @fsEquipment.
+  ///
+  /// In en, this message translates to:
+  /// **'Equipment at home'**
+  String get fsEquipment;
+
+  /// No description provided for @fsEquipmentHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave empty for body-weight only.'**
+  String get fsEquipmentHint;
+
+  /// No description provided for @fsGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s your main goal?'**
+  String get fsGoal;
+
+  /// No description provided for @fsLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Your experience'**
+  String get fsLevel;
+
+  /// No description provided for @fsMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Minutes per session'**
+  String get fsMinutes;
+
+  /// No description provided for @fsPickDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{Pick 1 more day} other{Pick {n} more days}}'**
+  String fsPickDays(int n);
+
+  /// No description provided for @fsPlaces.
+  ///
+  /// In en, this message translates to:
+  /// **'Where will you train?'**
+  String get fsPlaces;
+
+  /// No description provided for @fsPlacesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose both to get two plans and switch between them any day.'**
+  String get fsPlacesHint;
+
+  /// No description provided for @fsWhichDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick {n} days'**
+  String fsWhichDays(int n);
 
   /// No description provided for @getStarted.
   ///
@@ -2234,11 +2570,29 @@ abstract class AppLocalizations {
   /// **'Tap a past day to correct it. Days the habit isn\'t due are neutral.'**
   String get historyHint;
 
+  /// No description provided for @homeInstead.
+  ///
+  /// In en, this message translates to:
+  /// **'At home instead'**
+  String get homeInstead;
+
   /// No description provided for @homeSections.
   ///
   /// In en, this message translates to:
   /// **'Home screen'**
   String get homeSections;
+
+  /// No description provided for @homeVersionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises are swapped for ones you can do with your home equipment. Not every exercise has an exact match.'**
+  String get homeVersionBody;
+
+  /// No description provided for @homeVersionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s gym workout, at home'**
+  String get homeVersionTitle;
 
   /// No description provided for @homeViewGoals.
   ///
@@ -2257,6 +2611,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Week'**
   String get homeViewWeek;
+
+  /// No description provided for @howDidItFeel.
+  ///
+  /// In en, this message translates to:
+  /// **'How did it feel? (optional)'**
+  String get howDidItFeel;
+
+  /// No description provided for @howTo.
+  ///
+  /// In en, this message translates to:
+  /// **'How to do it'**
+  String get howTo;
 
   /// No description provided for @inDuration.
   ///
@@ -2341,6 +2707,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last week'**
   String get lastWeek;
+
+  /// No description provided for @leaveWithoutSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving'**
+  String get leaveWithoutSaving;
 
   /// No description provided for @limit.
   ///
@@ -2618,6 +2990,66 @@ abstract class AppLocalizations {
   /// **'Moved to tomorrow'**
   String get movedTomorrow;
 
+  /// No description provided for @muArms.
+  ///
+  /// In en, this message translates to:
+  /// **'Arms'**
+  String get muArms;
+
+  /// No description provided for @muBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get muBack;
+
+  /// No description provided for @muCardio.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardio'**
+  String get muCardio;
+
+  /// No description provided for @muChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get muChest;
+
+  /// No description provided for @muCore.
+  ///
+  /// In en, this message translates to:
+  /// **'Core'**
+  String get muCore;
+
+  /// No description provided for @muFullBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Full body'**
+  String get muFullBody;
+
+  /// No description provided for @muGlutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Glutes'**
+  String get muGlutes;
+
+  /// No description provided for @muLegs.
+  ///
+  /// In en, this message translates to:
+  /// **'Legs'**
+  String get muLegs;
+
+  /// No description provided for @muMobility.
+  ///
+  /// In en, this message translates to:
+  /// **'Mobility'**
+  String get muMobility;
+
+  /// No description provided for @muShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get muShoulders;
+
   /// No description provided for @multiCurrencyNote.
   ///
   /// In en, this message translates to:
@@ -2653,6 +3085,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Expenses'**
   String get navExpenses;
+
+  /// No description provided for @navFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness'**
+  String get navFitness;
 
   /// No description provided for @navGoals.
   ///
@@ -2834,6 +3272,12 @@ abstract class AppLocalizations {
   /// **'No habits yet'**
   String get noHabitsYet;
 
+  /// No description provided for @noHomeAlternative.
+  ///
+  /// In en, this message translates to:
+  /// **'{name}: no home alternative, skipped today'**
+  String noHomeAlternative(String name);
+
   /// No description provided for @noLinkedTasks.
   ///
   /// In en, this message translates to:
@@ -2870,6 +3314,18 @@ abstract class AppLocalizations {
   /// **'No results'**
   String get noSearchResults;
 
+  /// No description provided for @noSetsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing will be saved. Leave the workout?'**
+  String get noSetsBody;
+
+  /// No description provided for @noSetsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No sets ticked'**
+  String get noSetsTitle;
+
   /// No description provided for @noTasksToday.
   ///
   /// In en, this message translates to:
@@ -2887,6 +3343,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No upcoming events.'**
   String get noUpcoming;
+
+  /// No description provided for @noWorkoutThatDay.
+  ///
+  /// In en, this message translates to:
+  /// **'No workout is planned for that day.'**
+  String get noWorkoutThatDay;
 
   /// No description provided for @none.
   ///
@@ -3206,6 +3668,18 @@ abstract class AppLocalizations {
   /// **'Pin'**
   String get pin;
 
+  /// No description provided for @placeGym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym'**
+  String get placeGym;
+
+  /// No description provided for @placeHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get placeHome;
+
   /// No description provided for @planApplied.
   ///
   /// In en, this message translates to:
@@ -3217,6 +3691,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing planned for today yet.'**
   String get planEmptyToday;
+
+  /// No description provided for @planExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Plans are built from your answers: full body up to 3 days a week, upper/lower from 4, with core work in every session and rest days between hard ones. Saving keeps your previous plan as an earlier version.'**
+  String get planExplain;
+
+  /// No description provided for @planFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan: {place}'**
+  String planFor(String place);
 
   /// No description provided for @planFree.
   ///
@@ -3242,11 +3728,23 @@ abstract class AppLocalizations {
   /// **'Hayati Pro'**
   String get planPro;
 
+  /// No description provided for @planSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan saved'**
+  String get planSaved;
+
   /// No description provided for @planSummary.
   ///
   /// In en, this message translates to:
   /// **'{done} of {total} tasks done today'**
   String planSummary(int done, int total);
+
+  /// No description provided for @planVersion.
+  ///
+  /// In en, this message translates to:
+  /// **'Plan version {version} · created {date}'**
+  String planVersion(int version, String date);
 
   /// No description provided for @planWithAssistant.
   ///
@@ -3626,6 +4124,18 @@ abstract class AppLocalizations {
   /// **'Not enough free time left today'**
   String get reasonNoTime;
 
+  /// No description provided for @recentWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent workouts'**
+  String get recentWorkouts;
+
+  /// No description provided for @recoveryWarning.
+  ///
+  /// In en, this message translates to:
+  /// **'Two demanding sessions fall on back-to-back days. Consider a rest day between them.'**
+  String get recoveryWarning;
+
   /// No description provided for @regional.
   ///
   /// In en, this message translates to:
@@ -3722,6 +4232,12 @@ abstract class AppLocalizations {
   /// **'Report saved. It will be sent when the support service is connected.'**
   String get reportSaved;
 
+  /// No description provided for @repsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reps'**
+  String get repsLabel;
+
   /// No description provided for @resetLinkSent.
   ///
   /// In en, this message translates to:
@@ -3734,11 +4250,35 @@ abstract class AppLocalizations {
   /// **'Break'**
   String get restBlock;
 
+  /// No description provided for @restDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery is part of the plan. A walk or light stretching is plenty.'**
+  String get restDayBody;
+
+  /// No description provided for @restDayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest day'**
+  String get restDayTitle;
+
+  /// No description provided for @restFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Rest {n} s'**
+  String restFor(int n);
+
   /// No description provided for @restOfDayFree.
   ///
   /// In en, this message translates to:
   /// **'The rest of the day is yours.'**
   String get restOfDayFree;
+
+  /// No description provided for @restSeconds.
+  ///
+  /// In en, this message translates to:
+  /// **'rest {n} s'**
+  String restSeconds(int n);
 
   /// No description provided for @restore.
   ///
@@ -3818,11 +4358,23 @@ abstract class AppLocalizations {
   /// **'Save goal'**
   String get saveGoal;
 
+  /// No description provided for @savePlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Save plan'**
+  String get savePlan;
+
   /// No description provided for @saveTask.
   ///
   /// In en, this message translates to:
   /// **'Save task'**
   String get saveTask;
+
+  /// No description provided for @saveWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Save workout'**
+  String get saveWorkout;
 
   /// No description provided for @saved.
   ///
@@ -3854,6 +4406,18 @@ abstract class AppLocalizations {
   /// **'Search for a city'**
   String get searchCity;
 
+  /// No description provided for @secondsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Seconds'**
+  String get secondsLabel;
+
+  /// No description provided for @secondsShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} s'**
+  String secondsShort(int n);
+
   /// No description provided for @sectionsShown.
   ///
   /// In en, this message translates to:
@@ -3872,11 +4436,23 @@ abstract class AppLocalizations {
   /// **'Send link'**
   String get sendResetLink;
 
+  /// No description provided for @sessionCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get sessionCompleted;
+
   /// No description provided for @sessionLength.
   ///
   /// In en, this message translates to:
   /// **'Session length'**
   String get sessionLength;
+
+  /// No description provided for @sessionPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly done'**
+  String get sessionPartial;
 
   /// No description provided for @sessions.
   ///
@@ -3895,6 +4471,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Signing out ends the session on this device. Changing your password signs out other devices when their session refreshes.'**
   String get sessionsRemote;
+
+  /// No description provided for @setN.
+  ///
+  /// In en, this message translates to:
+  /// **'Set {n}'**
+  String setN(int n);
+
+  /// No description provided for @setsLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 set} other{{n} sets}}'**
+  String setsLogged(int n);
+
+  /// No description provided for @setsProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done}/{total} sets'**
+  String setsProgress(int done, int total);
 
   /// No description provided for @shareNotesSub.
   ///
@@ -3925,6 +4519,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Show completed & archived'**
   String get showCompleted;
+
+  /// No description provided for @showMyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Show my plan'**
+  String get showMyPlan;
 
   /// No description provided for @showNameGreeting.
   ///
@@ -3992,6 +4592,12 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get skip;
 
+  /// No description provided for @skipRest.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get skipRest;
+
   /// No description provided for @spending.
   ///
   /// In en, this message translates to:
@@ -4015,6 +4621,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Starts'**
   String get startTime;
+
+  /// No description provided for @startWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Start workout'**
+  String get startWorkout;
 
   /// No description provided for @statusCancelled.
   ///
@@ -4285,6 +4897,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Today\'s habits'**
   String get todaysHabits;
+
+  /// No description provided for @todaysWorkout.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout: {focus}'**
+  String todaysWorkout(String focus);
 
   /// No description provided for @tomorrow.
   ///
@@ -4562,6 +5180,24 @@ abstract class AppLocalizations {
   /// **'{n, plural, =0{No tasks due} =1{1 task due} other{{n} tasks due}}'**
   String weekTasks(int n);
 
+  /// No description provided for @weekWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {planned} workouts done this week'**
+  String weekWorkouts(int done, int planned);
+
+  /// No description provided for @weeklyPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly plan'**
+  String get weeklyPlan;
+
+  /// No description provided for @weightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get weightKg;
+
   /// No description provided for @welcomeBody.
   ///
   /// In en, this message translates to:
@@ -4621,6 +5257,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Work/study from'**
   String get workStart;
+
+  /// No description provided for @workoutDoneToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout is done'**
+  String get workoutDoneToday;
+
+  /// No description provided for @workoutNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get workoutNote;
+
+  /// No description provided for @workoutNoteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. knee felt tight on lunges'**
+  String get workoutNoteHint;
+
+  /// No description provided for @workoutSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout saved. Well done!'**
+  String get workoutSaved;
+
+  /// No description provided for @workoutSavedPartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved what you did. Every bit counts.'**
+  String get workoutSavedPartial;
 
   /// No description provided for @yourData.
   ///

@@ -1,11 +1,13 @@
 import '../core/utils/dates.dart';
 import '../data/app_data.dart';
+import '../data/models/fitness.dart';
 import '../data/models/prayer.dart';
 import '../data/models/task.dart';
+import 'fitness/today.dart';
 import 'planner.dart';
 import 'prayer_times.dart';
 
-enum TimelineKind { prayer, event, task, work, rest }
+enum TimelineKind { prayer, event, task, workout, work, rest }
 
 /// One row of "today's schedule" on the home screen.
 class TimelineItem {
@@ -17,6 +19,7 @@ class TimelineItem {
     this.refId,
     this.prayer,
     this.task,
+    this.focus,
     this.suggested = false,
     this.estimated = false,
   });
@@ -30,6 +33,9 @@ class TimelineItem {
   final String? refId;
   final Prayer? prayer;
   final Task? task;
+
+  /// Workout items: what the session trains.
+  final DayFocus? focus;
 
   /// Placed by the planner, not by the user.
   final bool suggested;
@@ -64,10 +70,22 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
   final userPlanned = d.tasks
       .where((t) => t.isOpen && !t.archived && t.plannedStart != null && isSameDay(t.plannedStart!, today))
       .toList();
+  // Today's workout is a flexible activity: the planner fits it into free
+  // time like a task, unless it's already been logged.
+  final workout = d.sessionsOn(dayKey(today)).isEmpty ? todaysWorkout(d, now) : null;
+  final workoutTask = workout == null
+      ? null
+      : Task(
+          id: '$_workoutPrefix${workout.$1.place.name}',
+          title: '',
+          estimatedMinutes: workout.$2.minutes,
+          createdAt: now,
+          updatedAt: now,
+        );
   final plan = planner.plan(
     day: today,
     now: now,
-    tasks: d.tasks,
+    tasks: [...d.tasks, ?workoutTask],
     events: [
       ...d.events,
       // Treat user-planned tasks as busy time so suggestions don't overlap.
@@ -102,7 +120,18 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
           refId: b.refId,
           prayer: b.kind == BlockKind.prayer ? Prayer.values.byName(b.refId!) : null,
         ),
-    for (final p in plan.planned) _taskItem(p.task, p.start, p.end, suggested: true, estimated: p.estimated),
+    for (final p in plan.planned)
+      if (p.task.id.startsWith(_workoutPrefix))
+        TimelineItem(
+          kind: TimelineKind.workout,
+          start: p.start,
+          end: p.end,
+          refId: p.task.id.substring(_workoutPrefix.length),
+          focus: workout!.$2.focus,
+          suggested: true,
+        )
+      else
+        _taskItem(p.task, p.start, p.end, suggested: true, estimated: p.estimated),
   ];
   // Prayers outside the planning hours (often Fajr) still belong on the
   // day's schedule; they just don't affect planning.
@@ -128,6 +157,8 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
   final next = items.where((i) => i.start.isAfter(now)).firstOrNull;
   return DayTimeline(items: items, plan: plan, current: current, next: next);
 }
+
+const _workoutPrefix = 'workout:';
 
 TimelineItem _taskItem(Task t, DateTime start, DateTime end, {required bool suggested, bool estimated = false}) =>
     TimelineItem(

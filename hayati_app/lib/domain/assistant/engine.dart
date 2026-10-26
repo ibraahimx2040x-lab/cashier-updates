@@ -1,10 +1,13 @@
 import '../../core/utils/dates.dart';
 import '../../data/app_data.dart';
 import '../../data/models/assistant.dart';
+import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../l10n/app_localizations.dart';
+import '../fitness/exercises.dart';
+import '../fitness/plan_generator.dart';
 import '../metrics.dart';
 import '../planner.dart';
 import 'tools.dart';
@@ -45,6 +48,8 @@ class AssistantContext {
         habits = p.shareHabits ? d.habits : const [],
         habitLogs = p.shareHabits ? d.habitLogs : const [],
         settings = d.settings,
+        fitness = p.shareFitness ? d.settings.fitness : null,
+        gymPlan = p.shareFitness ? d.activePlan(WorkoutPlace.gym) : null,
         perms = p,
         _data = d;
 
@@ -55,6 +60,8 @@ class AssistantContext {
   final List<Habit> habits;
   final List<HabitLog> habitLogs;
   final UserSettings settings;
+  final FitnessProfile? fitness;
+  final WorkoutPlan? gymPlan;
   final AssistantPermissions perms;
   final AppData _data;
 
@@ -95,6 +102,10 @@ class LocalAssistantEngine {
     if (_has(t, const ['اضف مهمه', 'مهمه جديده', 'ذكرني', 'add task', 'add a task', 'new task', 'remind me'])) {
       return _addTask(input, t, ctx, now);
     }
+    if (_has(t, const ['النادي', 'الجيم', 'النادى', 'gym']) &&
+        _has(t, const ['ما اقدر', 'ما قدرت', 'مقدر', 'ما راح', 'لن اذهب', 'ما اروح', 'can\'t', 'cannot', 'cant', 'unable', 'skip'])) {
+      return _gymAtHome(ctx, now);
+    }
     final free = _durationMinutes(t);
     if (free != null && _has(t, const ['عندي', 'فاضي', 'وقت', 'i have', 'free', 'spare'])) {
       return _freeTime(ctx, now, free);
@@ -125,6 +136,27 @@ class LocalAssistantEngine {
   }
 
   // ------------------------------------------------------------- intents
+
+  /// A home version of today's gym workout, saying plainly which
+  /// exercises have no real home equivalent.
+  EngineReply _gymAtHome(AssistantContext ctx, DateTime now) {
+    if (!ctx.perms.shareFitness) return EngineReply(l.aiNeedsSharing(l.navFitness), kind: MessageKind.info);
+    final day = ctx.gymPlan?.dayFor(now.weekday);
+    if (ctx.fitness == null || ctx.gymPlan == null) return EngineReply(l.aiNoGymPlan, kind: MessageKind.info);
+    if (day == null) return EngineReply(l.aiNoGymToday, kind: MessageKind.info);
+    final lang = l.localeName;
+    String name(PlannedExercise x) => exerciseById(x.exerciseId)!.name(lang);
+    final lines = [
+      for (final s in homeVersion(day, ctx.fitness!))
+        switch (s.kind) {
+          SwapKind.same => '• ${name(s.original)}',
+          SwapKind.alternative => '• ${name(s.original)} ← ${name(s.replacement!)}',
+          SwapKind.approximate => '• ${l.approximateSwap(name(s.original), name(s.replacement!))}',
+          SwapKind.none => '• ${l.noHomeAlternative(name(s.original))}',
+        },
+    ];
+    return EngineReply('${l.aiGymAtHome}\n${lines.join('\n')}\n${l.aiGymAtHomeHint}', kind: MessageKind.info);
+  }
 
   /// Suggests open tasks that fit into [minutes] (no changes proposed).
   EngineReply _freeTime(AssistantContext ctx, DateTime now, int minutes) {

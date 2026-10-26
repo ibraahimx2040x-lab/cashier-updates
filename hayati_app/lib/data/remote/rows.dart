@@ -5,6 +5,7 @@ library;
 
 import '../../core/utils/dates.dart';
 import '../app_data.dart';
+import '../models/fitness.dart';
 import '../models/goal.dart';
 import '../models/misc.dart';
 import '../models/prayer.dart';
@@ -146,6 +147,54 @@ Row prayerLogRow(PrayerLog l) => {'id': l.id, 'day': l.day, 'prayer': l.prayer.n
 PrayerLog prayerLogFrom(Row r) =>
     PrayerLog(id: r['id'] as String, day: r['day'] as String, prayer: Prayer.values.byName(r['prayer'] as String));
 
+Row workoutPlanRow(WorkoutPlan p) => {
+      'id': p.id,
+      'place': p.place.name,
+      'version': p.version,
+      'active': p.active,
+      'goal': p.goal.name,
+      'days': [for (final d in p.days) d.toJson()],
+      'created_at': _ts(p.createdAt),
+    };
+
+WorkoutPlan workoutPlanFrom(Row r) => WorkoutPlan(
+      id: r['id'] as String,
+      place: WorkoutPlace.values.byName(r['place'] as String),
+      version: r['version'] as int,
+      active: r['active'] as bool,
+      goal: FitnessGoal.values.byName(r['goal'] as String),
+      days: [for (final d in r['days'] as List) WorkoutDay.fromJson((d as Map).cast())],
+      createdAt: _dt(r['created_at'])!,
+    );
+
+Row workoutSessionRow(WorkoutSession s) => {
+      'id': s.id,
+      'plan_id': s.planId,
+      'day': s.day,
+      'place': s.place.name,
+      'focus': s.focus.name,
+      'status': s.status.name,
+      'difficulty': s.difficulty,
+      'note': s.note,
+      'sets': [for (final x in s.sets) x.toJson()],
+      'substituted': s.substituted,
+      'created_at': _ts(s.createdAt),
+    };
+
+WorkoutSession workoutSessionFrom(Row r) => WorkoutSession(
+      id: r['id'] as String,
+      planId: r['plan_id'] as String?,
+      day: r['day'] as String,
+      place: WorkoutPlace.values.byName(r['place'] as String),
+      focus: DayFocus.values.byName(r['focus'] as String),
+      status: SessionStatus.values.byName(r['status'] as String),
+      difficulty: r['difficulty'] as int?,
+      note: r['note'] as String,
+      sets: [for (final x in r['sets'] as List) SetLog.fromJson((x as Map).cast())],
+      substituted: r['substituted'] as bool,
+      createdAt: _dt(r['created_at'])!,
+    );
+
 Row noteRow(Note n) => {
       'id': n.id,
       'title': n.title,
@@ -220,6 +269,7 @@ Row profileRow(UserSettings s) => {
       },
       'chat_retention_days': s.assistant.retentionDays,
       'prayer_settings': s.prayer.toJson(),
+      'fitness_profile': s.fitness?.toJson() ?? const <String, Object?>{},
     };
 
 UserSettings settingsFrom(Row r) {
@@ -247,6 +297,7 @@ UserSettings settingsFrom(Row r) {
     homeShowGoals: (home['goals'] as bool?) ?? true,
     assistant: AssistantPermissions.fromJson(perms),
     prayer: PrayerSettings.fromJson((r['prayer_settings'] as Map?)?.cast<String, Object?>() ?? const {}),
+    fitness: FitnessProfile.fromJson((r['fitness_profile'] as Map?)?.cast<String, Object?>()),
   );
 }
 
@@ -268,6 +319,8 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('habits', (d) => [for (final x in d.habits) habitRow(x)], habitFrom),
   SyncTable('habit_logs', (d) => [for (final x in d.habitLogs) habitLogRow(x)], habitLogFrom),
   SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
+  SyncTable('workout_plans', (d) => [for (final x in d.workoutPlans) workoutPlanRow(x)], workoutPlanFrom),
+  SyncTable('workout_sessions', (d) => [for (final x in d.workoutSessions) workoutSessionRow(x)], workoutSessionFrom),
   SyncTable('notes', (d) => [for (final x in d.notes) noteRow(x)], noteFrom),
   SyncTable('expenses', (d) => [for (final x in d.expenses) expenseRow(x)], expenseFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
@@ -286,6 +339,8 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     habits: read('habits', habitFrom),
     habitLogs: read('habit_logs', habitLogFrom),
     prayerLogs: read('prayer_logs', prayerLogFrom),
+    workoutPlans: read('workout_plans', workoutPlanFrom),
+    workoutSessions: read('workout_sessions', workoutSessionFrom),
     notes: read('notes', noteFrom),
     expenses: read('expenses', expenseFrom),
     budgets: read('budgets', budgetFrom),
