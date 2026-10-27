@@ -42,8 +42,8 @@ class PrivacyScreen extends ConsumerWidget {
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.only(bottom: Space.xxl), children: [
           header(l.documents),
-          ListTile(leading: const Icon(Icons.policy_outlined), title: Text(l.privacyPolicy), onTap: () => showLegal(context, privacy: true)),
-          ListTile(leading: const Icon(Icons.gavel_outlined), title: Text(l.terms), onTap: () => showLegal(context, privacy: false)),
+          ListTile(leading: IconBadge(Icons.policy_outlined), title: Text(l.privacyPolicy), onTap: () => showLegal(context, privacy: true)),
+          ListTile(leading: IconBadge(Icons.gavel_outlined), title: Text(l.terms), onTap: () => showLegal(context, privacy: false)),
           header(l.whatWeStore),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Space.gutter),
@@ -55,14 +55,14 @@ class PrivacyScreen extends ConsumerWidget {
             child: Text(l.aiDataBody),
           ),
           ListTile(
-            leading: const Icon(Icons.auto_awesome_outlined),
+            leading: IconBadge(Icons.auto_awesome_outlined),
             title: Text(l.manageAssistantAccess),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.assistantSettings),
           ),
           header(l.yourData),
           ListTile(
-            leading: const Icon(Icons.download_outlined),
+            leading: IconBadge(Icons.download_outlined),
             title: Text(l.exportData),
             subtitle: Text(l.exportDataSub),
             onTap: () async {
@@ -72,14 +72,14 @@ class PrivacyScreen extends ConsumerWidget {
             },
           ),
           ListTile(
-            leading: const Icon(Icons.delete_outline),
+            leading: IconBadge(Icons.delete_outline),
             title: Text(l.deleteDataRequest),
             subtitle: Text(l.deleteDataRequestSub),
             trailing: const Icon(Icons.chevron_right),
             onTap: () => context.push(Routes.profile),
           ),
           header(l.sessions),
-          ListTile(leading: const Icon(Icons.devices_outlined), title: Text(l.thisDevice), subtitle: Text(ref.watch(authProvider.notifier).remote ? l.sessionsRemote : l.sessionsLocal)),
+          ListTile(leading: IconBadge(Icons.devices_outlined), title: Text(l.thisDevice), subtitle: Text(ref.watch(authProvider.notifier).remote ? l.sessionsRemote : l.sessionsLocal)),
         ]),
       ),
     );

@@ -12,6 +12,7 @@ import '../../domain/learning/curriculum.dart';
 import '../../domain/learning/path.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'quiz.dart';
 
@@ -192,14 +193,10 @@ class _ResultHero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    return Container(
+    return HeroSurface(
       padding: const EdgeInsets.all(Space.xl),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Radii.sheet),
-        gradient: const LinearGradient(colors: [AppColors.deepGreen, AppColors.midGreen]),
-      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Icon(Icons.emoji_events_outlined, color: Colors.white, size: 32),
+        const Icon(Icons.emoji_events_outlined, color: AppColors.gold, size: 32),
         const SizedBox(height: Space.m),
         Text(title, style: t.headlineSmall?.copyWith(color: Colors.white)),
         const SizedBox(height: Space.xs),

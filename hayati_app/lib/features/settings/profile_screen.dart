@@ -151,26 +151,26 @@ class ProfileScreen extends ConsumerWidget {
         maxWidth: 680,
         child: ListView(padding: const EdgeInsets.symmetric(vertical: Space.l), children: [
           ListTile(
-            leading: const Icon(Icons.badge_outlined),
+            leading: IconBadge(Icons.badge_outlined),
             title: Text(l.displayName),
             subtitle: Text(s.displayName.isEmpty ? l.notSet : s.displayName),
             trailing: const Icon(Icons.edit_outlined),
             onTap: () => _editName(context, ref),
           ),
-          ListTile(leading: const Icon(Icons.email_outlined), title: Text(l.email), subtitle: Text(user.email)),
-          ListTile(leading: const Icon(Icons.key_outlined), title: Text(l.signInMethod), subtitle: Text(l.emailPassword)),
+          ListTile(leading: IconBadge(Icons.email_outlined), title: Text(l.email), subtitle: Text(user.email)),
+          ListTile(leading: IconBadge(Icons.key_outlined), title: Text(l.signInMethod), subtitle: Text(l.emailPassword)),
           ListTile(
-            leading: const Icon(Icons.verified_outlined),
+            leading: IconBadge(Icons.verified_outlined),
             title: Text(l.emailVerification),
             subtitle: Text(!ref.read(authProvider.notifier).remote
                 ? l.verificationLocal
                 : (user.emailConfirmed ? l.emailVerified : l.emailNotVerified)),
           ),
-          ListTile(leading: const Icon(Icons.event_available_outlined), title: Text(l.memberSince), subtitle: Text(fmt.date(user.createdAt))),
+          ListTile(leading: IconBadge(Icons.event_available_outlined), title: Text(l.memberSince), subtitle: Text(fmt.date(user.createdAt))),
           const Divider(),
-          ListTile(leading: const Icon(Icons.password), title: Text(l.changePassword), onTap: () => _changePassword(context, ref)),
+          ListTile(leading: IconBadge(Icons.password), title: Text(l.changePassword), onTap: () => _changePassword(context, ref)),
           ListTile(
-            leading: const Icon(Icons.logout),
+            leading: IconBadge(Icons.logout),
             title: Text(l.signOut),
             onTap: () async {
               if (await confirmDialog(context, title: l.signOut, message: l.signOutBody, confirmLabel: l.signOut, danger: false)) {

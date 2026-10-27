@@ -11,6 +11,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/accountability.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 
 /// Screen 22 — commitments: the rules the user agreed to, late tasks that
@@ -30,18 +31,10 @@ class AccountabilityScreen extends ConsumerWidget {
       ..sort((a, b) => (b.resolvedAt ?? DateTime(0)).compareTo(a.resolvedAt ?? DateTime(0)));
 
     final sections = <Widget>[
-      Container(
+      HeroSurface(
         padding: const EdgeInsets.all(Space.xl),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Radii.sheet),
-          gradient: const LinearGradient(
-            begin: AlignmentDirectional.topStart,
-            end: AlignmentDirectional.bottomEnd,
-            colors: [AppColors.deepGreen, AppColors.midGreen],
-          ),
-        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          const Icon(Icons.handshake_outlined, color: Colors.white, size: 32),
+          const Icon(Icons.handshake_outlined, color: AppColors.gold, size: 32),
           const SizedBox(height: Space.m),
           Text(l.accTitle, style: t.headlineSmall?.copyWith(color: Colors.white)),
           const SizedBox(height: Space.s),
@@ -56,7 +49,7 @@ class AccountabilityScreen extends ConsumerWidget {
             ),
           const SizedBox(height: Space.m),
           FilledButton.icon(
-            style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.deepGreen),
+            style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.navy),
             onPressed: () => context.push(Routes.accountabilityRule()),
             icon: const Icon(Icons.add),
             label: Text(l.accAddRule),

@@ -15,6 +15,7 @@ import '../../data/models/prayer.dart';
 import '../../domain/prayer_times.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 
 /// Screen 10 — prayer times for a day, the next prayer, and an optional
@@ -93,16 +94,8 @@ class _PrayerScreenState extends ConsumerState<PrayerScreen> {
           padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl),
           children: [
             FadeSlideIn(
-              child: Container(
+              child: HeroSurface(
                 padding: const EdgeInsets.all(Space.xl),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Radii.sheet),
-                  gradient: const LinearGradient(
-                    begin: AlignmentDirectional.topStart,
-                    end: AlignmentDirectional.bottomEnd,
-                    colors: [AppColors.deepGreen, AppColors.midGreen],
-                  ),
-                ),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                   Text(l.nextPrayerIs(l.prayerName(next.$1)), style: t.titleMedium?.copyWith(color: Colors.white70)),
                   const SizedBox(height: Space.xs),

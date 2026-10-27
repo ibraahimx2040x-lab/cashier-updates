@@ -37,7 +37,7 @@ class SettingsScreen extends ConsumerWidget {
           child: Text(text, style: t.titleSmall?.copyWith(color: Theme.of(context).colorScheme.secondary)),
         );
     Widget nav(IconData i, String title, String route, {String? sub}) => ListTile(
-          leading: Icon(i),
+          leading: IconBadge(i),
           title: Text(title),
           subtitle: sub == null ? null : Text(sub),
           trailing: const Icon(Icons.chevron_right),
@@ -58,7 +58,7 @@ class SettingsScreen extends ConsumerWidget {
             Builder(builder: (context) {
               final sync = ref.watch(syncProvider);
               return ListTile(
-                leading: Icon(sync.phase == SyncPhase.offline ? Icons.cloud_off_outlined : Icons.cloud_done_outlined),
+                leading: IconBadge(sync.phase == SyncPhase.offline ? Icons.cloud_off_outlined : Icons.cloud_done_outlined),
                 title: Text(l.syncStatus),
                 subtitle: Text(sync.pending > 0
                     ? l.syncPending(sync.pending)
@@ -72,7 +72,7 @@ class SettingsScreen extends ConsumerWidget {
           const Padding(padding: EdgeInsets.symmetric(horizontal: Space.gutter), child: DeviceNotificationsCard()),
           header(l.appearance),
           ListTile(
-            leading: const Icon(Icons.translate),
+            leading: IconBadge(Icons.translate),
             title: Text(l.language),
             trailing: SegmentedButton<String>(
               segments: const [ButtonSegment(value: 'ar', label: Text('ع')), ButtonSegment(value: 'en', label: Text('EN'))],
@@ -81,7 +81,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.dark_mode_outlined),
+            leading: IconBadge(Icons.dark_mode_outlined),
             title: Text(l.theme),
             subtitle: Padding(
               padding: const EdgeInsets.only(top: Space.s),
@@ -98,12 +98,12 @@ class SettingsScreen extends ConsumerWidget {
           ),
           header(l.regional),
           ListTile(
-            leading: const Icon(Icons.public),
+            leading: IconBadge(Icons.public),
             title: Text(l.timezone),
             subtitle: Text('${DateTime.now().timeZoneName} · ${l.timezoneDeviceNote}'),
           ),
           ListTile(
-            leading: const Icon(Icons.payments_outlined),
+            leading: IconBadge(Icons.payments_outlined),
             title: Text(l.defaultCurrency),
             subtitle: Text(l.currencyChangeNote),
             trailing: DropdownButton<String>(
@@ -114,7 +114,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.calendar_view_week),
+            leading: IconBadge(Icons.calendar_view_week),
             title: Text(l.weekStart),
             trailing: DropdownButton<int>(
               value: s.weekStart,

@@ -11,6 +11,7 @@ import '../../data/models/learning.dart';
 import '../../domain/learning/curriculum.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'quiz.dart';
 
@@ -102,14 +103,10 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
 
     final passed = _score >= LessonProgress.passMark;
     final result = Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
-      Container(
+      HeroSurface(
         padding: const EdgeInsets.all(24),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Radii.sheet),
-          gradient: const LinearGradient(colors: [AppColors.deepGreen, AppColors.midGreen]),
-        ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Icon(passed ? Icons.emoji_events_outlined : Icons.replay, color: Colors.white, size: 32),
+          Icon(passed ? Icons.emoji_events_outlined : Icons.replay, color: AppColors.gold, size: 32),
           const SizedBox(height: Space.m),
           Text('$_score%', style: t.displaySmall?.copyWith(color: Colors.white)),
           Text(passed ? l.lessonMastered : l.lessonAgain, style: t.bodyMedium?.copyWith(color: Colors.white70)),

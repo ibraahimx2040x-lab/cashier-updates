@@ -44,13 +44,13 @@ class HelpScreen extends ConsumerWidget {
             ),
           const Divider(height: Space.xxl),
           ListTile(
-            leading: const Icon(Icons.bug_report_outlined),
+            leading: IconBadge(Icons.bug_report_outlined),
             title: Text(l.reportProblem),
             subtitle: Text(l.reportProblemSub),
             onTap: () => showModalBottomSheet<void>(context: context, isScrollControlled: true, builder: (_) => const _ReportForm()),
           ),
-          ListTile(leading: const Icon(Icons.support_agent), title: Text(l.contactSupport), subtitle: const Text('support@hayati.app')),
-          ListTile(leading: const Icon(Icons.info_outline), title: Text(l.appVersion), subtitle: const Text(appVersion)),
+          ListTile(leading: IconBadge(Icons.support_agent), title: Text(l.contactSupport), subtitle: const Text('support@hayati.app')),
+          ListTile(leading: IconBadge(Icons.info_outline), title: Text(l.appVersion), subtitle: const Text(appVersion)),
         ]),
       ),
     );

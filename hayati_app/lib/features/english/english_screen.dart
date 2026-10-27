@@ -13,6 +13,7 @@ import '../../domain/learning/curriculum.dart';
 import '../../domain/learning/path.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 
 /// Screen 16 — the English path: level, today's lesson, reviews due, the
@@ -42,7 +43,7 @@ class EnglishScreen extends ConsumerWidget {
                 body: l.englishIntroBody,
                 actions: [
                   FilledButton.icon(
-                    style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.deepGreen),
+                    style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.navy),
                     onPressed: () => context.push(Routes.placement),
                     icon: const Icon(Icons.quiz_outlined),
                     label: Text(l.takePlacement),
@@ -80,7 +81,7 @@ class EnglishScreen extends ConsumerWidget {
         body: next != null ? l.lessonMinutes(next.minutes) : l.levelCheckBody,
         actions: [
           FilledButton.icon(
-            style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.deepGreen),
+            style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.navy),
             onPressed: () => context.push(next != null ? Routes.lesson(next.id) : Routes.levelCheck),
             icon: Icon(next != null ? Icons.play_arrow : Icons.quiz_outlined),
             label: Text(next != null ? l.startLesson : l.takeLevelCheck),
@@ -91,7 +92,7 @@ class EnglishScreen extends ConsumerWidget {
         AppCard(
           onTap: () => context.push(Routes.englishReview),
           child: Row(children: [
-            CircleAvatar(backgroundColor: context.status.highlight, child: Icon(Icons.replay, color: scheme.primary)),
+            const IconBadge(Icons.replay, circle: true),
             const SizedBox(width: Space.m),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -217,18 +218,10 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    return Container(
+    return HeroSurface(
       padding: const EdgeInsets.all(Space.xl),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Radii.sheet),
-        gradient: const LinearGradient(
-          begin: AlignmentDirectional.topStart,
-          end: AlignmentDirectional.bottomEnd,
-          colors: [AppColors.deepGreen, AppColors.midGreen],
-        ),
-      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        const Icon(Icons.translate, color: Colors.white, size: 32),
+        const Icon(Icons.translate, color: AppColors.gold, size: 32),
         const SizedBox(height: Space.m),
         if (eyebrow != null) Text(eyebrow!, style: t.labelMedium?.copyWith(color: Colors.white70)),
         Text(title, style: t.headlineSmall?.copyWith(color: Colors.white)),

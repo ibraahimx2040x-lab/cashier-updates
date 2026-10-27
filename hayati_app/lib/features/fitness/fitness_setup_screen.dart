@@ -238,7 +238,7 @@ class _Preview extends StatelessWidget {
                         style: t.titleSmall,
                       ),
                     ),
-                    Pill(label: l.unitMinutes(e.value[i].minutes), color: AppColors.midGreen, icon: Icons.timer_outlined),
+                    Pill(label: l.unitMinutes(e.value[i].minutes), color: AppColors.indigo, icon: Icons.timer_outlined),
                   ]),
                   const SizedBox(height: Space.s),
                   for (final x in e.value[i].exercises)

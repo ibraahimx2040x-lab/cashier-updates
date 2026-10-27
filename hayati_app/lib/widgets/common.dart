@@ -191,6 +191,32 @@ class AppCard extends StatelessWidget {
       );
 }
 
+/// An icon on a soft tinted tile. Without [color] the accent is picked
+/// from the icon itself, so the same icon is always the same colour.
+class IconBadge extends StatelessWidget {
+  const IconBadge(this.icon, {super.key, this.color, this.size = 20, this.circle = false});
+  final IconData icon;
+  final Color? color;
+  final double size;
+  final bool circle;
+
+  @override
+  Widget build(BuildContext context) {
+    final c = color ?? AppColors.accents[icon.codePoint % AppColors.accents.length];
+    final dark = Theme.of(context).brightness == Brightness.dark;
+    return Container(
+      width: size * 2,
+      height: size * 2,
+      decoration: BoxDecoration(
+        color: c.withValues(alpha: dark ? 0.22 : 0.13),
+        shape: circle ? BoxShape.circle : BoxShape.rectangle,
+        borderRadius: circle ? null : BorderRadius.circular(size * 0.6),
+      ),
+      child: Icon(icon, size: size, color: dark ? Color.lerp(c, Colors.white, 0.25) : c),
+    );
+  }
+}
+
 class SectionHeader extends StatelessWidget {
   const SectionHeader(this.title, {super.key, this.action, this.onAction});
   final String title;
@@ -226,11 +252,7 @@ class EmptyState extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Container(
-              padding: const EdgeInsets.all(Space.l),
-              decoration: BoxDecoration(color: context.status.highlight, shape: BoxShape.circle),
-              child: Icon(icon, size: 32, color: Theme.of(context).colorScheme.primary),
-            ),
+            IconBadge(icon, size: 34, circle: true),
             const SizedBox(height: Space.l),
             Text(title, style: t.titleMedium, textAlign: TextAlign.center),
             if (message != null) ...[

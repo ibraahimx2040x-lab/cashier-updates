@@ -19,16 +19,11 @@ class WelcomeScreen extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final t = Theme.of(context).textTheme;
-    final scheme = Theme.of(context).colorScheme;
     final locale = ref.watch(localeProvider);
     Widget benefit(IconData i, String title, String body) => Padding(
           padding: const EdgeInsets.only(bottom: Space.l),
           child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Container(
-              padding: const EdgeInsets.all(Space.s + 2),
-              decoration: BoxDecoration(color: context.status.highlight, borderRadius: BorderRadius.circular(Radii.button)),
-              child: Icon(i, color: scheme.primary),
-            ),
+            IconBadge(i, size: 22),
             const SizedBox(width: Space.m),
             Expanded(
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -56,7 +51,12 @@ class WelcomeScreen extends ConsumerWidget {
             Center(
               child: Container(
                 padding: const EdgeInsets.all(Space.l),
-                decoration: const BoxDecoration(color: AppColors.deepGreen, shape: BoxShape.circle),
+                decoration: BoxDecoration(
+                  gradient: AppColors.heroGradient,
+                  shape: BoxShape.circle,
+                  border: Border.all(color: AppColors.gold, width: 2),
+                  boxShadow: [BoxShadow(color: AppColors.navy.withValues(alpha: 0.3), blurRadius: 24, offset: const Offset(0, 10))],
+                ),
                 child: const HayatiLogo(size: 56),
               ),
             ),

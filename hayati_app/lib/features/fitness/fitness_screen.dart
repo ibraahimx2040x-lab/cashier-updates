@@ -14,6 +14,7 @@ import '../../domain/fitness/exercises.dart';
 import '../../domain/fitness/plan_generator.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 
 /// Screen 12 — the fitness hub: today's workout, the week's plan, recent
@@ -41,7 +42,7 @@ class FitnessScreen extends ConsumerWidget {
                 title: l.fitnessIntroTitle,
                 body: l.fitnessIntroBody,
                 action: FilledButton.icon(
-                  style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.deepGreen),
+                  style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.navy),
                   onPressed: () => context.push(Routes.fitnessSetup),
                   icon: const Icon(Icons.auto_awesome),
                   label: Text(l.createMyPlan),
@@ -104,7 +105,7 @@ class FitnessScreen extends ConsumerWidget {
           body: '${l.workoutPlace(place)} · ${l.unitMinutes(todayDay.minutes)} · ${l.exerciseCount(todayDay.exercises.length)}',
           action: Wrap(spacing: Space.s, runSpacing: Space.s, children: [
             FilledButton.icon(
-              style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.deepGreen),
+              style: FilledButton.styleFrom(backgroundColor: Colors.white, foregroundColor: AppColors.navy),
               onPressed: () => context.push(Routes.workout(place.name, now.weekday)),
               icon: const Icon(Icons.play_arrow),
               label: Text(l.startWorkout),
@@ -209,18 +210,10 @@ class _Hero extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final t = Theme.of(context).textTheme;
-    return Container(
+    return HeroSurface(
       padding: const EdgeInsets.all(Space.xl),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(Radii.sheet),
-        gradient: const LinearGradient(
-          begin: AlignmentDirectional.topStart,
-          end: AlignmentDirectional.bottomEnd,
-          colors: [AppColors.deepGreen, AppColors.midGreen],
-        ),
-      ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Icon(icon, color: Colors.white, size: 32),
+        Icon(icon, color: AppColors.gold, size: 32),
         const SizedBox(height: Space.m),
         Text(title, style: t.headlineSmall?.copyWith(color: Colors.white)),
         const SizedBox(height: Space.xs),

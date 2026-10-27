@@ -184,7 +184,7 @@ class _RuleEditorScreenState extends ConsumerState<RuleEditorScreen> {
             AppCard(
               color: context.status.highlight,
               child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                Icon(Icons.health_and_safety_outlined, color: AppColors.midGreen),
+                Icon(Icons.health_and_safety_outlined, color: AppColors.indigo),
                 const SizedBox(width: Space.m),
                 Expanded(child: Text(l.accSafety, style: t.bodySmall)),
               ]),
