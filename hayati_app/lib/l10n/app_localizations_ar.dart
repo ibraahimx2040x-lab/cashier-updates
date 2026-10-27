@@ -746,6 +746,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get autoActionsSub => 'كل صلاحية مستقلة ويمكن سحبها في أي وقت.';
 
   @override
+  String get automatic => 'تلقائي';
+
+  @override
   String avgKcalPerDay(String kcal) {
     return '$kcal سعرة يوميًا بالمتوسط';
   }
@@ -804,6 +807,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bodyweight => 'وزن الجسم';
+
+  @override
+  String bpmN(int n) {
+    return '$n نبضة/د';
+  }
 
   @override
   String get breakEnd => 'إلى';
@@ -1031,6 +1039,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get connect => 'اربط';
+
+  @override
+  String get connectInDevices => 'اربط من الأجهزة والمصادر';
 
   @override
   String connectStepsBody(String store) {
@@ -1302,6 +1313,25 @@ class AppLocalizationsAr extends AppLocalizations {
   String get devNotifTitle => 'إشعارات الجهاز';
 
   @override
+  String get devicesPrivacy =>
+      'حياتي يقرأ فقط وما يكتب شي، ويقرأ اللي تشغّله بس. الأرقام تنحفظ في حسابك عشان تشوفها أجهزتك الثانية.';
+
+  @override
+  String devicesStoreBody(String store) {
+    return 'هذا الجوال يقرأ من $store، اللي يجمع ما تسجله ساعتك وميزانك وتطبيقاتك. اختر وش تبي يجيب.';
+  }
+
+  @override
+  String get devicesSub => 'الساعة والنوم والنبض ومن وين يجي كل رقم';
+
+  @override
+  String get devicesTitle => 'الأجهزة والمصادر';
+
+  @override
+  String get devicesWebBody =>
+      'الربط يصير من تطبيق حياتي على الجوال: يقرأ من Health Connect في الأندرويد أو Apple Health في الآيفون، واللي يجيبه يطلع هنا بعد.';
+
+  @override
   String get didYouEat => 'هل هي وحدة من هذي؟';
 
   @override
@@ -1325,6 +1355,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get disconnect => 'افصل';
+
+  @override
+  String get disconnectBody =>
+      'الجوال يوقف القراءة. اللي انجاب يبقى، وتقدر تحذفه من تحت المصدر.';
+
+  @override
+  String get disconnectThisPhone => 'وقّف القراءة على هذا الجوال';
+
+  @override
+  String disconnectTitle(String store) {
+    return 'توقف القراءة من $store؟';
+  }
 
   @override
   String get dismiss => 'إخفاء';
@@ -1910,6 +1952,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fromGallery => 'من المعرض';
 
   @override
+  String get fromYourDevices => 'من ساعتك وتطبيقاتك';
+
+  @override
   String get fsDays => 'عدد الأيام في الأسبوع';
 
   @override
@@ -2060,6 +2105,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get haveAccount => 'لدي حساب';
 
   @override
+  String get healthPermissionDenied =>
+      'ما انعطى الإذن. تقدر تسمح فيه من إعدادات تطبيق الصحة.';
+
+  @override
   String get healthSections => 'الأقسام الصحية';
 
   @override
@@ -2068,6 +2117,22 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get healthSetup => 'إعداد الصحة';
+
+  @override
+  String heartDaysN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'نبض $n يوم',
+      few: 'نبض $n أيام',
+      two: 'نبض يومين',
+      one: 'نبض يوم',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get heartNote => 'قراءة ساعتك، لمتابعتك الشخصية. مو فحص طبي.';
 
   @override
   String get heightCm => 'الطول (سم)';
@@ -2096,6 +2161,30 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get historyHint =>
       'اضغط على يوم سابق لتصحيحه. الأيام غير المستحقة محايدة.';
+
+  @override
+  String get hkHeartRate => 'نبض الراحة';
+
+  @override
+  String get hkHeartRateSub => 'قيمة وحدة باليوم مثل ما تقيسها ساعتك';
+
+  @override
+  String get hkSleep => 'النوم';
+
+  @override
+  String get hkSleepSub => 'متى نمت وكم نمت';
+
+  @override
+  String get hkSteps => 'الخطوات';
+
+  @override
+  String get hkStepsSub => 'المجموع اليومي من الجوال وأي ساعة';
+
+  @override
+  String get hkWorkouts => 'التمارين';
+
+  @override
+  String get hkWorkoutsSub => 'الجري والمشي والسباحة وغيرها مما سجلته ساعتك';
 
   @override
   String get hmActivity => 'الخطوات والنشاط';
@@ -2231,6 +2320,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get lastWeek => 'الأسبوع الماضي';
 
   @override
+  String latestOn(String date) {
+    return 'آخر شي: $date';
+  }
+
+  @override
   String get leave => 'خروج';
 
   @override
@@ -2354,6 +2448,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get manageAssistantAccess => 'إدارة صلاحيات المساعد';
+
+  @override
+  String get manageDevices => 'الأجهزة والمصادر';
 
   @override
   String get manual => 'يدويًا';
@@ -2616,6 +2713,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get neverAddedUp =>
+      'إذا مصدرين فيهم نفس اليوم، نعرض واحد بس وما نجمعهم، لأن الجوال والساعة غالبًا يحسبون نفس المشي.';
+
+  @override
   String get newChat => 'محادثة جديدة';
 
   @override
@@ -2685,6 +2786,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noHabitsYet => 'لا توجد عادات بعد';
 
   @override
+  String get noHeartYet => 'ما فيه نبض راحة للحين';
+
+  @override
   String noHomeAlternative(String name) {
     return '$name: لا يوجد بديل منزلي، يُتخطى اليوم';
   }
@@ -2721,6 +2825,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noSetsTitle => 'لم تحدد أي مجموعة';
+
+  @override
+  String get noSleepYet => 'ما فيه نوم مسجل';
+
+  @override
+  String get noSourcesYet =>
+      'ما فيه شي للحين. اربط من تطبيق حياتي على الجوال، أو أضف خطواتك يدويًا.';
 
   @override
   String get noTasksToday => 'لا توجد مهام لليوم.';
@@ -2881,6 +2992,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get onboardingNoAuto =>
       'لن يُنشأ أو يُجدول أي شيء تلقائيًا. أنت من يختار ما يضيفه بعد ذلك.';
+
+  @override
+  String get oneSourceEach => 'كل نوع له مصدر واحد للحين، فما فيه شي تختاره.';
 
   @override
   String get openSettings => 'فتح الإعدادات';
@@ -3330,6 +3444,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get quickAdd => 'إضافة سريعة';
 
   @override
+  String readOnlyNote(String store) {
+    return 'كل مفتاح يطلب الإذن من $store أول مرة. إذا طفيته يوقف القراءة، واللي انجاب يبقى.';
+  }
+
+  @override
   String get readThis => 'اقرأ:';
 
   @override
@@ -3378,6 +3497,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get removeItem => 'إزالة هذا التغيير';
+
+  @override
+  String get removeSourceData => 'احذف بيانات هذا المصدر';
+
+  @override
+  String removeSourceDataBody(String source) {
+    return 'الخطوات والنوم والنبض والتمارين اللي جت من $source تنحذف من حياتي في كل أجهزتك. ما يتغير شي في $source نفسه.';
+  }
+
+  @override
+  String removeSourceDataTitle(String source) {
+    return 'تحذف بيانات $source؟';
+  }
 
   @override
   String get removedFromPlan => 'أزيلت من هذه الخطة';
@@ -3440,6 +3572,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String restSeconds(int n) {
     return 'راحة $n ث';
   }
+
+  @override
+  String get restingHeartRate => 'نبض الراحة';
 
   @override
   String get restore => 'استعادة';
@@ -3710,6 +3845,29 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skipRest => 'تخطَّ';
 
   @override
+  String sleepNightsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n ليلة',
+      few: '$n ليالي',
+      two: 'ليلتين',
+      one: 'ليلة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sleepWindow(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String sourceDataRemoved(String source) {
+    return 'انحذفت بيانات $source';
+  }
+
+  @override
   String get sourceHealthConnect => 'Health Connect';
 
   @override
@@ -3720,6 +3878,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourcePhone => 'حساس الجوال';
+
+  @override
+  String get sourcesWithData => 'المصادر اللي فيها بياناتك';
 
   @override
   String get spending => 'المصروفات';
@@ -3765,6 +3926,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get statusTodo => 'لم تبدأ';
+
+  @override
+  String stepDaysN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'خطوات $n يوم',
+      few: 'خطوات $n أيام',
+      two: 'خطوات يومين',
+      one: 'خطوات يوم',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get stepGoal => 'هدف الخطوات اليومي';
@@ -3964,6 +4138,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get thisMonth => 'هذا الشهر';
 
   @override
+  String get thisPhone => 'هذا الجوال';
+
+  @override
   String get thisWeek => 'هذا الأسبوع';
 
   @override
@@ -4052,6 +4229,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get tryAgain => 'ذاكره مرة أخرى';
+
+  @override
+  String turnOnSection(String section) {
+    return 'شغّل قسم $section من إعدادات الصحة أول';
+  }
 
   @override
   String typeToConfirm(String word) {
@@ -4224,6 +4406,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get weekAhead => 'أيامك السبعة القادمة';
 
   @override
+  String weekAverage(String value) {
+    return 'متوسط الأسبوع: $value';
+  }
+
+  @override
   String get weekBusy => 'يوم مزدحم';
 
   @override
@@ -4293,6 +4480,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get welcomeTitle => 'رتّب حياتك، خطوة بخطوة';
 
   @override
+  String get whatThisPhoneReads => 'وش يقرأ هذا الجوال';
+
+  @override
   String get whatWeStore => 'ما الذي يحفظه حياتي';
 
   @override
@@ -4304,7 +4494,58 @@ class AppLocalizationsAr extends AppLocalizations {
       'حسابك (البريد؛ وكلمة المرور تديرها خدمة المصادقة ولا يحفظها التطبيق)، وتفضيلاتك، والمهام والمواعيد والأهداف ومراحلها، والعادات وسجلاتها، والملاحظات، والمصروفات والميزانيات، تُحفظ في حسابك على خوادمنا ولا يقرؤها غيرك (أمان على مستوى الصف)، مع نسخة على هذا الجهاز للعمل دون اتصال. محادثات المساعد تبقى حاليًا على هذا الجهاز بحسب إعداد الاحتفاظ.';
 
   @override
+  String get whichSourceCounts => 'أي مصدر يُعتمد';
+
+  @override
   String get whyOptional => 'لماذا هذا الهدف مهم؟ (اختياري)';
+
+  @override
+  String get woBasketball => 'كرة سلة';
+
+  @override
+  String get woCycling => 'دراجة';
+
+  @override
+  String get woElliptical => 'جهاز الإليبتيكال';
+
+  @override
+  String get woFootball => 'كرة قدم';
+
+  @override
+  String get woHiit => 'تمارين متقطعة عالية الشدة';
+
+  @override
+  String get woHiking => 'هايكنج';
+
+  @override
+  String get woOther => 'تمرين';
+
+  @override
+  String get woPilates => 'بيلاتس';
+
+  @override
+  String get woRowing => 'تجديف';
+
+  @override
+  String get woRunning => 'جري';
+
+  @override
+  String get woStairs => 'درج';
+
+  @override
+  String get woStrength => 'تمارين قوة';
+
+  @override
+  String get woSwimming => 'سباحة';
+
+  @override
+  String get woTennis => 'تنس';
+
+  @override
+  String get woWalking => 'مشي';
+
+  @override
+  String get woYoga => 'يوغا';
 
   @override
   String get wordsAddedToReview =>
@@ -4337,6 +4578,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get workoutSavedPartial => 'حُفظ ما أنجزته. كل جهد يُحسب.';
+
+  @override
+  String workoutsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n تمرين',
+      few: '$n تمارين',
+      two: 'تمرينين',
+      one: 'تمرين',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get yesterday => 'أمس';

@@ -16,6 +16,7 @@ import '../../features/accountability/accountability_event_screen.dart';
 import '../../features/accountability/accountability_screen.dart';
 import '../../features/accountability/rule_editor_screen.dart';
 import '../../features/activity/activity_screen.dart';
+import '../../features/activity/devices_screen.dart';
 import '../../features/activity/health_setup_screen.dart';
 import '../../data/models/nutrition.dart';
 import '../../features/nutrition/add_food_screen.dart';
@@ -163,6 +164,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       page(Routes.englishReview, (_) => const EnglishReviewScreen()),
       page(Routes.activity, (_) => const ActivityScreen()),
       page(Routes.healthSetup, (_) => const HealthSetupScreen()),
+      page(Routes.devices, (_) => const DevicesScreen()),
       page(Routes.nutrition, (_) => const NutritionScreen()),
       page(Routes.nutritionWeek, (_) => const NutritionWeekScreen()),
       page('/nutrition/add', (s) => AddFoodScreen(day: _day(s), meal: _meal(s), query: s.uri.queryParameters['q'] ?? '')),

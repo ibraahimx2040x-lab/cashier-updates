@@ -389,5 +389,76 @@ exception when insufficient_privilege then raise notice 'ok: no food for another
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Devices: sleep, body measurements and imported workouts (phase 10).
+insert into sleep_sessions (id, source, start_at, end_at)
+  values ('5eeb0000-0000-0000-0000-000000000001', 'healthConnect', now() - interval '9 hours', now() - interval '1 hour');
+do $$ begin
+  insert into sleep_sessions (id, source, start_at, end_at) values (gen_random_uuid(), 'healthConnect', now() - interval '1 hour', now() - interval '2 hours');
+  raise exception 'FAILED: sleep ends before it starts';
+exception when check_violation then raise notice 'ok: sleep ends after it starts';
+end $$;
+do $$ begin
+  insert into sleep_sessions (id, source, start_at, end_at) values (gen_random_uuid(), 'healthConnect', now() - interval '30 hours', now() - interval '1 hour');
+  raise exception 'FAILED: sleep over 24 hours';
+exception when check_violation then raise notice 'ok: sleep at most 24 hours';
+end $$;
+do $$ begin
+  insert into sleep_sessions (id, source, start_at, end_at) values (gen_random_uuid(), 'healthConnect', now(), now() + interval '8 hours');
+  raise exception 'FAILED: sleep in the future';
+exception when check_violation then raise notice 'ok: no future sleep';
+end $$;
+do $$ begin
+  insert into sleep_sessions (id, source, start_at, end_at) values (gen_random_uuid(), 'fitbit', now() - interval '9 hours', now() - interval '1 hour');
+  raise exception 'FAILED: unknown source';
+exception when check_violation then raise notice 'ok: known sources only';
+end $$;
+insert into body_metrics (id, kind, value, source, measured_at)
+  values ('b0d10000-0000-0000-0000-000000000001', 'resting_hr', 58, 'healthKit', now() - interval '3 hours');
+insert into body_metrics (id, kind, value, value2, source, measured_at)
+  values ('b0d10000-0000-0000-0000-000000000002', 'bp', 120, 80, 'manual', now());
+do $$ begin
+  insert into body_metrics (id, kind, value, source, measured_at) values (gen_random_uuid(), 'resting_hr', 300, 'healthKit', now());
+  raise exception 'FAILED: heart rate out of range';
+exception when check_violation then raise notice 'ok: resting heart rate 25-220';
+end $$;
+do $$ begin
+  insert into body_metrics (id, kind, value, source, measured_at) values (gen_random_uuid(), 'bp', 120, 'manual', now());
+  raise exception 'FAILED: blood pressure without diastolic';
+exception when check_violation then raise notice 'ok: blood pressure needs both values';
+end $$;
+do $$ begin
+  insert into body_metrics (id, kind, value, value2, source, measured_at) values (gen_random_uuid(), 'weight', 80, 70, 'manual', now());
+  raise exception 'FAILED: second value on weight';
+exception when check_violation then raise notice 'ok: only blood pressure has a second value';
+end $$;
+do $$ begin
+  insert into body_metrics (id, kind, value, source, measured_at) values (gen_random_uuid(), 'weight', 80, 'manual', now() + interval '1 day');
+  raise exception 'FAILED: measured in the future';
+exception when check_violation then raise notice 'ok: no future measurements';
+end $$;
+insert into device_workouts (id, source, activity, start_at, end_at, kcal, distance_m)
+  values ('d0d00000-0000-0000-0000-000000000001', 'healthConnect', 'RUNNING', now() - interval '2 hours', now() - interval '90 minutes', 320, 5200);
+do $$ begin
+  insert into device_workouts (id, source, activity, start_at, end_at) values (gen_random_uuid(), 'healthConnect', 'run fast!', now() - interval '2 hours', now() - interval '1 hour');
+  raise exception 'FAILED: odd activity code';
+exception when check_violation then raise notice 'ok: activity is a store code';
+end $$;
+do $$ begin
+  insert into device_workouts (id, source, activity, start_at, end_at, kcal) values (gen_random_uuid(), 'healthConnect', 'WALKING', now() - interval '2 hours', now() - interval '1 hour', -5);
+  raise exception 'FAILED: negative calories';
+exception when check_violation then raise notice 'ok: workout values not negative';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from sleep_sessions) + (select count(*) from body_metrics) + (select count(*) from device_workouts) = 0,
+  'B cannot read A''s sleep, measurements or workouts');
+do $$ begin
+  insert into sleep_sessions (id, user_id, source, start_at, end_at)
+    values (gen_random_uuid(), '11111111-1111-1111-1111-111111111111', 'manual', now() - interval '8 hours', now());
+  raise exception 'FAILED: wrote sleep for another user';
+exception when insufficient_privilege then raise notice 'ok: no sleep for another user';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

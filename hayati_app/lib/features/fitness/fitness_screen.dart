@@ -19,6 +19,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../activity/health_cards.dart';
 
 /// Screen 12 — the fitness hub: today's workout, the week's plan, recent
 /// sessions and the plan version being followed.
@@ -203,6 +204,7 @@ class FitnessScreen extends ConsumerWidget {
               ),
             ),
         ]),
+      const DeviceWorkoutsCard(limit: 4),
       _SafetyNote(),
     ];
 

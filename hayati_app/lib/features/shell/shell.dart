@@ -7,7 +7,7 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/data_controller.dart';
-import '../../data/activity_sync.dart';
+import '../../data/health_sync.dart';
 import '../../data/auth.dart';
 import '../../data/models/health.dart';
 import '../../data/models/misc.dart';
@@ -48,7 +48,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _sync();
-      ref.read(activitySyncProvider.notifier).sync();
+      ref.read(healthSyncProvider.notifier).sync();
       await _device.init(onOpen: (route) {
         if (mounted) ref.read(routerProvider).push(route);
       });
@@ -88,7 +88,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _sync();
-      ref.read(activitySyncProvider.notifier).sync();
+      ref.read(healthSyncProvider.notifier).sync();
       ref.read(syncProvider.notifier).sync();
     }
   }

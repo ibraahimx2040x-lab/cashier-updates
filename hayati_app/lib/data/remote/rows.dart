@@ -166,6 +166,76 @@ DailyActivity activityFrom(Row r) => DailyActivity(
       updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
     );
 
+Row sleepRow(SleepSession x) => {
+      'id': x.id,
+      'source': x.source.name,
+      'start_at': x.start.toUtc().toIso8601String(),
+      'end_at': x.end.toUtc().toIso8601String(),
+      'quality': x.quality,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+SleepSession sleepFrom(Row r) => SleepSession(
+      id: r['id'] as String,
+      source: ActivitySource.values.byName(r['source'] as String),
+      start: DateTime.parse(r['start_at'] as String).toLocal(),
+      end: DateTime.parse(r['end_at'] as String).toLocal(),
+      quality: r['quality'] as int?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
+const _metricKinds = {
+  MetricKind.weight: 'weight',
+  MetricKind.waist: 'waist',
+  MetricKind.restingHr: 'resting_hr',
+  MetricKind.bp: 'bp',
+  MetricKind.bodyFat: 'body_fat',
+};
+
+Row bodyMetricRow(BodyMetric x) => {
+      'id': x.id,
+      'kind': _metricKinds[x.kind],
+      'value': x.value,
+      'value2': x.value2,
+      'source': x.source.name,
+      'measured_at': x.measuredAt.toUtc().toIso8601String(),
+      'note': x.note,
+    };
+
+BodyMetric bodyMetricFrom(Row r) => BodyMetric(
+      id: r['id'] as String,
+      kind: _metricKinds.entries.firstWhere((e) => e.value == r['kind']).key,
+      value: (r['value'] as num).toDouble(),
+      value2: (r['value2'] as num?)?.toDouble(),
+      source: ActivitySource.values.byName(r['source'] as String),
+      measuredAt: DateTime.parse(r['measured_at'] as String).toLocal(),
+      note: (r['note'] as String?) ?? '',
+    );
+
+Row deviceWorkoutRow(DeviceWorkout x) => {
+      'id': x.id,
+      'source': x.source.name,
+      'activity': x.activity,
+      'start_at': x.start.toUtc().toIso8601String(),
+      'end_at': x.end.toUtc().toIso8601String(),
+      'kcal': x.kcal,
+      'distance_m': x.distanceM,
+      'steps': x.steps,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+DeviceWorkout deviceWorkoutFrom(Row r) => DeviceWorkout(
+      id: r['id'] as String,
+      source: ActivitySource.values.byName(r['source'] as String),
+      activity: r['activity'] as String,
+      start: DateTime.parse(r['start_at'] as String).toLocal(),
+      end: DateTime.parse(r['end_at'] as String).toLocal(),
+      kcal: r['kcal'] as int?,
+      distanceM: r['distance_m'] as int?,
+      steps: r['steps'] as int?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
 Row customFoodRow(CustomFood f) => {
       'id': f.id,
       'name': f.name,
@@ -503,6 +573,9 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('habit_logs', (d) => [for (final x in d.habitLogs) habitLogRow(x)], habitLogFrom),
   SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
   SyncTable('daily_activity', (d) => [for (final x in d.activity) activityRow(x)], activityFrom),
+  SyncTable('sleep_sessions', (d) => [for (final x in d.sleep) sleepRow(x)], sleepFrom),
+  SyncTable('body_metrics', (d) => [for (final x in d.bodyMetrics) bodyMetricRow(x)], bodyMetricFrom),
+  SyncTable('device_workouts', (d) => [for (final x in d.deviceWorkouts) deviceWorkoutRow(x)], deviceWorkoutFrom),
   SyncTable('custom_foods', (d) => [for (final x in d.customFoods) customFoodRow(x)], customFoodFrom),
   SyncTable('food_logs', (d) => [for (final x in d.foodLogs) foodLogRow(x)], foodLogFrom),
   SyncTable('water_intake', (d) => [for (final x in d.water) waterRow(x)], waterFrom),
@@ -533,6 +606,9 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     habitLogs: read('habit_logs', habitLogFrom),
     prayerLogs: read('prayer_logs', prayerLogFrom),
     activity: read('daily_activity', activityFrom),
+    sleep: read('sleep_sessions', sleepFrom),
+    bodyMetrics: read('body_metrics', bodyMetricFrom),
+    deviceWorkouts: read('device_workouts', deviceWorkoutFrom),
     customFoods: read('custom_foods', customFoodFrom),
     foodLogs: read('food_logs', foodLogFrom),
     water: read('water_intake', waterFrom),

@@ -1,6 +1,6 @@
 import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
-import 'package:hayati/data/activity_sync.dart';
+import 'package:hayati/data/health_sync.dart';
 import 'package:hayati/data/app_data.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
@@ -10,30 +10,9 @@ import 'package:hayati/data/remote/rows.dart';
 import 'package:hayati/domain/activity.dart';
 import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/l10n/app_localizations.dart';
-import 'package:hayati/services/step_reader.dart';
+import 'package:hayati/services/health_reader.dart';
 
 import 'helpers.dart';
-
-class FakeStepReader implements StepReader {
-  FakeStepReader({this.grant = true, this.days = const []});
-  bool grant;
-  List<StepDay> days;
-  int reads = 0;
-
-  @override
-  ActivitySource get source => ActivitySource.healthConnect;
-  @override
-  Future<StepAvailability> availability() async => StepAvailability.ready;
-  @override
-  Future<bool> requestAccess() async => grant;
-  @override
-  Future<void> install() async {}
-  @override
-  Future<List<StepDay>> readDays(DateTime from, DateTime to) async {
-    reads++;
-    return days;
-  }
-}
 
 DailyActivity row(String day, ActivitySource s, int steps, {int? distance}) =>
     DailyActivity(id: '$day-${s.name}', day: day, source: s, steps: steps, distanceM: distance, updatedAt: fixedNow);
@@ -152,16 +131,16 @@ void main() {
     });
 
     test('sync reads the health store once linked, only with the section on', () async {
-      final reader = FakeStepReader(days: const [StepDay('2026-03-09', 7300), StepDay('2026-03-10', 1200)]);
-      final c = await signedInContainer(overrides: [stepReaderProvider.overrideWithValue(reader)]);
-      final sync = c.read(activitySyncProvider.notifier);
+      final reader = FakeHealthReader(days: const [StepDay('2026-03-09', 7300), StepDay('2026-03-10', 1200)]);
+      final c = await signedInContainer(overrides: [healthReaderProvider.overrideWithValue(reader)]);
+      final sync = c.read(healthSyncProvider.notifier);
       await sync.sync(force: true);
       expect(reader.reads, 0, reason: 'not linked yet');
       reader.grant = false;
-      expect(await sync.connect(), isFalse);
-      expect(c.read(activitySyncProvider).linked, isFalse);
+      expect(await sync.connect(const {HealthKind.steps}), isFalse);
+      expect(c.read(healthSyncProvider).linked, isFalse);
       reader.grant = true;
-      expect(await sync.connect(), isTrue);
+      expect(await sync.connect(const {HealthKind.steps}), isTrue);
       expect(activityDay(c.read(dataProvider), '2026-03-09').steps, 7300);
       expect(c.read(dataProvider).activity.every((a) => a.source == ActivitySource.healthConnect), isTrue);
       // Throttled unless forced.
@@ -171,7 +150,7 @@ void main() {
       await sync.sync(force: true);
       expect(reader.reads, 1);
       await sync.disconnect();
-      expect(c.read(activitySyncProvider).linked, isFalse);
+      expect(c.read(healthSyncProvider).linked, isFalse);
     });
 
     test('move reminders within the hours, none today once the goal is met', () {
