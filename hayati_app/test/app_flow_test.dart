@@ -25,6 +25,7 @@ import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/learning/curriculum.dart';
 import 'package:hayati/domain/prayer_times.dart';
+import 'package:hayati/widgets/common.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
 import 'package:hayati/services/barcode_lookup.dart';
@@ -168,6 +169,12 @@ void seed(ProviderContainer c) {
   d.logFood(day: today, meal: MealType.breakfast, name: 'Dates', per: const Nutrients(kcal: 28, carbs: 7.5), portions: 3);
   d.saveCustomFood(CustomFood(id: 'cf1', name: 'My laban', portion: 'bottle', per: const Nutrients(kcal: 120, protein: 8), barcode: '6281000000001', createdAt: now));
   d.addWater(today, 1250);
+  d.setSex(Sex.male);
+  d.logWorkout(WorkoutSession(id: 'ws1', day: dayKey(now.subtract(const Duration(days: 3))), place: WorkoutPlace.home, focus: DayFocus.fullBody,
+      status: SessionStatus.completed, sets: const [SetLog(exerciseId: 'goblet_squat', setIndex: 0, reps: 10, weightKg: 12), SetLog(exerciseId: 'push_up', setIndex: 0, reps: 8)], createdAt: now));
+  d.logWorkout(WorkoutSession(id: 'ws2', day: today, place: WorkoutPlace.home, focus: DayFocus.mobility, status: SessionStatus.completed,
+      sets: const [SetLog(exerciseId: 'goblet_squat', setIndex: 0, reps: 8, weightKg: 14), SetLog(exerciseId: 'plank', setIndex: 0, seconds: 30)],
+      programId: 'flexibility', createdAt: now.add(const Duration(minutes: 1))));
   d.notify(AppNotification(id: 'nt', type: NotificationType.task, title: 'Reminder', createdAt: now, refId: first.id, dedupeKey: 'x'));
 }
 
@@ -288,6 +295,10 @@ void main() {
           Routes.customFood(),
           Routes.customFood(id: 'cf1'),
           Routes.nutritionPhoto(),
+          Routes.program('flexibility'),
+          Routes.program('pelvic_floor_men'),
+          Routes.programSession('balance'),
+          Routes.fitnessProgress,
         ];
         for (final r in routes) {
           router.go(r);
@@ -408,6 +419,43 @@ void main() {
     await tester.tap(find.text(l.sexFemale));
     await tester.pumpAndSettle();
     expect(c.read(dataProvider).settings.sex, Sex.female);
+  });
+
+  testWidgets('programs: women and men each see only their own (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c, sex: Sex.female);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    data.setSex(Sex.female);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.fitness);
+    await tester.pumpAndSettle();
+    expect(find.text(l.programsForWomen, skipOffstage: false), findsOneWidget);
+    expect(find.text(l.programsForMen, skipOffstage: false), findsNothing);
+    router.push(Routes.program('back_posture_men'));
+    await tester.pumpAndSettle();
+    expect(find.text(l.programUnavailable), findsOneWidget);
+
+    // Pregnancy waits for the doctor's go-ahead before it can start.
+    router.go(Routes.program('pregnancy_t2'));
+    await tester.pumpAndSettle();
+    bool startEnabled() => tester.widget<PrimaryButton>(find.widgetWithText(PrimaryButton, l.startProgram)).onPressed != null;
+    expect(startEnabled(), isFalse);
+    await tapIn(tester, find.text(l.clearanceConfirm));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.continueLabel));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).settings.health.pregnancyCleared, isTrue);
+    expect(startEnabled(), isTrue);
+
+    // Switching to male swaps the sections.
+    data.setSex(Sex.male);
+    router.go(Routes.fitness);
+    await tester.pumpAndSettle();
+    expect(find.text(l.programsForMen, skipOffstage: false), findsOneWidget);
+    expect(find.text(l.programsForWomen, skipOffstage: false), findsNothing);
   });
 
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {

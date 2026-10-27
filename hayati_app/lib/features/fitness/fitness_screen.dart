@@ -12,6 +12,9 @@ import '../../data/data_controller.dart';
 import '../../data/models/fitness.dart';
 import '../../domain/fitness/exercises.dart';
 import '../../domain/fitness/plan_generator.dart';
+import '../../domain/fitness/programs.dart';
+import '../../data/models/health.dart';
+import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
@@ -49,6 +52,8 @@ class FitnessScreen extends ConsumerWidget {
                 ),
               ),
             ),
+            const SizedBox(height: Space.l),
+            _Programs(settings: d.settings),
             const SizedBox(height: Space.l),
             _SafetyNote(),
           ]),
@@ -143,6 +148,22 @@ class FitnessScreen extends ConsumerWidget {
             Text(l.recoveryWarning, style: t.bodySmall?.copyWith(color: context.status.warning)),
           ],
         ]),
+      _Programs(settings: d.settings),
+      if (recent.isNotEmpty)
+        AppCard(
+          onTap: () => context.push(Routes.fitnessProgress),
+          child: Row(children: [
+            const IconBadge(Icons.show_chart),
+            const SizedBox(width: Space.m),
+            Expanded(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                Text(l.progressLog, style: t.titleSmall),
+                Text(l.progressLogSub, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+              ]),
+            ),
+            const Icon(Icons.chevron_right),
+          ]),
+        ),
       if (recent.isNotEmpty)
         Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           SectionHeader(l.recentWorkouts),
@@ -156,7 +177,7 @@ class FitnessScreen extends ConsumerWidget {
                   const SizedBox(width: Space.m),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                      Text(l.dayFocus(s.focus), style: t.titleSmall),
+                      Text(programById(s.programId)?.name(l.localeName) ?? l.dayFocus(s.focus), style: t.titleSmall),
                       Text(
                         [
                           Fmt.of(context).day(s.day),
@@ -281,6 +302,57 @@ class _SafetyNote extends StatelessWidget {
       Expanded(
         child: Text(l.fitnessSafety, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.status.textSecondary)),
       ),
+    ]);
+  }
+}
+
+/// Programs the user can see: shared ones, plus the women's or men's
+/// programs that match the sex chosen at sign-up.
+class _Programs extends StatelessWidget {
+  const _Programs({required this.settings});
+  final UserSettings settings;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final lang = l.localeName;
+    final visible = programsFor(settings);
+    // One card per group (pregnancy trimesters, postpartum stages).
+    final seen = <String>{};
+    final cards = [for (final p in visible) if (p.group == null || seen.add(p.group!)) p];
+    Widget card(Program p) => Padding(
+          padding: const EdgeInsets.only(bottom: Space.s),
+          child: AppCard(
+            onTap: () => context.push(Routes.program(p.id)),
+            child: Row(children: [
+              IconBadge(switch (p.audience) {
+                Audience.female => Icons.female,
+                Audience.male => Icons.male,
+                Audience.all => p.id == 'balance' ? Icons.accessibility : Icons.self_improvement,
+              }),
+              const SizedBox(width: Space.m),
+              Expanded(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  Text(p.group == null ? p.name(lang) : p.name(lang).split('—').first.trim(), style: t.titleSmall),
+                  Text(p.group == null ? l.unitMinutes(p.minutes) : l.programStages, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+                ]),
+              ),
+              const Icon(Icons.chevron_right),
+            ]),
+          ),
+        );
+    final shared = cards.where((p) => p.audience == Audience.all).toList();
+    final own = cards.where((p) => p.audience != Audience.all).toList();
+    return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+      SectionHeader(l.programs),
+      for (final p in shared) card(p),
+      if (own.isNotEmpty) ...[
+        const SizedBox(height: Space.s),
+        Text(settings.sex == Sex.female ? l.programsForWomen : l.programsForMen, style: t.labelLarge),
+        const SizedBox(height: Space.s),
+        for (final p in own) card(p),
+      ],
     ]);
   }
 }

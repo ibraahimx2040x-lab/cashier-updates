@@ -794,6 +794,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get bestDay => 'Best day';
 
   @override
+  String get bestLabel => 'Best';
+
+  @override
   String get billingNote =>
       'Paid features are only enabled after your purchase is verified by our server through the app store.';
 
@@ -928,6 +931,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get clearRead => 'Clear read notifications';
 
   @override
+  String get clearanceConfirm => 'My doctor has said exercise is fine for me';
+
+  @override
+  String get clearancePostpartum =>
+      'After giving birth — and especially after a caesarean or a difficult delivery — start only once your doctor says it\'s fine. The early-weeks program is gentle; the gradual return is for after your postnatal check.';
+
+  @override
+  String get clearancePregnancy =>
+      'Exercise in pregnancy is usually safe and helpful, but some pregnancies need limits. Please confirm your doctor has said it\'s fine for you.';
+
+  @override
+  String get clearanceTitle => 'Your doctor\'s go-ahead first';
+
+  @override
   String get cloudModeNotice =>
       'Your data is saved to your account and kept on this device for offline use.';
 
@@ -1030,6 +1047,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contactSupport => 'Contact support';
+
+  @override
+  String get continueLabel => 'Continue';
 
   @override
   String get couldNotFit => 'Couldn\'t fit';
@@ -2167,6 +2187,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepChats => 'Keep chats for';
 
   @override
+  String kgTimesReps(String kg, int reps) {
+    return '$kg kg × $reps';
+  }
+
+  @override
   String get kindAssistant => 'Assistant';
 
   @override
@@ -2180,6 +2205,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'Language';
+
+  @override
+  String get lastLabel => 'Last';
 
   @override
   String get lastSevenDays => 'Last 7 days';
@@ -2469,6 +2497,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get muBack => 'Back';
 
   @override
+  String get muBalance => 'Balance';
+
+  @override
   String get muCardio => 'Cardio';
 
   @override
@@ -2488,6 +2519,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get muMobility => 'Mobility';
+
+  @override
+  String get muPelvicFloor => 'Pelvic floor';
 
   @override
   String get muShoulders => 'Shoulders';
@@ -2658,6 +2692,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noNotifications => 'No notifications';
+
+  @override
+  String get noProgressYet => 'No logged sets yet';
+
+  @override
+  String get noProgressYetBody =>
+      'Finish a workout or a program and your progress shows here.';
 
   @override
   String get noReminder => 'No reminder';
@@ -3211,7 +3252,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String get profileTitle => 'Profile & account';
 
   @override
+  String get programDisclaimer =>
+      'General guidance, not medical advice. If something doesn\'t feel right, stop and ask your doctor.';
+
+  @override
+  String get programExercises => 'Exercises';
+
+  @override
+  String get programStages => 'Choose your stage';
+
+  @override
+  String get programUnavailable => 'Not available';
+
+  @override
+  String get programUnavailableBody =>
+      'This program isn\'t part of your health sections.';
+
+  @override
+  String get programs => 'Programs';
+
+  @override
+  String get programsForMen => 'For men';
+
+  @override
+  String get programsForWomen => 'For women';
+
+  @override
   String get progress => 'Progress';
+
+  @override
+  String get progressLog => 'Progress log';
+
+  @override
+  String get progressLogSub => 'Your best and latest sets for each exercise';
 
   @override
   String get progressManual => 'Manual progress';
@@ -3221,6 +3294,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressNotMeasured => 'Not measured yet';
+
+  @override
+  String get progressNote =>
+      'From the sets you logged: weight × reps when you entered a weight, otherwise reps or time. Gold marks the best session.';
 
   @override
   String get proposalExecuted => 'Applied';
@@ -3333,6 +3410,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repsLabel => 'Reps';
+
+  @override
+  String repsN(int n) {
+    return '$n reps';
+  }
 
   @override
   String get resetLinkSent =>
@@ -3479,6 +3561,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get secondsLabel => 'Seconds';
+
+  @override
+  String secondsN(int n) {
+    return '$n s';
+  }
 
   @override
   String secondsShort(int n) {
@@ -3652,6 +3739,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get startPath => 'Start my path';
 
   @override
+  String get startProgram => 'Start';
+
+  @override
   String get startQuiz => 'Take the short quiz';
 
   @override
@@ -3714,6 +3804,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get stop => 'Stop';
+
+  @override
+  String get stopIf => 'Stop and get advice if you have';
 
   @override
   String streakDays(int n) {
@@ -4031,6 +4124,39 @@ class AppLocalizationsEn extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'Last month: $amount';
   }
+
+  @override
+  String get warnBleeding => 'Vaginal bleeding';
+
+  @override
+  String get warnCalf => 'Pain or swelling in a calf';
+
+  @override
+  String get warnChest => 'Chest pain or unusual shortness of breath';
+
+  @override
+  String get warnContractions => 'Regular, painful contractions';
+
+  @override
+  String get warnDizzy => 'Dizziness or feeling faint';
+
+  @override
+  String get warnFluid => 'Fluid leaking';
+
+  @override
+  String get warnHeadache => 'A bad headache';
+
+  @override
+  String get warnHeavyBleeding => 'Heavier bleeding than before';
+
+  @override
+  String get warnLeaking => 'Leaking urine during exercise';
+
+  @override
+  String get warnPain => 'Pain (not just effort)';
+
+  @override
+  String get warnPelvicHeaviness => 'Heaviness or bulging in the pelvis';
 
   @override
   String waterAverage(String ml) {

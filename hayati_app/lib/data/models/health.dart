@@ -33,6 +33,8 @@ class HealthSettings {
     this.preferredSource,
     this.kcalGoal,
     this.waterGoalMl = 2000,
+    this.pregnancyCleared = false,
+    this.postpartumCleared = false,
   });
 
   final Set<HealthModule> modules;
@@ -55,6 +57,10 @@ class HealthSettings {
   final int? kcalGoal;
   final int waterGoalMl;
 
+  /// The user confirmed their doctor's go-ahead for these programs.
+  final bool pregnancyCleared;
+  final bool postpartumCleared;
+
   bool has(HealthModule m) => modules.contains(m);
 
   static const minStepGoal = 1000;
@@ -71,6 +77,8 @@ class HealthSettings {
     ActivitySource? Function()? preferredSource,
     int? Function()? kcalGoal,
     int? waterGoalMl,
+    bool? pregnancyCleared,
+    bool? postpartumCleared,
   }) =>
       HealthSettings(
         modules: modules ?? this.modules,
@@ -83,6 +91,8 @@ class HealthSettings {
         preferredSource: preferredSource != null ? preferredSource() : this.preferredSource,
         kcalGoal: kcalGoal != null ? kcalGoal() : this.kcalGoal,
         waterGoalMl: waterGoalMl ?? this.waterGoalMl,
+        pregnancyCleared: pregnancyCleared ?? this.pregnancyCleared,
+        postpartumCleared: postpartumCleared ?? this.postpartumCleared,
       );
 
   Map<String, Object?> toJson() => {
@@ -96,6 +106,8 @@ class HealthSettings {
         'preferredSource': preferredSource?.name,
         'kcalGoal': kcalGoal,
         'waterGoalMl': waterGoalMl,
+        'pregnancyCleared': pregnancyCleared,
+        'postpartumCleared': postpartumCleared,
       };
 
   factory HealthSettings.fromJson(Map<String, Object?>? j) {
@@ -116,6 +128,8 @@ class HealthSettings {
       preferredSource: pick(ActivitySource.values, j['preferredSource']),
       kcalGoal: j['kcalGoal'] as int?,
       waterGoalMl: (j['waterGoalMl'] as int?) ?? d.waterGoalMl,
+      pregnancyCleared: (j['pregnancyCleared'] as bool?) ?? false,
+      postpartumCleared: (j['postpartumCleared'] as bool?) ?? false,
     );
   }
 }

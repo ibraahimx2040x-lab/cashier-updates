@@ -205,6 +205,7 @@ void main() {
       status: SessionStatus.completed,
       difficulty: 4,
       sets: const [SetLog(exerciseId: 'lat_pulldown', setIndex: 0, reps: 10, weightKg: 40)],
+      programId: 'back_posture_men',
       createdAt: DateTime.now(),
     ));
     // A new version: the old one is deactivated before the new one is inserted.
@@ -224,7 +225,7 @@ void main() {
     expect(d.activePlan(WorkoutPlace.gym)!.version, 2);
     final s = d.workoutSessions.single;
     expect(d.plan(s.planId)!.version, 1);
-    expect(s.sets.single.weightKg, 40);
+    expect((s.sets.single.weightKg, s.programId), (40, 'back_posture_men'));
   }, skip: skip);
 
   test('english path, test results, lessons and reviews sync to another device', () async {

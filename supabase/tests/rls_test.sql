@@ -171,6 +171,13 @@ do $$ begin
   raise exception 'FAILED: difficulty out of range';
 exception when check_violation then raise notice 'ok: difficulty 1-5';
 end $$;
+insert into workout_sessions (day, place, focus, status, program_id) values (current_date, 'home', 'fullBody', 'completed', 'pelvic_floor_women');
+select pg_temp.check((select count(*) = 1 from workout_sessions where program_id = 'pelvic_floor_women'), 'session keeps its program');
+do $$ begin
+  insert into workout_sessions (day, place, focus, status, program_id) values (current_date, 'home', 'upper', 'completed', 'Bad Id!');
+  raise exception 'FAILED: odd program id';
+exception when check_violation then raise notice 'ok: program id is a code key';
+end $$;
 select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
 select pg_temp.check((select count(*) = 0 from workout_plans) and (select count(*) = 0 from workout_sessions),
   'B cannot read A''s plans or workouts');

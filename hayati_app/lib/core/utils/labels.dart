@@ -84,6 +84,8 @@ extension Labels on AppLocalizations {
         Muscle.fullBody => muFullBody,
         Muscle.cardio => muCardio,
         Muscle.mobility => muMobility,
+        Muscle.balance => muBalance,
+        Muscle.pelvicFloor => muPelvicFloor,
       };
 
   String difficulty(int d) => switch (d) {

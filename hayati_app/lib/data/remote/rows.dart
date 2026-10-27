@@ -260,6 +260,7 @@ Row workoutSessionRow(WorkoutSession s) => {
       'note': s.note,
       'sets': [for (final x in s.sets) x.toJson()],
       'substituted': s.substituted,
+      'program_id': s.programId,
       'created_at': _ts(s.createdAt),
     };
 
@@ -274,6 +275,7 @@ WorkoutSession workoutSessionFrom(Row r) => WorkoutSession(
       note: r['note'] as String,
       sets: [for (final x in r['sets'] as List) SetLog.fromJson((x as Map).cast())],
       substituted: r['substituted'] as bool,
+      programId: r['program_id'] as String?,
       createdAt: _dt(r['created_at'])!,
     );
 

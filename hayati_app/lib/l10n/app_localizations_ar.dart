@@ -796,6 +796,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get bestDay => 'أفضل يوم';
 
   @override
+  String get bestLabel => 'الأفضل';
+
+  @override
   String get billingNote =>
       'لا تُفعّل المزايا المدفوعة إلا بعد تحقق خادمنا من الشراء عبر المتجر.';
 
@@ -932,6 +935,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get clearRead => 'مسح المقروءة';
 
   @override
+  String get clearanceConfirm => 'طبيبي/طبيبتي سمح لي بالتمرين';
+
+  @override
+  String get clearancePostpartum =>
+      'بعد الولادة — وخصوصًا بعد القيصرية أو ولادة متعبة — ابدئي فقط بعد ما يسمح لك الطبيب. برنامج الأسابيع الأولى لطيف، والعودة التدريجية بعد فحص ما بعد الولادة.';
+
+  @override
+  String get clearancePregnancy =>
+      'الرياضة أثناء الحمل غالبًا آمنة ومفيدة، لكن بعض حالات الحمل تحتاج قيود. أكّدي إن طبيبك سمح لك.';
+
+  @override
+  String get clearanceTitle => 'موافقة الطبيب أولًا';
+
+  @override
   String get cloudModeNotice =>
       'تُحفظ بياناتك في حسابك، مع نسخة على هذا الجهاز للعمل دون اتصال.';
 
@@ -1032,6 +1049,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contactSupport => 'التواصل مع الدعم';
+
+  @override
+  String get continueLabel => 'متابعة';
 
   @override
   String get couldNotFit => 'لم يتسع لها الوقت';
@@ -2177,6 +2197,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get keepChats => 'الاحتفاظ بالمحادثات';
 
   @override
+  String kgTimesReps(String kg, int reps) {
+    return '$kg كغ × $reps';
+  }
+
+  @override
   String get kindAssistant => 'المساعد';
 
   @override
@@ -2190,6 +2215,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get language => 'اللغة';
+
+  @override
+  String get lastLabel => 'الأخير';
 
   @override
   String get lastSevenDays => 'آخر 7 أيام';
@@ -2478,6 +2506,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get muBack => 'الظهر';
 
   @override
+  String get muBalance => 'التوازن';
+
+  @override
   String get muCardio => 'هوائي';
 
   @override
@@ -2497,6 +2528,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get muMobility => 'مرونة';
+
+  @override
+  String get muPelvicFloor => 'قاع الحوض';
 
   @override
   String get muShoulders => 'الأكتاف';
@@ -2666,6 +2700,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noNotifications => 'لا توجد إشعارات';
+
+  @override
+  String get noProgressYet => 'ما فيه مجموعات مسجلة للحين';
+
+  @override
+  String get noProgressYetBody => 'خلّص تمرين أو برنامج ويظهر تقدمك هنا.';
 
   @override
   String get noReminder => 'بدون تذكير';
@@ -3213,7 +3253,38 @@ class AppLocalizationsAr extends AppLocalizations {
   String get profileTitle => 'الملف الشخصي والحساب';
 
   @override
+  String get programDisclaimer =>
+      'إرشادات عامة وليست نصيحة طبية. إذا حسيت بشي غير طبيعي، وقّف واسأل طبيبك.';
+
+  @override
+  String get programExercises => 'التمارين';
+
+  @override
+  String get programStages => 'اختر المرحلة';
+
+  @override
+  String get programUnavailable => 'غير متاح';
+
+  @override
+  String get programUnavailableBody => 'هذا البرنامج مو ضمن أقسامك الصحية.';
+
+  @override
+  String get programs => 'البرامج';
+
+  @override
+  String get programsForMen => 'خاص بالرجل';
+
+  @override
+  String get programsForWomen => 'خاص بالمرأة';
+
+  @override
   String get progress => 'التقدم';
+
+  @override
+  String get progressLog => 'سجل التقدم';
+
+  @override
+  String get progressLogSub => 'أفضل وآخر مجموعاتك لكل تمرين';
 
   @override
   String get progressManual => 'تقدم يدوي';
@@ -3223,6 +3294,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get progressNotMeasured => 'لم يُقَس بعد';
+
+  @override
+  String get progressNote =>
+      'من المجموعات اللي سجلتها: الوزن × التكرار إذا أدخلت وزن، وإلا التكرارات أو الوقت. الذهبي = أفضل جلسة.';
 
   @override
   String get proposalExecuted => 'تم التنفيذ';
@@ -3334,6 +3409,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get repsLabel => 'التكرارات';
+
+  @override
+  String repsN(int n) {
+    return '$n تكرار';
+  }
 
   @override
   String get resetLinkSent =>
@@ -3480,6 +3560,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get secondsLabel => 'الثواني';
+
+  @override
+  String secondsN(int n) {
+    return '$n ث';
+  }
 
   @override
   String secondsShort(int n) {
@@ -3655,6 +3740,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get startPath => 'ابدأ مساري';
 
   @override
+  String get startProgram => 'ابدأ';
+
+  @override
   String get startQuiz => 'ابدأ الاختبار القصير';
 
   @override
@@ -3717,6 +3805,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get stop => 'إيقاف';
+
+  @override
+  String get stopIf => 'وقّف واستشر إذا صار عندك';
 
   @override
   String streakDays(int n) {
@@ -4053,6 +4144,39 @@ class AppLocalizationsAr extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'الشهر الماضي: $amount';
   }
+
+  @override
+  String get warnBleeding => 'نزيف مهبلي';
+
+  @override
+  String get warnCalf => 'ألم أو تورم في السمانة';
+
+  @override
+  String get warnChest => 'ألم في الصدر أو ضيق نفس غير معتاد';
+
+  @override
+  String get warnContractions => 'انقباضات منتظمة ومؤلمة';
+
+  @override
+  String get warnDizzy => 'دوخة أو شعور بالإغماء';
+
+  @override
+  String get warnFluid => 'نزول سوائل';
+
+  @override
+  String get warnHeadache => 'صداع شديد';
+
+  @override
+  String get warnHeavyBleeding => 'نزيف أكثر من قبل';
+
+  @override
+  String get warnLeaking => 'تسرّب البول أثناء التمرين';
+
+  @override
+  String get warnPain => 'ألم (مو مجرد تعب)';
+
+  @override
+  String get warnPelvicHeaviness => 'ثقل أو بروز في منطقة الحوض';
 
   @override
   String waterAverage(String ml) {

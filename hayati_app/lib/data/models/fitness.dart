@@ -224,6 +224,7 @@ class WorkoutSession {
     this.note = '',
     this.sets = const [],
     this.substituted = false,
+    this.programId,
     required this.createdAt,
   });
 
@@ -231,6 +232,9 @@ class WorkoutSession {
 
   /// The plan version followed; null for a free session.
   final String? planId;
+
+  /// The program done (flexibility, pelvic floor…), when not a plan day.
+  final String? programId;
 
   /// YYYY-MM-DD.
   final String day;
@@ -258,6 +262,7 @@ class WorkoutSession {
         'note': note,
         'sets': [for (final s in sets) s.toJson()],
         'substituted': substituted,
+        'programId': programId,
         'createdAt': createdAt.toUtc().toIso8601String(),
       };
 
@@ -272,6 +277,7 @@ class WorkoutSession {
         note: (j['note'] as String?) ?? '',
         sets: [for (final s in (j['sets'] as List? ?? const [])) SetLog.fromJson((s as Map).cast())],
         substituted: (j['substituted'] as bool?) ?? false,
+        programId: j['programId'] as String?,
         createdAt: DateTime.parse(j['createdAt'] as String).toLocal(),
       );
 }
