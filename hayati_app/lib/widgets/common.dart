@@ -127,12 +127,14 @@ class AppTextField extends StatelessWidget {
 }
 
 class SearchField extends StatelessWidget {
-  const SearchField({super.key, required this.onChanged, this.hint});
+  const SearchField({super.key, required this.onChanged, this.hint, this.controller});
   final ValueChanged<String> onChanged;
   final String? hint;
+  final TextEditingController? controller;
 
   @override
   Widget build(BuildContext context) => TextField(
+        controller: controller,
         onChanged: onChanged,
         textInputAction: TextInputAction.search,
         decoration: InputDecoration(

@@ -11,6 +11,7 @@ import '../models/goal.dart';
 import '../models/health.dart';
 import '../models/learning.dart';
 import '../models/misc.dart';
+import '../models/nutrition.dart';
 import '../models/prayer.dart';
 import '../models/settings.dart';
 import '../models/task.dart';
@@ -164,6 +165,64 @@ DailyActivity activityFrom(Row r) => DailyActivity(
       activeMinutes: r['active_minutes'] as int?,
       updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
     );
+
+Row customFoodRow(CustomFood f) => {
+      'id': f.id,
+      'name': f.name,
+      'portion': f.portion,
+      'grams': f.grams,
+      'kcal': f.per.kcal,
+      'protein': f.per.protein,
+      'carbs': f.per.carbs,
+      'fat': f.per.fat,
+      'barcode': f.barcode,
+      'created_at': f.createdAt.toUtc().toIso8601String(),
+    };
+
+Nutrients _nutrientsFrom(Row r) => Nutrients(
+      kcal: (r['kcal'] as num).toDouble(),
+      protein: (r['protein'] as num).toDouble(),
+      carbs: (r['carbs'] as num).toDouble(),
+      fat: (r['fat'] as num).toDouble(),
+    );
+
+CustomFood customFoodFrom(Row r) => CustomFood(
+      id: r['id'] as String,
+      name: r['name'] as String,
+      portion: r['portion'] as String,
+      grams: (r['grams'] as num?)?.toDouble(),
+      per: _nutrientsFrom(r),
+      barcode: r['barcode'] as String?,
+      createdAt: DateTime.parse(r['created_at'] as String).toLocal(),
+    );
+
+Row foodLogRow(FoodLog f) => {
+      'id': f.id,
+      'day': f.day,
+      'meal': f.meal.name,
+      'name': f.name,
+      'food_ref': f.foodRef,
+      'portions': f.portions,
+      'kcal': f.total.kcal,
+      'protein': f.total.protein,
+      'carbs': f.total.carbs,
+      'fat': f.total.fat,
+      'logged_at': f.loggedAt.toUtc().toIso8601String(),
+    };
+
+FoodLog foodLogFrom(Row r) => FoodLog(
+      id: r['id'] as String,
+      day: r['day'] as String,
+      meal: MealType.values.byName(r['meal'] as String),
+      name: r['name'] as String,
+      foodRef: r['food_ref'] as String?,
+      portions: (r['portions'] as num).toDouble(),
+      total: _nutrientsFrom(r),
+      loggedAt: DateTime.parse(r['logged_at'] as String).toLocal(),
+    );
+
+Row waterRow(WaterDay w) => {'id': w.id, 'day': w.day, 'ml': w.ml};
+WaterDay waterFrom(Row r) => WaterDay(id: r['id'] as String, day: r['day'] as String, ml: r['ml'] as int);
 
 Row prayerLogRow(PrayerLog l) => {'id': l.id, 'day': l.day, 'prayer': l.prayer.name};
 
@@ -442,6 +501,9 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('habit_logs', (d) => [for (final x in d.habitLogs) habitLogRow(x)], habitLogFrom),
   SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
   SyncTable('daily_activity', (d) => [for (final x in d.activity) activityRow(x)], activityFrom),
+  SyncTable('custom_foods', (d) => [for (final x in d.customFoods) customFoodRow(x)], customFoodFrom),
+  SyncTable('food_logs', (d) => [for (final x in d.foodLogs) foodLogRow(x)], foodLogFrom),
+  SyncTable('water_intake', (d) => [for (final x in d.water) waterRow(x)], waterFrom),
   SyncTable('workout_plans', (d) => [for (final x in d.workoutPlans) workoutPlanRow(x)], workoutPlanFrom),
   SyncTable('workout_sessions', (d) => [for (final x in d.workoutSessions) workoutSessionRow(x)], workoutSessionFrom),
   SyncTable('learning_paths', (d) => [for (final x in d.learningPaths) learningPathRow(x)], learningPathFrom),
@@ -469,6 +531,9 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     habitLogs: read('habit_logs', habitLogFrom),
     prayerLogs: read('prayer_logs', prayerLogFrom),
     activity: read('daily_activity', activityFrom),
+    customFoods: read('custom_foods', customFoodFrom),
+    foodLogs: read('food_logs', foodLogFrom),
+    water: read('water_intake', waterFrom),
     workoutPlans: read('workout_plans', workoutPlanFrom),
     workoutSessions: read('workout_sessions', workoutSessionFrom),
     learningPaths: read('learning_paths', learningPathFrom),

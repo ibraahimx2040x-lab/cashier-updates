@@ -422,6 +422,12 @@ abstract class AppLocalizations {
   /// **'In the browser steps can only be added by hand. Automatic counting works in the phone app.'**
   String get activityWebNote;
 
+  /// No description provided for @addCup.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a glass (250 ml)'**
+  String get addCup;
+
   /// No description provided for @addEvent.
   ///
   /// In en, this message translates to:
@@ -446,6 +452,12 @@ abstract class AppLocalizations {
   /// **'Add your first task'**
   String get addFirstTask;
 
+  /// No description provided for @addFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Add food'**
+  String get addFood;
+
   /// No description provided for @addGoal.
   ///
   /// In en, this message translates to:
@@ -464,6 +476,12 @@ abstract class AppLocalizations {
   /// **'Add milestone'**
   String get addMilestone;
 
+  /// No description provided for @addMyOwnFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Add my own food'**
+  String get addMyOwnFood;
+
   /// No description provided for @addNote.
   ///
   /// In en, this message translates to:
@@ -481,6 +499,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add task'**
   String get addTask;
+
+  /// No description provided for @addTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to {meal}'**
+  String addTo(String meal);
+
+  /// No description provided for @addToDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Add'**
+  String get addToDay;
 
   /// No description provided for @adherence30.
   ///
@@ -1214,6 +1244,12 @@ abstract class AppLocalizations {
   /// **'Each permission is separate and can be withdrawn at any time.'**
   String get autoActionsSub;
 
+  /// No description provided for @avgKcalPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal a day on average'**
+  String avgKcalPerDay(String kcal);
+
   /// No description provided for @back.
   ///
   /// In en, this message translates to:
@@ -1225,6 +1261,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back to the path'**
   String get backToPath;
+
+  /// No description provided for @barcodeInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'A barcode is 6 to 14 digits'**
+  String get barcodeInvalid;
+
+  /// No description provided for @barcodeN.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode {code}'**
+  String barcodeN(String code);
+
+  /// No description provided for @barcodeNumber.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode number'**
+  String get barcodeNumber;
 
   /// No description provided for @beforeMinutes.
   ///
@@ -1310,6 +1364,12 @@ abstract class AppLocalizations {
   /// **'{spent} of {cap}'**
   String budgetUsed(String spent, String cap);
 
+  /// No description provided for @builtinNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Values are typical estimates for one portion; home recipes and sizes vary. Change the amount, or save your own version.'**
+  String get builtinNote;
+
   /// No description provided for @byCategory.
   ///
   /// In en, this message translates to:
@@ -1334,6 +1394,30 @@ abstract class AppLocalizations {
   /// **'Calendar'**
   String get calendar;
 
+  /// No description provided for @calories.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories (kcal)'**
+  String get calories;
+
+  /// No description provided for @caloriesByDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories by day'**
+  String get caloriesByDay;
+
+  /// No description provided for @caloriesToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Calories'**
+  String get caloriesToday;
+
+  /// No description provided for @cameraUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'The camera isn\'t available. Type the number below.'**
+  String get cameraUnavailable;
+
   /// No description provided for @canMoveCount.
   ///
   /// In en, this message translates to:
@@ -1351,6 +1435,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Can\'t go to the gym'**
   String get cantGoToGym;
+
+  /// No description provided for @carbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs'**
+  String get carbs;
+
+  /// No description provided for @carbsG.
+  ///
+  /// In en, this message translates to:
+  /// **'Carbs (g)'**
+  String get carbsG;
 
   /// No description provided for @catHealth.
   ///
@@ -1736,6 +1832,12 @@ abstract class AppLocalizations {
   /// **'{n, plural, =1{1 day} other{{n} days}}'**
   String daysCount(int n);
 
+  /// No description provided for @daysLoggedN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =0{No days logged} =1{1 day logged} other{{n} days logged}}'**
+  String daysLoggedN(int n);
+
   /// No description provided for @daysN.
   ///
   /// In en, this message translates to:
@@ -1861,6 +1963,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete expense?'**
   String get deleteExpenseTitle;
+
+  /// No description provided for @deleteFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this food?'**
+  String get deleteFood;
+
+  /// No description provided for @deleteFoodBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Meals already logged with it stay as they are.'**
+  String get deleteFoodBody;
 
   /// No description provided for @deleteForever.
   ///
@@ -1993,6 +2107,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone notifications'**
   String get devNotifTitle;
+
+  /// No description provided for @didYouEat.
+  ///
+  /// In en, this message translates to:
+  /// **'Is it one of these?'**
+  String get didYouEat;
 
   /// No description provided for @diffEasy.
   ///
@@ -2132,6 +2252,12 @@ abstract class AppLocalizations {
   /// **'Edit event'**
   String get editEvent;
 
+  /// No description provided for @editFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit food'**
+  String get editFood;
+
   /// No description provided for @editGoal.
   ///
   /// In en, this message translates to:
@@ -2257,6 +2383,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ends'**
   String get endTime;
+
+  /// No description provided for @energySplit.
+  ///
+  /// In en, this message translates to:
+  /// **'Where the energy came from (daily average)'**
+  String get energySplit;
 
   /// No description provided for @englishIntroBody.
   ///
@@ -2408,6 +2540,12 @@ abstract class AppLocalizations {
   /// **'Enter minutes between 1 and 1440'**
   String get errPositiveMinutes;
 
+  /// No description provided for @errRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Between 0 and {max}'**
+  String errRange(int max);
+
   /// No description provided for @errRateLimited.
   ///
   /// In en, this message translates to:
@@ -2437,6 +2575,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Target date must be after the start date'**
   String get errTargetBeforeStart;
+
+  /// No description provided for @estimateNote.
+  ///
+  /// In en, this message translates to:
+  /// **'An estimate — portions and recipes vary.'**
+  String get estimateNote;
 
   /// No description provided for @estimatedDuration.
   ///
@@ -2660,6 +2804,18 @@ abstract class AppLocalizations {
   /// **'Where is my data stored?'**
   String get faq5q;
 
+  /// No description provided for @fat.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat'**
+  String get fat;
+
+  /// No description provided for @fatG.
+  ///
+  /// In en, this message translates to:
+  /// **'Fat (g)'**
+  String get fatG;
+
   /// No description provided for @featAdvancedReports.
   ///
   /// In en, this message translates to:
@@ -2708,6 +2864,30 @@ abstract class AppLocalizations {
   /// **'felt {effort}'**
   String feltLike(String effort);
 
+  /// No description provided for @fgDairy.
+  ///
+  /// In en, this message translates to:
+  /// **'Dairy'**
+  String get fgDairy;
+
+  /// No description provided for @fgDishes.
+  ///
+  /// In en, this message translates to:
+  /// **'Dishes'**
+  String get fgDishes;
+
+  /// No description provided for @fgDrinks.
+  ///
+  /// In en, this message translates to:
+  /// **'Drinks'**
+  String get fgDrinks;
+
+  /// No description provided for @fgExtras.
+  ///
+  /// In en, this message translates to:
+  /// **'Extras'**
+  String get fgExtras;
+
   /// No description provided for @fgFatLoss.
   ///
   /// In en, this message translates to:
@@ -2720,6 +2900,12 @@ abstract class AppLocalizations {
   /// **'Strength work plus cardio. Food matters most; the app gives no diet advice.'**
   String get fgFatLossHint;
 
+  /// No description provided for @fgFruit.
+  ///
+  /// In en, this message translates to:
+  /// **'Fruit'**
+  String get fgFruit;
+
   /// No description provided for @fgGeneral.
   ///
   /// In en, this message translates to:
@@ -2731,6 +2917,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Balanced strength, cardio and movement.'**
   String get fgGeneralHint;
+
+  /// No description provided for @fgGrains.
+  ///
+  /// In en, this message translates to:
+  /// **'Bread and grains'**
+  String get fgGrains;
 
   /// No description provided for @fgMobility.
   ///
@@ -2756,6 +2948,18 @@ abstract class AppLocalizations {
   /// **'Moderate reps and enough weekly volume for each muscle.'**
   String get fgMuscleHint;
 
+  /// No description provided for @fgProtein.
+  ///
+  /// In en, this message translates to:
+  /// **'Meat, fish and eggs'**
+  String get fgProtein;
+
+  /// No description provided for @fgSnacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Snacks and sweets'**
+  String get fgSnacks;
+
   /// No description provided for @fgStrength.
   ///
   /// In en, this message translates to:
@@ -2767,6 +2971,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Fewer reps, longer rest, steady progress on key lifts.'**
   String get fgStrengthHint;
+
+  /// No description provided for @fgVegetables.
+  ///
+  /// In en, this message translates to:
+  /// **'Vegetables'**
+  String get fgVegetables;
 
   /// No description provided for @filterAll.
   ///
@@ -2900,6 +3110,42 @@ abstract class AppLocalizations {
   /// **'Upper body'**
   String get focusUpper;
 
+  /// No description provided for @foodAdded.
+  ///
+  /// In en, this message translates to:
+  /// **'Added {name}'**
+  String foodAdded(String name);
+
+  /// No description provided for @foodAndWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Food and water'**
+  String get foodAndWater;
+
+  /// No description provided for @foodName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get foodName;
+
+  /// No description provided for @foodNoneYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing logged today'**
+  String get foodNoneYet;
+
+  /// No description provided for @foodRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed'**
+  String get foodRemoved;
+
+  /// No description provided for @foodSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved to your foods'**
+  String get foodSaved;
+
   /// No description provided for @forgotLocalMode.
   ///
   /// In en, this message translates to:
@@ -2941,6 +3187,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From'**
   String get from;
+
+  /// No description provided for @fromGallery.
+  ///
+  /// In en, this message translates to:
+  /// **'From gallery'**
+  String get fromGallery;
 
   /// No description provided for @fsDays.
   ///
@@ -3103,6 +3355,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Good morning'**
   String get goodMorning;
+
+  /// No description provided for @gramsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{g} g'**
+  String gramsN(String g);
+
+  /// No description provided for @gramsOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'Grams (optional)'**
+  String get gramsOptional;
 
   /// No description provided for @habitAdherence.
   ///
@@ -3338,6 +3602,12 @@ abstract class AppLocalizations {
   /// **'How did it feel? (optional)'**
   String get howDidItFeel;
 
+  /// No description provided for @howMuch.
+  ///
+  /// In en, this message translates to:
+  /// **'How much?'**
+  String get howMuch;
+
   /// No description provided for @howTo.
   ///
   /// In en, this message translates to:
@@ -3398,6 +3668,30 @@ abstract class AppLocalizations {
   /// **'This item no longer exists.'**
   String get itemGone;
 
+  /// No description provided for @kcalGoalOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily calorie target'**
+  String get kcalGoalOn;
+
+  /// No description provided for @kcalGoalSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional. Set your own number; the app doesn\'t suggest one.'**
+  String get kcalGoalSub;
+
+  /// No description provided for @kcalN.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal'**
+  String kcalN(String kcal);
+
+  /// No description provided for @kcalOfGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} / {goal} kcal'**
+  String kcalOfGoal(String kcal, String goal);
+
   /// No description provided for @keepAnyway.
   ///
   /// In en, this message translates to:
@@ -3440,6 +3734,12 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get language;
 
+  /// No description provided for @lastSevenDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 7 days'**
+  String get lastSevenDays;
+
   /// No description provided for @lastSyncAt.
   ///
   /// In en, this message translates to:
@@ -3475,6 +3775,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave without saving'**
   String get leaveWithoutSaving;
+
+  /// No description provided for @less.
+  ///
+  /// In en, this message translates to:
+  /// **'Less'**
+  String get less;
 
   /// No description provided for @lessonAgain.
   ///
@@ -3626,6 +3932,24 @@ abstract class AppLocalizations {
   /// **'Your location is used on this device to calculate times and saved only as coordinates in your settings.'**
   String get locationPrivacy;
 
+  /// No description provided for @lookUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Look up'**
+  String get lookUp;
+
+  /// No description provided for @lookupNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t reach the product database. Check the connection and try again.'**
+  String get lookupNetwork;
+
+  /// No description provided for @macroLine.
+  ///
+  /// In en, this message translates to:
+  /// **'{kcal} kcal · P {p} · C {c} · F {f}'**
+  String macroLine(String kcal, String p, String c, String f);
+
   /// No description provided for @manageAssistantAccess.
   ///
   /// In en, this message translates to:
@@ -3679,6 +4003,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mastered · best {n}%'**
   String masteredScore(int n);
+
+  /// No description provided for @mealBreakfast.
+  ///
+  /// In en, this message translates to:
+  /// **'Breakfast'**
+  String get mealBreakfast;
+
+  /// No description provided for @mealDinner.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner'**
+  String get mealDinner;
+
+  /// No description provided for @mealLunch.
+  ///
+  /// In en, this message translates to:
+  /// **'Lunch'**
+  String get mealLunch;
+
+  /// No description provided for @mealPhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Meal photo'**
+  String get mealPhoto;
+
+  /// No description provided for @mealSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Snacks'**
+  String get mealSnack;
 
   /// No description provided for @memberSince.
   ///
@@ -3794,6 +4148,12 @@ abstract class AppLocalizations {
   /// **'Time management'**
   String get modTime;
 
+  /// No description provided for @modelSaw.
+  ///
+  /// In en, this message translates to:
+  /// **'What the phone saw (tap to search):'**
+  String get modelSaw;
+
   /// No description provided for @month.
   ///
   /// In en, this message translates to:
@@ -3823,6 +4183,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'More options'**
   String get moreOptions;
+
+  /// No description provided for @mostLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Most logged'**
+  String get mostLogged;
 
   /// No description provided for @moveReminders.
   ///
@@ -3926,6 +4292,12 @@ abstract class AppLocalizations {
   /// **'Each currency is totalled separately — amounts are never combined across currencies.'**
   String get multiCurrencyNote;
 
+  /// No description provided for @myFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'My foods'**
+  String get myFoods;
+
   /// No description provided for @myGoals.
   ///
   /// In en, this message translates to:
@@ -4015,6 +4387,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Notifications'**
   String get navNotifications;
+
+  /// No description provided for @navNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Food'**
+  String get navNutrition;
 
   /// No description provided for @navPrayer.
   ///
@@ -4159,6 +4537,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No expenses in this period'**
   String get noExpensesPeriod;
+
+  /// No description provided for @noFoodFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No match'**
+  String get noFoodFound;
+
+  /// No description provided for @noFoodFoundBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add it once as your own food and it\'s kept for next time.'**
+  String get noFoodFoundBody;
 
   /// No description provided for @noGoalsYet.
   ///
@@ -4316,6 +4706,12 @@ abstract class AppLocalizations {
   /// **'Notes (optional)'**
   String get notesOptional;
 
+  /// No description provided for @nothingLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet'**
+  String get nothingLogged;
+
   /// No description provided for @nothingScheduled.
   ///
   /// In en, this message translates to:
@@ -4327,6 +4723,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing scheduled today'**
   String get nothingScheduledNow;
+
+  /// No description provided for @nothingThisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing logged this week'**
+  String get nothingThisWeek;
 
   /// No description provided for @nothingToPlan.
   ///
@@ -4412,6 +4814,12 @@ abstract class AppLocalizations {
   /// **'Until {time}'**
   String nowUntil(String time);
 
+  /// No description provided for @nutritionNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Numbers are estimates to help you notice patterns, not medical or diet advice.'**
+  String get nutritionNote;
+
   /// No description provided for @obStep1.
   ///
   /// In en, this message translates to:
@@ -4472,6 +4880,12 @@ abstract class AppLocalizations {
   /// **'of {goal}'**
   String ofStepGoal(String goal);
 
+  /// No description provided for @offNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Product data comes from Open Food Facts, a free open database. Only the barcode is sent. Check the label before saving.'**
+  String get offNote;
+
   /// No description provided for @ok.
   ///
   /// In en, this message translates to:
@@ -4489,6 +4903,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Open settings'**
   String get openSettings;
+
+  /// No description provided for @orTypeBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Or type the barcode number'**
+  String get orTypeBarcode;
 
   /// No description provided for @organizeGroup.
   ///
@@ -4562,6 +4982,18 @@ abstract class AppLocalizations {
   /// **'Pause'**
   String get pauseGoal;
 
+  /// No description provided for @perOnePortion.
+  ///
+  /// In en, this message translates to:
+  /// **'For one portion'**
+  String get perOnePortion;
+
+  /// No description provided for @perPortion.
+  ///
+  /// In en, this message translates to:
+  /// **'Per portion: {portion}'**
+  String perPortion(String portion);
+
   /// No description provided for @perWeek.
   ///
   /// In en, this message translates to:
@@ -4621,6 +5053,48 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'When you say you did a habit today.'**
   String get permLogHabitsSub;
+
+  /// No description provided for @photoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read the photo. Try another one, or search instead.'**
+  String get photoFailed;
+
+  /// No description provided for @photoIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo of your meal and the phone suggests what it is. You choose the food and the amount.'**
+  String get photoIntro;
+
+  /// No description provided for @photoNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No close match in the food list. Try a search, or add it as your own food.'**
+  String get photoNoMatch;
+
+  /// No description provided for @photoPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'The photo is read on your phone only. It isn\'t uploaded or kept.'**
+  String get photoPrivacy;
+
+  /// No description provided for @photoStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a photo of the plate'**
+  String get photoStep1;
+
+  /// No description provided for @photoStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the matching food from the suggestions'**
+  String get photoStep2;
+
+  /// No description provided for @photoStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the amount — that\'s it'**
+  String get photoStep3;
 
   /// No description provided for @pickCity.
   ///
@@ -4783,6 +5257,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Planning'**
   String get planningPrefs;
+
+  /// No description provided for @pointAtBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Point the camera at the barcode'**
+  String get pointAtBarcode;
+
+  /// No description provided for @portionHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. piece, cup, 330 ml can'**
+  String get portionHint;
+
+  /// No description provided for @portionName.
+  ///
+  /// In en, this message translates to:
+  /// **'Portion'**
+  String get portionName;
+
+  /// No description provided for @portionsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} × portion'**
+  String portionsN(String n);
 
   /// No description provided for @prayerAsr.
   ///
@@ -5030,6 +5528,18 @@ abstract class AppLocalizations {
   /// **'What went wrong?'**
   String get problemDescription;
 
+  /// No description provided for @productFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Found in Open Food Facts. Check the numbers against the label before saving.'**
+  String get productFound;
+
+  /// No description provided for @productNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'Not in the database yet — enter it once from the label and it\'s kept.'**
+  String get productNotFound;
+
   /// No description provided for @profileTitle.
   ///
   /// In en, this message translates to:
@@ -5090,6 +5600,18 @@ abstract class AppLocalizations {
   /// **'Your data changed since this was suggested. Ask again for a fresh suggestion.'**
   String get proposalStale;
 
+  /// No description provided for @protein.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein'**
+  String get protein;
+
+  /// No description provided for @proteinG.
+  ///
+  /// In en, this message translates to:
+  /// **'Protein (g)'**
+  String get proteinG;
+
   /// No description provided for @questionOf.
   ///
   /// In en, this message translates to:
@@ -5132,6 +5654,12 @@ abstract class AppLocalizations {
   /// **'Not enough free time left today'**
   String get reasonNoTime;
 
+  /// No description provided for @recentFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent'**
+  String get recentFoods;
+
   /// No description provided for @recentWorkouts.
   ///
   /// In en, this message translates to:
@@ -5173,6 +5701,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reminder time (optional)'**
   String get reminderTimeOptional;
+
+  /// No description provided for @removeCup.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove a glass'**
+  String get removeCup;
 
   /// No description provided for @removeFromPlan.
   ///
@@ -5384,6 +5918,12 @@ abstract class AppLocalizations {
   /// **'Save'**
   String get save;
 
+  /// No description provided for @saveAndAdd.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and add'**
+  String get saveAndAdd;
+
   /// No description provided for @saveEvent.
   ///
   /// In en, this message translates to:
@@ -5395,6 +5935,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Save goal'**
   String get saveGoal;
+
+  /// No description provided for @saveOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Save only'**
+  String get saveOnly;
 
   /// No description provided for @savePlan.
   ///
@@ -5426,6 +5972,24 @@ abstract class AppLocalizations {
   /// **'Saving…'**
   String get saving;
 
+  /// No description provided for @scanBarcode.
+  ///
+  /// In en, this message translates to:
+  /// **'Barcode'**
+  String get scanBarcode;
+
+  /// No description provided for @scanOnPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Camera scanning is in the phone app'**
+  String get scanOnPhone;
+
+  /// No description provided for @scanOnPhoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Here you can type the number printed under the barcode.'**
+  String get scanOnPhoneBody;
+
   /// No description provided for @scheduleGroup.
   ///
   /// In en, this message translates to:
@@ -5449,6 +6013,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for a city'**
   String get searchCity;
+
+  /// No description provided for @searchFoods.
+  ///
+  /// In en, this message translates to:
+  /// **'Search foods'**
+  String get searchFoods;
+
+  /// No description provided for @searchInstead.
+  ///
+  /// In en, this message translates to:
+  /// **'Search the list instead'**
+  String get searchInstead;
 
   /// No description provided for @secondsLabel.
   ///
@@ -5972,6 +6548,12 @@ abstract class AppLocalizations {
   /// **'Take the level check'**
   String get takeLevelCheck;
 
+  /// No description provided for @takePhoto.
+  ///
+  /// In en, this message translates to:
+  /// **'Take photo'**
+  String get takePhoto;
+
   /// No description provided for @takePlacement.
   ///
   /// In en, this message translates to:
@@ -6085,6 +6667,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time'**
   String get time;
+
+  /// No description provided for @timesN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{once} other{{n} times}}'**
+  String timesN(int n);
 
   /// No description provided for @timezone.
   ///
@@ -6344,6 +6932,30 @@ abstract class AppLocalizations {
   /// **'Last month: {amount}'**
   String vsLastMonth(String amount);
 
+  /// No description provided for @waterAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Water: {ml} ml a day on average'**
+  String waterAverage(String ml);
+
+  /// No description provided for @waterGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily water goal'**
+  String get waterGoal;
+
+  /// No description provided for @waterMl.
+  ///
+  /// In en, this message translates to:
+  /// **'{ml} ml'**
+  String waterMl(String ml);
+
+  /// No description provided for @waterOfGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Water {ml} / {goal} ml'**
+  String waterOfGoal(String ml, String goal);
+
   /// No description provided for @wdFri.
   ///
   /// In en, this message translates to:
@@ -6415,6 +7027,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Planned load'**
   String get weekLoad;
+
+  /// No description provided for @weekReport.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly report'**
+  String get weekReport;
+
+  /// No description provided for @weekReportNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Averages count only days you logged something.'**
+  String get weekReportNote;
 
   /// No description provided for @weekStart.
   ///

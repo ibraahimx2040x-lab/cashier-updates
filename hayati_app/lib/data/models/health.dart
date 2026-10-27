@@ -31,6 +31,8 @@ class HealthSettings {
     this.moveEnd = 20 * 60,
     this.moveEvery = 120,
     this.preferredSource,
+    this.kcalGoal,
+    this.waterGoalMl = 2000,
   });
 
   final Set<HealthModule> modules;
@@ -49,6 +51,10 @@ class HealthSettings {
   /// Overrides [activitySourcePriority] for the first pick.
   final ActivitySource? preferredSource;
 
+  /// Optional daily calorie target the user sets; the app never suggests one.
+  final int? kcalGoal;
+  final int waterGoalMl;
+
   bool has(HealthModule m) => modules.contains(m);
 
   static const minStepGoal = 1000;
@@ -63,6 +69,8 @@ class HealthSettings {
     int? moveEnd,
     int? moveEvery,
     ActivitySource? Function()? preferredSource,
+    int? Function()? kcalGoal,
+    int? waterGoalMl,
   }) =>
       HealthSettings(
         modules: modules ?? this.modules,
@@ -73,6 +81,8 @@ class HealthSettings {
         moveEnd: moveEnd ?? this.moveEnd,
         moveEvery: moveEvery ?? this.moveEvery,
         preferredSource: preferredSource != null ? preferredSource() : this.preferredSource,
+        kcalGoal: kcalGoal != null ? kcalGoal() : this.kcalGoal,
+        waterGoalMl: waterGoalMl ?? this.waterGoalMl,
       );
 
   Map<String, Object?> toJson() => {
@@ -84,6 +94,8 @@ class HealthSettings {
         'moveEnd': moveEnd,
         'moveEvery': moveEvery,
         'preferredSource': preferredSource?.name,
+        'kcalGoal': kcalGoal,
+        'waterGoalMl': waterGoalMl,
       };
 
   factory HealthSettings.fromJson(Map<String, Object?>? j) {
@@ -102,6 +114,8 @@ class HealthSettings {
       moveEnd: (j['moveEnd'] as int?) ?? d.moveEnd,
       moveEvery: (j['moveEvery'] as int?) ?? d.moveEvery,
       preferredSource: pick(ActivitySource.values, j['preferredSource']),
+      kcalGoal: j['kcalGoal'] as int?,
+      waterGoalMl: (j['waterGoalMl'] as int?) ?? d.waterGoalMl,
     );
   }
 }

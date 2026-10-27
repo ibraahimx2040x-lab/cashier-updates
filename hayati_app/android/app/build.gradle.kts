@@ -27,6 +27,11 @@ android {
         }
     }
 
+    // The on-device food model is read with memory mapping; keep it uncompressed.
+    androidResources {
+        noCompress += "tflite"
+    }
+
     defaultConfig {
         // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
         applicationId = "app.hayati.hayati"

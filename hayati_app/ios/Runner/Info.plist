@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NSCameraUsageDescription</key>
+		<string>لتصوير الوجبة أو مسح باركود المنتج. الصورة تبقى على جهازك.</string>
+		<key>NSPhotoLibraryUsageDescription</key>
+		<string>لاختيار صورة وجبة. الصورة تبقى على جهازك.</string>
 		<key>NSHealthShareUsageDescription</key>
 		<string>يقرأ حياتي عدد خطواتك اليومي من تطبيق الصحة ليعرض نشاطك وأهدافك.</string>
 		<key>NSHealthUpdateUsageDescription</key>

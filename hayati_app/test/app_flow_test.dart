@@ -14,9 +14,11 @@ import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/features/home/home_screen.dart';
+import 'package:hayati/features/nutrition/scan_screen.dart';
 import 'package:hayati/domain/activity.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
@@ -25,6 +27,8 @@ import 'package:hayati/domain/learning/curriculum.dart';
 import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
+import 'package:hayati/services/barcode_lookup.dart';
+import 'package:hayati/services/food_recognizer.dart';
 import 'package:hayati/services/step_reader.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -52,6 +56,14 @@ class FakeDeviceNotifications implements DeviceNotifications {
   Future<void> showNow(int id, String title, String body, String route) async {}
 }
 
+class FakeBarcodeLookup implements BarcodeLookup {
+  @override
+  Future<LookupResult> find(String barcode, {required String lang}) async => barcode == '6281007012345'
+      ? const LookupResult.found(ProductInfo(
+          barcode: '6281007012345', name: 'Laban', portion: '200 ml', grams: 200, per: Nutrients(kcal: 92, protein: 6, carbs: 9, fat: 3)))
+      : const LookupResult.failed(LookupFailure.notFound);
+}
+
 Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
@@ -62,6 +74,9 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
     localStoreProvider.overrideWithValue(LocalStore(prefs)),
     deviceNotificationsProvider.overrideWithValue(FakeDeviceNotifications()),
     stepReaderProvider.overrideWithValue(const UnsupportedStepReader()),
+    foodRecognizerProvider.overrideWithValue(const UnavailableFoodRecognizer()),
+    barcodeLookupProvider.overrideWithValue(FakeBarcodeLookup()),
+    scanCameraProvider.overrideWithValue(false),
   ]);
   addTearDown(container.dispose);
   await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const HayatiApp()));
@@ -149,6 +164,10 @@ void seed(ProviderContainer c) {
     d.recordActivity(dayKey(now.subtract(Duration(days: i))), i.isEven ? ActivitySource.healthConnect : ActivitySource.manual,
         steps: 4000 + i * 1100);
   }
+  d.logFood(day: today, meal: MealType.lunch, name: 'Chicken mandi', per: const Nutrients(kcal: 620, protein: 35, carbs: 68, fat: 22), portions: 1.5);
+  d.logFood(day: today, meal: MealType.breakfast, name: 'Dates', per: const Nutrients(kcal: 28, carbs: 7.5), portions: 3);
+  d.saveCustomFood(CustomFood(id: 'cf1', name: 'My laban', portion: 'bottle', per: const Nutrients(kcal: 120, protein: 8), barcode: '6281000000001', createdAt: now));
+  d.addWater(today, 1250);
   d.notify(AppNotification(id: 'nt', type: NotificationType.task, title: 'Reminder', createdAt: now, refId: first.id, dedupeKey: 'x'));
 }
 
@@ -262,6 +281,13 @@ void main() {
           Routes.accountabilityEvent('ae0'),
           Routes.activity,
           Routes.healthSetup,
+          Routes.nutrition,
+          Routes.nutritionWeek,
+          Routes.nutritionAdd(meal: 'lunch'),
+          Routes.nutritionScan(),
+          Routes.customFood(),
+          Routes.customFood(id: 'cf1'),
+          Routes.nutritionPhoto(),
         ];
         for (final r in routes) {
           router.go(r);
@@ -413,6 +439,64 @@ void main() {
     await tapIn(tester, find.widgetWithText(ChoiceChip, '10,000'));
     await tester.pumpAndSettle();
     expect(c.read(dataProvider).settings.health.stepGoal, 10000);
+  });
+
+  testWidgets('food: search and add, barcode to saved food, water (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.nutrition);
+    await tester.pumpAndSettle();
+    // The photo button only shows where the on-device model runs.
+    expect(find.text(l.mealPhoto), findsNothing);
+    await tester.tap(find.byTooltip(l.addCup));
+    await tester.pumpAndSettle();
+    final today = dayKey(DateTime.now());
+    expect(c.read(dataProvider).waterOn(today), 250);
+
+    await tester.tap(find.text(l.addFood));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, 'mandi');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Chicken mandi'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip(l.more));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.addToDay));
+    await tester.pumpAndSettle();
+    final logged = c.read(dataProvider).foodLogs.single;
+    expect((logged.name, logged.portions, logged.total.kcal, logged.foodRef), ('Chicken mandi', 1.5, 930, 'chicken_mandi'));
+    expect(find.text(l.kcalN('930')), findsWidgets);
+
+    // A barcode Open Food Facts knows: check the label, save, add.
+    router.push(Routes.nutritionScan(meal: 'snack'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '12ab');
+    await tester.tap(find.text(l.lookUp));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '6281007012345');
+    await tester.tap(find.text(l.lookUp));
+    await tester.pumpAndSettle();
+    expect(find.text(l.productFound), findsOneWidget);
+    expect(find.widgetWithText(TextFormField, 'Laban'), findsOneWidget);
+    await tapIn(tester, find.text(l.saveAndAdd));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.addToDay));
+    await tester.pumpAndSettle();
+    final d = c.read(dataProvider);
+    expect(d.customFoods.single.barcode, '6281007012345');
+    expect(d.foodLogs.where((f) => f.name == 'Laban').single.meal, MealType.snack);
+
+    // The same barcode again opens the saved food directly.
+    router.push(Routes.nutritionScan());
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '6281007012345');
+    await tester.tap(find.text(l.lookUp));
+    await tester.pumpAndSettle();
+    expect(find.text(l.addToDay), findsOneWidget);
   });
 
   testWidgets('task editor validates and saves', (tester) async {

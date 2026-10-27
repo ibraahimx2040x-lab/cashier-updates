@@ -225,6 +225,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'في المتصفح تقدر تضيف الخطوات يدويًا فقط. العد التلقائي يشتغل في تطبيق الجوال.';
 
   @override
+  String get addCup => 'أضف كوب (250 مل)';
+
+  @override
   String get addEvent => 'إضافة موعد';
 
   @override
@@ -237,6 +240,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addFirstTask => 'أضف أول مهمة';
 
   @override
+  String get addFood => 'أضف أكل';
+
+  @override
   String get addGoal => 'إضافة هدف';
 
   @override
@@ -246,6 +252,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addMilestone => 'إضافة مرحلة';
 
   @override
+  String get addMyOwnFood => 'أضف أكلة من عندي';
+
+  @override
   String get addNote => 'إضافة ملاحظة';
 
   @override
@@ -253,6 +262,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addTask => 'إضافة مهمة';
+
+  @override
+  String addTo(String meal) {
+    return 'أضف إلى $meal';
+  }
+
+  @override
+  String get addToDay => 'أضف';
 
   @override
   String get adherence30 => 'آخر 30 يومًا';
@@ -729,10 +746,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get autoActionsSub => 'كل صلاحية مستقلة ويمكن سحبها في أي وقت.';
 
   @override
+  String avgKcalPerDay(String kcal) {
+    return '$kcal سعرة يوميًا بالمتوسط';
+  }
+
+  @override
   String get back => 'السابق';
 
   @override
   String get backToPath => 'العودة إلى المسار';
+
+  @override
+  String get barcodeInvalid => 'الباركود من 6 إلى 14 رقم';
+
+  @override
+  String barcodeN(String code) {
+    return 'الباركود $code';
+  }
+
+  @override
+  String get barcodeNumber => 'رقم الباركود';
 
   @override
   String beforeMinutes(String duration) {
@@ -784,6 +817,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get builtinNote =>
+      'القيم تقديرية لحصة واحدة، والوصفات والأحجام تختلف. غيّر الكمية، أو احفظ نسختك الخاصة.';
+
+  @override
   String get byCategory => 'حسب الفئة';
 
   @override
@@ -795,6 +832,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get calendar => 'التقويم';
+
+  @override
+  String get calories => 'السعرات (كيلو كالوري)';
+
+  @override
+  String get caloriesByDay => 'السعرات حسب اليوم';
+
+  @override
+  String get caloriesToday => 'السعرات';
+
+  @override
+  String get cameraUnavailable => 'الكاميرا غير متاحة. اكتب الرقم تحت.';
 
   @override
   String canMoveCount(int n) {
@@ -814,6 +863,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cantGoToGym => 'لا أستطيع الذهاب للنادي';
+
+  @override
+  String get carbs => 'كربوهيدرات';
+
+  @override
+  String get carbsG => 'كربوهيدرات (غ)';
 
   @override
   String get catHealth => 'الصحة';
@@ -1050,6 +1105,20 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String daysLoggedN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n يوم مسجل',
+      few: '$n أيام مسجلة',
+      two: 'يومين مسجلة',
+      one: 'يوم مسجل',
+      zero: 'ما فيه أيام مسجلة',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String daysN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -1131,6 +1200,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteExpenseTitle => 'حذف المصروف؟';
 
   @override
+  String get deleteFood => 'تحذف هذي الأكلة؟';
+
+  @override
+  String get deleteFoodBody => 'الوجبات المسجلة فيها تبقى مثل ما هي.';
+
+  @override
   String get deleteForever => 'حذف نهائي';
 
   @override
@@ -1207,6 +1282,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get devNotifTitle => 'إشعارات الجهاز';
 
   @override
+  String get didYouEat => 'هل هي وحدة من هذي؟';
+
+  @override
   String get diffEasy => 'سهل';
 
   @override
@@ -1277,6 +1355,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get editEvent => 'تعديل الموعد';
+
+  @override
+  String get editFood => 'تعديل الأكلة';
 
   @override
   String get editGoal => 'الهدف';
@@ -1350,6 +1431,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get endTime => 'النهاية';
+
+  @override
+  String get energySplit => 'مصدر الطاقة (متوسط يومي)';
 
   @override
   String get englishIntroBody =>
@@ -1432,6 +1516,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get errPositiveMinutes => 'أدخل عدد دقائق بين 1 و1440';
 
   @override
+  String errRange(int max) {
+    return 'بين 0 و$max';
+  }
+
+  @override
   String get errRateLimited => 'محاولات كثيرة. انتظر قليلًا ثم حاول مرة أخرى.';
 
   @override
@@ -1446,6 +1535,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get errTargetBeforeStart =>
       'يجب أن يكون التاريخ المستهدف بعد تاريخ البداية';
+
+  @override
+  String get estimateNote => 'تقدير — الحصص والوصفات تختلف.';
 
   @override
   String get estimatedDuration => 'مدة مقترحة 30 د';
@@ -1590,6 +1682,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get faq5q => 'أين تُحفظ بياناتي؟';
 
   @override
+  String get fat => 'دهون';
+
+  @override
+  String get fatG => 'دهون (غ)';
+
+  @override
   String get featAdvancedReports => 'تقارير وتحليلات أكثر تفصيلًا';
 
   @override
@@ -1619,6 +1717,18 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get fgDairy => 'الألبان';
+
+  @override
+  String get fgDishes => 'الأطباق';
+
+  @override
+  String get fgDrinks => 'المشروبات';
+
+  @override
+  String get fgExtras => 'الإضافات';
+
+  @override
   String get fgFatLoss => 'خسارة الدهون';
 
   @override
@@ -1626,10 +1736,16 @@ class AppLocalizationsAr extends AppLocalizations {
       'تمارين قوة مع نشاط هوائي. الغذاء هو الأهم، والتطبيق لا يقدم نصائح غذائية.';
 
   @override
+  String get fgFruit => 'الفواكه';
+
+  @override
   String get fgGeneral => 'لياقة عامة';
 
   @override
   String get fgGeneralHint => 'توازن بين القوة والنشاط الهوائي والحركة.';
+
+  @override
+  String get fgGrains => 'الخبز والحبوب';
 
   @override
   String get fgMobility => 'المرونة والحركة';
@@ -1644,11 +1760,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fgMuscleHint => 'تكرارات متوسطة وحجم أسبوعي كافٍ لكل عضلة.';
 
   @override
+  String get fgProtein => 'اللحوم والسمك والبيض';
+
+  @override
+  String get fgSnacks => 'السناكات والحلويات';
+
+  @override
   String get fgStrength => 'زيادة القوة';
 
   @override
   String get fgStrengthHint =>
       'تكرارات أقل وراحة أطول وتقدم ثابت في التمارين الأساسية.';
+
+  @override
+  String get fgVegetables => 'الخضار';
 
   @override
   String get filterAll => 'الكل';
@@ -1719,6 +1844,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get focusUpper => 'الجزء العلوي';
 
   @override
+  String foodAdded(String name) {
+    return 'انضافت $name';
+  }
+
+  @override
+  String get foodAndWater => 'الأكل والماء';
+
+  @override
+  String get foodName => 'الاسم';
+
+  @override
+  String get foodNoneYet => 'ما سجّلت أكل اليوم';
+
+  @override
+  String get foodRemoved => 'انحذفت';
+
+  @override
+  String get foodSaved => 'انحفظت في أكلاتك';
+
+  @override
   String get forgotLocalMode =>
       'في هذا الإصدار تُحفظ الحسابات على هذا الجهاز فقط، لذا فإن استعادة كلمة المرور عبر البريد غير متاحة بعد. ستُفعّل عند ربط خدمة الحسابات السحابية.';
 
@@ -1740,6 +1885,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get from => 'من';
+
+  @override
+  String get fromGallery => 'من المعرض';
 
   @override
   String get fsDays => 'عدد الأيام في الأسبوع';
@@ -1835,6 +1983,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get goodMorning => 'صباح الخير';
+
+  @override
+  String gramsN(String g) {
+    return '$g غ';
+  }
+
+  @override
+  String get gramsOptional => 'الوزن بالغرام (اختياري)';
 
   @override
   String get habitAdherence => 'الالتزام بالعادات';
@@ -1962,6 +2118,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get howDidItFeel => 'كيف كان التمرين؟ (اختياري)';
 
   @override
+  String get howMuch => 'كم الكمية؟';
+
+  @override
   String get howTo => 'طريقة الأداء';
 
   @override
@@ -1996,6 +2155,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get itemGone => 'هذا العنصر لم يعد موجودًا.';
 
   @override
+  String get kcalGoalOn => 'هدف سعرات يومي';
+
+  @override
+  String get kcalGoalSub => 'اختياري. حط رقمك أنت، التطبيق ما يقترح رقم.';
+
+  @override
+  String kcalN(String kcal) {
+    return '$kcal سعرة';
+  }
+
+  @override
+  String kcalOfGoal(String kcal, String goal) {
+    return '$kcal / $goal سعرة';
+  }
+
+  @override
   String get keepAnyway => 'الإبقاء عليه';
 
   @override
@@ -2017,6 +2192,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get language => 'اللغة';
 
   @override
+  String get lastSevenDays => 'آخر 7 أيام';
+
+  @override
   String lastSyncAt(String time) {
     return 'آخر مزامنة $time';
   }
@@ -2035,6 +2213,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get leaveWithoutSaving => 'الخروج دون حفظ';
+
+  @override
+  String get less => 'أقل';
 
   @override
   String get lessonAgain =>
@@ -2132,6 +2313,18 @@ class AppLocalizationsAr extends AppLocalizations {
       'يُستخدم موقعك لحساب المواقيت فقط، ويُحفظ كإحداثيات في إعداداتك.';
 
   @override
+  String get lookUp => 'ابحث';
+
+  @override
+  String get lookupNetwork =>
+      'ما قدرنا نوصل لقاعدة المنتجات. تأكد من النت وجرّب مرة ثانية.';
+
+  @override
+  String macroLine(String kcal, String p, String c, String f) {
+    return '$kcal سعرة · ب $p · ك $c · د $f';
+  }
+
+  @override
   String get manageAssistantAccess => 'إدارة صلاحيات المساعد';
 
   @override
@@ -2162,6 +2355,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String masteredScore(int n) {
     return 'متقن · أفضل نتيجة $n%';
   }
+
+  @override
+  String get mealBreakfast => 'الفطور';
+
+  @override
+  String get mealDinner => 'العشاء';
+
+  @override
+  String get mealLunch => 'الغداء';
+
+  @override
+  String get mealPhoto => 'صوّر الوجبة';
+
+  @override
+  String get mealSnack => 'وجبات خفيفة';
 
   @override
   String get memberSince => 'تاريخ إنشاء الحساب';
@@ -2223,6 +2431,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get modTime => 'تنظيم الوقت';
 
   @override
+  String get modelSaw => 'اللي شافه الجوال (اضغط للبحث):';
+
+  @override
   String get month => 'شهر';
 
   @override
@@ -2236,6 +2447,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get moreOptions => 'خيارات إضافية';
+
+  @override
+  String get mostLogged => 'الأكثر تسجيلًا';
 
   @override
   String get moveReminders => 'تذكير بالحركة';
@@ -2292,6 +2506,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'يُجمع كل مبلغ بعملته — لا تُجمع العملات المختلفة معًا.';
 
   @override
+  String get myFoods => 'أكلاتي';
+
+  @override
   String get myGoals => 'أهدافي';
 
   @override
@@ -2337,6 +2554,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get navNotifications => 'الإشعارات';
+
+  @override
+  String get navNutrition => 'الأكل';
 
   @override
   String get navPrayer => 'الصلاة';
@@ -2414,6 +2634,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noExpensesPeriod => 'لا توجد مصروفات في هذه الفترة';
+
+  @override
+  String get noFoodFound => 'ما لقينا شي';
+
+  @override
+  String get noFoodFoundBody => 'أضفها مرة كأكلة من عندك وتنحفظ للمرة الجاية.';
 
   @override
   String get noGoalsYet => 'لا توجد أهداف بعد';
@@ -2496,10 +2722,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notesOptional => 'ملاحظات (اختياري)';
 
   @override
+  String get nothingLogged => 'ما فيه شي للحين';
+
+  @override
   String get nothingScheduled => 'لا يوجد شيء مجدول';
 
   @override
   String get nothingScheduledNow => 'لا شيء مجدول اليوم';
+
+  @override
+  String get nothingThisWeek => 'ما فيه تسجيل هالأسبوع';
 
   @override
   String get nothingToPlan => 'لا توجد مهام مفتوحة للتخطيط لهذا اليوم.';
@@ -2561,6 +2793,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get nutritionNote =>
+      'الأرقام تقديرية تساعدك تلاحظ عاداتك، وليست نصيحة طبية أو حمية.';
+
+  @override
   String get obStep1 => 'اللغة والمنطقة';
 
   @override
@@ -2596,6 +2832,10 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get offNote =>
+      'بيانات المنتجات من Open Food Facts، قاعدة مفتوحة ومجانية. يُرسل رقم الباركود فقط. راجع الملصق قبل الحفظ.';
+
+  @override
   String get ok => 'حسنًا';
 
   @override
@@ -2604,6 +2844,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get openSettings => 'فتح الإعدادات';
+
+  @override
+  String get orTypeBarcode => 'أو اكتب رقم الباركود';
 
   @override
   String get organizeGroup => 'التنظيم';
@@ -2643,6 +2886,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get pauseGoal => 'إيقاف مؤقت';
 
   @override
+  String get perOnePortion => 'لحصة واحدة';
+
+  @override
+  String perPortion(String portion) {
+    return 'للحصة: $portion';
+  }
+
+  @override
   String perWeek(int n) {
     return '$n أسبوعيًا';
   }
@@ -2677,6 +2928,29 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get permLogHabitsSub => 'عندما تذكر أنك أنجزت عادة اليوم.';
+
+  @override
+  String get photoFailed => 'ما قدرنا نقرأ الصورة. جرّب صورة ثانية، أو ابحث.';
+
+  @override
+  String get photoIntro =>
+      'صوّر وجبتك والجوال يقترح وش هي. أنت تختار الأكلة والكمية.';
+
+  @override
+  String get photoNoMatch =>
+      'ما لقينا شي قريب في القائمة. جرّب البحث، أو أضفها كأكلة من عندك.';
+
+  @override
+  String get photoPrivacy => 'الصورة تنقرأ على جوالك فقط. ما ترتفع ولا تنحفظ.';
+
+  @override
+  String get photoStep1 => 'صوّر الصحن';
+
+  @override
+  String get photoStep2 => 'اختر الأكلة المطابقة من الاقتراحات';
+
+  @override
+  String get photoStep3 => 'حدد الكمية وخلاص';
 
   @override
   String get pickCity => 'اختر مدينة';
@@ -2772,6 +3046,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get planningPrefs => 'تفضيلات التخطيط';
+
+  @override
+  String get pointAtBarcode => 'وجّه الكاميرا على الباركود';
+
+  @override
+  String get portionHint => 'مثل: قطعة، كوب، علبة 330 مل';
+
+  @override
+  String get portionName => 'الحصة';
+
+  @override
+  String portionsN(String n) {
+    return '$n × حصة';
+  }
 
   @override
   String get prayerAsr => 'العصر';
@@ -2914,6 +3202,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get problemDescription => 'ما المشكلة؟';
 
   @override
+  String get productFound =>
+      'لقيناه في Open Food Facts. طابق الأرقام مع الملصق قبل الحفظ.';
+
+  @override
+  String get productNotFound =>
+      'مو موجود في القاعدة — أدخله مرة من الملصق وينحفظ.';
+
+  @override
   String get profileTitle => 'الملف الشخصي والحساب';
 
   @override
@@ -2945,6 +3241,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'تغيرت بياناتك منذ هذا الاقتراح. اطلب اقتراحًا جديدًا.';
 
   @override
+  String get protein => 'بروتين';
+
+  @override
+  String get proteinG => 'بروتين (غ)';
+
+  @override
   String questionOf(int current, int total) {
     return '$current من $total';
   }
@@ -2968,6 +3270,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reasonNoTime => 'لا يكفي الوقت المتبقي اليوم';
 
   @override
+  String get recentFoods => 'الأخيرة';
+
+  @override
   String get recentWorkouts => 'آخر التمارين';
 
   @override
@@ -2989,6 +3294,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reminderTimeOptional => 'وقت التذكير (اختياري)';
+
+  @override
+  String get removeCup => 'شيل كوب';
 
   @override
   String get removeFromPlan => 'إزالة من خطة اليوم';
@@ -3115,10 +3423,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get save => 'حفظ';
 
   @override
+  String get saveAndAdd => 'احفظ وأضف';
+
+  @override
   String get saveEvent => 'حفظ الموعد';
 
   @override
   String get saveGoal => 'حفظ الهدف';
+
+  @override
+  String get saveOnly => 'احفظ فقط';
 
   @override
   String get savePlan => 'حفظ الخطة';
@@ -3136,6 +3450,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get saving => 'جارٍ الحفظ…';
 
   @override
+  String get scanBarcode => 'الباركود';
+
+  @override
+  String get scanOnPhone => 'المسح بالكاميرا في تطبيق الجوال';
+
+  @override
+  String get scanOnPhoneBody => 'هنا تقدر تكتب الرقم المطبوع تحت الباركود.';
+
+  @override
   String get scheduleGroup => 'الموعد';
 
   @override
@@ -3148,6 +3471,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get searchCity => 'ابحث عن مدينة';
+
+  @override
+  String get searchFoods => 'ابحث عن أكلة';
+
+  @override
+  String get searchInstead => 'ابحث في القائمة بدلًا من ذلك';
 
   @override
   String get secondsLabel => 'الثواني';
@@ -3474,6 +3803,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get takeLevelCheck => 'أجرِ اختبار المستوى';
 
   @override
+  String get takePhoto => 'صوّر';
+
+  @override
   String get takePlacement => 'اختبار تحديد المستوى';
 
   @override
@@ -3545,6 +3877,19 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get time => 'الوقت';
+
+  @override
+  String timesN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n مرة',
+      few: '$n مرات',
+      two: 'مرتين',
+      one: 'مرة',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get timezone => 'المنطقة الزمنية';
@@ -3710,6 +4055,24 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String waterAverage(String ml) {
+    return 'الماء: $ml مل يوميًا بالمتوسط';
+  }
+
+  @override
+  String get waterGoal => 'هدف الماء اليومي';
+
+  @override
+  String waterMl(String ml) {
+    return '$ml مل';
+  }
+
+  @override
+  String waterOfGoal(String ml, String goal) {
+    return 'الماء $ml / $goal مل';
+  }
+
+  @override
   String get wdFri => 'الجمعة';
 
   @override
@@ -3755,6 +4118,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get weekLoad => 'حجم الالتزامات';
+
+  @override
+  String get weekReport => 'التقرير الأسبوعي';
+
+  @override
+  String get weekReportNote => 'المتوسطات تحسب الأيام اللي سجلت فيها بس.';
 
   @override
   String get weekStart => 'بداية الأسبوع';
