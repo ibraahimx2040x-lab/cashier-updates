@@ -4,10 +4,12 @@ import '../../data/models/goal.dart';
 import '../../data/models/health.dart';
 import '../../data/models/learning.dart';
 import '../../data/models/misc.dart';
+import '../../data/models/nutrition.dart';
 import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../domain/fitness/exercises.dart';
+import '../../domain/nutrition/foods.dart';
 import '../../domain/planner.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -138,6 +140,25 @@ extension Labels on AppLocalizations {
         HealthModule.sleep => hmSleep,
         HealthModule.womens => hmWomens,
         HealthModule.mens => hmMens,
+      };
+
+  String mealType(MealType m) => switch (m) {
+        MealType.breakfast => mealBreakfast,
+        MealType.lunch => mealLunch,
+        MealType.dinner => mealDinner,
+        MealType.snack => mealSnack,
+      };
+
+  String foodGroup(FoodGroup g) => switch (g) {
+        FoodGroup.grains => fgGrains,
+        FoodGroup.dishes => fgDishes,
+        FoodGroup.protein => fgProtein,
+        FoodGroup.dairy => fgDairy,
+        FoodGroup.fruit => fgFruit,
+        FoodGroup.vegetables => fgVegetables,
+        FoodGroup.drinks => fgDrinks,
+        FoodGroup.snacks => fgSnacks,
+        FoodGroup.extras => fgExtras,
       };
 
   String activitySource(ActivitySource s) => switch (s) {

@@ -5,6 +5,7 @@ import 'models/goal.dart';
 import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
+import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
@@ -29,6 +30,9 @@ class AppData {
     this.accountabilityRules = const [],
     this.accountabilityEvents = const [],
     this.activity = const [],
+    this.foodLogs = const [],
+    this.customFoods = const [],
+    this.water = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -64,6 +68,12 @@ class AppData {
   /// One row per day and source; see `domain/activity.dart` for which one
   /// counts.
   final List<DailyActivity> activity;
+  final List<FoodLog> foodLogs;
+  final List<CustomFood> customFoods;
+  final List<WaterDay> water;
+
+  CustomFood? customFood(String? id) => _find(customFoods, id, (e) => e.id);
+  int waterOn(String day) => water.where((w) => w.day == day).firstOrNull?.ml ?? 0;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -144,6 +154,9 @@ class AppData {
     List<AccountabilityRule>? accountabilityRules,
     List<AccountabilityEvent>? accountabilityEvents,
     List<DailyActivity>? activity,
+    List<FoodLog>? foodLogs,
+    List<CustomFood>? customFoods,
+    List<WaterDay>? water,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -174,6 +187,9 @@ class AppData {
         accountabilityRules: accountabilityRules ?? this.accountabilityRules,
         accountabilityEvents: accountabilityEvents ?? this.accountabilityEvents,
         activity: activity ?? this.activity,
+        foodLogs: foodLogs ?? this.foodLogs,
+        customFoods: customFoods ?? this.customFoods,
+        water: water ?? this.water,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -206,6 +222,9 @@ class AppData {
         'accountabilityRules': accountabilityRules.map((e) => e.toJson()).toList(),
         'accountabilityEvents': accountabilityEvents.map((e) => e.toJson()).toList(),
         'activity': activity.map((e) => e.toJson()).toList(),
+        'foodLogs': foodLogs.map((e) => e.toJson()).toList(),
+        'customFoods': customFoods.map((e) => e.toJson()).toList(),
+        'water': water.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -242,6 +261,9 @@ class AppData {
       accountabilityRules: list('accountabilityRules', AccountabilityRule.fromJson),
       accountabilityEvents: list('accountabilityEvents', AccountabilityEvent.fromJson),
       activity: list('activity', DailyActivity.fromJson),
+      foodLogs: list('foodLogs', FoodLog.fromJson),
+      customFoods: list('customFoods', CustomFood.fromJson),
+      water: list('water', WaterDay.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

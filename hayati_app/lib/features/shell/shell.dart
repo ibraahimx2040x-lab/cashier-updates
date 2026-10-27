@@ -243,6 +243,7 @@ class _Sidebar extends ConsumerWidget {
               item(Icons.fitness_center, l.navFitness, () => context.push(Routes.fitness)),
               item(Icons.translate, l.navEnglish, () => context.push(Routes.english)),
               if (s.health.has(HealthModule.activity)) item(Icons.directions_walk, l.navActivity, () => context.push(Routes.activity)),
+              if (s.health.has(HealthModule.nutrition)) item(Icons.restaurant_outlined, l.navNutrition, () => context.push(Routes.nutrition)),
               item(Icons.handshake_outlined, l.navAccountability, () => context.push(Routes.accountability)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))

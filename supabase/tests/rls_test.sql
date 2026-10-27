@@ -330,5 +330,57 @@ exception when insufficient_privilege then raise notice 'ok: no activity for ano
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Nutrition: saved foods, food log, water; no future days; owner only.
+insert into custom_foods (name, portion, kcal, protein, carbs, fat, barcode) values ('Laban', 'bottle', 120, 8, 12, 4, '6281007012345');
+do $$ begin
+  insert into custom_foods (name, kcal, protein, carbs, fat, barcode) values ('Laban again', 1, 0, 0, 0, '6281007012345');
+  raise exception 'FAILED: barcode saved twice';
+exception when unique_violation then raise notice 'ok: one food per barcode';
+end $$;
+do $$ begin
+  insert into custom_foods (name, kcal, protein, carbs, fat, barcode) values ('Bad', 1, 0, 0, 0, '12ab');
+  raise exception 'FAILED: bad barcode';
+exception when check_violation then raise notice 'ok: barcode digits only';
+end $$;
+do $$ begin
+  insert into custom_foods (name, kcal, protein, carbs, fat) values ('Huge', 9000, 0, 0, 0);
+  raise exception 'FAILED: impossible calories';
+exception when check_violation then raise notice 'ok: calories in range';
+end $$;
+insert into food_logs (day, meal, name, food_ref, portions, kcal, protein, carbs, fat)
+  values (current_date, 'lunch', 'Chicken mandi', 'chicken_mandi', 1.5, 930, 52.5, 102, 33);
+do $$ begin
+  insert into food_logs (day, meal, name, portions, kcal, protein, carbs, fat) values (current_date + 2, 'lunch', 'x', 1, 1, 0, 0, 0);
+  raise exception 'FAILED: future food log';
+exception when check_violation then raise notice 'ok: no future food log';
+end $$;
+do $$ begin
+  insert into food_logs (day, meal, name, portions, kcal, protein, carbs, fat) values (current_date, 'brunch', 'x', 1, 1, 0, 0, 0);
+  raise exception 'FAILED: unknown meal';
+exception when check_violation then raise notice 'ok: known meals only';
+end $$;
+do $$ begin
+  insert into food_logs (day, meal, name, portions, kcal, protein, carbs, fat) values (current_date, 'lunch', 'x', 0, 1, 0, 0, 0);
+  raise exception 'FAILED: zero portions';
+exception when check_violation then raise notice 'ok: portions above zero';
+end $$;
+insert into water_intake (id, day, ml) values ('aeaeaeae-0000-0000-0000-000000000001', current_date, 750);
+do $$ begin
+  insert into water_intake (id, day, ml) values ('aeaeaeae-0000-0000-0000-000000000002', current_date, 250);
+  raise exception 'FAILED: two water rows for one day';
+exception when unique_violation then raise notice 'ok: one water row per day';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from custom_foods) + (select count(*) from food_logs) + (select count(*) from water_intake) = 0,
+  'B cannot read A''s food');
+do $$ begin
+  insert into food_logs (user_id, day, meal, name, portions, kcal, protein, carbs, fat)
+    values ('11111111-1111-1111-1111-111111111111', current_date, 'lunch', 'x', 1, 1, 0, 0, 0);
+  raise exception 'FAILED: logged food for another user';
+exception when insufficient_privilege then raise notice 'ok: no food for another user';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

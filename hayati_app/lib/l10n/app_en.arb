@@ -115,16 +115,28 @@
   "activityNote": "Steps come from your phone's health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.",
   "activitySaved": "Steps saved",
   "activityWebNote": "In the browser steps can only be added by hand. Automatic counting works in the phone app.",
+  "addCup": "Add a glass (250 ml)",
   "addEvent": "Add event",
   "addExpense": "Add expense",
   "addFirstGoal": "Add a goal",
   "addFirstTask": "Add your first task",
+  "addFood": "Add food",
   "addGoal": "Add goal",
   "addHabit": "Add habit",
   "addMilestone": "Add milestone",
+  "addMyOwnFood": "Add my own food",
   "addNote": "Add note",
   "addStepsManually": "Add steps",
   "addTask": "Add task",
+  "addTo": "Add to {meal}",
+  "@addTo": {
+    "placeholders": {
+      "meal": {
+        "type": "String"
+      }
+    }
+  },
+  "addToDay": "Add",
   "adherence30": "Last 30 days",
   "affectedItems": "{n, plural, =1{1 item affected} other{{n} items affected}}",
   "@affectedItems": {
@@ -534,8 +546,26 @@
   "auto": "Automatic",
   "autoActions": "May do without asking",
   "autoActionsSub": "Each permission is separate and can be withdrawn at any time.",
+  "avgKcalPerDay": "{kcal} kcal a day on average",
+  "@avgKcalPerDay": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
   "back": "Back",
   "backToPath": "Back to the path",
+  "barcodeInvalid": "A barcode is 6 to 14 digits",
+  "barcodeN": "Barcode {code}",
+  "@barcodeN": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "barcodeNumber": "Barcode number",
   "beforeMinutes": "{duration} before",
   "@beforeMinutes": {
     "placeholders": {
@@ -567,10 +597,15 @@
       }
     }
   },
+  "builtinNote": "Values are typical estimates for one portion; home recipes and sizes vary. Change the amount, or save your own version.",
   "byCategory": "By category",
   "byMilestones": "By milestones",
   "byMilestonesHint": "Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.",
   "calendar": "Calendar",
+  "calories": "Calories (kcal)",
+  "caloriesByDay": "Calories by day",
+  "caloriesToday": "Calories",
+  "cameraUnavailable": "The camera isn't available. Type the number below.",
   "canMoveCount": "{n, plural, =1{1 task doesn't fit today and can move without hurting your goals} other{{n} tasks don't fit today and can move without hurting your goals}}",
   "@canMoveCount": {
     "placeholders": {
@@ -581,6 +616,8 @@
   },
   "cancel": "Cancel",
   "cantGoToGym": "Can't go to the gym",
+  "carbs": "Carbs",
+  "carbsG": "Carbs (g)",
   "catHealth": "Health",
   "catLearning": "Learning",
   "catMoney": "Money",
@@ -725,6 +762,14 @@
       }
     }
   },
+  "daysLoggedN": "{n, plural, =0{No days logged} =1{1 day logged} other{{n} days logged}}",
+  "@daysLoggedN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "daysN": "{n, plural, =1{1 day} other{{n} days}}",
   "@daysN": {
     "placeholders": {
@@ -760,6 +805,8 @@
   "deleteEventTitle": "Delete event?",
   "deleteExpenseBody": "This expense will be deleted.",
   "deleteExpenseTitle": "Delete expense?",
+  "deleteFood": "Delete this food?",
+  "deleteFoodBody": "Meals already logged with it stay as they are.",
   "deleteForever": "Delete permanently",
   "deleteGoalBody": "The goal and its milestones will be deleted. Linked tasks are kept and unlinked.",
   "deleteGoalTitle": "Delete goal?",
@@ -789,6 +836,7 @@
   "devNotifOn": "On — reminders arrive even when Hayati is closed (sometimes a few minutes late).",
   "devNotifOnWeb": "On — browsers show reminders only while Hayati is open.",
   "devNotifTitle": "Phone notifications",
+  "didYouEat": "Is it one of these?",
   "diffEasy": "Easy",
   "diffHard": "Hard",
   "diffMedium": "Medium",
@@ -819,6 +867,7 @@
   "dueShort": "due",
   "edit": "Edit",
   "editEvent": "Edit event",
+  "editFood": "Edit food",
   "editGoal": "Goal",
   "editHabit": "Edit habit",
   "editMilestone": "Edit milestone",
@@ -847,6 +896,7 @@
   "enableAssistant": "Assistant",
   "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
   "endTime": "Ends",
+  "energySplit": "Where the energy came from (daily average)",
   "englishIntroBody": "A short placement test finds your level in vocabulary, grammar and reading, then you get a lesson a day and reviews of what you learned.",
   "englishIntroTitle": "English, step by step",
   "englishLessonItem": "English: {title}",
@@ -879,11 +929,20 @@
   "errPickDays": "Pick at least one day",
   "errPositiveAmount": "Enter an amount greater than zero",
   "errPositiveMinutes": "Enter minutes between 1 and 1440",
+  "errRange": "Between 0 and {max}",
+  "@errRange": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "errRateLimited": "Too many attempts. Please wait a little and try again.",
   "errRequired": "This field is required",
   "errSave": "Couldn't save. Check the fields and try again.",
   "errSex": "Choose male or female",
   "errTargetBeforeStart": "Target date must be after the start date",
+  "estimateNote": "An estimate — portions and recipes vary.",
   "estimatedDuration": "Estimated 30 min",
   "estimatedMinutes": "Estimated duration (minutes)",
   "estimatedPill": "Estimated length",
@@ -949,6 +1008,8 @@
   "faq5a": "In local mode, on this device only. You can export it any time from Privacy & data.",
   "faq5aRemote": "In your account on our servers, protected so only you can read it, with a copy on this device for offline use. You can export it any time from Privacy & data.",
   "faq5q": "Where is my data stored?",
+  "fat": "Fat",
+  "fatG": "Fat (g)",
   "featAdvancedReports": "Detailed reports and insights",
   "featAssistantLimited": "Assistant: up to {limit} requests a day",
   "@featAssistantLimited": {
@@ -971,16 +1032,25 @@
       }
     }
   },
+  "fgDairy": "Dairy",
+  "fgDishes": "Dishes",
+  "fgDrinks": "Drinks",
+  "fgExtras": "Extras",
   "fgFatLoss": "Lose fat",
   "fgFatLossHint": "Strength work plus cardio. Food matters most; the app gives no diet advice.",
+  "fgFruit": "Fruit",
   "fgGeneral": "General fitness",
   "fgGeneralHint": "Balanced strength, cardio and movement.",
+  "fgGrains": "Bread and grains",
   "fgMobility": "Mobility and moving better",
   "fgMobilityHint": "Gentle sessions for flexibility, posture and recovery.",
   "fgMuscle": "Build muscle",
   "fgMuscleHint": "Moderate reps and enough weekly volume for each muscle.",
+  "fgProtein": "Meat, fish and eggs",
+  "fgSnacks": "Snacks and sweets",
   "fgStrength": "Get stronger",
   "fgStrengthHint": "Fewer reps, longer rest, steady progress on key lifts.",
+  "fgVegetables": "Vegetables",
   "filterAll": "All",
   "filterArchived": "Archived",
   "filterCompleted": "Completed",
@@ -1003,6 +1073,19 @@
   "focusLower": "Lower body",
   "focusMobility": "Mobility and recovery",
   "focusUpper": "Upper body",
+  "foodAdded": "Added {name}",
+  "@foodAdded": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "foodAndWater": "Food and water",
+  "foodName": "Name",
+  "foodNoneYet": "Nothing logged today",
+  "foodRemoved": "Removed",
+  "foodSaved": "Saved to your foods",
   "forgotLocalMode": "In this version, accounts are stored on this device only, so password reset by email isn't available yet. It will be enabled once the cloud account service is connected.",
   "forgotPassword": "Forgot password?",
   "forgotRemoteBody": "Enter your email and we'll send you a link to set a new password.",
@@ -1010,6 +1093,7 @@
   "freeTime": "Free time",
   "freeTimeNow": "Free time",
   "from": "From",
+  "fromGallery": "From gallery",
   "fsDays": "Days per week",
   "fsEquipment": "Equipment at home",
   "fsEquipmentHint": "Leave empty for body-weight only.",
@@ -1051,6 +1135,15 @@
   "goodAfternoon": "Good afternoon",
   "goodEvening": "Good evening",
   "goodMorning": "Good morning",
+  "gramsN": "{g} g",
+  "@gramsN": {
+    "placeholders": {
+      "g": {
+        "type": "String"
+      }
+    }
+  },
+  "gramsOptional": "Grams (optional)",
   "habitAdherence": "Habit check-ins",
   "habitAdherenceDef": "{done} of {total} due days (non-due days excluded)",
   "@habitAdherenceDef": {
@@ -1110,6 +1203,7 @@
   "homeViewToday": "Today",
   "homeViewWeek": "Week",
   "howDidItFeel": "How did it feel? (optional)",
+  "howMuch": "How much?",
   "howTo": "How to do it",
   "inDuration": "in {duration}",
   "@inDuration": {
@@ -1127,6 +1221,27 @@
   "installHealthConnectBody": "Android keeps steps from your phone and watch in Health Connect. Install or update it, then come back and connect.",
   "interestsHint": "Pick any — you can change this later. Sections you don't pick are hidden, not deleted.",
   "itemGone": "This item no longer exists.",
+  "kcalGoalOn": "Daily calorie target",
+  "kcalGoalSub": "Optional. Set your own number; the app doesn't suggest one.",
+  "kcalN": "{kcal} kcal",
+  "@kcalN": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
+  "kcalOfGoal": "{kcal} / {goal} kcal",
+  "@kcalOfGoal": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
   "keepAnyway": "Keep anyway",
   "keepChats": "Keep chats for",
   "kindAssistant": "Assistant",
@@ -1134,6 +1249,7 @@
   "kindNotifications": "Notifications",
   "kindOther": "Other",
   "language": "Language",
+  "lastSevenDays": "Last 7 days",
   "lastSyncAt": "Last synced {time}",
   "@lastSyncAt": {
     "placeholders": {
@@ -1147,6 +1263,7 @@
   "leaveTestBody": "Your answers so far will be lost.",
   "leaveTestTitle": "Leave the test?",
   "leaveWithoutSaving": "Leave without saving",
+  "less": "Less",
   "lessonAgain": "Not mastered yet (80% needed). We'll repeat this lesson before moving on.",
   "lessonDoneToday": "Today's English lesson is done",
   "lessonMastered": "Lesson mastered. On to the next!",
@@ -1221,6 +1338,25 @@
   "locationOff": "Location services are off on this device.",
   "locationOptional": "Location (optional)",
   "locationPrivacy": "Your location is used on this device to calculate times and saved only as coordinates in your settings.",
+  "lookUp": "Look up",
+  "lookupNetwork": "Couldn't reach the product database. Check the connection and try again.",
+  "macroLine": "{kcal} kcal · P {p} · C {c} · F {f}",
+  "@macroLine": {
+    "placeholders": {
+      "kcal": {
+        "type": "String"
+      },
+      "p": {
+        "type": "String"
+      },
+      "c": {
+        "type": "String"
+      },
+      "f": {
+        "type": "String"
+      }
+    }
+  },
   "manageAssistantAccess": "Manage assistant permissions",
   "manual": "Manually",
   "manualHint": "You set the percentage yourself.",
@@ -1244,6 +1380,11 @@
       }
     }
   },
+  "mealBreakfast": "Breakfast",
+  "mealDinner": "Dinner",
+  "mealLunch": "Lunch",
+  "mealPhoto": "Meal photo",
+  "mealSnack": "Snacks",
   "memberSince": "Member since",
   "menu": "Menu",
   "methodEgyptian": "Egyptian General Authority",
@@ -1273,11 +1414,13 @@
   "modLearning": "Learning",
   "modNotes": "Notes",
   "modTime": "Time management",
+  "modelSaw": "What the phone saw (tap to search):",
   "month": "Month",
   "monthlyBudget": "Monthly budget",
   "more": "More",
   "moreFilters": "More filters",
   "moreOptions": "More options",
+  "mostLogged": "Most logged",
   "moveReminders": "Move reminders",
   "moveRemindersOn": "Remind me to move",
   "moveRemindersSub": "Stops for the day once you reach your goal",
@@ -1302,6 +1445,7 @@
   "muMobility": "Mobility",
   "muShoulders": "Shoulders",
   "multiCurrencyNote": "Each currency is totalled separately — amounts are never combined across currencies.",
+  "myFoods": "My foods",
   "myGoals": "My goals",
   "myLocation": "My location",
   "myNotes": "My notes",
@@ -1327,6 +1471,7 @@
   "navHome": "Home",
   "navNotes": "Notes",
   "navNotifications": "Notifications",
+  "navNutrition": "Food",
   "navPrayer": "Prayer",
   "navProgress": "Progress",
   "navSettings": "Settings",
@@ -1365,6 +1510,8 @@
   "noActiveGoals": "No active goals right now.",
   "noConversations": "No previous chats.",
   "noExpensesPeriod": "No expenses in this period",
+  "noFoodFound": "No match",
+  "noFoodFoundBody": "Add it once as your own food and it's kept for next time.",
   "noGoalsYet": "No goals yet",
   "noHabitsDueToday": "No habits are due today.",
   "noHabitsYet": "No habits yet",
@@ -1398,8 +1545,10 @@
   "noteBody": "Write your note…",
   "noteTitle": "Title",
   "notesOptional": "Notes (optional)",
+  "nothingLogged": "Nothing yet",
   "nothingScheduled": "Nothing scheduled",
   "nothingScheduledNow": "Nothing scheduled today",
+  "nothingThisWeek": "Nothing logged this week",
   "nothingToPlan": "No open tasks to plan for this day.",
   "notifAccountability": "\"{task}\" is late",
   "@notifAccountability": {
@@ -1473,6 +1622,7 @@
       }
     }
   },
+  "nutritionNote": "Numbers are estimates to help you notice patterns, not medical or diet advice.",
   "obStep1": "Language and region",
   "obStep2": "What would you like to organize?",
   "obStep3": "A first goal (optional)",
@@ -1497,9 +1647,11 @@
       }
     }
   },
+  "offNote": "Product data comes from Open Food Facts, a free open database. Only the barcode is sent. Check the label before saving.",
   "ok": "OK",
   "onboardingNoAuto": "Nothing is created or scheduled automatically. You'll choose what to add next.",
   "openSettings": "Open settings",
+  "orTypeBarcode": "Or type the barcode number",
   "organizeGroup": "Organize",
   "overBudget": "Over budget",
   "overCapacity": "Your tasks need more time than you have. Some can't fit today — move them or shorten them.",
@@ -1512,6 +1664,15 @@
   "pastDay": "This day has passed.",
   "pathStarted": "Your path starts at A1.",
   "pauseGoal": "Pause",
+  "perOnePortion": "For one portion",
+  "perPortion": "Per portion: {portion}",
+  "@perPortion": {
+    "placeholders": {
+      "portion": {
+        "type": "String"
+      }
+    }
+  },
   "perWeek": "{n} a week",
   "@perWeek": {
     "placeholders": {
@@ -1539,6 +1700,13 @@
   "permDraftPlansSub": "Prepare plans for you to review. Drafts are never applied without approval.",
   "permLogHabits": "Log habit completion",
   "permLogHabitsSub": "When you say you did a habit today.",
+  "photoFailed": "Couldn't read the photo. Try another one, or search instead.",
+  "photoIntro": "Take a photo of your meal and the phone suggests what it is. You choose the food and the amount.",
+  "photoNoMatch": "No close match in the food list. Try a search, or add it as your own food.",
+  "photoPrivacy": "The photo is read on your phone only. It isn't uploaded or kept.",
+  "photoStep1": "Take a photo of the plate",
+  "photoStep2": "Pick the matching food from the suggestions",
+  "photoStep3": "Choose the amount — that's it",
   "pickCity": "Choose a city",
   "pin": "Pin",
   "placeGym": "Gym",
@@ -1600,6 +1768,17 @@
   "planner": "Planner",
   "planningHint": "This helps the planner place tasks in time you actually have.",
   "planningPrefs": "Planning",
+  "pointAtBarcode": "Point the camera at the barcode",
+  "portionHint": "e.g. piece, cup, 330 ml can",
+  "portionName": "Portion",
+  "portionsN": "{n} × portion",
+  "@portionsN": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
   "prayerAsr": "Asr",
   "prayerBlock": "Keep time free for prayer",
   "prayerBlockHint": "The planner won't put tasks in this time.",
@@ -1655,6 +1834,8 @@
   "privacyText": "Hayati — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it's stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.",
   "privacyTitle": "Privacy & data",
   "problemDescription": "What went wrong?",
+  "productFound": "Found in Open Food Facts. Check the numbers against the label before saving.",
+  "productNotFound": "Not in the database yet — enter it once from the label and it's kept.",
   "profileTitle": "Profile & account",
   "progress": "Progress",
   "progressManual": "Manual progress",
@@ -1665,6 +1846,8 @@
   "proposalNotFound": "This suggestion no longer exists.",
   "proposalRejected": "Rejected",
   "proposalStale": "Your data changed since this was suggested. Ask again for a fresh suggestion.",
+  "protein": "Protein",
+  "proteinG": "Protein (g)",
   "questionOf": "{current} of {total}",
   "@questionOf": {
     "placeholders": {
@@ -1682,6 +1865,7 @@
   "reasonDeadline": "Would finish after its deadline time",
   "reasonNoSlot": "No free slot is long enough",
   "reasonNoTime": "Not enough free time left today",
+  "recentFoods": "Recent",
   "recentWorkouts": "Recent workouts",
   "recoveryWarning": "Two demanding sessions fall on back-to-back days. Consider a rest day between them.",
   "regional": "Region & time",
@@ -1689,6 +1873,7 @@
   "reminder": "Reminder",
   "reminderNeedsTime": "Set a deadline or a planned time for the reminder.",
   "reminderTimeOptional": "Reminder time (optional)",
+  "removeCup": "Remove a glass",
   "removeFromPlan": "Remove from today's plan",
   "removeItem": "Remove this change",
   "removedFromPlan": "Removed from this plan",
@@ -1755,13 +1940,18 @@
   "sampleGoal3": "Exercise regularly",
   "sampleGoal4": "Read 12 books this year",
   "save": "Save",
+  "saveAndAdd": "Save and add",
   "saveEvent": "Save event",
   "saveGoal": "Save goal",
+  "saveOnly": "Save only",
   "savePlan": "Save plan",
   "saveTask": "Save task",
   "saveWorkout": "Save workout",
   "saved": "Saved",
   "saving": "Saving…",
+  "scanBarcode": "Barcode",
+  "scanOnPhone": "Camera scanning is in the phone app",
+  "scanOnPhoneBody": "Here you can type the number printed under the barcode.",
   "scheduleGroup": "When",
   "scoreOutOf": "You scored {score}% (needed {pass}%).",
   "@scoreOutOf": {
@@ -1776,6 +1966,8 @@
   },
   "search": "Search",
   "searchCity": "Search for a city",
+  "searchFoods": "Search foods",
+  "searchInstead": "Search the list instead",
   "secondsLabel": "Seconds",
   "secondsShort": "{n} s",
   "@secondsShort": {
@@ -1949,6 +2141,7 @@
     }
   },
   "takeLevelCheck": "Take the level check",
+  "takePhoto": "Take photo",
   "takePlacement": "Take the placement test",
   "targetDate": "Target date",
   "targetOn": "Target {date}",
@@ -1992,6 +2185,14 @@
   "thisMonth": "This month",
   "thisWeek": "This week",
   "time": "Time",
+  "timesN": "{n, plural, =1{once} other{{n} times}}",
+  "@timesN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "timezone": "Time zone",
   "timezoneDetected": "Detected from your device. Times are shown in your device's time zone.",
   "timezoneDeviceNote": "follows your device",
@@ -2087,6 +2288,34 @@
       }
     }
   },
+  "waterAverage": "Water: {ml} ml a day on average",
+  "@waterAverage": {
+    "placeholders": {
+      "ml": {
+        "type": "String"
+      }
+    }
+  },
+  "waterGoal": "Daily water goal",
+  "waterMl": "{ml} ml",
+  "@waterMl": {
+    "placeholders": {
+      "ml": {
+        "type": "String"
+      }
+    }
+  },
+  "waterOfGoal": "Water {ml} / {goal} ml",
+  "@waterOfGoal": {
+    "placeholders": {
+      "ml": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
   "wdFri": "Fri",
   "wdMon": "Mon",
   "wdSat": "Sat",
@@ -2106,6 +2335,8 @@
     }
   },
   "weekLoad": "Planned load",
+  "weekReport": "Weekly report",
+  "weekReportNote": "Averages count only days you logged something.",
   "weekStart": "Week starts on",
   "weekTasks": "{n, plural, =0{No tasks due} =1{1 task due} other{{n} tasks due}}",
   "@weekTasks": {

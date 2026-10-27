@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../core/utils/dates.dart';
 import '../../data/auth.dart';
 import '../../data/data_controller.dart';
 import '../../data/remote/sync.dart';
@@ -16,6 +17,14 @@ import '../../features/accountability/accountability_screen.dart';
 import '../../features/accountability/rule_editor_screen.dart';
 import '../../features/activity/activity_screen.dart';
 import '../../features/activity/health_setup_screen.dart';
+import '../../data/models/nutrition.dart';
+import '../../features/nutrition/add_food_screen.dart';
+import '../../features/nutrition/custom_food_screen.dart';
+import '../../features/nutrition/nutrition_screen.dart';
+import '../../features/nutrition/nutrition_week_screen.dart';
+import '../../features/nutrition/photo_screen.dart';
+import '../../features/nutrition/scan_screen.dart';
+import '../../services/barcode_lookup.dart';
 import '../../features/english/english_screen.dart';
 import '../../features/english/english_test_screen.dart';
 import '../../features/english/lesson_screen.dart';
@@ -149,6 +158,18 @@ final routerProvider = Provider<GoRouter>((ref) {
       page(Routes.englishReview, (_) => const EnglishReviewScreen()),
       page(Routes.activity, (_) => const ActivityScreen()),
       page(Routes.healthSetup, (_) => const HealthSetupScreen()),
+      page(Routes.nutrition, (_) => const NutritionScreen()),
+      page(Routes.nutritionWeek, (_) => const NutritionWeekScreen()),
+      page('/nutrition/add', (s) => AddFoodScreen(day: _day(s), meal: _meal(s), query: s.uri.queryParameters['q'] ?? '')),
+      page('/nutrition/photo', (s) => PhotoScreen(day: _day(s), meal: _meal(s))),
+      page('/nutrition/scan', (s) => ScanScreen(day: _day(s), meal: _meal(s))),
+      page('/nutrition/food', (s) => CustomFoodScreen(
+            foodId: s.uri.queryParameters['id'],
+            barcode: s.uri.queryParameters['barcode'],
+            product: s.extra is ProductInfo ? s.extra! as ProductInfo : null,
+            day: _day(s),
+            meal: _meal(s),
+          )),
       page(Routes.accountability, (_) => const AccountabilityScreen()),
       page('/accountability/rule', (s) => RuleEditorScreen(ruleId: s.uri.queryParameters['id'], taskId: s.uri.queryParameters['task'])),
       page('/accountability/event/:id', (s) => AccountabilityEventScreen(eventId: s.pathParameters['id']!)),
@@ -166,3 +187,13 @@ final routerProvider = Provider<GoRouter>((ref) {
     ],
   );
 });
+
+/// The day a food screen adds to (today unless given; never in the future).
+String _day(GoRouterState s) {
+  final today = dayKey(DateTime.now());
+  final d = s.uri.queryParameters['day'];
+  return d != null && RegExp(r'^\d{4}-\d{2}-\d{2}$').hasMatch(d) && d.compareTo(today) <= 0 ? d : today;
+}
+
+MealType _meal(GoRouterState s) =>
+    MealType.values.where((m) => m.name == s.uri.queryParameters['meal']).firstOrNull ?? MealType.snack;

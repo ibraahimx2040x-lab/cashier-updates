@@ -23,6 +23,7 @@ import '../../domain/fitness/today.dart';
 import '../../domain/learning/curriculum.dart';
 import '../../domain/learning/path.dart';
 import '../../domain/metrics.dart';
+import '../../domain/nutrition/summary.dart';
 import '../../domain/planner.dart';
 import '../../domain/prayer_times.dart';
 import '../../l10n/app_localizations.dart';
@@ -256,6 +257,7 @@ class _TodayView extends ConsumerWidget {
         ),
       _PrayerStrip(d: d, now: now, fmt: fmt),
       if (d.settings.health.has(HealthModule.activity)) _StepsStrip(day: activityDay(d, dayKey(now)), goal: d.settings.health.stepGoal, fmt: fmt),
+      if (d.settings.health.has(HealthModule.nutrition)) _FoodStrip(day: nutritionDay(d, dayKey(now)), fmt: fmt),
       if (d.learningPath != null)
         _EnglishStrip(lesson: nextLesson(d), done: lessonDoneToday(d, now), due: dueReviews(d, now).length),
       if (todaysWorkout(d, now) case (final plan, final day))
@@ -495,6 +497,33 @@ class _StepsStrip extends StatelessWidget {
           ]),
         ),
         const SizedBox(width: Space.xs),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
+/// Today's food and water.
+class _FoodStrip extends StatelessWidget {
+  const _FoodStrip({required this.day, required this.fmt});
+  final NutritionDay day;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    return AppCard(
+      onTap: () => context.push(Routes.nutrition),
+      child: Row(children: [
+        const IconBadge(Icons.restaurant_outlined, circle: true),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(day.hasFood ? l.kcalN(fmt.number(day.total.kcal.round())) : l.foodNoneYet, style: t.titleSmall),
+            Text(l.waterMl(fmt.number(day.waterMl)), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          ]),
+        ),
         const Icon(Icons.chevron_right),
       ]),
     );
@@ -867,6 +896,7 @@ class _MoreMenu extends ConsumerWidget {
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         _item(Routes.english, Icons.translate, l.navEnglish),
         if (settings.health.has(HealthModule.activity)) _item(Routes.activity, Icons.directions_walk, l.navActivity),
+        if (settings.health.has(HealthModule.nutrition)) _item(Routes.nutrition, Icons.restaurant_outlined, l.navNutrition),
         _item(Routes.accountability, Icons.handshake_outlined, l.navAccountability),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),

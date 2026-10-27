@@ -23,6 +23,7 @@ import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/prayer.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
@@ -334,6 +335,42 @@ void main() {
     await b.settle();
     expect(b.sync.rejected, 0);
     expect(b.data.snapshot.activity.where((x) => x.source == ActivitySource.healthConnect), hasLength(1));
+  }, skip: skip);
+
+  test('food, saved foods and water sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1', sex: Sex.male);
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final today = dayKey(DateTime.now());
+    final laban = a.data.saveCustomFood(CustomFood(
+        id: newId(), name: 'Laban', portion: '200 ml', grams: 200, per: const Nutrients(kcal: 92, protein: 6.2, carbs: 9.4, fat: 3), barcode: '6281007012345', createdAt: DateTime.now()));
+    a.data.logFood(day: today, meal: MealType.lunch, name: 'Chicken mandi', per: const Nutrients(kcal: 620, protein: 35, carbs: 68, fat: 22), portions: 1.5, foodRef: 'chicken_mandi');
+    a.data.logFood(day: today, meal: MealType.snack, name: laban.name, per: laban.per, foodRef: laban.id);
+    a.data.addWater(today, 750);
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    expect(d.customFoods.single.per.carbs, 9.4);
+    expect(d.foodLogs.firstWhere((f) => f.name == 'Chicken mandi').total.kcal, 930);
+    expect(d.foodLogs.firstWhere((f) => f.name == 'Chicken mandi').portions, 1.5);
+    expect(d.waterOn(today), 750);
+    // The second device adds water to the same day row.
+    b.data.addWater(today, 250);
+    await b.settle();
+    expect(b.sync.rejected, 0);
+    expect(b.data.snapshot.water, hasLength(1));
   }, skip: skip);
 
   test('another account sees nothing', () async {

@@ -55,7 +55,7 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
       if (s.sex != Sex.male) HealthModule.womens,
       if (s.sex != Sex.female) HealthModule.mens,
     ];
-    const ready = {HealthModule.activity};
+    const ready = {HealthModule.activity, HealthModule.nutrition};
     final heightVal = int.tryParse(_height.text);
     final heightError = _height.text.isNotEmpty && (heightVal == null || heightVal < 80 || heightVal > 250);
 
@@ -85,6 +85,39 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
           ),
           const SizedBox(height: Space.xs),
           Text(l.healthSectionsNote, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          if (h.has(HealthModule.nutrition)) ...[
+            const SizedBox(height: Space.xl),
+            SectionHeader(l.foodAndWater),
+            AppCard(
+              child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+                SwitchListTile(
+                  contentPadding: EdgeInsets.zero,
+                  title: Text(l.kcalGoalOn),
+                  subtitle: Text(l.kcalGoalSub),
+                  value: h.kcalGoal != null,
+                  onChanged: (v) => _up((x) => x.copyWith(kcalGoal: () => v ? 2000 : null)),
+                ),
+                if (h.kcalGoal != null) ...[
+                  Text(l.kcalN(fmt.number(h.kcalGoal!)), style: t.titleMedium),
+                  Slider(
+                    min: 1200,
+                    max: 4000,
+                    divisions: 28,
+                    value: h.kcalGoal!.clamp(1200, 4000).toDouble(),
+                    label: fmt.number(h.kcalGoal!),
+                    onChanged: (v) => _up((x) => x.copyWith(kcalGoal: () => v.round())),
+                  ),
+                ],
+                const SizedBox(height: Space.s),
+                Text(l.waterGoal, style: t.titleSmall),
+                const SizedBox(height: Space.s),
+                Wrap(spacing: Space.s, children: [
+                  for (final ml in const [1500, 2000, 2500, 3000])
+                    ChoiceChip(label: Text(l.waterMl(fmt.number(ml))), selected: h.waterGoalMl == ml, onSelected: (_) => _up((x) => x.copyWith(waterGoalMl: ml))),
+                ]),
+              ]),
+            ),
+          ],
           const SizedBox(height: Space.xl),
           SectionHeader(l.stepGoal),
           AppCard(

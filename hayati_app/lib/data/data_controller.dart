@@ -13,6 +13,7 @@ import 'models/goal.dart';
 import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
+import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
@@ -357,6 +358,69 @@ class DataController extends Notifier<AppData> {
     }
     if (next.heightCm != null && (next.heightCm! < 80 || next.heightCm! > 250)) throw ArgumentError('height');
     updateSettings((s) => s.copyWith(health: next));
+  }
+
+  // --------------------------------------------------------------- nutrition
+
+  /// Logs [portions] of something with [per] nutrients per portion. The
+  /// name and numbers are copied, so later edits to a saved food don't
+  /// change what was logged.
+  FoodLog logFood({
+    required String day,
+    required MealType meal,
+    required String name,
+    required Nutrients per,
+    double portions = 1,
+    String? foodRef,
+  }) {
+    if (dateOnly(parseDayKey(day)).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    if (name.trim().isEmpty || name.trim().length > 120) throw ArgumentError('name');
+    if (portions <= 0 || portions > FoodLog.maxPortions) throw ArgumentError('portions');
+    final total = per.times(portions);
+    if (!per.valid || !total.valid) throw ArgumentError('nutrients');
+    final log = FoodLog(
+      id: newId(),
+      day: day,
+      meal: meal,
+      name: name.trim(),
+      foodRef: foodRef,
+      portions: portions,
+      total: total,
+      loggedAt: _now,
+    );
+    _set(state.copyWith(foodLogs: [...state.foodLogs, log]));
+    return log;
+  }
+
+  void deleteFoodLog(String id) =>
+      _set(state.copyWith(foodLogs: state.foodLogs.where((f) => f.id != id).toList()));
+
+  /// Saves a food of the user's own. A barcode is kept once per account:
+  /// saving the same barcode again updates that food.
+  CustomFood saveCustomFood(CustomFood f) {
+    if (f.name.trim().isEmpty || f.name.trim().length > 120 || f.portion.length > 60) throw ArgumentError('name');
+    if (!f.per.valid) throw ArgumentError('nutrients');
+    if (f.grams != null && (f.grams! <= 0 || f.grams! > 5000)) throw ArgumentError('grams');
+    if (f.barcode != null && !CustomFood.barcodePattern.hasMatch(f.barcode!)) throw ArgumentError('barcode');
+    final same = f.barcode == null ? null : state.customFoods.where((x) => x.barcode == f.barcode && x.id != f.id).firstOrNull;
+    final saved = same == null
+        ? f
+        : CustomFood(id: same.id, name: f.name, portion: f.portion, grams: f.grams, per: f.per, barcode: f.barcode, createdAt: same.createdAt);
+    _set(state.copyWith(customFoods: _upsert(state.customFoods, saved, (x) => x.id)));
+    return saved;
+  }
+
+  /// Deletes a saved food; meals already logged with it stay.
+  void deleteCustomFood(String id) =>
+      _set(state.copyWith(customFoods: state.customFoods.where((f) => f.id != id).toList()));
+
+  /// Adds (or with a negative [deltaMl], removes) water for [day].
+  void addWater(String day, int deltaMl) {
+    if (dateOnly(parseDayKey(day)).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    final ml = (state.waterOn(day) + deltaMl).clamp(0, WaterDay.maxMl);
+    final id = state.water.where((w) => w.day == day).firstOrNull?.id ??
+        const Uuid().v5(Namespace.url.value, 'hayati:water:$_userId:$day');
+    _set(state.copyWith(water: _upsert(state.water, WaterDay(id: id, day: day, ml: ml), (w) => w.id)));
   }
 
   // ----------------------------------------------------------------- fitness

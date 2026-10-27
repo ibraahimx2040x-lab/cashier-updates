@@ -27,6 +27,18 @@ abstract final class Routes {
   static const accountability = '/accountability';
   static const activity = '/activity';
   static const healthSetup = '/health';
+  static const nutrition = '/nutrition';
+  static const nutritionWeek = '/nutrition/week';
+  static String _q(Map<String, String?> m) {
+    final e = {for (final x in m.entries) if (x.value != null) x.key: x.value!};
+    return e.isEmpty ? '' : '?${Uri(queryParameters: e).query}';
+  }
+
+  static String nutritionAdd({String? day, String? meal, String? q}) => '/nutrition/add${_q({'day': day, 'meal': meal, 'q': q})}';
+  static String nutritionPhoto({String? day, String? meal}) => '/nutrition/photo${_q({'day': day, 'meal': meal})}';
+  static String nutritionScan({String? day, String? meal}) => '/nutrition/scan${_q({'day': day, 'meal': meal})}';
+  static String customFood({String? id, String? barcode, String? day, String? meal}) =>
+      '/nutrition/food${_q({'id': id, 'barcode': barcode, 'day': day, 'meal': meal})}';
   static const englishReview = '/english/review';
   static const placement = '/english/test?kind=placement';
   static const levelCheck = '/english/test?kind=level';
