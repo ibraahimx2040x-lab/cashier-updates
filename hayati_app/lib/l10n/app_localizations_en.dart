@@ -743,6 +743,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Each permission is separate and can be withdrawn at any time.';
 
   @override
+  String get automatic => 'Automatic';
+
+  @override
   String avgKcalPerDay(String kcal) {
     return '$kcal kcal a day on average';
   }
@@ -802,6 +805,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bodyweight => 'Body weight';
+
+  @override
+  String bpmN(int n) {
+    return '$n bpm';
+  }
 
   @override
   String get breakEnd => 'Until';
@@ -1029,6 +1037,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get connect => 'Connect';
+
+  @override
+  String get connectInDevices => 'Connect in Devices and sources';
 
   @override
   String connectStepsBody(String store) {
@@ -1293,6 +1304,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get devNotifTitle => 'Phone notifications';
 
   @override
+  String get devicesPrivacy =>
+      'Hayati only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.';
+
+  @override
+  String devicesStoreBody(String store) {
+    return 'This phone reads from $store, which gathers what your watch, scale and apps record. Choose what to bring in.';
+  }
+
+  @override
+  String get devicesSub =>
+      'Watch, sleep, heart rate and where each number comes from';
+
+  @override
+  String get devicesTitle => 'Devices and sources';
+
+  @override
+  String get devicesWebBody =>
+      'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.';
+
+  @override
   String get didYouEat => 'Is it one of these?';
 
   @override
@@ -1316,6 +1347,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get disconnect => 'Disconnect';
+
+  @override
+  String get disconnectBody =>
+      'This phone stops reading. What it already brought in stays; you can remove it under the source.';
+
+  @override
+  String get disconnectThisPhone => 'Stop reading on this phone';
+
+  @override
+  String disconnectTitle(String store) {
+    return 'Stop reading from $store?';
+  }
 
   @override
   String get dismiss => 'Dismiss';
@@ -1899,6 +1942,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fromGallery => 'From gallery';
 
   @override
+  String get fromYourDevices => 'From your watch and apps';
+
+  @override
   String get fsDays => 'Days per week';
 
   @override
@@ -2049,6 +2095,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get haveAccount => 'I have an account';
 
   @override
+  String get healthPermissionDenied =>
+      'Permission wasn\'t given. You can allow it from the health app\'s settings.';
+
+  @override
   String get healthSections => 'Health sections';
 
   @override
@@ -2057,6 +2107,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get healthSetup => 'Health setup';
+
+  @override
+  String heartDaysN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'heart rate on $n days',
+      one: 'heart rate on 1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get heartNote =>
+      'Your watch\'s reading, for your own record. It isn\'t a medical test.';
 
   @override
   String get heightCm => 'Height (cm)';
@@ -2085,6 +2150,31 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get historyHint =>
       'Tap a past day to correct it. Days the habit isn\'t due are neutral.';
+
+  @override
+  String get hkHeartRate => 'Resting heart rate';
+
+  @override
+  String get hkHeartRateSub => 'One value a day, as your watch measures it';
+
+  @override
+  String get hkSleep => 'Sleep';
+
+  @override
+  String get hkSleepSub => 'When you slept and for how long';
+
+  @override
+  String get hkSteps => 'Steps';
+
+  @override
+  String get hkStepsSub => 'Daily total, from the phone and any watch';
+
+  @override
+  String get hkWorkouts => 'Workouts';
+
+  @override
+  String get hkWorkoutsSub =>
+      'Runs, walks, swims and other sessions your watch recorded';
 
   @override
   String get hmActivity => 'Steps and activity';
@@ -2221,6 +2311,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get lastWeek => 'Last week';
 
   @override
+  String latestOn(String date) {
+    return 'Latest: $date';
+  }
+
+  @override
   String get leave => 'Leave';
 
   @override
@@ -2345,6 +2440,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get manageAssistantAccess => 'Manage assistant permissions';
+
+  @override
+  String get manageDevices => 'Devices and sources';
 
   @override
   String get manual => 'Manually';
@@ -2607,6 +2705,10 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get neverAddedUp =>
+      'When two sources have the same day, one is shown, never both added up — a phone and a watch often count the same walk.';
+
+  @override
   String get newChat => 'New chat';
 
   @override
@@ -2677,6 +2779,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noHabitsYet => 'No habits yet';
 
   @override
+  String get noHeartYet => 'No resting heart rate yet';
+
+  @override
   String noHomeAlternative(String name) {
     return '$name: no home alternative, skipped today';
   }
@@ -2714,6 +2819,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSetsTitle => 'No sets ticked';
+
+  @override
+  String get noSleepYet => 'No sleep recorded';
+
+  @override
+  String get noSourcesYet =>
+      'Nothing yet. Connect from the Hayati phone app, or add steps by hand.';
 
   @override
   String get noTasksToday => 'No tasks for today.';
@@ -2876,6 +2988,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get onboardingNoAuto =>
       'Nothing is created or scheduled automatically. You\'ll choose what to add next.';
+
+  @override
+  String get oneSourceEach =>
+      'Each type has one source so far, so there\'s nothing to choose.';
 
   @override
   String get openSettings => 'Open settings';
@@ -3330,6 +3446,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get quickAdd => 'Quick add';
 
   @override
+  String readOnlyNote(String store) {
+    return 'Each switch asks $store for permission the first time. Turning one off stops reading; what came in stays.';
+  }
+
+  @override
   String get readThis => 'Read:';
 
   @override
@@ -3378,6 +3499,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get removeItem => 'Remove this change';
+
+  @override
+  String get removeSourceData => 'Remove this source\'s data';
+
+  @override
+  String removeSourceDataBody(String source) {
+    return 'Steps, sleep, heart rate and workouts that came from $source are removed from Hayati on all your devices. Nothing changes in $source itself.';
+  }
+
+  @override
+  String removeSourceDataTitle(String source) {
+    return 'Remove data from $source?';
+  }
 
   @override
   String get removedFromPlan => 'Removed from this plan';
@@ -3442,6 +3576,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String restSeconds(int n) {
     return 'rest $n s';
   }
+
+  @override
+  String get restingHeartRate => 'Resting heart rate';
 
   @override
   String get restore => 'Restore';
@@ -3709,6 +3846,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skipRest => 'Skip';
 
   @override
+  String sleepNightsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n nights',
+      one: '1 night',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String sleepWindow(String from, String to) {
+    return '$from – $to';
+  }
+
+  @override
+  String sourceDataRemoved(String source) {
+    return 'Removed data from $source';
+  }
+
+  @override
   String get sourceHealthConnect => 'Health Connect';
 
   @override
@@ -3719,6 +3877,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourcePhone => 'Phone sensor';
+
+  @override
+  String get sourcesWithData => 'Sources with your data';
 
   @override
   String get spending => 'Spending';
@@ -3764,6 +3925,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get statusTodo => 'To do';
+
+  @override
+  String stepDaysN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days of steps',
+      one: '1 day of steps',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get stepGoal => 'Daily step goal';
@@ -3953,6 +4125,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get thisMonth => 'This month';
 
   @override
+  String get thisPhone => 'This phone';
+
+  @override
   String get thisWeek => 'This week';
 
   @override
@@ -4039,6 +4214,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tryAgain => 'Study it again';
+
+  @override
+  String turnOnSection(String section) {
+    return 'Turn on $section in health settings first';
+  }
 
   @override
   String typeToConfirm(String word) {
@@ -4204,6 +4384,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weekAhead => 'Your next 7 days';
 
   @override
+  String weekAverage(String value) {
+    return 'Week average: $value';
+  }
+
+  @override
   String get weekBusy => 'Busy day';
 
   @override
@@ -4269,6 +4454,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTitle => 'Organize your life, step by step';
 
   @override
+  String get whatThisPhoneReads => 'What this phone reads';
+
+  @override
   String get whatWeStore => 'What Hayati stores';
 
   @override
@@ -4280,7 +4468,58 @@ class AppLocalizationsEn extends AppLocalizations {
       'Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.';
 
   @override
+  String get whichSourceCounts => 'Which source counts';
+
+  @override
   String get whyOptional => 'Why it matters (optional)';
+
+  @override
+  String get woBasketball => 'Basketball';
+
+  @override
+  String get woCycling => 'Cycling';
+
+  @override
+  String get woElliptical => 'Elliptical';
+
+  @override
+  String get woFootball => 'Football';
+
+  @override
+  String get woHiit => 'Interval training';
+
+  @override
+  String get woHiking => 'Hiking';
+
+  @override
+  String get woOther => 'Workout';
+
+  @override
+  String get woPilates => 'Pilates';
+
+  @override
+  String get woRowing => 'Rowing';
+
+  @override
+  String get woRunning => 'Running';
+
+  @override
+  String get woStairs => 'Stairs';
+
+  @override
+  String get woStrength => 'Strength training';
+
+  @override
+  String get woSwimming => 'Swimming';
+
+  @override
+  String get woTennis => 'Tennis';
+
+  @override
+  String get woWalking => 'Walking';
+
+  @override
+  String get woYoga => 'Yoga';
 
   @override
   String get wordsAddedToReview =>
@@ -4313,6 +4552,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutSavedPartial => 'Saved what you did. Every bit counts.';
+
+  @override
+  String workoutsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n workouts',
+      one: '1 workout',
+    );
+    return '$_temp0';
+  }
 
   @override
   String get yesterday => 'Yesterday';

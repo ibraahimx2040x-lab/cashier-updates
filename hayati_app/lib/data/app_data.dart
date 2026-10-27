@@ -33,6 +33,9 @@ class AppData {
     this.foodLogs = const [],
     this.customFoods = const [],
     this.water = const [],
+    this.sleep = const [],
+    this.bodyMetrics = const [],
+    this.deviceWorkouts = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -71,6 +74,12 @@ class AppData {
   final List<FoodLog> foodLogs;
   final List<CustomFood> customFoods;
   final List<WaterDay> water;
+
+  /// Imported from the health store (phase 10), one record per session,
+  /// measurement or workout.
+  final List<SleepSession> sleep;
+  final List<BodyMetric> bodyMetrics;
+  final List<DeviceWorkout> deviceWorkouts;
 
   CustomFood? customFood(String? id) => _find(customFoods, id, (e) => e.id);
   int waterOn(String day) => water.where((w) => w.day == day).firstOrNull?.ml ?? 0;
@@ -157,6 +166,9 @@ class AppData {
     List<FoodLog>? foodLogs,
     List<CustomFood>? customFoods,
     List<WaterDay>? water,
+    List<SleepSession>? sleep,
+    List<BodyMetric>? bodyMetrics,
+    List<DeviceWorkout>? deviceWorkouts,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -190,6 +202,9 @@ class AppData {
         foodLogs: foodLogs ?? this.foodLogs,
         customFoods: customFoods ?? this.customFoods,
         water: water ?? this.water,
+        sleep: sleep ?? this.sleep,
+        bodyMetrics: bodyMetrics ?? this.bodyMetrics,
+        deviceWorkouts: deviceWorkouts ?? this.deviceWorkouts,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -225,6 +240,9 @@ class AppData {
         'foodLogs': foodLogs.map((e) => e.toJson()).toList(),
         'customFoods': customFoods.map((e) => e.toJson()).toList(),
         'water': water.map((e) => e.toJson()).toList(),
+        'sleep': sleep.map((e) => e.toJson()).toList(),
+        'bodyMetrics': bodyMetrics.map((e) => e.toJson()).toList(),
+        'deviceWorkouts': deviceWorkouts.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -264,6 +282,9 @@ class AppData {
       foodLogs: list('foodLogs', FoodLog.fromJson),
       customFoods: list('customFoods', CustomFood.fromJson),
       water: list('water', WaterDay.fromJson),
+      sleep: list('sleep', SleepSession.fromJson),
+      bodyMetrics: list('bodyMetrics', BodyMetric.fromJson),
+      deviceWorkouts: list('deviceWorkouts', DeviceWorkout.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

@@ -29,6 +29,7 @@ import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/domain/activity.dart';
+import 'package:hayati/domain/sleep.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/assistant/executor.dart';
@@ -336,6 +337,50 @@ void main() {
     await b.settle();
     expect(b.sync.rejected, 0);
     expect(b.data.snapshot.activity.where((x) => x.source == ActivitySource.healthConnect), hasLength(1));
+  }, skip: skip);
+
+  test('sleep, resting heart rate and watch workouts sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1', sex: Sex.male);
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final night = DateTime.now().subtract(const Duration(days: 1));
+    final from = DateTime(night.year, night.month, night.day).subtract(const Duration(days: 6));
+    final bed = DateTime(night.year, night.month, night.day, 1);
+    a.data.importSleep(ActivitySource.healthKit, [(bed, bed.add(const Duration(hours: 3))), (bed.add(const Duration(hours: 3, minutes: 10)), bed.add(const Duration(hours: 7)))], from: from);
+    a.data.importRestingHeart(ActivitySource.healthKit, [(bed.add(const Duration(hours: 7)), 57), (bed.add(const Duration(hours: 9)), 59)]);
+    a.data.importWorkouts(ActivitySource.healthKit, [
+      DeviceWorkout(id: 'hk-1', source: ActivitySource.healthKit, activity: 'RUNNING', start: bed.add(const Duration(hours: 10)),
+          end: bed.add(const Duration(hours: 10, minutes: 40)), kcal: 380, distanceM: 6100, updatedAt: DateTime.now()),
+    ], from: from);
+    a.data.updateHealth((h) => h.copyWith(sleepSource: () => ActivitySource.healthKit));
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    final sleep = sleepDay(d, dayKey(bed));
+    expect((sleep.minutes, sleep.source, d.settings.health.sleepSource), (420, ActivitySource.healthKit, ActivitySource.healthKit));
+    expect((d.bodyMetrics.single.kind, d.bodyMetrics.single.value), (MetricKind.restingHr, 58.0));
+    expect((d.deviceWorkouts.single.activity, d.deviceWorkouts.single.kcal, d.deviceWorkouts.single.minutes), ('RUNNING', 380, 40));
+    // Re-reading the same store on the second device keeps the same rows.
+    b.data.importSleep(ActivitySource.healthKit, [(bed, bed.add(const Duration(hours: 7)))], from: from);
+    b.data.deleteSourceData(ActivitySource.healthKit);
+    await b.settle();
+    expect(b.sync.rejected, 0);
+    await a.c.read(syncProvider.notifier).sync();
+    await a.settle();
+    expect(a.data.snapshot.sleep.length + a.data.snapshot.bodyMetrics.length + a.data.snapshot.deviceWorkouts.length, 0,
+        reason: 'removing a source on one device removes it everywhere');
   }, skip: skip);
 
   test('food, saved foods and water sync to another device', () async {

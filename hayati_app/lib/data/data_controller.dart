@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../core/utils/dates.dart';
+import '../domain/sleep.dart';
 import 'app_data.dart';
 import 'auth.dart';
 import 'models/accountability.dart';
@@ -350,6 +351,94 @@ class DataController extends Notifier<AppData> {
 
   void deleteActivity(String id) =>
       _set(state.copyWith(activity: state.activity.where((a) => a.id != id).toList()));
+
+  /// Replaces what [source] holds for the window starting at [from] with
+  /// what the health store returned: sessions it no longer has (deleted
+  /// there) go, the rest keep their ids. Segments are merged first.
+  void importSleep(ActivitySource source, List<(DateTime, DateTime)> segments, {required DateTime from}) {
+    final now = _now;
+    final merged = mergeSleepSegments([
+      for (final s in segments)
+        if (!s.$2.isAfter(now.add(const Duration(minutes: 10)))) s,
+    ]);
+    final kept = state.sleep.where((s) => s.source != source || s.end.isBefore(from)).toList();
+    final old = {for (final s in state.sleep.where((s) => s.source == source)) s.id: s};
+    final fresh = <SleepSession>[];
+    for (final (start, end) in merged) {
+      if (end.isBefore(from)) continue;
+      final id = const Uuid().v5(Namespace.url.value, 'hayati:sleep:$_userId:${source.name}:${start.toUtc().toIso8601String()}');
+      final prev = old[id];
+      fresh.add(prev != null && prev.end == end
+          ? prev
+          : SleepSession(id: id, source: source, start: start, end: end, quality: prev?.quality, updatedAt: now));
+    }
+    final next = [...kept, ...fresh];
+    if (_sameIds(next, state.sleep, (s) => '${s.id}${s.end}')) return;
+    _set(state.copyWith(sleep: next));
+  }
+
+  /// One resting heart rate per day and [source]: the day's average.
+  void importRestingHeart(ActivitySource source, List<(DateTime, double)> samples) {
+    final byDay = <String, List<(DateTime, double)>>{};
+    for (final x in samples) {
+      final (lo, hi) = BodyMetric.range(MetricKind.restingHr);
+      if (x.$2 < lo || x.$2 > hi || x.$1.isAfter(_now.add(const Duration(minutes: 10)))) continue;
+      (byDay[dayKey(x.$1)] ??= []).add(x);
+    }
+    var list = state.bodyMetrics;
+    for (final e in byDay.entries) {
+      final avg = (e.value.fold(0.0, (a, x) => a + x.$2) / e.value.length).roundToDouble();
+      final at = e.value.map((x) => x.$1).reduce((a, b) => a.isAfter(b) ? a : b);
+      final id = const Uuid().v5(Namespace.url.value, 'hayati:metric:$_userId:restingHr:${source.name}:${e.key}');
+      final prev = list.where((m) => m.id == id).firstOrNull;
+      if (prev != null && prev.value == avg && prev.measuredAt == at) continue;
+      list = _upsert(list, BodyMetric(id: id, kind: MetricKind.restingHr, value: avg, source: source, measuredAt: at), (m) => m.id);
+    }
+    if (!identical(list, state.bodyMetrics)) _set(state.copyWith(bodyMetrics: list));
+  }
+
+  /// Workouts [source] has from [from] on; ones it no longer has go.
+  void importWorkouts(ActivitySource source, List<DeviceWorkout> workouts, {required DateTime from}) {
+    final kept = state.deviceWorkouts.where((w) => w.source != source || w.start.isBefore(from)).toList();
+    final fresh = [
+      for (final w in workouts)
+        if (!w.start.isBefore(from) && w.end.isAfter(w.start) && w.end.difference(w.start) <= const Duration(hours: 24) && !w.start.isAfter(_now))
+          DeviceWorkout(
+            id: const Uuid().v5(Namespace.url.value, 'hayati:workout:$_userId:${source.name}:${w.id}'),
+            source: source,
+            activity: w.activity,
+            start: w.start,
+            end: w.end,
+            kcal: w.kcal == null || w.kcal! <= 0 ? null : w.kcal!.clamp(0, 10000),
+            distanceM: w.distanceM == null || w.distanceM! <= 0 ? null : w.distanceM!.clamp(0, 1000000),
+            steps: w.steps == null || w.steps! <= 0 ? null : w.steps!.clamp(0, 200000),
+            updatedAt: _now,
+          ),
+    ];
+    // Keep the stored copy when nothing changed, so a re-read doesn't resync.
+    final old = {for (final w in state.deviceWorkouts) w.id: w};
+    final merged = [
+      for (final w in fresh)
+        if (old[w.id] case final o? when o.end == w.end && o.kcal == w.kcal && o.distanceM == w.distanceM && o.steps == w.steps && o.activity == w.activity) o else w,
+    ];
+    final next = [...kept, ...merged];
+    if (_sameIds(next, state.deviceWorkouts, (w) => '${w.id}${w.updatedAt}')) return;
+    _set(state.copyWith(deviceWorkouts: next));
+  }
+
+  /// Removes everything that came from [source] (screen 40, "remove data").
+  void deleteSourceData(ActivitySource source) => _set(state.copyWith(
+        activity: state.activity.where((a) => a.source != source).toList(),
+        sleep: state.sleep.where((s) => s.source != source).toList(),
+        bodyMetrics: state.bodyMetrics.where((m) => m.source != source).toList(),
+        deviceWorkouts: state.deviceWorkouts.where((w) => w.source != source).toList(),
+      ));
+
+  static bool _sameIds<T>(List<T> a, List<T> b, String Function(T) key) {
+    if (a.length != b.length) return false;
+    final ka = a.map(key).toSet();
+    return b.every((x) => ka.contains(key(x)));
+  }
 
   void updateHealth(HealthSettings Function(HealthSettings) f) {
     final next = f(state.settings.health);

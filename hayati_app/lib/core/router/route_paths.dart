@@ -27,6 +27,7 @@ abstract final class Routes {
   static const accountability = '/accountability';
   static const activity = '/activity';
   static const healthSetup = '/health';
+  static const devices = '/health/devices';
   static const nutrition = '/nutrition';
   static const nutritionWeek = '/nutrition/week';
   static String _q(Map<String, String?> m) {

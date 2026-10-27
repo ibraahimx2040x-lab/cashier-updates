@@ -546,6 +546,7 @@
   "auto": "Automatic",
   "autoActions": "May do without asking",
   "autoActionsSub": "Each permission is separate and can be withdrawn at any time.",
+  "automatic": "Automatic",
   "avgKcalPerDay": "{kcal} kcal a day on average",
   "@avgKcalPerDay": {
     "placeholders": {
@@ -584,6 +585,14 @@
   "bestLabel": "Best",
   "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
   "bodyweight": "Body weight",
+  "bpmN": "{n} bpm",
+  "@bpmN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "breakEnd": "Until",
   "breakStart": "Break from",
   "budget": "Budget",
@@ -715,6 +724,7 @@
     }
   },
   "connect": "Connect",
+  "connectInDevices": "Connect in Devices and sources",
   "connectStepsBody": "Hayati reads your daily step total from {store}. It only reads steps and never writes anything.",
   "@connectStepsBody": {
     "placeholders": {
@@ -842,6 +852,18 @@
   "devNotifOn": "On — reminders arrive even when Hayati is closed (sometimes a few minutes late).",
   "devNotifOnWeb": "On — browsers show reminders only while Hayati is open.",
   "devNotifTitle": "Phone notifications",
+  "devicesPrivacy": "Hayati only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.",
+  "devicesStoreBody": "This phone reads from {store}, which gathers what your watch, scale and apps record. Choose what to bring in.",
+  "@devicesStoreBody": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
+  "devicesSub": "Watch, sleep, heart rate and where each number comes from",
+  "devicesTitle": "Devices and sources",
+  "devicesWebBody": "Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.",
   "didYouEat": "Is it one of these?",
   "diffEasy": "Easy",
   "diffHard": "Hard",
@@ -850,6 +872,16 @@
   "discardMessage": "You have unsaved changes. Leave without saving?",
   "discardTitle": "Discard changes?",
   "disconnect": "Disconnect",
+  "disconnectBody": "This phone stops reading. What it already brought in stays; you can remove it under the source.",
+  "disconnectThisPhone": "Stop reading on this phone",
+  "disconnectTitle": "Stop reading from {store}?",
+  "@disconnectTitle": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
   "dismiss": "Dismiss",
   "displayName": "Display name",
   "displayNameOptional": "Your name (optional)",
@@ -1100,6 +1132,7 @@
   "freeTimeNow": "Free time",
   "from": "From",
   "fromGallery": "From gallery",
+  "fromYourDevices": "From your watch and apps",
   "fsDays": "Days per week",
   "fsEquipment": "Equipment at home",
   "fsEquipmentHint": "Leave empty for body-weight only.",
@@ -1184,9 +1217,19 @@
   "hasBreak": "Add a daily break",
   "hasWorkHours": "I have fixed work or study hours",
   "haveAccount": "I have an account",
+  "healthPermissionDenied": "Permission wasn't given. You can allow it from the health app's settings.",
   "healthSections": "Health sections",
   "healthSectionsNote": "Sections marked “coming soon” are saved now and appear when they're ready.",
   "healthSetup": "Health setup",
+  "heartDaysN": "{n, plural, =1{heart rate on 1 day} other{heart rate on {n} days}}",
+  "@heartDaysN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "heartNote": "Your watch's reading, for your own record. It isn't a medical test.",
   "heightCm": "Height (cm)",
   "heightForDistance": "Height",
   "heightHelp": "Optional — makes the distance estimate closer",
@@ -1196,6 +1239,14 @@
   "highlights": "Highlights",
   "history": "History",
   "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
+  "hkHeartRate": "Resting heart rate",
+  "hkHeartRateSub": "One value a day, as your watch measures it",
+  "hkSleep": "Sleep",
+  "hkSleepSub": "When you slept and for how long",
+  "hkSteps": "Steps",
+  "hkStepsSub": "Daily total, from the phone and any watch",
+  "hkWorkouts": "Workouts",
+  "hkWorkoutsSub": "Runs, walks, swims and other sessions your watch recorded",
   "hmActivity": "Steps and activity",
   "hmMens": "Men's health",
   "hmNutrition": "Food and calories",
@@ -1277,6 +1328,14 @@
     }
   },
   "lastWeek": "Last week",
+  "latestOn": "Latest: {date}",
+  "@latestOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "leave": "Leave",
   "leaveTestBody": "Your answers so far will be lost.",
   "leaveTestTitle": "Leave the test?",
@@ -1376,6 +1435,7 @@
     }
   },
   "manageAssistantAccess": "Manage assistant permissions",
+  "manageDevices": "Devices and sources",
   "manual": "Manually",
   "manualHint": "You set the percentage yourself.",
   "manualStepsNote": "If the phone app is connected, its number is used for that day.",
@@ -1506,6 +1566,7 @@
       }
     }
   },
+  "neverAddedUp": "When two sources have the same day, one is shown, never both added up — a phone and a watch often count the same walk.",
   "newChat": "New chat",
   "newEvent": "New event",
   "newGoal": "New goal",
@@ -1535,6 +1596,7 @@
   "noGoalsYet": "No goals yet",
   "noHabitsDueToday": "No habits are due today.",
   "noHabitsYet": "No habits yet",
+  "noHeartYet": "No resting heart rate yet",
   "noHomeAlternative": "{name}: no home alternative, skipped today",
   "@noHomeAlternative": {
     "placeholders": {
@@ -1554,6 +1616,8 @@
   "noSearchResults": "No results",
   "noSetsBody": "Nothing will be saved. Leave the workout?",
   "noSetsTitle": "No sets ticked",
+  "noSleepYet": "No sleep recorded",
+  "noSourcesYet": "Nothing yet. Connect from the Hayati phone app, or add steps by hand.",
   "noTasksToday": "No tasks for today.",
   "noUnread": "You're all caught up",
   "noUpcoming": "No upcoming events.",
@@ -1672,6 +1736,7 @@
   "offNote": "Product data comes from Open Food Facts, a free open database. Only the barcode is sent. Check the label before saving.",
   "ok": "OK",
   "onboardingNoAuto": "Nothing is created or scheduled automatically. You'll choose what to add next.",
+  "oneSourceEach": "Each type has one source so far, so there's nothing to choose.",
   "openSettings": "Open settings",
   "orTypeBarcode": "Or type the barcode number",
   "organizeGroup": "Organize",
@@ -1893,6 +1958,14 @@
     }
   },
   "quickAdd": "Quick add",
+  "readOnlyNote": "Each switch asks {store} for permission the first time. Turning one off stops reading; what came in stays.",
+  "@readOnlyNote": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
   "readThis": "Read:",
   "reason": "Why",
   "reasonDeadline": "Would finish after its deadline time",
@@ -1909,6 +1982,23 @@
   "removeCup": "Remove a glass",
   "removeFromPlan": "Remove from today's plan",
   "removeItem": "Remove this change",
+  "removeSourceData": "Remove this source's data",
+  "removeSourceDataBody": "Steps, sleep, heart rate and workouts that came from {source} are removed from Hayati on all your devices. Nothing changes in {source} itself.",
+  "@removeSourceDataBody": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
+  "removeSourceDataTitle": "Remove data from {source}?",
+  "@removeSourceDataTitle": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
   "removedFromPlan": "Removed from this plan",
   "reorder": "Reorder",
   "reorderHint": "Drag to change the order; times are recalculated.",
@@ -1948,6 +2038,7 @@
       }
     }
   },
+  "restingHeartRate": "Resting heart rate",
   "restore": "Restore",
   "restorePurchases": "Restore purchases",
   "resumeGoal": "Make active",
@@ -2090,10 +2181,38 @@
   "skillsMeasuredNote": "The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren't assessed yet.",
   "skip": "Skip",
   "skipRest": "Skip",
+  "sleepNightsN": "{n, plural, =1{1 night} other{{n} nights}}",
+  "@sleepNightsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "sleepWindow": "{from} – {to}",
+  "@sleepWindow": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
+  "sourceDataRemoved": "Removed data from {source}",
+  "@sourceDataRemoved": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
   "sourceHealthConnect": "Health Connect",
   "sourceHealthKit": "Apple Health",
   "sourceManual": "Added by hand",
   "sourcePhone": "Phone sensor",
+  "sourcesWithData": "Sources with your data",
   "spending": "Spending",
   "splashFailed": "We couldn't start Hayati.",
   "startDate": "Start date",
@@ -2109,6 +2228,14 @@
   "statusInProgress": "In progress",
   "statusLabel": "Status",
   "statusTodo": "To do",
+  "stepDaysN": "{n, plural, =1{1 day of steps} other{{n} days of steps}}",
+  "@stepDaysN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "stepGoal": "Daily step goal",
   "stepOf": "Step {step} of {total}",
   "@stepOf": {
@@ -2234,6 +2361,7 @@
   "thinking": "Thinking…",
   "thisDevice": "This device",
   "thisMonth": "This month",
+  "thisPhone": "This phone",
   "thisWeek": "This week",
   "time": "Time",
   "timesN": "{n, plural, =1{once} other{{n} times}}",
@@ -2280,6 +2408,14 @@
   "topPriorities": "Top priorities",
   "totalSpent": "Total spent",
   "tryAgain": "Study it again",
+  "turnOnSection": "Turn on {section} in health settings first",
+  "@turnOnSection": {
+    "placeholders": {
+      "section": {
+        "type": "String"
+      }
+    }
+  },
   "typeToConfirm": "Type “{word}” to confirm",
   "@typeToConfirm": {
     "placeholders": {
@@ -2387,6 +2523,14 @@
   "wdWed": "Wed",
   "week": "Week",
   "weekAhead": "Your next 7 days",
+  "weekAverage": "Week average: {value}",
+  "@weekAverage": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "weekBusy": "Busy day",
   "weekEvents": "{n, plural, =0{No events} =1{1 event} other{{n} events}}",
   "@weekEvents": {
@@ -2435,10 +2579,28 @@
   "weightKg": "kg",
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
   "welcomeTitle": "Organize your life, step by step",
+  "whatThisPhoneReads": "What this phone reads",
   "whatWeStore": "What Hayati stores",
   "whatWeStoreBody": "Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.",
   "whatWeStoreBodyRemote": "Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.",
+  "whichSourceCounts": "Which source counts",
   "whyOptional": "Why it matters (optional)",
+  "woBasketball": "Basketball",
+  "woCycling": "Cycling",
+  "woElliptical": "Elliptical",
+  "woFootball": "Football",
+  "woHiit": "Interval training",
+  "woHiking": "Hiking",
+  "woOther": "Workout",
+  "woPilates": "Pilates",
+  "woRowing": "Rowing",
+  "woRunning": "Running",
+  "woStairs": "Stairs",
+  "woStrength": "Strength training",
+  "woSwimming": "Swimming",
+  "woTennis": "Tennis",
+  "woWalking": "Walking",
+  "woYoga": "Yoga",
   "wordsAddedToReview": "This lesson's words are added to your reviews, starting tomorrow.",
   "workBlock": "Work / study",
   "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",
@@ -2449,6 +2611,14 @@
   "workoutNoteHint": "e.g. knee felt tight on lunges",
   "workoutSaved": "Workout saved. Well done!",
   "workoutSavedPartial": "Saved what you did. Every bit counts.",
+  "workoutsN": "{n, plural, =1{1 workout} other{{n} workouts}}",
+  "@workoutsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "yesterday": "Yesterday",
   "yourData": "Your data",
   "yourSkills": "Your skills (placement test)"

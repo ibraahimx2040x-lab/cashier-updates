@@ -3,9 +3,17 @@
          so no exact-alarm permission is needed. -->
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <!-- Steps: read daily totals from Health Connect only (no writing). -->
+    <!-- Health Connect, read only (no writing): steps, sleep, resting heart
+         rate and workouts. Workouts also read distance and calories, which
+         the plugin adds to each one. Each is asked only when the user turns
+         it on in the app. -->
     <uses-permission android:name="android.permission.ACTIVITY_RECOGNITION"/>
     <uses-permission android:name="android.permission.health.READ_STEPS"/>
+    <uses-permission android:name="android.permission.health.READ_SLEEP"/>
+    <uses-permission android:name="android.permission.health.READ_RESTING_HEART_RATE"/>
+    <uses-permission android:name="android.permission.health.READ_EXERCISE"/>
+    <uses-permission android:name="android.permission.health.READ_DISTANCE"/>
+    <uses-permission android:name="android.permission.health.READ_TOTAL_CALORIES_BURNED"/>
     <application
         android:label="حياتي"
         android:name="${applicationName}"

@@ -144,6 +144,41 @@ extension Labels on AppLocalizations {
         HealthModule.mens => hmMens,
       };
 
+  String healthKind(HealthKind k) => switch (k) {
+        HealthKind.steps => hkSteps,
+        HealthKind.sleep => hkSleep,
+        HealthKind.heartRate => hkHeartRate,
+        HealthKind.workouts => hkWorkouts,
+      };
+
+  /// What reading [k] brings in, for the permission switches.
+  String healthKindSub(HealthKind k) => switch (k) {
+        HealthKind.steps => hkStepsSub,
+        HealthKind.sleep => hkSleepSub,
+        HealthKind.heartRate => hkHeartRateSub,
+        HealthKind.workouts => hkWorkoutsSub,
+      };
+
+  /// A health store workout code (e.g. RUNNING_TREADMILL) as a word.
+  String workoutActivity(String code) => switch (code) {
+        'RUNNING' || 'RUNNING_TREADMILL' => woRunning,
+        'WALKING' || 'WALKING_TREADMILL' => woWalking,
+        'BIKING' || 'BIKING_STATIONARY' => woCycling,
+        'SWIMMING' || 'SWIMMING_POOL' || 'SWIMMING_OPEN_WATER' => woSwimming,
+        'STRENGTH_TRAINING' || 'TRADITIONAL_STRENGTH_TRAINING' || 'FUNCTIONAL_STRENGTH_TRAINING' || 'WEIGHTLIFTING' || 'CALISTHENICS' || 'CORE_TRAINING' => woStrength,
+        'YOGA' => woYoga,
+        'PILATES' => woPilates,
+        'HIKING' => woHiking,
+        'HIGH_INTENSITY_INTERVAL_TRAINING' => woHiit,
+        'ELLIPTICAL' => woElliptical,
+        'ROWING' || 'ROWING_MACHINE' => woRowing,
+        'STAIR_CLIMBING' || 'STAIR_CLIMBING_MACHINE' => woStairs,
+        'SOCCER' => woFootball,
+        'BASKETBALL' => woBasketball,
+        'TENNIS' => woTennis,
+        _ => woOther,
+      };
+
   String mealType(MealType m) => switch (m) {
         MealType.breakfast => mealBreakfast,
         MealType.lunch => mealLunch,

@@ -1244,6 +1244,12 @@ abstract class AppLocalizations {
   /// **'Each permission is separate and can be withdrawn at any time.'**
   String get autoActionsSub;
 
+  /// No description provided for @automatic.
+  ///
+  /// In en, this message translates to:
+  /// **'Automatic'**
+  String get automatic;
+
   /// No description provided for @avgKcalPerDay.
   ///
   /// In en, this message translates to:
@@ -1345,6 +1351,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Body weight'**
   String get bodyweight;
+
+  /// No description provided for @bpmN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} bpm'**
+  String bpmN(int n);
 
   /// No description provided for @breakEnd.
   ///
@@ -1717,6 +1729,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connect'**
   String get connect;
+
+  /// No description provided for @connectInDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect in Devices and sources'**
+  String get connectInDevices;
 
   /// No description provided for @connectStepsBody.
   ///
@@ -2144,6 +2162,36 @@ abstract class AppLocalizations {
   /// **'Phone notifications'**
   String get devNotifTitle;
 
+  /// No description provided for @devicesPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Hayati only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.'**
+  String get devicesPrivacy;
+
+  /// No description provided for @devicesStoreBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone reads from {store}, which gathers what your watch, scale and apps record. Choose what to bring in.'**
+  String devicesStoreBody(String store);
+
+  /// No description provided for @devicesSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch, sleep, heart rate and where each number comes from'**
+  String get devicesSub;
+
+  /// No description provided for @devicesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Devices and sources'**
+  String get devicesTitle;
+
+  /// No description provided for @devicesWebBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.'**
+  String get devicesWebBody;
+
   /// No description provided for @didYouEat.
   ///
   /// In en, this message translates to:
@@ -2191,6 +2239,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Disconnect'**
   String get disconnect;
+
+  /// No description provided for @disconnectBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone stops reading. What it already brought in stays; you can remove it under the source.'**
+  String get disconnectBody;
+
+  /// No description provided for @disconnectThisPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop reading on this phone'**
+  String get disconnectThisPhone;
+
+  /// No description provided for @disconnectTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop reading from {store}?'**
+  String disconnectTitle(String store);
 
   /// No description provided for @dismiss.
   ///
@@ -3230,6 +3296,12 @@ abstract class AppLocalizations {
   /// **'From gallery'**
   String get fromGallery;
 
+  /// No description provided for @fromYourDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'From your watch and apps'**
+  String get fromYourDevices;
+
   /// No description provided for @fsDays.
   ///
   /// In en, this message translates to:
@@ -3488,6 +3560,12 @@ abstract class AppLocalizations {
   /// **'I have an account'**
   String get haveAccount;
 
+  /// No description provided for @healthPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Permission wasn\'t given. You can allow it from the health app\'s settings.'**
+  String get healthPermissionDenied;
+
   /// No description provided for @healthSections.
   ///
   /// In en, this message translates to:
@@ -3505,6 +3583,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health setup'**
   String get healthSetup;
+
+  /// No description provided for @heartDaysN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{heart rate on 1 day} other{heart rate on {n} days}}'**
+  String heartDaysN(int n);
+
+  /// No description provided for @heartNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your watch\'s reading, for your own record. It isn\'t a medical test.'**
+  String get heartNote;
 
   /// No description provided for @heightCm.
   ///
@@ -3559,6 +3649,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tap a past day to correct it. Days the habit isn\'t due are neutral.'**
   String get historyHint;
+
+  /// No description provided for @hkHeartRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Resting heart rate'**
+  String get hkHeartRate;
+
+  /// No description provided for @hkHeartRateSub.
+  ///
+  /// In en, this message translates to:
+  /// **'One value a day, as your watch measures it'**
+  String get hkHeartRateSub;
+
+  /// No description provided for @hkSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get hkSleep;
+
+  /// No description provided for @hkSleepSub.
+  ///
+  /// In en, this message translates to:
+  /// **'When you slept and for how long'**
+  String get hkSleepSub;
+
+  /// No description provided for @hkSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get hkSteps;
+
+  /// No description provided for @hkStepsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily total, from the phone and any watch'**
+  String get hkStepsSub;
+
+  /// No description provided for @hkWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get hkWorkouts;
+
+  /// No description provided for @hkWorkoutsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Runs, walks, swims and other sessions your watch recorded'**
+  String get hkWorkoutsSub;
 
   /// No description provided for @hmActivity.
   ///
@@ -3800,6 +3938,12 @@ abstract class AppLocalizations {
   /// **'Last week'**
   String get lastWeek;
 
+  /// No description provided for @latestOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Latest: {date}'**
+  String latestOn(String date);
+
   /// No description provided for @leave.
   ///
   /// In en, this message translates to:
@@ -4003,6 +4147,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Manage assistant permissions'**
   String get manageAssistantAccess;
+
+  /// No description provided for @manageDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Devices and sources'**
+  String get manageDevices;
 
   /// No description provided for @manual.
   ///
@@ -4496,6 +4646,12 @@ abstract class AppLocalizations {
   /// **'Needs another go · best {n}%'**
   String needsReviewScore(int n);
 
+  /// No description provided for @neverAddedUp.
+  ///
+  /// In en, this message translates to:
+  /// **'When two sources have the same day, one is shown, never both added up — a phone and a watch often count the same walk.'**
+  String get neverAddedUp;
+
   /// No description provided for @newChat.
   ///
   /// In en, this message translates to:
@@ -4628,6 +4784,12 @@ abstract class AppLocalizations {
   /// **'No habits yet'**
   String get noHabitsYet;
 
+  /// No description provided for @noHeartYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No resting heart rate yet'**
+  String get noHeartYet;
+
   /// No description provided for @noHomeAlternative.
   ///
   /// In en, this message translates to:
@@ -4699,6 +4861,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sets ticked'**
   String get noSetsTitle;
+
+  /// No description provided for @noSleepYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No sleep recorded'**
+  String get noSleepYet;
+
+  /// No description provided for @noSourcesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet. Connect from the Hayati phone app, or add steps by hand.'**
+  String get noSourcesYet;
 
   /// No description provided for @noTasksToday.
   ///
@@ -4969,6 +5143,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing is created or scheduled automatically. You\'ll choose what to add next.'**
   String get onboardingNoAuto;
+
+  /// No description provided for @oneSourceEach.
+  ///
+  /// In en, this message translates to:
+  /// **'Each type has one source so far, so there\'s nothing to choose.'**
+  String get oneSourceEach;
 
   /// No description provided for @openSettings.
   ///
@@ -5762,6 +5942,12 @@ abstract class AppLocalizations {
   /// **'Quick add'**
   String get quickAdd;
 
+  /// No description provided for @readOnlyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Each switch asks {store} for permission the first time. Turning one off stops reading; what came in stays.'**
+  String readOnlyNote(String store);
+
   /// No description provided for @readThis.
   ///
   /// In en, this message translates to:
@@ -5857,6 +6043,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remove this change'**
   String get removeItem;
+
+  /// No description provided for @removeSourceData.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this source\'s data'**
+  String get removeSourceData;
+
+  /// No description provided for @removeSourceDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps, sleep, heart rate and workouts that came from {source} are removed from Hayati on all your devices. Nothing changes in {source} itself.'**
+  String removeSourceDataBody(String source);
+
+  /// No description provided for @removeSourceDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove data from {source}?'**
+  String removeSourceDataTitle(String source);
 
   /// No description provided for @removedFromPlan.
   ///
@@ -5965,6 +6169,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'rest {n} s'**
   String restSeconds(int n);
+
+  /// No description provided for @restingHeartRate.
+  ///
+  /// In en, this message translates to:
+  /// **'Resting heart rate'**
+  String get restingHeartRate;
 
   /// No description provided for @restore.
   ///
@@ -6428,6 +6638,24 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get skipRest;
 
+  /// No description provided for @sleepNightsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 night} other{{n} nights}}'**
+  String sleepNightsN(int n);
+
+  /// No description provided for @sleepWindow.
+  ///
+  /// In en, this message translates to:
+  /// **'{from} – {to}'**
+  String sleepWindow(String from, String to);
+
+  /// No description provided for @sourceDataRemoved.
+  ///
+  /// In en, this message translates to:
+  /// **'Removed data from {source}'**
+  String sourceDataRemoved(String source);
+
   /// No description provided for @sourceHealthConnect.
   ///
   /// In en, this message translates to:
@@ -6451,6 +6679,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone sensor'**
   String get sourcePhone;
+
+  /// No description provided for @sourcesWithData.
+  ///
+  /// In en, this message translates to:
+  /// **'Sources with your data'**
+  String get sourcesWithData;
 
   /// No description provided for @spending.
   ///
@@ -6541,6 +6775,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'To do'**
   String get statusTodo;
+
+  /// No description provided for @stepDaysN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 day of steps} other{{n} days of steps}}'**
+  String stepDaysN(int n);
 
   /// No description provided for @stepGoal.
   ///
@@ -6818,6 +7058,12 @@ abstract class AppLocalizations {
   /// **'This month'**
   String get thisMonth;
 
+  /// No description provided for @thisPhone.
+  ///
+  /// In en, this message translates to:
+  /// **'This phone'**
+  String get thisPhone;
+
   /// No description provided for @thisWeek.
   ///
   /// In en, this message translates to:
@@ -6967,6 +7213,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Study it again'**
   String get tryAgain;
+
+  /// No description provided for @turnOnSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn on {section} in health settings first'**
+  String turnOnSection(String section);
 
   /// No description provided for @typeToConfirm.
   ///
@@ -7238,6 +7490,12 @@ abstract class AppLocalizations {
   /// **'Your next 7 days'**
   String get weekAhead;
 
+  /// No description provided for @weekAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Week average: {value}'**
+  String weekAverage(String value);
+
   /// No description provided for @weekBusy.
   ///
   /// In en, this message translates to:
@@ -7322,6 +7580,12 @@ abstract class AppLocalizations {
   /// **'Organize your life, step by step'**
   String get welcomeTitle;
 
+  /// No description provided for @whatThisPhoneReads.
+  ///
+  /// In en, this message translates to:
+  /// **'What this phone reads'**
+  String get whatThisPhoneReads;
+
   /// No description provided for @whatWeStore.
   ///
   /// In en, this message translates to:
@@ -7340,11 +7604,113 @@ abstract class AppLocalizations {
   /// **'Your account (email; the password is handled by our authentication service and never stored by the app), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets are stored in your account on our servers, readable only by you (row-level security), with a copy on this device for offline use. Assistant chats currently stay on this device, per your retention setting.'**
   String get whatWeStoreBodyRemote;
 
+  /// No description provided for @whichSourceCounts.
+  ///
+  /// In en, this message translates to:
+  /// **'Which source counts'**
+  String get whichSourceCounts;
+
   /// No description provided for @whyOptional.
   ///
   /// In en, this message translates to:
   /// **'Why it matters (optional)'**
   String get whyOptional;
+
+  /// No description provided for @woBasketball.
+  ///
+  /// In en, this message translates to:
+  /// **'Basketball'**
+  String get woBasketball;
+
+  /// No description provided for @woCycling.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycling'**
+  String get woCycling;
+
+  /// No description provided for @woElliptical.
+  ///
+  /// In en, this message translates to:
+  /// **'Elliptical'**
+  String get woElliptical;
+
+  /// No description provided for @woFootball.
+  ///
+  /// In en, this message translates to:
+  /// **'Football'**
+  String get woFootball;
+
+  /// No description provided for @woHiit.
+  ///
+  /// In en, this message translates to:
+  /// **'Interval training'**
+  String get woHiit;
+
+  /// No description provided for @woHiking.
+  ///
+  /// In en, this message translates to:
+  /// **'Hiking'**
+  String get woHiking;
+
+  /// No description provided for @woOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout'**
+  String get woOther;
+
+  /// No description provided for @woPilates.
+  ///
+  /// In en, this message translates to:
+  /// **'Pilates'**
+  String get woPilates;
+
+  /// No description provided for @woRowing.
+  ///
+  /// In en, this message translates to:
+  /// **'Rowing'**
+  String get woRowing;
+
+  /// No description provided for @woRunning.
+  ///
+  /// In en, this message translates to:
+  /// **'Running'**
+  String get woRunning;
+
+  /// No description provided for @woStairs.
+  ///
+  /// In en, this message translates to:
+  /// **'Stairs'**
+  String get woStairs;
+
+  /// No description provided for @woStrength.
+  ///
+  /// In en, this message translates to:
+  /// **'Strength training'**
+  String get woStrength;
+
+  /// No description provided for @woSwimming.
+  ///
+  /// In en, this message translates to:
+  /// **'Swimming'**
+  String get woSwimming;
+
+  /// No description provided for @woTennis.
+  ///
+  /// In en, this message translates to:
+  /// **'Tennis'**
+  String get woTennis;
+
+  /// No description provided for @woWalking.
+  ///
+  /// In en, this message translates to:
+  /// **'Walking'**
+  String get woWalking;
+
+  /// No description provided for @woYoga.
+  ///
+  /// In en, this message translates to:
+  /// **'Yoga'**
+  String get woYoga;
 
   /// No description provided for @wordsAddedToReview.
   ///
@@ -7405,6 +7771,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved what you did. Every bit counts.'**
   String get workoutSavedPartial;
+
+  /// No description provided for @workoutsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 workout} other{{n} workouts}}'**
+  String workoutsN(int n);
 
   /// No description provided for @yesterday.
   ///

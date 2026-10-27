@@ -30,9 +30,11 @@ import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
 import 'package:hayati/services/barcode_lookup.dart';
 import 'package:hayati/services/food_recognizer.dart';
-import 'package:hayati/services/step_reader.dart';
+import 'package:hayati/services/health_reader.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import 'helpers.dart' show FakeHealthReader;
 
 /// Records what would be scheduled with the OS.
 class FakeDeviceNotifications implements DeviceNotifications {
@@ -65,7 +67,7 @@ class FakeBarcodeLookup implements BarcodeLookup {
       : const LookupResult.failed(LookupFailure.notFound);
 }
 
-Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size}) async {
+Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size, HealthReader? reader}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
@@ -74,7 +76,7 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
   final container = ProviderContainer(overrides: [
     localStoreProvider.overrideWithValue(LocalStore(prefs)),
     deviceNotificationsProvider.overrideWithValue(FakeDeviceNotifications()),
-    stepReaderProvider.overrideWithValue(const UnsupportedStepReader()),
+    healthReaderProvider.overrideWithValue(reader ?? const UnsupportedHealthReader()),
     foodRecognizerProvider.overrideWithValue(const UnavailableFoodRecognizer()),
     barcodeLookupProvider.overrideWithValue(FakeBarcodeLookup()),
     scanCameraProvider.overrideWithValue(false),
@@ -170,6 +172,17 @@ void seed(ProviderContainer c) {
   d.saveCustomFood(CustomFood(id: 'cf1', name: 'My laban', portion: 'bottle', per: const Nutrients(kcal: 120, protein: 8), barcode: '6281000000001', createdAt: now));
   d.addWater(today, 1250);
   d.setSex(Sex.male);
+  final night = DateTime(now.year, now.month, now.day);
+  d.importSleep(ActivitySource.healthConnect, [
+    for (var i = 0; i < 6; i++) (night.subtract(Duration(days: i, minutes: 60 + i * 20)), night.subtract(Duration(days: i)).add(Duration(hours: 6, minutes: i * 10))),
+  ], from: night.subtract(const Duration(days: 7)));
+  d.importRestingHeart(ActivitySource.healthConnect, [for (var i = 0; i < 5; i++) (night.subtract(Duration(days: i)), 58.0 + i)]);
+  d.importWorkouts(ActivitySource.healthConnect, [
+    DeviceWorkout(id: 'r1', source: ActivitySource.healthConnect, activity: 'RUNNING', start: night.subtract(const Duration(hours: 30)),
+        end: night.subtract(const Duration(hours: 29, minutes: 25)), kcal: 410, distanceM: 6200, updatedAt: now),
+    DeviceWorkout(id: 's1', source: ActivitySource.healthConnect, activity: 'SWIMMING_POOL', start: night.subtract(const Duration(hours: 54)),
+        end: night.subtract(const Duration(hours: 53, minutes: 15)), updatedAt: now),
+  ], from: night.subtract(const Duration(days: 7)));
   d.logWorkout(WorkoutSession(id: 'ws1', day: dayKey(now.subtract(const Duration(days: 3))), place: WorkoutPlace.home, focus: DayFocus.fullBody,
       status: SessionStatus.completed, sets: const [SetLog(exerciseId: 'goblet_squat', setIndex: 0, reps: 10, weightKg: 12), SetLog(exerciseId: 'push_up', setIndex: 0, reps: 8)], createdAt: now));
   d.logWorkout(WorkoutSession(id: 'ws2', day: today, place: WorkoutPlace.home, focus: DayFocus.mobility, status: SessionStatus.completed,
@@ -299,6 +312,7 @@ void main() {
           Routes.program('pelvic_floor_men'),
           Routes.programSession('balance'),
           Routes.fitnessProgress,
+          Routes.devices,
         ];
         for (final r in routes) {
           router.go(r);
@@ -458,6 +472,58 @@ void main() {
     await tester.pumpAndSettle();
     expect(find.text(l.programsForMen, skipOffstage: false), findsOneWidget);
     expect(find.text(l.programsForWomen, skipOffstage: false), findsNothing);
+  });
+
+  testWidgets('devices: turn on sleep, pick the source that counts, remove a source (en)', (tester) async {
+    final today = DateTime.now();
+    final night = DateTime(today.year, today.month, today.day);
+    final reader = FakeHealthReader(
+      days: [StepDay(dayKey(today), 6400)],
+      sleep: [(night.subtract(const Duration(hours: 1)), night.add(const Duration(hours: 6, minutes: 30)))],
+      heart: [(night.add(const Duration(hours: 6)), 61)],
+    );
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844), reader: reader);
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    data.recordActivity(dayKey(today), ActivitySource.manual, steps: 3000);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.devices);
+    await tester.pumpAndSettle();
+    expect(find.text(l.whatThisPhoneReads), findsOneWidget);
+
+    await tapIn(tester, find.text(l.hkSleep));
+    await tester.pumpAndSettle();
+    expect(reader.asked.last, {HealthKind.sleep});
+    expect(c.read(dataProvider).sleep, hasLength(1));
+    await tapIn(tester, find.text(l.hkSteps));
+    await tester.pumpAndSettle();
+    expect(activityDay(c.read(dataProvider), dayKey(today)).steps, 6400, reason: 'Health Connect counts before manual');
+
+    // Two sources for steps: the user picks which one counts.
+    await tapIn(tester, find.widgetWithText(ChoiceChip, l.sourceManual));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).settings.health.preferredSource, ActivitySource.manual);
+    expect(activityDay(c.read(dataProvider), dayKey(today)).steps, 3000);
+
+    // Sleep shows on the activity screen with its source.
+    router.go(Routes.activity);
+    await tester.pumpAndSettle();
+    expect(find.text(l.durationText(450), skipOffstage: false), findsOneWidget);
+
+    // Removing Health Connect's data keeps what was added by hand.
+    router.push(Routes.devices);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text(l.whichSourceCounts), 150, scrollable: find.byType(Scrollable).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip(l.removeSourceData).first);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.delete));
+    await tester.pumpAndSettle();
+    final d = c.read(dataProvider);
+    expect((d.sleep.isEmpty, d.activity.single.source), (true, ActivitySource.manual));
   });
 
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {

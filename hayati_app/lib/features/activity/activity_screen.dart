@@ -11,15 +11,16 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/dates.dart';
 import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
-import '../../data/activity_sync.dart';
+import '../../data/health_sync.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/health.dart';
 import '../../domain/activity.dart';
 import '../../l10n/app_localizations.dart';
-import '../../services/step_reader.dart';
+import '../../services/health_reader.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import 'health_cards.dart';
 
 /// Screens 34–35 — today's steps against the goal, where they came from,
 /// and the last week or month.
@@ -36,7 +37,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
   @override
   void initState() {
     super.initState();
-    Future.microtask(() => ref.read(activitySyncProvider.notifier).sync());
+    Future.microtask(() => ref.read(healthSyncProvider.notifier).sync());
   }
 
   Future<void> _manual(BuildContext context) async {
@@ -52,7 +53,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final d = ref.watch(dataProvider);
-    final sync = ref.watch(activitySyncProvider);
+    final sync = ref.watch(healthSyncProvider);
     final now = ref.watch(clockProvider)();
     final t = Theme.of(context).textTheme;
     final fmt = Fmt.of(context, use24h: d.settings.use24h);
@@ -99,6 +100,24 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
         ]),
       ),
       _SourceCard(sync: sync, today: today, fmt: fmt, onManual: () => _manual(context)),
+      if (h.has(HealthModule.sleep) || h.has(HealthModule.activity))
+        LayoutBuilder(builder: (context, c) {
+          final cards = [
+            if (h.has(HealthModule.sleep)) const SleepCard(),
+            const HeartCard(),
+          ];
+          if (c.maxWidth < 560) {
+            return Column(children: [
+              for (final (i, x) in cards.indexed) Padding(padding: EdgeInsets.only(top: i == 0 ? 0 : Space.l), child: x),
+            ]);
+          }
+          return IntrinsicHeight(
+            child: Row(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
+              for (final (i, x) in cards.indexed) ...[if (i > 0) const SizedBox(width: Space.l), Expanded(child: x)],
+            ]),
+          );
+        }),
+      const DeviceWorkoutsCard(),
       Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(children: [
           Expanded(child: SectionHeader(l.history)),
@@ -135,6 +154,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(l.navActivity), actions: [
+        IconButton(tooltip: l.devicesTitle, icon: const Icon(Icons.watch_outlined), onPressed: () => context.push(Routes.devices)),
         IconButton(tooltip: l.healthSetup, icon: const Icon(Icons.tune), onPressed: () => context.push(Routes.healthSetup)),
       ]),
       floatingActionButton: FloatingActionButton.extended(
@@ -143,7 +163,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
         label: Text(l.addStepsManually),
       ),
       body: RefreshIndicator(
-        onRefresh: () => ref.read(activitySyncProvider.notifier).sync(force: true),
+        onRefresh: () => ref.read(healthSyncProvider.notifier).sync(force: true),
         child: ResponsiveContainer(
           maxWidth: 760,
           child: ListView.separated(
@@ -163,7 +183,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
 /// store.
 class _SourceCard extends ConsumerWidget {
   const _SourceCard({required this.sync, required this.today, required this.fmt, required this.onManual});
-  final ActivitySyncState sync;
+  final HealthSyncState sync;
   final ActivityDay today;
   final Fmt fmt;
   final VoidCallback onManual;
@@ -172,12 +192,12 @@ class _SourceCard extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final l = AppLocalizations.of(context);
     final t = Theme.of(context).textTheme;
-    final reader = ref.watch(stepReaderProvider);
-    final ctl = ref.read(activitySyncProvider.notifier);
+    final reader = ref.watch(healthReaderProvider);
+    final ctl = ref.read(healthSyncProvider.notifier);
     final storeName = reader.source == ActivitySource.healthKit ? l.sourceHealthKit : l.sourceHealthConnect;
 
     Widget body;
-    if (sync.availability == StepAvailability.unsupported || reader.source == null) {
+    if (sync.availability == HealthAvailability.unsupported || reader.source == null) {
       body = Text(l.activityWebNote, style: t.bodyMedium);
     } else if (sync.linked) {
       body = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -199,24 +219,27 @@ class _SourceCard extends ConsumerWidget {
                 : const Icon(Icons.sync),
             label: Text(l.syncNow),
           ),
-          TextButton(onPressed: ctl.disconnect, child: Text(l.disconnect)),
+          TextButton(onPressed: () => context.push(Routes.devices), child: Text(l.manageDevices)),
         ]),
       ]);
     } else {
-      final install = sync.availability == StepAvailability.needsInstall;
+      final install = sync.availability == HealthAvailability.needsInstall;
       body = Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
         Text(install ? l.installHealthConnect : l.connectStepsTitle(storeName), style: t.titleSmall),
         const SizedBox(height: Space.xs),
         Text(install ? l.installHealthConnectBody : l.connectStepsBody(storeName), style: t.bodySmall),
         const SizedBox(height: Space.s),
-        FilledButton.icon(
-          onPressed: () async {
-            final ok = await ctl.connect();
-            if (!ok && !install && context.mounted) showSnack(context, l.stepsPermissionDenied);
-          },
-          icon: Icon(install ? Icons.download : Icons.link),
-          label: Text(install ? l.install : l.connect),
-        ),
+        Wrap(spacing: Space.s, runSpacing: Space.s, children: [
+          FilledButton.icon(
+            onPressed: () async {
+              final ok = await ctl.connect(const {HealthKind.steps});
+              if (!ok && !install && context.mounted) showSnack(context, l.stepsPermissionDenied);
+            },
+            icon: Icon(install ? Icons.download : Icons.link),
+            label: Text(install ? l.install : l.connect),
+          ),
+          TextButton(onPressed: () => context.push(Routes.devices), child: Text(l.manageDevices)),
+        ]),
       ]);
     }
 
