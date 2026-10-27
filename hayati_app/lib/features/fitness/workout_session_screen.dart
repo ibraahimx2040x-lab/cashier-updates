@@ -14,6 +14,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/fitness.dart';
 import '../../domain/fitness/exercises.dart';
 import '../../domain/fitness/plan_generator.dart';
+import '../../domain/fitness/programs.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 
@@ -29,9 +30,12 @@ class _Entry {
 /// Screen 15 — doing a planned workout: tick sets, adjust what you actually
 /// did, rest between sets, then save. Only ticked sets are recorded.
 class WorkoutSessionScreen extends ConsumerStatefulWidget {
-  const WorkoutSessionScreen({super.key, required this.place, required this.weekday, this.atHome = false});
+  const WorkoutSessionScreen({super.key, required this.place, required this.weekday, this.atHome = false, this.programId});
   final WorkoutPlace place;
   final int weekday;
+
+  /// A program (flexibility, pelvic floor…) instead of a plan day.
+  final String? programId;
 
   /// A gym day done at home with substitutes.
   final bool atHome;
@@ -42,6 +46,7 @@ class WorkoutSessionScreen extends ConsumerStatefulWidget {
 
 class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
   WorkoutPlan? _plan;
+  Program? _program;
   WorkoutDay? _day;
   List<Swap> _swaps = const [];
   List<PlannedExercise> _list = const [];
@@ -53,8 +58,15 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
   void initState() {
     super.initState();
     final d = ref.read(dataProvider);
-    _plan = d.activePlan(widget.place);
-    _day = _plan?.dayFor(widget.weekday);
+    final program = programById(widget.programId);
+    if (program != null) {
+      // Women's and men's programs open only for that audience.
+      _program = programVisible(program, d.settings) && clearedFor(program, d.settings.health) ? program : null;
+      _day = _program?.asDay(widget.weekday);
+    } else {
+      _plan = d.activePlan(widget.place);
+      _day = _plan?.dayFor(widget.weekday);
+    }
     final profile = d.settings.fitness;
     if (_day != null && widget.atHome && profile != null) {
       _swaps = homeVersion(_day!, profile);
@@ -128,8 +140,9 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
     ref.read(dataProvider.notifier).logWorkout(WorkoutSession(
           id: newId(),
           planId: _plan?.id,
+          programId: _program?.id,
           day: dayKey(now),
-          place: widget.atHome ? WorkoutPlace.home : widget.place,
+          place: widget.atHome || _program != null ? WorkoutPlace.home : widget.place,
           focus: _day!.focus,
           status: all ? SessionStatus.completed : SessionStatus.partial,
           difficulty: r.$1,
@@ -161,7 +174,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
         if (await confirmDiscard(context) && context.mounted) context.pop();
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(l.todaysWorkout(l.dayFocus(_day!.focus)))),
+        appBar: AppBar(title: Text(_program?.name(lang) ?? l.todaysWorkout(l.dayFocus(_day!.focus)))),
         body: ResponsiveContainer(
           maxWidth: 760,
           child: ListView(

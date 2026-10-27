@@ -34,6 +34,8 @@ import '../../data/models/fitness.dart';
 import '../../features/fitness/exercise_screen.dart';
 import '../../features/fitness/fitness_screen.dart';
 import '../../features/fitness/fitness_setup_screen.dart';
+import '../../features/fitness/program_screen.dart';
+import '../../features/fitness/progress_screen.dart' show ExerciseProgressScreen;
 import '../../features/fitness/workout_session_screen.dart';
 import '../../features/goals/goal_edit_screen.dart';
 import '../../features/goals/goals_screen.dart';
@@ -151,7 +153,10 @@ final routerProvider = Provider<GoRouter>((ref) {
             place: WorkoutPlace.values.where((p) => p.name == s.uri.queryParameters['place']).firstOrNull ?? WorkoutPlace.home,
             weekday: int.tryParse(s.uri.queryParameters['day'] ?? '') ?? DateTime.now().weekday,
             atHome: s.uri.queryParameters['home'] == '1',
+            programId: s.uri.queryParameters['program'],
           )),
+      page('/fitness/program/:id', (s) => ProgramScreen(programId: s.pathParameters['id']!)),
+      page(Routes.fitnessProgress, (_) => const ExerciseProgressScreen()),
       page(Routes.english, (_) => const EnglishScreen()),
       page('/english/test', (s) => EnglishTestScreen(levelCheck: s.uri.queryParameters['kind'] == 'level')),
       page('/english/lesson/:id', (s) => LessonScreen(lessonId: s.pathParameters['id']!)),

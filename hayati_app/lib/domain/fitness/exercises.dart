@@ -1,10 +1,14 @@
 import '../../data/models/fitness.dart';
 
 /// Movement patterns used to build balanced days.
-enum Pattern { squat, hinge, lunge, glute, calf, pushH, pushV, pullH, pullV, biceps, triceps, core, cardio, mobility }
+enum Pattern {
+  squat, hinge, lunge, glute, calf, pushH, pushV, pullH, pullV, biceps, triceps, core, cardio, mobility,
+  // Used only by programs (never requested by the plan generator).
+  balance, pelvicFloor, breathing, gentle,
+}
 
 /// Muscle group shown to the user.
-enum Muscle { chest, back, legs, glutes, shoulders, arms, core, fullBody, cardio, mobility }
+enum Muscle { chest, back, legs, glutes, shoulders, arms, core, fullBody, cardio, mobility, balance, pelvicFloor }
 
 /// A gym-only machine or barbell: never available at home.
 const _gym = {'gym'};
@@ -418,5 +422,121 @@ const exercises = <Exercise>[
     stepsAr: ['اجلس على كعبيك.', 'مِل للأمام ومدّ الذراعين على الأرض.', 'تنفس ببطء.'],
     stepsEn: ['Sit back on your heels.', 'Fold forward, arms stretched on the floor.', 'Breathe slowly.'],
     tipAr: 'باعد الركبتين إن كان ذلك أريح.', tipEn: 'Widen your knees if that\'s more comfortable.',
+  ),
+
+  // ----------------------------------------------------- programs (v3)
+  Exercise(
+    id: 'quad_stretch', ar: 'إطالة أمام الفخذ', en: 'Quad stretch', pattern: Pattern.mobility, muscle: Muscle.mobility, difficulty: 1, timed: true,
+    stepsAr: ['قف بجانب حائط واستند عليه بيد.', 'اثنِ ركبة وأمسك القدم خلفك.', 'اسحبها بلطف نحو المقعدة، اثبت ثم بدّل.'],
+    stepsEn: ['Stand by a wall and hold it with one hand.', 'Bend one knee and hold the foot behind you.', 'Ease it toward your seat, hold, then switch.'],
+    tipAr: 'أبقِ الركبتين متقاربتين والظهر مستقيمًا.', tipEn: 'Keep knees close together and your back straight.',
+  ),
+  Exercise(
+    id: 'figure_four_stretch', ar: 'إطالة الورك (رقم 4)', en: 'Figure-four stretch', pattern: Pattern.mobility, muscle: Muscle.mobility, difficulty: 1, timed: true,
+    stepsAr: ['اجلس على كرسي.', 'ضع كاحلًا فوق الركبة الأخرى.', 'مِل للأمام بظهر مستقيم، اثبت ثم بدّل.'],
+    stepsEn: ['Sit on a chair.', 'Rest one ankle on the other knee.', 'Lean forward with a straight back, hold, then switch.'],
+    tipAr: 'شد لطيف في الورك فقط، دون ألم في الركبة.', tipEn: 'A gentle stretch in the hip only, no knee pain.',
+  ),
+  Exercise(
+    id: 'chest_doorway_stretch', ar: 'إطالة الصدر عند الباب', en: 'Doorway chest stretch', pattern: Pattern.mobility, muscle: Muscle.mobility, difficulty: 1, timed: true,
+    stepsAr: ['قف عند باب وضع ساعديك على جانبيه.', 'تقدّم خطوة صغيرة للأمام.', 'اشعر بالشد في الصدر واثبت.'],
+    stepsEn: ['Stand in a doorway, forearms on the frame.', 'Step one small step forward.', 'Feel the stretch across your chest and hold.'],
+    tipAr: 'أبقِ الكتفين منخفضين بعيدًا عن الأذنين.', tipEn: 'Keep your shoulders down, away from your ears.',
+  ),
+  Exercise(
+    id: 'calf_stretch', ar: 'إطالة السمانة', en: 'Calf stretch', pattern: Pattern.mobility, muscle: Muscle.mobility, difficulty: 1, timed: true,
+    stepsAr: ['ضع يديك على الحائط.', 'رجل للخلف ممدودة والكعب على الأرض.', 'مِل نحو الحائط، اثبت ثم بدّل.'],
+    stepsEn: ['Put your hands on a wall.', 'Step one leg back, straight, heel down.', 'Lean toward the wall, hold, then switch.'],
+    tipAr: 'لا ترفع الكعب الخلفي.', tipEn: 'Keep the back heel on the floor.',
+  ),
+  Exercise(
+    id: 'neck_stretch', ar: 'إطالة الرقبة', en: 'Neck stretch', pattern: Pattern.mobility, muscle: Muscle.mobility, difficulty: 1, timed: true,
+    stepsAr: ['اجلس مستقيمًا.', 'أمِل الأذن نحو الكتف ببطء.', 'اثبت ثم بدّل الجهة.'],
+    stepsEn: ['Sit up tall.', 'Slowly tilt your ear toward your shoulder.', 'Hold, then switch sides.'],
+    tipAr: 'حركة بطيئة ولطيفة، لا تدوّر الرأس بقوة.', tipEn: 'Slow and gentle; don\'t roll your head forcefully.',
+  ),
+  Exercise(
+    id: 'chin_tuck', ar: 'سحب الذقن', en: 'Chin tuck', pattern: Pattern.gentle, muscle: Muscle.mobility, difficulty: 1,
+    stepsAr: ['اجلس أو قف وظهرك مستقيم.', 'اسحب الذقن للخلف كأنك تصنع «ذقنًا مزدوجًا».', 'اثبت ثانيتين ثم ارخِ.'],
+    stepsEn: ['Sit or stand tall.', 'Draw your chin straight back, making a "double chin".', 'Hold two seconds, then relax.'],
+    tipAr: 'لا تُنزل الرأس للأسفل، الحركة للخلف فقط.', tipEn: 'Don\'t nod down; the movement is straight back.',
+  ),
+  Exercise(
+    id: 'prone_y_raise', ar: 'رفع الذراعين على شكل Y', en: 'Prone Y raise', pattern: Pattern.gentle, muscle: Muscle.back, difficulty: 1,
+    stepsAr: ['استلقِ على بطنك والذراعان ممدودتان على شكل Y.', 'ارفع الذراعين قليلًا بضم لوحي الكتف.', 'اثبت ثانية ثم أنزل ببطء.'],
+    stepsEn: ['Lie face down, arms out in a Y.', 'Lift your arms a little by squeezing your shoulder blades.', 'Hold a second, then lower slowly.'],
+    tipAr: 'أبقِ الرقبة طويلة والنظر للأرض.', tipEn: 'Keep your neck long and eyes on the floor.',
+  ),
+  Exercise(
+    id: 'single_leg_stand', ar: 'الوقوف على رجل واحدة', en: 'Single-leg stand', pattern: Pattern.balance, muscle: Muscle.balance, difficulty: 1, timed: true,
+    stepsAr: ['قف بجانب كرسي أو حائط.', 'ارفع قدمًا قليلًا عن الأرض.', 'اثبت ثم بدّل. أمسك الكرسي إن احتجت.'],
+    stepsEn: ['Stand next to a chair or wall.', 'Lift one foot slightly off the floor.', 'Hold, then switch. Touch the chair if you need to.'],
+    tipAr: 'ابقَ قريبًا من شيء تستند عليه.', tipEn: 'Stay close to something you can hold.',
+  ),
+  Exercise(
+    id: 'tandem_stance', ar: 'الوقوف كعب أمام إصبع', en: 'Heel-to-toe stance', pattern: Pattern.balance, muscle: Muscle.balance, difficulty: 1, timed: true,
+    stepsAr: ['ضع كعب قدم أمام أصابع الأخرى مباشرة.', 'انظر للأمام وثبّت جسمك.', 'اثبت ثم بدّل القدم الأمامية.'],
+    stepsEn: ['Put one heel directly in front of the other foot\'s toes.', 'Look ahead and steady yourself.', 'Hold, then switch the front foot.'],
+    tipAr: 'قرب حائط أو كرسي.', tipEn: 'Near a wall or chair.',
+  ),
+  Exercise(
+    id: 'heel_toe_walk', ar: 'المشي كعب لإصبع', en: 'Heel-to-toe walk', pattern: Pattern.balance, muscle: Muscle.balance, difficulty: 1, timed: true,
+    stepsAr: ['امشِ في خط مستقيم.', 'ضع الكعب أمام أصابع القدم الأخرى في كل خطوة.', 'امشِ ببطء والذراعان للجانب.'],
+    stepsEn: ['Walk in a straight line.', 'Each step, put your heel in front of the other foot\'s toes.', 'Go slowly, arms out to the side.'],
+    tipAr: 'في مكان خالٍ من العوائق.', tipEn: 'In a clear space with nothing to trip on.',
+  ),
+  Exercise(
+    id: 'single_leg_rdl_bw', ar: 'انحناء على رجل واحدة', en: 'Single-leg hinge', pattern: Pattern.balance, muscle: Muscle.balance, difficulty: 2,
+    stepsAr: ['قف على رجل واحدة والركبة لينة.', 'مِل بالجذع للأمام ومد الرجل الأخرى للخلف.', 'عد واقفًا ببطء ثم بدّل.'],
+    stepsEn: ['Stand on one leg, knee soft.', 'Tip your body forward as the other leg reaches back.', 'Return slowly, then switch.'],
+    tipAr: 'المس كرسيًا للتوازن في البداية.', tipEn: 'Touch a chair for balance at first.',
+  ),
+  Exercise(
+    id: 'standing_side_leg_raise', ar: 'رفع الرجل جانبًا', en: 'Standing side leg raise', pattern: Pattern.balance, muscle: Muscle.glutes, difficulty: 1,
+    stepsAr: ['قف واستند على كرسي.', 'ارفع رجلًا جانبًا دون ميل الجذع.', 'أنزلها ببطء ثم بدّل بعد العدد.'],
+    stepsEn: ['Stand holding a chair.', 'Lift one leg out to the side without leaning.', 'Lower slowly; switch after the reps.'],
+    tipAr: 'أصابع القدم للأمام.', tipEn: 'Toes point forward.',
+  ),
+  Exercise(
+    id: 'pelvic_floor_hold', ar: 'شد عضلات قاع الحوض', en: 'Pelvic floor hold', pattern: Pattern.pelvicFloor, muscle: Muscle.pelvicFloor, difficulty: 1,
+    stepsAr: ['اجلس أو استلقِ براحة وارخِ البطن والفخذين.', 'شد عضلات قاع الحوض كأنك توقف البول وتحبس الغازات، ثم ارفعها للأعلى.', 'اثبت 5 ثوانٍ وأنت تتنفس، ثم ارخِ 5 ثوانٍ.'],
+    stepsEn: ['Sit or lie comfortably; relax your belly and thighs.', 'Squeeze as if stopping urine and holding in wind, then lift.', 'Hold 5 seconds while breathing, then relax for 5.'],
+    tipAr: 'لا تحبس النفس ولا تتمرن أثناء التبول فعليًا.', tipEn: 'Keep breathing; don\'t practise while actually urinating.',
+  ),
+  Exercise(
+    id: 'pelvic_floor_quick', ar: 'انقباضات سريعة لقاع الحوض', en: 'Quick pelvic floor squeezes', pattern: Pattern.pelvicFloor, muscle: Muscle.pelvicFloor, difficulty: 1,
+    stepsAr: ['ابدأ بعضلات مرتخية.', 'شد قاع الحوض بسرعة ثم ارخِ فورًا.', 'كرر بإيقاع ثابت.'],
+    stepsEn: ['Start relaxed.', 'Squeeze the pelvic floor quickly, then let go at once.', 'Repeat at a steady pace.'],
+    tipAr: 'الاسترخاء الكامل بين كل مرة مهم مثل الشد.', tipEn: 'Letting go fully each time matters as much as the squeeze.',
+  ),
+  Exercise(
+    id: 'diaphragmatic_breathing', ar: 'التنفس البطني', en: 'Belly breathing', pattern: Pattern.breathing, muscle: Muscle.core, difficulty: 1, timed: true,
+    stepsAr: ['اجلس أو استلقِ ويد على البطن.', 'شهيق من الأنف فيرتفع البطن والأضلاع.', 'زفير بطيء من الفم.'],
+    stepsEn: ['Sit or lie with a hand on your belly.', 'Breathe in through your nose; belly and ribs rise.', 'Breathe out slowly through your mouth.'],
+    tipAr: 'بدون شد للكتفين.', tipEn: 'Keep your shoulders relaxed.',
+  ),
+  Exercise(
+    id: 'clamshell', ar: 'تمرين الصدفة على الجنب', en: 'Side-lying clamshell', pattern: Pattern.gentle, muscle: Muscle.glutes, difficulty: 1,
+    stepsAr: ['استلقِ على جنبك والركبتان مثنيتان.', 'افتح الركبة العلوية مع إبقاء القدمين متلاصقتين.', 'أغلقها ببطء ثم بدّل بعد العدد.'],
+    stepsEn: ['Lie on your side, knees bent.', 'Open the top knee, feet together.', 'Close slowly; switch after the reps.'],
+    tipAr: 'لا تدع الورك يتدحرج للخلف. ضع وسادة بين الركبتين أثناء الحمل إن أراحك.', tipEn: 'Don\'t let your hip roll back. In pregnancy, a pillow between the knees can help.',
+  ),
+  Exercise(
+    id: 'sit_to_stand', ar: 'الجلوس والوقوف من الكرسي', en: 'Sit-to-stand', pattern: Pattern.gentle, muscle: Muscle.legs, difficulty: 1,
+    stepsAr: ['اجلس على طرف كرسي ثابت والقدمان على الأرض.', 'مِل للأمام قليلًا وقف دون استخدام اليدين إن أمكن.', 'اجلس ببطء.'],
+    stepsEn: ['Sit at the front of a sturdy chair, feet flat.', 'Lean forward a little and stand, without hands if you can.', 'Sit back down slowly.'],
+    tipAr: 'كرسي ثابت لا ينزلق.', tipEn: 'A chair that won\'t slide.',
+  ),
+  Exercise(
+    id: 'pelvic_tilt_wall', ar: 'إمالة الحوض على الحائط', en: 'Wall pelvic tilt', pattern: Pattern.gentle, muscle: Muscle.core, difficulty: 1,
+    stepsAr: ['قف وظهرك على الحائط والركبتان لينتان.', 'اضغط أسفل الظهر نحو الحائط بشد البطن برفق.', 'ارخِ وكرر مع التنفس.'],
+    stepsEn: ['Stand with your back to a wall, knees soft.', 'Gently press your lower back to the wall by drawing your belly in.', 'Release and repeat with your breath.'],
+    tipAr: 'حركة صغيرة ومريحة.', tipEn: 'A small, comfortable movement.',
+  ),
+  Exercise(
+    id: 'heel_slide', ar: 'سحب الكعب', en: 'Heel slide', pattern: Pattern.gentle, muscle: Muscle.core, difficulty: 1,
+    stepsAr: ['استلقِ على ظهرك والركبتان مثنيتان.', 'زفير مع شد خفيف لأسفل البطن ومد رجل ببطء على الأرض.', 'أعدها وبدّل.'],
+    stepsEn: ['Lie on your back, knees bent.', 'Breathe out, draw your lower belly in gently, and slide one leg out.', 'Bring it back and switch.'],
+    tipAr: 'أبقِ الحوض ثابتًا دون تقوّس أسفل الظهر.', tipEn: 'Keep your pelvis still; don\'t arch your lower back.',
   ),
 ];

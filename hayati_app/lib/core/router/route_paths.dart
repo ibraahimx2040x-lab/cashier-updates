@@ -50,6 +50,9 @@ abstract final class Routes {
   static String review(String id) => '/assistant/review/$id';
   static String timeTab(String tab) => '/time?tab=$tab';
   static String exercise(String id) => '/fitness/exercise/$id';
+  static String program(String id) => '/fitness/program/$id';
+  static String programSession(String id) => '/fitness/session?program=$id';
+  static const fitnessProgress = '/fitness/progress';
   static String lesson(String id) => '/english/lesson/$id';
   static String accountabilityRule({String? ruleId, String? taskId}) =>
       '/accountability/rule${ruleId != null ? '?id=$ruleId' : (taskId != null ? '?task=$taskId' : '')}';

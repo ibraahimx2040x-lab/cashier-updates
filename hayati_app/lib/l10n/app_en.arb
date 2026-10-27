@@ -581,6 +581,7 @@
   "benefit3Body": "Suggests and prepares; sensitive changes always wait for your approval.",
   "benefit3Title": "An assistant you control",
   "bestDay": "Best day",
+  "bestLabel": "Best",
   "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
   "bodyweight": "Body weight",
   "breakEnd": "Until",
@@ -642,6 +643,10 @@
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
+  "clearanceConfirm": "My doctor has said exercise is fine for me",
+  "clearancePostpartum": "After giving birth — and especially after a caesarean or a difficult delivery — start only once your doctor says it's fine. The early-weeks program is gentle; the gradual return is for after your postnatal check.",
+  "clearancePregnancy": "Exercise in pregnancy is usually safe and helpful, but some pregnancies need limits. Please confirm your doctor has said it's fine for you.",
+  "clearanceTitle": "Your doctor's go-ahead first",
   "cloudModeNotice": "Your data is saved to your account and kept on this device for offline use.",
   "comingSoon": "Coming soon",
   "completedAndArchived": "Completed & archived",
@@ -735,6 +740,7 @@
     }
   },
   "contactSupport": "Contact support",
+  "continueLabel": "Continue",
   "couldNotFit": "Couldn't fit",
   "courseComplete": "You've completed the B2 course!",
   "createAccount": "Create account",
@@ -1244,11 +1250,23 @@
   },
   "keepAnyway": "Keep anyway",
   "keepChats": "Keep chats for",
+  "kgTimesReps": "{kg} kg × {reps}",
+  "@kgTimesReps": {
+    "placeholders": {
+      "kg": {
+        "type": "String"
+      },
+      "reps": {
+        "type": "int"
+      }
+    }
+  },
   "kindAssistant": "Assistant",
   "kindBug": "Bug",
   "kindNotifications": "Notifications",
   "kindOther": "Other",
   "language": "Language",
+  "lastLabel": "Last",
   "lastSevenDays": "Last 7 days",
   "lastSyncAt": "Last synced {time}",
   "@lastSyncAt": {
@@ -1436,6 +1454,7 @@
   "movedTomorrow": "Moved to tomorrow",
   "muArms": "Arms",
   "muBack": "Back",
+  "muBalance": "Balance",
   "muCardio": "Cardio",
   "muChest": "Chest",
   "muCore": "Core",
@@ -1443,6 +1462,7 @@
   "muGlutes": "Glutes",
   "muLegs": "Legs",
   "muMobility": "Mobility",
+  "muPelvicFloor": "Pelvic floor",
   "muShoulders": "Shoulders",
   "multiCurrencyNote": "Each currency is totalled separately — amounts are never combined across currencies.",
   "myFoods": "My foods",
@@ -1527,6 +1547,8 @@
   "noMilestones": "No milestones yet.",
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
+  "noProgressYet": "No logged sets yet",
+  "noProgressYetBody": "Finish a workout or a program and your progress shows here.",
   "noReminder": "No reminder",
   "noReviewsDue": "Nothing to review right now.",
   "noSearchResults": "No results",
@@ -1837,10 +1859,21 @@
   "productFound": "Found in Open Food Facts. Check the numbers against the label before saving.",
   "productNotFound": "Not in the database yet — enter it once from the label and it's kept.",
   "profileTitle": "Profile & account",
+  "programDisclaimer": "General guidance, not medical advice. If something doesn't feel right, stop and ask your doctor.",
+  "programExercises": "Exercises",
+  "programStages": "Choose your stage",
+  "programUnavailable": "Not available",
+  "programUnavailableBody": "This program isn't part of your health sections.",
+  "programs": "Programs",
+  "programsForMen": "For men",
+  "programsForWomen": "For women",
   "progress": "Progress",
+  "progressLog": "Progress log",
+  "progressLogSub": "Your best and latest sets for each exercise",
   "progressManual": "Manual progress",
   "progressMethod": "How is progress measured?",
   "progressNotMeasured": "Not measured yet",
+  "progressNote": "From the sets you logged: weight × reps when you entered a weight, otherwise reps or time. Gold marks the best session.",
   "proposalExecuted": "Applied",
   "proposalFailed": "Failed — nothing was changed",
   "proposalNotFound": "This suggestion no longer exists.",
@@ -1886,6 +1919,14 @@
   "reportProblemSub": "Describe what happened",
   "reportSaved": "Report saved. It will be sent when the support service is connected.",
   "repsLabel": "Reps",
+  "repsN": "{n} reps",
+  "@repsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "resetLinkSent": "If an account exists for this email, a reset link is on its way.",
   "restBlock": "Break",
   "restDayBody": "Recovery is part of the plan. A walk or light stretching is plenty.",
@@ -1969,6 +2010,14 @@
   "searchFoods": "Search foods",
   "searchInstead": "Search the list instead",
   "secondsLabel": "Seconds",
+  "secondsN": "{n} s",
+  "@secondsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "secondsShort": "{n} s",
   "@secondsShort": {
     "placeholders": {
@@ -2051,6 +2100,7 @@
   "startFromBeginning": "Start from the beginning",
   "startLesson": "Start lesson",
   "startPath": "Start my path",
+  "startProgram": "Start",
   "startQuiz": "Take the short quiz",
   "startTime": "Starts",
   "startWorkout": "Start workout",
@@ -2097,6 +2147,7 @@
   "stepsPermissionDenied": "Steps access wasn't given. You can allow it from the health app's settings.",
   "stepsToday": "Steps today",
   "stop": "Stop",
+  "stopIf": "Stop and get advice if you have",
   "streakDays": "{n, plural, =0{No streak yet} =1{1-day streak} other{{n}-day streak}}",
   "@streakDays": {
     "placeholders": {
@@ -2288,6 +2339,17 @@
       }
     }
   },
+  "warnBleeding": "Vaginal bleeding",
+  "warnCalf": "Pain or swelling in a calf",
+  "warnChest": "Chest pain or unusual shortness of breath",
+  "warnContractions": "Regular, painful contractions",
+  "warnDizzy": "Dizziness or feeling faint",
+  "warnFluid": "Fluid leaking",
+  "warnHeadache": "A bad headache",
+  "warnHeavyBleeding": "Heavier bleeding than before",
+  "warnLeaking": "Leaking urine during exercise",
+  "warnPain": "Pain (not just effort)",
+  "warnPelvicHeaviness": "Heaviness or bulging in the pelvis",
   "waterAverage": "Water: {ml} ml a day on average",
   "@waterAverage": {
     "placeholders": {

@@ -1328,6 +1328,12 @@ abstract class AppLocalizations {
   /// **'Best day'**
   String get bestDay;
 
+  /// No description provided for @bestLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Best'**
+  String get bestLabel;
+
   /// No description provided for @billingNote.
   ///
   /// In en, this message translates to:
@@ -1550,6 +1556,30 @@ abstract class AppLocalizations {
   /// **'Clear read notifications'**
   String get clearRead;
 
+  /// No description provided for @clearanceConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'My doctor has said exercise is fine for me'**
+  String get clearanceConfirm;
+
+  /// No description provided for @clearancePostpartum.
+  ///
+  /// In en, this message translates to:
+  /// **'After giving birth — and especially after a caesarean or a difficult delivery — start only once your doctor says it\'s fine. The early-weeks program is gentle; the gradual return is for after your postnatal check.'**
+  String get clearancePostpartum;
+
+  /// No description provided for @clearancePregnancy.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise in pregnancy is usually safe and helpful, but some pregnancies need limits. Please confirm your doctor has said it\'s fine for you.'**
+  String get clearancePregnancy;
+
+  /// No description provided for @clearanceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your doctor\'s go-ahead first'**
+  String get clearanceTitle;
+
   /// No description provided for @cloudModeNotice.
   ///
   /// In en, this message translates to:
@@ -1711,6 +1741,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact support'**
   String get contactSupport;
+
+  /// No description provided for @continueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get continueLabel;
 
   /// No description provided for @couldNotFit.
   ///
@@ -3704,6 +3740,12 @@ abstract class AppLocalizations {
   /// **'Keep chats for'**
   String get keepChats;
 
+  /// No description provided for @kgTimesReps.
+  ///
+  /// In en, this message translates to:
+  /// **'{kg} kg × {reps}'**
+  String kgTimesReps(String kg, int reps);
+
   /// No description provided for @kindAssistant.
   ///
   /// In en, this message translates to:
@@ -3733,6 +3775,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @lastLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Last'**
+  String get lastLabel;
 
   /// No description provided for @lastSevenDays.
   ///
@@ -4238,6 +4286,12 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get muBack;
 
+  /// No description provided for @muBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Balance'**
+  String get muBalance;
+
   /// No description provided for @muCardio.
   ///
   /// In en, this message translates to:
@@ -4279,6 +4333,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mobility'**
   String get muMobility;
+
+  /// No description provided for @muPelvicFloor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pelvic floor'**
+  String get muPelvicFloor;
 
   /// No description provided for @muShoulders.
   ///
@@ -4597,6 +4657,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No notifications'**
   String get noNotifications;
+
+  /// No description provided for @noProgressYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No logged sets yet'**
+  String get noProgressYet;
+
+  /// No description provided for @noProgressYetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish a workout or a program and your progress shows here.'**
+  String get noProgressYetBody;
 
   /// No description provided for @noReminder.
   ///
@@ -5546,11 +5618,71 @@ abstract class AppLocalizations {
   /// **'Profile & account'**
   String get profileTitle;
 
+  /// No description provided for @programDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'General guidance, not medical advice. If something doesn\'t feel right, stop and ask your doctor.'**
+  String get programDisclaimer;
+
+  /// No description provided for @programExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercises'**
+  String get programExercises;
+
+  /// No description provided for @programStages.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose your stage'**
+  String get programStages;
+
+  /// No description provided for @programUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available'**
+  String get programUnavailable;
+
+  /// No description provided for @programUnavailableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This program isn\'t part of your health sections.'**
+  String get programUnavailableBody;
+
+  /// No description provided for @programs.
+  ///
+  /// In en, this message translates to:
+  /// **'Programs'**
+  String get programs;
+
+  /// No description provided for @programsForMen.
+  ///
+  /// In en, this message translates to:
+  /// **'For men'**
+  String get programsForMen;
+
+  /// No description provided for @programsForWomen.
+  ///
+  /// In en, this message translates to:
+  /// **'For women'**
+  String get programsForWomen;
+
   /// No description provided for @progress.
   ///
   /// In en, this message translates to:
   /// **'Progress'**
   String get progress;
+
+  /// No description provided for @progressLog.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress log'**
+  String get progressLog;
+
+  /// No description provided for @progressLogSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your best and latest sets for each exercise'**
+  String get progressLogSub;
 
   /// No description provided for @progressManual.
   ///
@@ -5569,6 +5701,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not measured yet'**
   String get progressNotMeasured;
+
+  /// No description provided for @progressNote.
+  ///
+  /// In en, this message translates to:
+  /// **'From the sets you logged: weight × reps when you entered a weight, otherwise reps or time. Gold marks the best session.'**
+  String get progressNote;
 
   /// No description provided for @proposalExecuted.
   ///
@@ -5779,6 +5917,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reps'**
   String get repsLabel;
+
+  /// No description provided for @repsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} reps'**
+  String repsN(int n);
 
   /// No description provided for @resetLinkSent.
   ///
@@ -6031,6 +6175,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Seconds'**
   String get secondsLabel;
+
+  /// No description provided for @secondsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} s'**
+  String secondsN(int n);
 
   /// No description provided for @secondsShort.
   ///
@@ -6338,6 +6488,12 @@ abstract class AppLocalizations {
   /// **'Start my path'**
   String get startPath;
 
+  /// No description provided for @startProgram.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get startProgram;
+
   /// No description provided for @startQuiz.
   ///
   /// In en, this message translates to:
@@ -6451,6 +6607,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Stop'**
   String get stop;
+
+  /// No description provided for @stopIf.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop and get advice if you have'**
+  String get stopIf;
 
   /// No description provided for @streakDays.
   ///
@@ -6931,6 +7093,72 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last month: {amount}'**
   String vsLastMonth(String amount);
+
+  /// No description provided for @warnBleeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Vaginal bleeding'**
+  String get warnBleeding;
+
+  /// No description provided for @warnCalf.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain or swelling in a calf'**
+  String get warnCalf;
+
+  /// No description provided for @warnChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest pain or unusual shortness of breath'**
+  String get warnChest;
+
+  /// No description provided for @warnContractions.
+  ///
+  /// In en, this message translates to:
+  /// **'Regular, painful contractions'**
+  String get warnContractions;
+
+  /// No description provided for @warnDizzy.
+  ///
+  /// In en, this message translates to:
+  /// **'Dizziness or feeling faint'**
+  String get warnDizzy;
+
+  /// No description provided for @warnFluid.
+  ///
+  /// In en, this message translates to:
+  /// **'Fluid leaking'**
+  String get warnFluid;
+
+  /// No description provided for @warnHeadache.
+  ///
+  /// In en, this message translates to:
+  /// **'A bad headache'**
+  String get warnHeadache;
+
+  /// No description provided for @warnHeavyBleeding.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavier bleeding than before'**
+  String get warnHeavyBleeding;
+
+  /// No description provided for @warnLeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'Leaking urine during exercise'**
+  String get warnLeaking;
+
+  /// No description provided for @warnPain.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain (not just effort)'**
+  String get warnPain;
+
+  /// No description provided for @warnPelvicHeaviness.
+  ///
+  /// In en, this message translates to:
+  /// **'Heaviness or bulging in the pelvis'**
+  String get warnPelvicHeaviness;
 
   /// No description provided for @waterAverage.
   ///

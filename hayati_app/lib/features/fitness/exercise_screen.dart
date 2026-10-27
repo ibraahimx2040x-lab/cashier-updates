@@ -22,6 +22,8 @@ IconData muscleIcon(Muscle m) => switch (m) {
       Muscle.fullBody => Icons.fitness_center,
       Muscle.cardio => Icons.directions_run,
       Muscle.mobility => Icons.self_improvement,
+      Muscle.balance => Icons.accessibility,
+      Muscle.pelvicFloor => Icons.spa_outlined,
     };
 
 /// Screen 14 — how to do one exercise, safely, and what can replace it.
