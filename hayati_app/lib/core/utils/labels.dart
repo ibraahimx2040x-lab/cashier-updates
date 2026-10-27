@@ -1,6 +1,7 @@
 import '../../data/models/accountability.dart';
 import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
+import '../../data/models/health.dart';
 import '../../data/models/learning.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/prayer.dart';
@@ -129,6 +130,21 @@ extension Labels on AppLocalizations {
         EventOutcome.consequenceAccepted => eoAccepted,
         EventOutcome.rescheduled => eoRescheduled,
         EventOutcome.dropped => eoDropped,
+      };
+
+  String healthModule(HealthModule m) => switch (m) {
+        HealthModule.activity => hmActivity,
+        HealthModule.nutrition => hmNutrition,
+        HealthModule.sleep => hmSleep,
+        HealthModule.womens => hmWomens,
+        HealthModule.mens => hmMens,
+      };
+
+  String activitySource(ActivitySource s) => switch (s) {
+        ActivitySource.healthConnect => sourceHealthConnect,
+        ActivitySource.healthKit => sourceHealthKit,
+        ActivitySource.phone => sourcePhone,
+        ActivitySource.manual => sourceManual,
       };
 
   String prayerMethod(PrayerMethod m) => switch (m) {

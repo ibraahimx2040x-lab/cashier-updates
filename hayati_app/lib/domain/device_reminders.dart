@@ -2,8 +2,10 @@ import '../core/router/route_paths.dart';
 import '../core/utils/dates.dart';
 import '../data/app_data.dart';
 import '../core/utils/labels.dart';
+import '../data/models/health.dart';
 import '../data/models/prayer.dart';
 import '../l10n/app_localizations.dart';
+import 'activity.dart';
 import 'prayer_times.dart';
 
 /// One reminder for the phone's notification system.
@@ -95,6 +97,25 @@ List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizatio
             route: Routes.prayer,
           ));
         }
+      }
+    }
+  }
+  final h = d.settings.health;
+  if (h.moveReminders && h.has(HealthModule.activity) && h.moveEvery >= 30 && h.moveEnd > h.moveStart) {
+    // Today's reminders stop once the step goal is reached.
+    final doneToday = activityDay(d, dayKey(today)).steps >= h.stepGoal;
+    for (var i = doneToday ? 1 : 0; i < prayerDays; i++) {
+      final day = today.add(Duration(days: i));
+      for (var m = h.moveStart; m <= h.moveEnd; m += h.moveEvery) {
+        final at = day.add(Duration(minutes: m));
+        if (!inWindow(at)) continue;
+        out.add(DeviceReminder(
+          id: stableId('move:${dayKey(day)}:$m'),
+          at: at,
+          title: l.notifMoveTitle,
+          body: l.notifMoveBody,
+          route: Routes.activity,
+        ));
       }
     }
   }

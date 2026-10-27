@@ -11,11 +11,13 @@ import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/accountability.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
+import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/features/home/home_screen.dart';
+import 'package:hayati/domain/activity.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
@@ -23,6 +25,7 @@ import 'package:hayati/domain/learning/curriculum.dart';
 import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
+import 'package:hayati/services/step_reader.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -58,6 +61,7 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
   final container = ProviderContainer(overrides: [
     localStoreProvider.overrideWithValue(LocalStore(prefs)),
     deviceNotificationsProvider.overrideWithValue(FakeDeviceNotifications()),
+    stepReaderProvider.overrideWithValue(const UnsupportedStepReader()),
   ]);
   addTearDown(container.dispose);
   await tester.pumpWidget(UncontrolledProviderScope(container: container, child: const HayatiApp()));
@@ -66,9 +70,9 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
 }
 
 /// Signs up while pumping, so the fake-async timers inside complete.
-Future<void> signUp(WidgetTester tester, ProviderContainer c) async {
+Future<void> signUp(WidgetTester tester, ProviderContainer c, {Sex? sex = Sex.male}) async {
   var done = false;
-  c.read(authProvider.notifier).signUp('u@example.com', 'password1').then((_) => done = true);
+  c.read(authProvider.notifier).signUp('u@example.com', 'password1', sex: sex).then((_) => done = true);
   for (var i = 0; i < 20 && !done; i++) {
     await tester.pump(const Duration(milliseconds: 100));
   }
@@ -141,6 +145,10 @@ void seed(ProviderContainer c) {
   d.addAccountabilityEvent(AccountabilityEvent(id: 'ae1', ruleId: 'ar1', taskId: late.id, dueDate: late.dueDate!, triggeredOn: today));
   d.addAccountabilityEvent(AccountabilityEvent(id: 'ae0', taskId: first.id, dueDate: '2026-01-01', triggeredOn: '2026-01-08')
       .resolve(DelayReason.illness, EventOutcome.rescheduled, newDueDate: today, note: 'flu', at: now));
+  for (var i = 0; i < 9; i++) {
+    d.recordActivity(dayKey(now.subtract(Duration(days: i))), i.isEven ? ActivitySource.healthConnect : ActivitySource.manual,
+        steps: 4000 + i * 1100);
+  }
   d.notify(AppNotification(id: 'nt', type: NotificationType.task, title: 'Reminder', createdAt: now, refId: first.id, dedupeKey: 'x'));
 }
 
@@ -165,6 +173,11 @@ void main() {
       await tester.enterText(fields.at(1), 'password1');
       await tester.enterText(fields.at(2), 'password1');
       await tapIn(tester, find.byType(Checkbox));
+      // Sex is required at sign-up.
+      await tapIn(tester, find.text(l.createAccount));
+      await tester.pumpAndSettle();
+      expect(find.text(l.errSex), findsOneWidget);
+      await tapIn(tester, find.text(l.sexFemale));
       await tapIn(tester, find.text(l.createAccount));
       await tester.pumpAndSettle();
 
@@ -181,6 +194,10 @@ void main() {
       expect(find.textContaining(l.nowLabel), findsWidgets);
       expect(find.text(l.newUserTitle), findsOneWidget);
       expect(c.read(dataProvider).settings.onboardingDone, isTrue);
+      final s = c.read(dataProvider).settings;
+      expect(s.sex, Sex.female);
+      expect(s.health.has(HealthModule.womens), isTrue);
+      expect(s.health.has(HealthModule.mens), isFalse);
     });
   }
 
@@ -243,6 +260,8 @@ void main() {
           Routes.accountabilityRule(ruleId: 'ar1'),
           Routes.accountabilityEvent('ae1'),
           Routes.accountabilityEvent('ae0'),
+          Routes.activity,
+          Routes.healthSetup,
         ];
         for (final r in routes) {
           router.go(r);
@@ -341,6 +360,59 @@ void main() {
     expect(d.accountabilityEvent(event.id)!.outcome, EventOutcome.consequenceAccepted);
     expect(d.task(task.id)!.dueDate, dayKey(now.add(const Duration(days: 3))));
     expect(d.tasks.where((t) => t.title == 'Tidy my desk first'), hasLength(1));
+  });
+
+  testWidgets('accounts made before sign-up asked for sex are asked once (ar)', (tester) async {
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await signUp(tester, c, sex: null);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    expect(find.text(l.sexAskTitle), findsOneWidget);
+    await tester.tap(find.text(l.sexMale));
+    await tester.pumpAndSettle();
+    expect(find.text(l.sexAskTitle), findsNothing);
+    final s = c.read(dataProvider).settings;
+    expect((s.sex, s.health.has(HealthModule.mens)), (Sex.male, true));
+    // Changing it from the profile.
+    c.read(routerProvider).push(Routes.profile);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.sexLabel));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.sexFemale));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).settings.sex, Sex.female);
+  });
+
+  testWidgets('steps: add by hand, change the goal (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.activity);
+    await tester.pumpAndSettle();
+    // Tests run as "web or desktop": manual entry only.
+    expect(find.text(l.activityWebNote), findsOneWidget);
+    await tester.tap(find.text(l.addStepsManually));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).last, '999999');
+    await tester.pumpAndSettle();
+    expect(find.text(l.stepsInvalid), findsOneWidget);
+    await tester.enterText(find.byType(TextField).last, '8500');
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.save));
+    await tester.pumpAndSettle();
+    final d = c.read(dataProvider);
+    final today = activityDay(d, dayKey(DateTime.now()));
+    expect((today.steps, today.source), (8500, ActivitySource.manual));
+    expect(find.text('8,500'), findsWidgets);
+    router.push(Routes.healthSetup);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.widgetWithText(ChoiceChip, '10,000'));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).settings.health.stepGoal, 10000);
   });
 
   testWidgets('task editor validates and saves', (tester) async {

@@ -117,6 +117,8 @@
 | `health_sources` | `id`، `kind` (health_connect، healthkit، phone_sensor، garmin، oura، fitbit، manual)، `device_name`، `scopes` (مصفوفة)، `status`، `last_sync_at` | `unique(user_id, kind, device_name)` |
 | `source_priority` | `data_type` (steps، sleep، heart_rate، workouts…)، `source_id` | مصدر معتمد واحد لكل نوع: `unique(user_id, data_type)` |
 
+> **كما نُفّذ في المرحلة 07:** إعدادات الصحة محفوظة في عمود `profiles.health_settings` (jsonb) بدل جدول منفصل، لأنها صف واحد لكل مستخدم مثل `prayer_settings`. المصدر في `daily_activity.source` قيمة ثابتة (healthConnect، healthKit، phone، manual). جدولا `health_sources` و`source_priority` يأتيان مع شاشة الأجهزة (المرحلة 10)، وحتى ذلك الحين الأولوية ثابتة: Health Connect/HealthKit ثم حساس الجوال ثم اليدوي، مع مصدر مفضّل اختياري في الإعدادات.
+
 ### 4.2 النشاط
 
 | الجدول | الأعمدة | قيود |

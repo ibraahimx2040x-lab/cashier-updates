@@ -209,6 +209,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String get active => 'نشطة';
 
   @override
+  String activeMinutesN(int n) {
+    return '$n دقيقة نشاط';
+  }
+
+  @override
+  String get activityNote =>
+      'الخطوات من تطبيق الصحة في جوالك (Health Connect أو Apple Health) اللي يجمع الجوال والساعة بدون تكرار. المسافة تقديرية من الخطوات والطول.';
+
+  @override
+  String get activitySaved => 'انحفظت الخطوات';
+
+  @override
+  String get activityWebNote =>
+      'في المتصفح تقدر تضيف الخطوات يدويًا فقط. العد التلقائي يشتغل في تطبيق الجوال.';
+
+  @override
   String get addEvent => 'إضافة موعد';
 
   @override
@@ -231,6 +247,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addNote => 'إضافة ملاحظة';
+
+  @override
+  String get addStepsManually => 'أضف خطوات';
 
   @override
   String get addTask => 'إضافة مهمة';
@@ -638,6 +657,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get approved => 'بموافقتك';
 
   @override
+  String get approx => 'تقريبي';
+
+  @override
   String approximateSwap(String from, String to) {
     return '$from ← $to (بديل تقريبي)';
   }
@@ -736,6 +758,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get benefit3Title => 'مساعد تتحكم فيه';
+
+  @override
+  String get bestDay => 'أفضل يوم';
 
   @override
   String get billingNote =>
@@ -933,6 +958,24 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get connect => 'اربط';
+
+  @override
+  String connectStepsBody(String store) {
+    return 'حياتي يقرأ مجموع خطواتك اليومي من $store. يقرأ الخطوات فقط ولا يكتب أي شي.';
+  }
+
+  @override
+  String connectStepsTitle(String store) {
+    return 'عدّ الخطوات تلقائيًا من $store';
+  }
+
+  @override
+  String connectedTo(String store) {
+    return 'مربوط مع $store';
+  }
+
+  @override
   String get contactSupport => 'التواصل مع الدعم';
 
   @override
@@ -964,6 +1007,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get currentStreak => 'السلسلة الحالية';
+
+  @override
+  String get dailyAverage => 'المتوسط اليومي';
 
   @override
   String get dataAccess => 'ما يمكن للمساعد الاطلاع عليه';
@@ -999,6 +1045,20 @@ class AppLocalizationsAr extends AppLocalizations {
       few: '$n أيام',
       two: 'يومان',
       one: 'يوم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String daysN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n يوم',
+      few: '$n أيام',
+      two: 'يومين',
+      one: 'يوم',
+      zero: '0 يوم',
     );
     return '$_temp0';
   }
@@ -1166,6 +1226,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get discardTitle => 'تجاهل التعديلات؟';
 
   @override
+  String get disconnect => 'افصل';
+
+  @override
   String get dismiss => 'إخفاء';
 
   @override
@@ -1173,6 +1236,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get displayNameOptional => 'اسمك (اختياري)';
+
+  @override
+  String distanceKm(String km) {
+    return '$km كم';
+  }
 
   @override
   String get documents => 'المستندات';
@@ -1373,6 +1441,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get errSave => 'تعذر الحفظ. راجع الحقول وحاول مرة أخرى.';
 
   @override
+  String get errSex => 'اختر ذكر أو أنثى';
+
+  @override
   String get errTargetBeforeStart =>
       'يجب أن يكون التاريخ المستهدف بعد تاريخ البداية';
 
@@ -1393,6 +1464,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get everyDay => 'كل يوم';
+
+  @override
+  String everyMinutes(int m) {
+    return 'كل $m دقيقة';
+  }
 
   @override
   String get examples => 'أمثلة';
@@ -1663,6 +1739,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get freeTimeNow => 'وقت حر';
 
   @override
+  String get from => 'من';
+
+  @override
   String get fsDays => 'عدد الأيام في الأسبوع';
 
   @override
@@ -1721,10 +1800,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get goalCompleted => 'مكتمل';
 
   @override
+  String get goalDays => 'أيام تحقيق الهدف';
+
+  @override
   String get goalPaused => 'متوقف';
 
   @override
   String get goalStepHint => 'اختر مثالًا أو اكتب هدفك. يمكنك تخطي هذه الخطوة.';
+
+  @override
+  String get goalStreak => 'أيام متتالية';
 
   @override
   String get goalTitle => 'عنوان الهدف';
@@ -1799,6 +1884,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get haveAccount => 'لدي حساب';
 
   @override
+  String get healthSections => 'الأقسام الصحية';
+
+  @override
+  String get healthSectionsNote =>
+      'الأقسام المكتوب عليها «قريبًا» ينحفظ اختيارك لها وتظهر لما تجهز.';
+
+  @override
+  String get healthSetup => 'إعداد الصحة';
+
+  @override
+  String get heightCm => 'الطول (سم)';
+
+  @override
+  String get heightForDistance => 'الطول';
+
+  @override
+  String get heightHelp => 'اختياري — يقرّب تقدير المسافة';
+
+  @override
+  String get heightInvalid => 'بين 80 و250 سم';
+
+  @override
   String get helpTitle => 'المساعدة والدعم';
 
   @override
@@ -1808,8 +1915,26 @@ class AppLocalizationsAr extends AppLocalizations {
   String get highlights => 'أبرز الإنجازات';
 
   @override
+  String get history => 'السجل';
+
+  @override
   String get historyHint =>
       'اضغط على يوم سابق لتصحيحه. الأيام غير المستحقة محايدة.';
+
+  @override
+  String get hmActivity => 'الخطوات والنشاط';
+
+  @override
+  String get hmMens => 'صحة الرجل';
+
+  @override
+  String get hmNutrition => 'الأكل والسعرات';
+
+  @override
+  String get hmSleep => 'النوم والتعافي';
+
+  @override
+  String get hmWomens => 'صحة المرأة';
 
   @override
   String get homeInstead => 'في المنزل بدلًا من النادي';
@@ -1854,6 +1979,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get initialTasks => 'المهام الأولية';
 
   @override
+  String get install => 'ثبّت';
+
+  @override
+  String get installHealthConnect => 'ثبّت Health Connect';
+
+  @override
+  String get installHealthConnectBody =>
+      'أندرويد يحفظ خطوات الجوال والساعة في Health Connect. ثبّته أو حدّثه وارجع اربطه.';
+
+  @override
   String get interestsHint =>
       'اختر ما يناسبك، ويمكنك التغيير لاحقًا. الأقسام غير المختارة تُخفى ولا تُحذف.';
 
@@ -1880,6 +2015,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get language => 'اللغة';
+
+  @override
+  String lastSyncAt(String time) {
+    return 'آخر مزامنة $time';
+  }
 
   @override
   String get lastWeek => 'الأسبوع الماضي';
@@ -2001,6 +2141,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get manualHint => 'أنت من يحدد النسبة بنفسك.';
 
   @override
+  String get manualStepsNote =>
+      'إذا كان تطبيق الجوال مربوط، يُعتمد رقمه لهذا اليوم.';
+
+  @override
   String get markAllRead => 'تحديد الكل كمقروء';
 
   @override
@@ -2094,6 +2238,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get moreOptions => 'خيارات إضافية';
 
   @override
+  String get moveReminders => 'تذكير بالحركة';
+
+  @override
+  String get moveRemindersOn => 'ذكّرني أتحرك';
+
+  @override
+  String get moveRemindersSub => 'يتوقف لليوم إذا حققت هدفك';
+
+  @override
   String get moveTomorrow => 'نقل إلى الغد';
 
   @override
@@ -2148,7 +2301,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get myNotes => 'ملاحظاتي';
 
   @override
+  String nOfM(int n, int m) {
+    return '$n من $m';
+  }
+
+  @override
   String get navAccountability => 'الالتزام';
+
+  @override
+  String get navActivity => 'الخطوات';
 
   @override
   String get navAssistant => 'المساعد';
@@ -2323,6 +2484,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notStarted => 'لم يبدأ';
 
   @override
+  String get notSyncedYet => 'ما تمت مزامنة للحين';
+
+  @override
   String get noteBody => 'اكتب ملاحظتك…';
 
   @override
@@ -2366,6 +2530,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String notifHabitTitle(String name) {
     return 'تذكير بالعادة: $name';
   }
+
+  @override
+  String get notifMoveBody => 'مشي قصير أو تمدد بسيط لدقائق.';
+
+  @override
+  String get notifMoveTitle => 'وقت الحركة';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -2419,6 +2589,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get observations => 'ملاحظات';
+
+  @override
+  String ofStepGoal(String goal) {
+    return 'من $goal';
+  }
 
   @override
   String get ok => 'حسنًا';
@@ -3038,6 +3213,22 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get sexAskTitle => 'عرّفنا عليك';
+
+  @override
+  String get sexFemale => 'أنثى';
+
+  @override
+  String get sexLabel => 'الجنس';
+
+  @override
+  String get sexMale => 'ذكر';
+
+  @override
+  String get sexWhy =>
+      'يُستخدم لتخصيص الأقسام الصحية فقط، وتقدر تغيّره من حسابك.';
+
+  @override
   String get shareNotesSub => 'معطّل افتراضيًا';
 
   @override
@@ -3105,6 +3296,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skipRest => 'تخطَّ';
 
   @override
+  String get sourceHealthConnect => 'Health Connect';
+
+  @override
+  String get sourceHealthKit => 'Apple Health';
+
+  @override
+  String get sourceManual => 'إدخال يدوي';
+
+  @override
+  String get sourcePhone => 'حساس الجوال';
+
+  @override
   String get spending => 'المصروفات';
 
   @override
@@ -3147,12 +3350,41 @@ class AppLocalizationsAr extends AppLocalizations {
   String get statusTodo => 'لم تبدأ';
 
   @override
+  String get stepGoal => 'هدف الخطوات اليومي';
+
+  @override
   String stepOf(int step, int total) {
     return 'الخطوة $step من $total';
   }
 
   @override
+  String get stepsInvalid => 'حتى 150,000';
+
+  @override
+  String get stepsLabel => 'عدد الخطوات';
+
+  @override
+  String get stepsNoData => 'ما فيه خطوات اليوم للحين — اضغط للربط أو الإضافة';
+
+  @override
+  String stepsOfGoal(String steps, String goal) {
+    return '$steps / $goal خطوة';
+  }
+
+  @override
   String get stepsOptional => 'خطوات تكرار المشكلة (اختياري)';
+
+  @override
+  String stepsPerDay(String n) {
+    return '$n خطوة يوميًا';
+  }
+
+  @override
+  String get stepsPermissionDenied =>
+      'ما انعطى إذن قراءة الخطوات. تقدر تسمح له من إعدادات تطبيق الصحة.';
+
+  @override
+  String get stepsToday => 'خطوات اليوم';
 
   @override
   String get stop => 'إيقاف';
@@ -3189,6 +3421,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get switchToSignUp => 'جديد هنا؟ أنشئ حسابًا';
+
+  @override
+  String get syncFailedShort => 'ما قدرنا نقرأ الخطوات — جرّب مرة ثانية';
 
   @override
   String get syncNever => 'لم تتم المزامنة بعد';
@@ -3322,7 +3557,15 @@ class AppLocalizationsAr extends AppLocalizations {
   String get timezoneDeviceNote => 'يتبع إعداد الجهاز';
 
   @override
+  String get to => 'إلى';
+
+  @override
   String get today => 'اليوم';
+
+  @override
+  String todayFrom(String source) {
+    return 'اليوم من: $source';
+  }
 
   @override
   String get todayPlan => 'خطة اليوم';
@@ -3601,6 +3844,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get workoutSavedPartial => 'حُفظ ما أنجزته. كل جهد يُحسب.';
+
+  @override
+  String get yesterday => 'أمس';
 
   @override
   String get yourData => 'بياناتك';

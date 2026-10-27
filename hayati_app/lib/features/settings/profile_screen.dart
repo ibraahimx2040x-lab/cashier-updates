@@ -5,8 +5,10 @@ import '../../core/theme/app_colors.dart';
 import '../../core/utils/format.dart';
 import '../../data/auth.dart';
 import '../../data/data_controller.dart';
+import '../../data/models/health.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import 'sex_dialog.dart';
 
 /// Screen 21 — profile and account. Sensitive operations re-verify the
 /// password; deletion explains consequences first.
@@ -156,6 +158,16 @@ class ProfileScreen extends ConsumerWidget {
             subtitle: Text(s.displayName.isEmpty ? l.notSet : s.displayName),
             trailing: const Icon(Icons.edit_outlined),
             onTap: () => _editName(context, ref),
+          ),
+          ListTile(
+            leading: IconBadge(s.sex == Sex.female ? Icons.female : Icons.male),
+            title: Text(l.sexLabel),
+            subtitle: Text(switch (s.sex) { Sex.male => l.sexMale, Sex.female => l.sexFemale, null => l.notSet }),
+            trailing: const Icon(Icons.edit_outlined),
+            onTap: () async {
+              final sex = await askSex(context, current: s.sex);
+              if (sex != null) ref.read(dataProvider.notifier).setSex(sex);
+            },
           ),
           ListTile(leading: IconBadge(Icons.email_outlined), title: Text(l.email), subtitle: Text(user.email)),
           ListTile(leading: IconBadge(Icons.key_outlined), title: Text(l.signInMethod), subtitle: Text(l.emailPassword)),

@@ -1,4 +1,5 @@
 import 'fitness.dart';
+import 'health.dart';
 import 'prayer.dart';
 
 /// Per-user preferences (the `profiles` table on the server).
@@ -161,6 +162,8 @@ class UserSettings {
     this.assistant = const AssistantPermissions(),
     this.prayer = const PrayerSettings(),
     this.fitness,
+    this.sex,
+    this.health = const HealthSettings(),
   });
 
   final String displayName;
@@ -187,6 +190,10 @@ class UserSettings {
   /// Null until the user sets up a training plan.
   final FitnessProfile? fitness;
 
+  /// Chosen at sign-up; null only for accounts made before it was asked.
+  final Sex? sex;
+  final HealthSettings health;
+
   bool has(AppModule m) => modules.contains(m);
 
   UserSettings copyWith({
@@ -209,6 +216,8 @@ class UserSettings {
     AssistantPermissions? assistant,
     PrayerSettings? prayer,
     FitnessProfile? Function()? fitness,
+    Sex? sex,
+    HealthSettings? health,
   }) =>
       UserSettings(
         displayName: displayName ?? this.displayName,
@@ -230,6 +239,8 @@ class UserSettings {
         assistant: assistant ?? this.assistant,
         prayer: prayer ?? this.prayer,
         fitness: fitness != null ? fitness() : this.fitness,
+        sex: sex ?? this.sex,
+        health: health ?? this.health,
       );
 
   Map<String, Object?> toJson() => {
@@ -252,6 +263,8 @@ class UserSettings {
         'assistant': assistant.toJson(),
         'prayer': prayer.toJson(),
         'fitness': fitness?.toJson(),
+        'sex': sex?.name,
+        'health': health.toJson(),
       };
 
   factory UserSettings.fromJson(Map<String, Object?> j) {
@@ -281,6 +294,8 @@ class UserSettings {
           : AssistantPermissions.fromJson((j['assistant'] as Map).cast()),
       prayer: j['prayer'] == null ? d.prayer : PrayerSettings.fromJson((j['prayer'] as Map).cast()),
       fitness: FitnessProfile.fromJson((j['fitness'] as Map?)?.cast()),
+      sex: Sex.values.where((x) => x.name == j['sex']).firstOrNull,
+      health: HealthSettings.fromJson((j['health'] as Map?)?.cast()),
     );
   }
 }

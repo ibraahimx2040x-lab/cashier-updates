@@ -2,6 +2,10 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 	<dict>
+		<key>NSHealthShareUsageDescription</key>
+		<string>يقرأ حياتي عدد خطواتك اليومي من تطبيق الصحة ليعرض نشاطك وأهدافك.</string>
+		<key>NSHealthUpdateUsageDescription</key>
+		<string>حياتي لا يكتب في تطبيق الصحة.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Used only when you choose "Use my location" to calculate prayer times.</string>
 		<key>CFBundleLocalizations</key>

@@ -8,6 +8,7 @@ import '../app_data.dart';
 import '../models/accountability.dart';
 import '../models/fitness.dart';
 import '../models/goal.dart';
+import '../models/health.dart';
 import '../models/learning.dart';
 import '../models/misc.dart';
 import '../models/prayer.dart';
@@ -143,6 +144,26 @@ Habit habitFrom(Row r) => Habit(
 Row habitLogRow(HabitLog l) => {'id': l.id, 'habit_id': l.habitId, 'day': l.day};
 
 HabitLog habitLogFrom(Row r) => HabitLog(id: r['id'] as String, habitId: r['habit_id'] as String, day: r['day'] as String);
+
+Row activityRow(DailyActivity a) => {
+      'id': a.id,
+      'day': a.day,
+      'source': a.source.name,
+      'steps': a.steps,
+      'distance_m': a.distanceM,
+      'active_minutes': a.activeMinutes,
+      'updated_at': a.updatedAt.toUtc().toIso8601String(),
+    };
+
+DailyActivity activityFrom(Row r) => DailyActivity(
+      id: r['id'] as String,
+      day: r['day'] as String,
+      source: ActivitySource.values.byName(r['source'] as String),
+      steps: r['steps'] as int,
+      distanceM: r['distance_m'] as int?,
+      activeMinutes: r['active_minutes'] as int?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
 
 Row prayerLogRow(PrayerLog l) => {'id': l.id, 'day': l.day, 'prayer': l.prayer.name};
 
@@ -367,6 +388,8 @@ Row profileRow(UserSettings s) => {
       'chat_retention_days': s.assistant.retentionDays,
       'prayer_settings': s.prayer.toJson(),
       'fitness_profile': s.fitness?.toJson() ?? const <String, Object?>{},
+      'sex': s.sex?.name,
+      'health_settings': s.health.toJson(),
     };
 
 UserSettings settingsFrom(Row r) {
@@ -395,6 +418,8 @@ UserSettings settingsFrom(Row r) {
     assistant: AssistantPermissions.fromJson(perms),
     prayer: PrayerSettings.fromJson((r['prayer_settings'] as Map?)?.cast<String, Object?>() ?? const {}),
     fitness: FitnessProfile.fromJson((r['fitness_profile'] as Map?)?.cast<String, Object?>()),
+    sex: Sex.values.where((x) => x.name == r['sex']).firstOrNull,
+    health: HealthSettings.fromJson((r['health_settings'] as Map?)?.cast<String, Object?>()),
   );
 }
 
@@ -416,6 +441,7 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('habits', (d) => [for (final x in d.habits) habitRow(x)], habitFrom),
   SyncTable('habit_logs', (d) => [for (final x in d.habitLogs) habitLogRow(x)], habitLogFrom),
   SyncTable('prayer_logs', (d) => [for (final x in d.prayerLogs) prayerLogRow(x)], prayerLogFrom),
+  SyncTable('daily_activity', (d) => [for (final x in d.activity) activityRow(x)], activityFrom),
   SyncTable('workout_plans', (d) => [for (final x in d.workoutPlans) workoutPlanRow(x)], workoutPlanFrom),
   SyncTable('workout_sessions', (d) => [for (final x in d.workoutSessions) workoutSessionRow(x)], workoutSessionFrom),
   SyncTable('learning_paths', (d) => [for (final x in d.learningPaths) learningPathRow(x)], learningPathFrom),
@@ -442,6 +468,7 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     habits: read('habits', habitFrom),
     habitLogs: read('habit_logs', habitLogFrom),
     prayerLogs: read('prayer_logs', prayerLogFrom),
+    activity: read('daily_activity', activityFrom),
     workoutPlans: read('workout_plans', workoutPlanFrom),
     workoutSessions: read('workout_sessions', workoutSessionFrom),
     learningPaths: read('learning_paths', learningPathFrom),

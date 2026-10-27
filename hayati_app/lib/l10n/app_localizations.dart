@@ -398,6 +398,30 @@ abstract class AppLocalizations {
   /// **'Active'**
   String get active;
 
+  /// No description provided for @activeMinutesN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} active minutes'**
+  String activeMinutesN(int n);
+
+  /// No description provided for @activityNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps come from your phone\'s health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.'**
+  String get activityNote;
+
+  /// No description provided for @activitySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps saved'**
+  String get activitySaved;
+
+  /// No description provided for @activityWebNote.
+  ///
+  /// In en, this message translates to:
+  /// **'In the browser steps can only be added by hand. Automatic counting works in the phone app.'**
+  String get activityWebNote;
+
   /// No description provided for @addEvent.
   ///
   /// In en, this message translates to:
@@ -445,6 +469,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add note'**
   String get addNote;
+
+  /// No description provided for @addStepsManually.
+  ///
+  /// In en, this message translates to:
+  /// **'Add steps'**
+  String get addStepsManually;
 
   /// No description provided for @addTask.
   ///
@@ -1052,6 +1082,12 @@ abstract class AppLocalizations {
   /// **'Approved'**
   String get approved;
 
+  /// No description provided for @approx.
+  ///
+  /// In en, this message translates to:
+  /// **'approx.'**
+  String get approx;
+
   /// No description provided for @approximateSwap.
   ///
   /// In en, this message translates to:
@@ -1231,6 +1267,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An assistant you control'**
   String get benefit3Title;
+
+  /// No description provided for @bestDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Best day'**
+  String get bestDay;
 
   /// No description provided for @billingNote.
   ///
@@ -1544,6 +1586,30 @@ abstract class AppLocalizations {
   /// **'Overlaps with “{title}”'**
   String conflictWith(String title);
 
+  /// No description provided for @connect.
+  ///
+  /// In en, this message translates to:
+  /// **'Connect'**
+  String get connect;
+
+  /// No description provided for @connectStepsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Hayati reads your daily step total from {store}. It only reads steps and never writes anything.'**
+  String connectStepsBody(String store);
+
+  /// No description provided for @connectStepsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Count steps automatically from {store}'**
+  String connectStepsTitle(String store);
+
+  /// No description provided for @connectedTo.
+  ///
+  /// In en, this message translates to:
+  /// **'Connected to {store}'**
+  String connectedTo(String store);
+
   /// No description provided for @contactSupport.
   ///
   /// In en, this message translates to:
@@ -1610,6 +1676,12 @@ abstract class AppLocalizations {
   /// **'Current streak'**
   String get currentStreak;
 
+  /// No description provided for @dailyAverage.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily average'**
+  String get dailyAverage;
+
   /// No description provided for @dataAccess.
   ///
   /// In en, this message translates to:
@@ -1663,6 +1735,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n, plural, =1{1 day} other{{n} days}}'**
   String daysCount(int n);
+
+  /// No description provided for @daysN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 day} other{{n} days}}'**
+  String daysN(int n);
 
   /// No description provided for @deadlineDate.
   ///
@@ -1952,6 +2030,12 @@ abstract class AppLocalizations {
   /// **'Discard changes?'**
   String get discardTitle;
 
+  /// No description provided for @disconnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Disconnect'**
+  String get disconnect;
+
   /// No description provided for @dismiss.
   ///
   /// In en, this message translates to:
@@ -1969,6 +2053,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your name (optional)'**
   String get displayNameOptional;
+
+  /// No description provided for @distanceKm.
+  ///
+  /// In en, this message translates to:
+  /// **'{km} km'**
+  String distanceKm(String km);
 
   /// No description provided for @documents.
   ///
@@ -2336,6 +2426,12 @@ abstract class AppLocalizations {
   /// **'Couldn\'t save. Check the fields and try again.'**
   String get errSave;
 
+  /// No description provided for @errSex.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose male or female'**
+  String get errSex;
+
   /// No description provided for @errTargetBeforeStart.
   ///
   /// In en, this message translates to:
@@ -2377,6 +2473,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Every day'**
   String get everyDay;
+
+  /// No description provided for @everyMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Every {m} min'**
+  String everyMinutes(int m);
 
   /// No description provided for @examples.
   ///
@@ -2834,6 +2936,12 @@ abstract class AppLocalizations {
   /// **'Free time'**
   String get freeTimeNow;
 
+  /// No description provided for @from.
+  ///
+  /// In en, this message translates to:
+  /// **'From'**
+  String get from;
+
   /// No description provided for @fsDays.
   ///
   /// In en, this message translates to:
@@ -2924,6 +3032,12 @@ abstract class AppLocalizations {
   /// **'Completed'**
   String get goalCompleted;
 
+  /// No description provided for @goalDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal reached'**
+  String get goalDays;
+
   /// No description provided for @goalPaused.
   ///
   /// In en, this message translates to:
@@ -2935,6 +3049,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose an example or write your own. You can skip this.'**
   String get goalStepHint;
+
+  /// No description provided for @goalStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get goalStreak;
 
   /// No description provided for @goalTitle.
   ///
@@ -3068,6 +3188,48 @@ abstract class AppLocalizations {
   /// **'I have an account'**
   String get haveAccount;
 
+  /// No description provided for @healthSections.
+  ///
+  /// In en, this message translates to:
+  /// **'Health sections'**
+  String get healthSections;
+
+  /// No description provided for @healthSectionsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Sections marked “coming soon” are saved now and appear when they\'re ready.'**
+  String get healthSectionsNote;
+
+  /// No description provided for @healthSetup.
+  ///
+  /// In en, this message translates to:
+  /// **'Health setup'**
+  String get healthSetup;
+
+  /// No description provided for @heightCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Height (cm)'**
+  String get heightCm;
+
+  /// No description provided for @heightForDistance.
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get heightForDistance;
+
+  /// No description provided for @heightHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Optional — makes the distance estimate closer'**
+  String get heightHelp;
+
+  /// No description provided for @heightInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Between 80 and 250 cm'**
+  String get heightInvalid;
+
   /// No description provided for @helpTitle.
   ///
   /// In en, this message translates to:
@@ -3086,11 +3248,47 @@ abstract class AppLocalizations {
   /// **'Highlights'**
   String get highlights;
 
+  /// No description provided for @history.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get history;
+
   /// No description provided for @historyHint.
   ///
   /// In en, this message translates to:
   /// **'Tap a past day to correct it. Days the habit isn\'t due are neutral.'**
   String get historyHint;
+
+  /// No description provided for @hmActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps and activity'**
+  String get hmActivity;
+
+  /// No description provided for @hmMens.
+  ///
+  /// In en, this message translates to:
+  /// **'Men\'s health'**
+  String get hmMens;
+
+  /// No description provided for @hmNutrition.
+  ///
+  /// In en, this message translates to:
+  /// **'Food and calories'**
+  String get hmNutrition;
+
+  /// No description provided for @hmSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep and recovery'**
+  String get hmSleep;
+
+  /// No description provided for @hmWomens.
+  ///
+  /// In en, this message translates to:
+  /// **'Women\'s health'**
+  String get hmWomens;
 
   /// No description provided for @homeInstead.
   ///
@@ -3170,6 +3368,24 @@ abstract class AppLocalizations {
   /// **'First tasks'**
   String get initialTasks;
 
+  /// No description provided for @install.
+  ///
+  /// In en, this message translates to:
+  /// **'Install'**
+  String get install;
+
+  /// No description provided for @installHealthConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Install Health Connect'**
+  String get installHealthConnect;
+
+  /// No description provided for @installHealthConnectBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Android keeps steps from your phone and watch in Health Connect. Install or update it, then come back and connect.'**
+  String get installHealthConnectBody;
+
   /// No description provided for @interestsHint.
   ///
   /// In en, this message translates to:
@@ -3223,6 +3439,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Language'**
   String get language;
+
+  /// No description provided for @lastSyncAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Last synced {time}'**
+  String lastSyncAt(String time);
 
   /// No description provided for @lastWeek.
   ///
@@ -3422,6 +3644,12 @@ abstract class AppLocalizations {
   /// **'You set the percentage yourself.'**
   String get manualHint;
 
+  /// No description provided for @manualStepsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'If the phone app is connected, its number is used for that day.'**
+  String get manualStepsNote;
+
   /// No description provided for @markAllRead.
   ///
   /// In en, this message translates to:
@@ -3596,6 +3824,24 @@ abstract class AppLocalizations {
   /// **'More options'**
   String get moreOptions;
 
+  /// No description provided for @moveReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Move reminders'**
+  String get moveReminders;
+
+  /// No description provided for @moveRemindersOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Remind me to move'**
+  String get moveRemindersOn;
+
+  /// No description provided for @moveRemindersSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Stops for the day once you reach your goal'**
+  String get moveRemindersSub;
+
   /// No description provided for @moveTomorrow.
   ///
   /// In en, this message translates to:
@@ -3698,11 +3944,23 @@ abstract class AppLocalizations {
   /// **'My notes'**
   String get myNotes;
 
+  /// No description provided for @nOfM.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} of {m}'**
+  String nOfM(int n, int m);
+
   /// No description provided for @navAccountability.
   ///
   /// In en, this message translates to:
   /// **'Commitments'**
   String get navAccountability;
+
+  /// No description provided for @navActivity.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get navActivity;
 
   /// No description provided for @navAssistant.
   ///
@@ -4034,6 +4292,12 @@ abstract class AppLocalizations {
   /// **'Not started'**
   String get notStarted;
 
+  /// No description provided for @notSyncedYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Not synced yet'**
+  String get notSyncedYet;
+
   /// No description provided for @noteBody.
   ///
   /// In en, this message translates to:
@@ -4105,6 +4369,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Habit reminder: {name}'**
   String notifHabitTitle(String name);
+
+  /// No description provided for @notifMoveBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A short walk or a few minutes of stretching.'**
+  String get notifMoveBody;
+
+  /// No description provided for @notifMoveTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to move'**
+  String get notifMoveTitle;
 
   /// No description provided for @notifPrayerSoon.
   ///
@@ -4189,6 +4465,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Observations'**
   String get observations;
+
+  /// No description provided for @ofStepGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'of {goal}'**
+  String ofStepGoal(String goal);
 
   /// No description provided for @ok.
   ///
@@ -5258,6 +5540,36 @@ abstract class AppLocalizations {
   /// **'{done}/{total} sets'**
   String setsProgress(int done, int total);
 
+  /// No description provided for @sexAskTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us about you'**
+  String get sexAskTitle;
+
+  /// No description provided for @sexFemale.
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get sexFemale;
+
+  /// No description provided for @sexLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sex'**
+  String get sexLabel;
+
+  /// No description provided for @sexMale.
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get sexMale;
+
+  /// No description provided for @sexWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Used only to tailor the health sections. You can change it from your profile.'**
+  String get sexWhy;
+
   /// No description provided for @shareNotesSub.
   ///
   /// In en, this message translates to:
@@ -5390,6 +5702,30 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get skipRest;
 
+  /// No description provided for @sourceHealthConnect.
+  ///
+  /// In en, this message translates to:
+  /// **'Health Connect'**
+  String get sourceHealthConnect;
+
+  /// No description provided for @sourceHealthKit.
+  ///
+  /// In en, this message translates to:
+  /// **'Apple Health'**
+  String get sourceHealthKit;
+
+  /// No description provided for @sourceManual.
+  ///
+  /// In en, this message translates to:
+  /// **'Added by hand'**
+  String get sourceManual;
+
+  /// No description provided for @sourcePhone.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone sensor'**
+  String get sourcePhone;
+
   /// No description provided for @spending.
   ///
   /// In en, this message translates to:
@@ -5474,17 +5810,65 @@ abstract class AppLocalizations {
   /// **'To do'**
   String get statusTodo;
 
+  /// No description provided for @stepGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily step goal'**
+  String get stepGoal;
+
   /// No description provided for @stepOf.
   ///
   /// In en, this message translates to:
   /// **'Step {step} of {total}'**
   String stepOf(int step, int total);
 
+  /// No description provided for @stepsInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to 150,000'**
+  String get stepsInvalid;
+
+  /// No description provided for @stepsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get stepsLabel;
+
+  /// No description provided for @stepsNoData.
+  ///
+  /// In en, this message translates to:
+  /// **'No steps yet today — tap to connect or add them'**
+  String get stepsNoData;
+
+  /// No description provided for @stepsOfGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'{steps} / {goal} steps'**
+  String stepsOfGoal(String steps, String goal);
+
   /// No description provided for @stepsOptional.
   ///
   /// In en, this message translates to:
   /// **'Steps to reproduce (optional)'**
   String get stepsOptional;
+
+  /// No description provided for @stepsPerDay.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} steps a day'**
+  String stepsPerDay(String n);
+
+  /// No description provided for @stepsPermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps access wasn\'t given. You can allow it from the health app\'s settings.'**
+  String get stepsPermissionDenied;
+
+  /// No description provided for @stepsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps today'**
+  String get stepsToday;
 
   /// No description provided for @stop.
   ///
@@ -5533,6 +5917,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New here? Create an account'**
   String get switchToSignUp;
+
+  /// No description provided for @syncFailedShort.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read steps — try again'**
+  String get syncFailedShort;
 
   /// No description provided for @syncNever.
   ///
@@ -5714,11 +6104,23 @@ abstract class AppLocalizations {
   /// **'follows your device'**
   String get timezoneDeviceNote;
 
+  /// No description provided for @to.
+  ///
+  /// In en, this message translates to:
+  /// **'To'**
+  String get to;
+
   /// No description provided for @today.
   ///
   /// In en, this message translates to:
   /// **'Today'**
   String get today;
+
+  /// No description provided for @todayFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Today: {source}'**
+  String todayFrom(String source);
 
   /// No description provided for @todayPlan.
   ///
@@ -6151,6 +6553,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Saved what you did. Every bit counts.'**
   String get workoutSavedPartial;
+
+  /// No description provided for @yesterday.
+  ///
+  /// In en, this message translates to:
+  /// **'Yesterday'**
+  String get yesterday;
 
   /// No description provided for @yourData.
   ///
