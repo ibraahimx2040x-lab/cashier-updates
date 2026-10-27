@@ -8,6 +8,7 @@ import 'package:hayati/core/utils/format.dart';
 import 'package:hayati/core/utils/labels.dart';
 import 'package:hayati/data/auth.dart';
 import 'package:hayati/data/data_controller.dart';
+import 'package:hayati/data/models/accountability.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/learning.dart';
@@ -134,6 +135,12 @@ void seed(ProviderContainer c) {
   d.addExpense(Expense(id: 'x1', amountMinor: 2550, currency: 'SAR', category: 'food', spentAt: now, description: 'Lunch'));
   d.addExpense(Expense(id: 'x2', amountMinor: 1000, currency: 'USD', category: 'education', spentAt: now));
   d.saveBudget(const Budget(id: 'b1', currency: 'SAR', limitMinor: 2000));
+  final late = d.newTask(title: 'Late report', dueDate: dayKey(now.subtract(const Duration(days: 10))));
+  d.saveTask(late);
+  d.saveRule(AccountabilityRule(id: 'ar1', taskId: late.id, consequence: Consequence.planningSession, createdAt: now));
+  d.addAccountabilityEvent(AccountabilityEvent(id: 'ae1', ruleId: 'ar1', taskId: late.id, dueDate: late.dueDate!, triggeredOn: today));
+  d.addAccountabilityEvent(AccountabilityEvent(id: 'ae0', taskId: first.id, dueDate: '2026-01-01', triggeredOn: '2026-01-08')
+      .resolve(DelayReason.illness, EventOutcome.rescheduled, newDueDate: today, note: 'flu', at: now));
   d.notify(AppNotification(id: 'nt', type: NotificationType.task, title: 'Reminder', createdAt: now, refId: first.id, dedupeKey: 'x'));
 }
 
@@ -231,6 +238,11 @@ void main() {
           Routes.englishReview,
           Routes.placement,
           Routes.levelCheck,
+          Routes.accountability,
+          Routes.accountabilityRule(),
+          Routes.accountabilityRule(ruleId: 'ar1'),
+          Routes.accountabilityEvent('ae1'),
+          Routes.accountabilityEvent('ae0'),
         ];
         for (final r in routes) {
           router.go(r);
@@ -275,6 +287,60 @@ void main() {
     expect(d.tasks, hasLength(7));
     expect(find.text(l.proposalExecuted), findsOneWidget);
     expect(c.read(assistantProvider).busy, isFalse);
+  });
+
+  testWidgets('accountability: agree to a rule, then answer a late task (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final now = DateTime.now();
+    final task = data.newTask(title: 'Essay', dueDate: dayKey(now.subtract(const Duration(days: 4))));
+    data.saveTask(task);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.accountability);
+    await tester.pumpAndSettle();
+    router.push(Routes.accountabilityRule(taskId: task.id));
+    await tester.pumpAndSettle();
+
+    await tapIn(tester, find.text(l.accDaysLate(3)));
+    await tester.pumpAndSettle();
+    // Unsafe custom wording is refused; saving needs explicit agreement.
+    await tapIn(tester, find.text(l.conCustom));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).last, 'No sleep until done');
+    await tester.pumpAndSettle();
+    expect(find.text(l.accCustomUnsafe), findsOneWidget);
+    await tester.enterText(find.byType(TextField).last, 'Tidy my desk first');
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.save));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).accountabilityRules, isEmpty, reason: 'not agreed yet');
+    await tapIn(tester, find.text(l.accAgree));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.save));
+    await tester.pumpAndSettle();
+    final rule = c.read(dataProvider).accountabilityRules.single;
+    expect((rule.graceDays, rule.consequence, rule.customText), (3, Consequence.custom, 'Tidy my desk first'));
+
+    // The shell notices the task is 4 days late and asks why.
+    await tester.pump(const Duration(seconds: 3));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).accountabilityEvents.where((e) => e.pending), hasLength(1));
+    final event = c.read(dataProvider).accountabilityEvents.single;
+    router.push(Routes.accountabilityEvent(event.id));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.delayReason(DelayReason.postponed)));
+    await tester.pumpAndSettle();
+    expect(find.text('Tidy my desk first'), findsOneWidget);
+    await tapIn(tester, find.text(l.accConfirm));
+    await tester.pumpAndSettle();
+    final d = c.read(dataProvider);
+    expect(d.accountabilityEvent(event.id)!.outcome, EventOutcome.consequenceAccepted);
+    expect(d.task(task.id)!.dueDate, dayKey(now.add(const Duration(days: 3))));
+    expect(d.tasks.where((t) => t.title == 'Tidy my desk first'), hasLength(1));
   });
 
   testWidgets('task editor validates and saves', (tester) async {

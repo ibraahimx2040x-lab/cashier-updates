@@ -87,7 +87,7 @@ class AssistantSettingsScreen extends ConsumerWidget {
             ),
           ),
           ListTile(
-            leading: const Icon(Icons.delete_sweep_outlined),
+            leading: IconBadge(Icons.delete_sweep_outlined),
             title: Text(l.deleteAllChats),
             onTap: () async {
               if (await confirmDialog(context, title: l.deleteAllChats, message: l.deleteAllChatsBody, confirmLabel: l.delete)) {

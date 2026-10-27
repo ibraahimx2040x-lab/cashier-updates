@@ -41,6 +41,8 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
         showHabitHistory(context, ref, id!);
       case NotificationType.billing:
         context.push(Routes.subscription);
+      case NotificationType.accountability when d.accountabilityEvents.any((e) => e.id == id):
+        context.push(Routes.accountabilityEvent(id!));
       default:
         showSnack(context, AppLocalizations.of(context).itemGone);
     }

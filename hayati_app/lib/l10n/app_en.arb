@@ -1,4 +1,105 @@
 {
+  "accAddRule": "Add a commitment",
+  "accAgree": "I agree to this rule, and I can edit or pause it anytime",
+  "accAgreedConsequence": "What you agreed to",
+  "accAnsweredOn": "Answered {date}",
+  "@accAnsweredOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accCloseTask": "Close the task",
+  "accConfirm": "Confirm",
+  "accConsequenceAsTask": "It will be added as a small task for today, and the task gets the new deadline below.",
+  "accCustomEmpty": "Write what you agree to do",
+  "accCustomLong": "Keep it under 200 characters",
+  "accCustomUnsafe": "Choose something that doesn't touch sleep, food, prayer, health care, or add exercise",
+  "accDaysLate": "{n, plural, =1{1 day late} other{{n} days late}}",
+  "@accDaysLate": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "accDeleteRule": "Delete this commitment?",
+  "accDeleteRuleBody": "The task stays. Past records are kept without the rule.",
+  "accDropNote": "No problem. The task will be closed and its rule paused. Nothing else happens.",
+  "accDue": "Due {date}",
+  "@accDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accEditRule": "Edit commitment",
+  "accEmergencyNote": "Emergencies happen. No consequence — just pick a new deadline that works.",
+  "accHistory": "What happened before",
+  "accIllnessNote": "Your health comes first. No consequence — pick a new deadline when you're ready.",
+  "accLateBy": "{n, plural, =1{1 day past {date}} other{{n} days past {date}}}",
+  "@accLateBy": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accMakeupPlan": "Make-up plan: a new deadline",
+  "accMissedOn": "Was due {date}",
+  "@accMissedOn": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accNeedsAnswer": "Needs your answer",
+  "accNewDeadline": "New deadline",
+  "accNewDue": "New deadline {date}",
+  "@accNewDue": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "accNoBlame": "No blame. Tell us what happened and we'll adjust together.",
+  "accNoEligibleTasks": "Add an open task with a deadline first.",
+  "accNoRules": "No commitments yet. Add one for a task you keep putting off.",
+  "accNote": "Note (optional)",
+  "accOpenTask": "Open the task",
+  "accPickTask": "Pick a task",
+  "accPrinciple1": "You choose the consequence in advance.",
+  "accPrinciple2": "Only a deliberate postponement brings it — never an emergency or illness.",
+  "accPrinciple3": "Nothing is rescheduled or closed without your OK.",
+  "accPrinciple4": "Never sleep, food, prayer, health care, or extra exercise.",
+  "accRuleRemoved": "The rule was removed — nothing extra.",
+  "accRuleSaved": "Commitment saved",
+  "accRuleSummary": "{days, plural, =1{After 1 day late} other{After {days} days late}}: {consequence}",
+  "@accRuleSummary": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "consequence": {
+        "type": "String"
+      }
+    }
+  },
+  "accRules": "Your commitments",
+  "accSafety": "Consequences are always harmless: they never take away sleep, food, prayer or health care, and never add exercise.",
+  "accSaved": "Saved. Thanks for being honest.",
+  "accTitle": "Commitments, kindly",
+  "accWhatHappens": "Then what?",
+  "accWhenLate": "When is it late?",
+  "accWhichTask": "Which task?",
+  "accWhy": "Why was it late?",
   "account": "Account",
   "actionLog": "Action log",
   "actionLogSub": "What the assistant changed, and when. No message content is stored here.",
@@ -506,6 +607,38 @@
       }
     }
   },
+  "conCustom": "Something of my own",
+  "conCustomHint": "Your own harmless wording.",
+  "conExtraReview": "An extra review session",
+  "conExtraReviewHint": "20 minutes to look at what's blocking the task.",
+  "conFirstStep": "First step before leisure",
+  "conFirstStepHint": "Do a 15-minute first step before optional leisure time.",
+  "conPlanning": "A short planning session",
+  "conPlanningHint": "15 minutes to break the task into small steps.",
+  "conTaskFirstStep": "First step: {task}",
+  "@conTaskFirstStep": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "conTaskPlanning": "Plan the steps: {task}",
+  "@conTaskPlanning": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "conTaskReview": "Review what's blocking: {task}",
+  "@conTaskReview": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
   "confirmEmailSent": "Account created. We sent a confirmation link to your email — open it, then sign in.",
   "confirmPassword": "Confirm password",
   "conflict": "Conflict",
@@ -620,6 +753,10 @@
   "documents": "Documents",
   "done": "Done",
   "doneDays": "Done / due",
+  "drEmergency": "An emergency",
+  "drIllness": "I was ill",
+  "drNotImportant": "It's no longer important",
+  "drPostponed": "I put it off on purpose",
   "dragHint": "Long-press and drag a task onto an hour to plan it.",
   "due": "Due",
   "dueShort": "due",
@@ -663,6 +800,10 @@
       }
     }
   },
+  "eoAccepted": "Consequence accepted",
+  "eoDropped": "Task closed",
+  "eoPending": "Waiting",
+  "eoRescheduled": "Rescheduled",
   "eqBands": "Resistance bands",
   "eqBench": "Bench",
   "eqDumbbells": "Dumbbells",
@@ -1067,6 +1208,7 @@
   "myGoals": "My goals",
   "myLocation": "My location",
   "myNotes": "My notes",
+  "navAccountability": "Commitments",
   "navAssistant": "Assistant",
   "navEnglish": "English",
   "navExpenses": "Expenses",
@@ -1149,6 +1291,15 @@
   "nothingScheduled": "Nothing scheduled",
   "nothingScheduledNow": "Nothing scheduled today",
   "nothingToPlan": "No open tasks to plan for this day.",
+  "notifAccountability": "\"{task}\" is late",
+  "@notifAccountability": {
+    "placeholders": {
+      "task": {
+        "type": "String"
+      }
+    }
+  },
+  "notifAccountabilityBody": "No blame — tell us what happened and pick what's next.",
   "notifDue": "Check its deadline in your tasks.",
   "notifEventBody": "Starts in {minutes} min",
   "@notifEventBody": {

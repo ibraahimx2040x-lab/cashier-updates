@@ -5,7 +5,8 @@ Then: dart run flutter_launcher_icons && dart run flutter_native_splash:create
 """
 from PIL import Image, ImageDraw
 
-GREEN = (0x16, 0x3A, 0x36, 255)
+NAVY = (0x1E, 0x2A, 0x5A, 255)
+GOLD = (0xD4, 0xA8, 0x4B, 255)
 WHITE = (255, 255, 255, 255)
 SS = 4  # supersampling for smooth edges
 
@@ -19,7 +20,7 @@ def mark(size, scale, bg):
     r = n * scale / 2
     w = max(2, int(r * 2 * 0.07))
     ring = r * 0.86
-    d.ellipse([c - ring, c - ring, c + ring, c + ring], outline=WHITE, width=w)
+    d.ellipse([c - ring, c - ring, c + ring, c + ring], outline=GOLD, width=w)
     # A winding S-shaped path (bottom-left → top-right) with a dot at each
     # end: "a connected path", deliberately not a straight diagonal.
     a = (c - r * 0.40, c + r * 0.36)
@@ -35,13 +36,13 @@ def mark(size, scale, bg):
         d.ellipse([x - w / 2, y - w / 2, x + w / 2, y + w / 2], fill=WHITE)
     for p in (a, b):
         dr = r * 0.11
-        d.ellipse([p[0] - dr, p[1] - dr, p[0] + dr, p[1] + dr], fill=WHITE)
+        d.ellipse([p[0] - dr, p[1] - dr, p[0] + dr, p[1] + dr], fill=GOLD)
     return img.resize((size, size), Image.LANCZOS)
 
 
 if __name__ == "__main__":
     out = "assets/brand"
-    mark(1024, 0.62, GREEN).save(f"{out}/icon.png")                 # full-bleed app icon
+    mark(1024, 0.62, NAVY).save(f"{out}/icon.png")                 # full-bleed app icon
     mark(1024, 0.42, (0, 0, 0, 0)).save(f"{out}/icon_foreground.png")  # Android adaptive (66% safe zone)
-    mark(768, 0.5, (0, 0, 0, 0)).save(f"{out}/splash.png")          # centred on green splash
+    mark(768, 0.5, (0, 0, 0, 0)).save(f"{out}/splash.png")          # centred on navy splash
     print("ok")

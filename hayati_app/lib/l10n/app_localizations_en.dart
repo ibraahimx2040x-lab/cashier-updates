@@ -10,6 +10,189 @@ class AppLocalizationsEn extends AppLocalizations {
   AppLocalizationsEn([String locale = 'en']) : super(locale);
 
   @override
+  String get accAddRule => 'Add a commitment';
+
+  @override
+  String get accAgree =>
+      'I agree to this rule, and I can edit or pause it anytime';
+
+  @override
+  String get accAgreedConsequence => 'What you agreed to';
+
+  @override
+  String accAnsweredOn(String date) {
+    return 'Answered $date';
+  }
+
+  @override
+  String get accCloseTask => 'Close the task';
+
+  @override
+  String get accConfirm => 'Confirm';
+
+  @override
+  String get accConsequenceAsTask =>
+      'It will be added as a small task for today, and the task gets the new deadline below.';
+
+  @override
+  String get accCustomEmpty => 'Write what you agree to do';
+
+  @override
+  String get accCustomLong => 'Keep it under 200 characters';
+
+  @override
+  String get accCustomUnsafe =>
+      'Choose something that doesn\'t touch sleep, food, prayer, health care, or add exercise';
+
+  @override
+  String accDaysLate(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days late',
+      one: '1 day late',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get accDeleteRule => 'Delete this commitment?';
+
+  @override
+  String get accDeleteRuleBody =>
+      'The task stays. Past records are kept without the rule.';
+
+  @override
+  String get accDropNote =>
+      'No problem. The task will be closed and its rule paused. Nothing else happens.';
+
+  @override
+  String accDue(String date) {
+    return 'Due $date';
+  }
+
+  @override
+  String get accEditRule => 'Edit commitment';
+
+  @override
+  String get accEmergencyNote =>
+      'Emergencies happen. No consequence — just pick a new deadline that works.';
+
+  @override
+  String get accHistory => 'What happened before';
+
+  @override
+  String get accIllnessNote =>
+      'Your health comes first. No consequence — pick a new deadline when you\'re ready.';
+
+  @override
+  String accLateBy(int n, String date) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days past $date',
+      one: '1 day past $date',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get accMakeupPlan => 'Make-up plan: a new deadline';
+
+  @override
+  String accMissedOn(String date) {
+    return 'Was due $date';
+  }
+
+  @override
+  String get accNeedsAnswer => 'Needs your answer';
+
+  @override
+  String get accNewDeadline => 'New deadline';
+
+  @override
+  String accNewDue(String date) {
+    return 'New deadline $date';
+  }
+
+  @override
+  String get accNoBlame =>
+      'No blame. Tell us what happened and we\'ll adjust together.';
+
+  @override
+  String get accNoEligibleTasks => 'Add an open task with a deadline first.';
+
+  @override
+  String get accNoRules =>
+      'No commitments yet. Add one for a task you keep putting off.';
+
+  @override
+  String get accNote => 'Note (optional)';
+
+  @override
+  String get accOpenTask => 'Open the task';
+
+  @override
+  String get accPickTask => 'Pick a task';
+
+  @override
+  String get accPrinciple1 => 'You choose the consequence in advance.';
+
+  @override
+  String get accPrinciple2 =>
+      'Only a deliberate postponement brings it — never an emergency or illness.';
+
+  @override
+  String get accPrinciple3 =>
+      'Nothing is rescheduled or closed without your OK.';
+
+  @override
+  String get accPrinciple4 =>
+      'Never sleep, food, prayer, health care, or extra exercise.';
+
+  @override
+  String get accRuleRemoved => 'The rule was removed — nothing extra.';
+
+  @override
+  String get accRuleSaved => 'Commitment saved';
+
+  @override
+  String accRuleSummary(int days, String consequence) {
+    String _temp0 = intl.Intl.pluralLogic(
+      days,
+      locale: localeName,
+      other: 'After $days days late',
+      one: 'After 1 day late',
+    );
+    return '$_temp0: $consequence';
+  }
+
+  @override
+  String get accRules => 'Your commitments';
+
+  @override
+  String get accSafety =>
+      'Consequences are always harmless: they never take away sleep, food, prayer or health care, and never add exercise.';
+
+  @override
+  String get accSaved => 'Saved. Thanks for being honest.';
+
+  @override
+  String get accTitle => 'Commitments, kindly';
+
+  @override
+  String get accWhatHappens => 'Then what?';
+
+  @override
+  String get accWhenLate => 'When is it late?';
+
+  @override
+  String get accWhichTask => 'Which task?';
+
+  @override
+  String get accWhy => 'Why was it late?';
+
+  @override
   String get account => 'Account';
 
   @override
@@ -685,6 +868,48 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get conCustom => 'Something of my own';
+
+  @override
+  String get conCustomHint => 'Your own harmless wording.';
+
+  @override
+  String get conExtraReview => 'An extra review session';
+
+  @override
+  String get conExtraReviewHint =>
+      '20 minutes to look at what\'s blocking the task.';
+
+  @override
+  String get conFirstStep => 'First step before leisure';
+
+  @override
+  String get conFirstStepHint =>
+      'Do a 15-minute first step before optional leisure time.';
+
+  @override
+  String get conPlanning => 'A short planning session';
+
+  @override
+  String get conPlanningHint =>
+      '15 minutes to break the task into small steps.';
+
+  @override
+  String conTaskFirstStep(String task) {
+    return 'First step: $task';
+  }
+
+  @override
+  String conTaskPlanning(String task) {
+    return 'Plan the steps: $task';
+  }
+
+  @override
+  String conTaskReview(String task) {
+    return 'Review what\'s blocking: $task';
+  }
+
+  @override
   String get confirmEmailSent =>
       'Account created. We sent a confirmation link to your email — open it, then sign in.';
 
@@ -954,6 +1179,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doneDays => 'Done / due';
 
   @override
+  String get drEmergency => 'An emergency';
+
+  @override
+  String get drIllness => 'I was ill';
+
+  @override
+  String get drNotImportant => 'It\'s no longer important';
+
+  @override
+  String get drPostponed => 'I put it off on purpose';
+
+  @override
   String get dragHint => 'Long-press and drag a task onto an hour to plan it.';
 
   @override
@@ -1052,6 +1289,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String englishLessonItem(String title) {
     return 'English: $title';
   }
+
+  @override
+  String get eoAccepted => 'Consequence accepted';
+
+  @override
+  String get eoDropped => 'Task closed';
+
+  @override
+  String get eoPending => 'Waiting';
+
+  @override
+  String get eoRescheduled => 'Rescheduled';
 
   @override
   String get eqBands => 'Resistance bands';
@@ -1893,6 +2142,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myNotes => 'My notes';
 
   @override
+  String get navAccountability => 'Commitments';
+
+  @override
   String get navAssistant => 'Assistant';
 
   @override
@@ -2081,6 +2333,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get nothingToPlan => 'No open tasks to plan for this day.';
+
+  @override
+  String notifAccountability(String task) {
+    return '\"$task\" is late';
+  }
+
+  @override
+  String get notifAccountabilityBody =>
+      'No blame — tell us what happened and pick what\'s next.';
 
   @override
   String get notifDue => 'Check its deadline in your tasks.';

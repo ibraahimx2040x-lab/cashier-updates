@@ -231,7 +231,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
               child: _restLeft > 0
                   ? Container(
                       width: double.infinity,
-                      color: AppColors.deepGreen,
+                      color: AppColors.navy,
                       padding: const EdgeInsets.symmetric(horizontal: Space.gutter, vertical: Space.s),
                       child: Row(children: [
                         const Icon(Icons.timer_outlined, color: Colors.white),

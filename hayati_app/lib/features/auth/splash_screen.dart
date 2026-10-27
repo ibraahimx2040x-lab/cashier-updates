@@ -40,7 +40,7 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     return Scaffold(
-      backgroundColor: AppColors.deepGreen,
+      backgroundColor: AppColors.navy,
       body: Center(
         child: Column(mainAxisSize: MainAxisSize.min, children: [
           const HayatiLogo(size: 88),
@@ -64,43 +64,47 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   }
 }
 
-/// Compass-like mark: a ring with a connected path — simple on purpose.
+/// Compass-like mark: a gold ring and dots with a connected path — simple
+/// on purpose.
 class HayatiLogo extends StatelessWidget {
-  const HayatiLogo({super.key, this.size = 64, this.color = Colors.white});
+  const HayatiLogo({super.key, this.size = 64, this.color = Colors.white, this.accent = AppColors.gold});
   final double size;
   final Color color;
+  final Color accent;
 
   @override
   Widget build(BuildContext context) => Semantics(
         label: 'Hayati',
-        child: CustomPaint(size: Size.square(size), painter: _LogoPainter(color)),
+        child: CustomPaint(size: Size.square(size), painter: _LogoPainter(color, accent)),
       );
 }
 
 class _LogoPainter extends CustomPainter {
-  _LogoPainter(this.color);
+  _LogoPainter(this.color, this.accent);
   final Color color;
+  final Color accent;
 
   @override
   void paint(Canvas canvas, Size s) {
     final c = s.center(Offset.zero);
     final r = s.width / 2;
     final ring = Paint()
-      ..color = color
+      ..color = accent
       ..style = PaintingStyle.stroke
       ..strokeWidth = s.width * 0.07;
     canvas.drawCircle(c, r * 0.86, ring);
+    ring.color = color;
     // A winding S-shaped path between two dots (same as tool/make_brand.py).
     final path = Path()
       ..moveTo(c.dx - r * 0.40, c.dy + r * 0.36)
       ..quadraticBezierTo(c.dx + r * 0.05, c.dy + r * 0.50, c.dx, c.dy)
       ..quadraticBezierTo(c.dx - r * 0.05, c.dy - r * 0.50, c.dx + r * 0.40, c.dy - r * 0.36);
     canvas.drawPath(path, ring..strokeCap = StrokeCap.round);
-    final dot = Paint()..color = color;
+    final dot = Paint()..color = accent;
     canvas.drawCircle(Offset(c.dx - r * 0.40, c.dy + r * 0.36), r * 0.11, dot);
     canvas.drawCircle(Offset(c.dx + r * 0.40, c.dy - r * 0.36), r * 0.11, dot);
   }
 
   @override
-  bool shouldRepaint(_LogoPainter old) => old.color != color;
+  bool shouldRepaint(_LogoPainter old) => old.color != color || old.accent != accent;
 }

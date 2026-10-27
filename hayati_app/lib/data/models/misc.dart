@@ -143,7 +143,7 @@ class Budget {
       );
 }
 
-enum NotificationType { task, event, habit, plan, assistant, billing }
+enum NotificationType { task, event, habit, plan, assistant, billing, accountability }
 
 class AppNotification {
   const AppNotification({

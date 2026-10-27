@@ -219,5 +219,67 @@ select pg_temp.check(
   'B cannot read A''s learning data');
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Accountability: one rule per task, safe custom wording, reasons that match outcomes.
+insert into tasks (id, title, due_date) values ('acacacac-0000-0000-0000-000000000001', 'Essay', current_date - 10);
+insert into accountability_rules (id, task_id, grace_days, consequence)
+  values ('acacacac-0000-0000-0000-0000000000a1', 'acacacac-0000-0000-0000-000000000001', 7, 'planningSession');
+do $$ begin
+  insert into accountability_rules (task_id, consequence) values ('acacacac-0000-0000-0000-000000000001', 'extraReview');
+  raise exception 'FAILED: two rules for one task';
+exception when unique_violation then raise notice 'ok: one rule per task';
+end $$;
+insert into tasks (id, title, due_date) values ('acacacac-0000-0000-0000-000000000002', 'Report', current_date);
+do $$ declare bad text; begin
+  foreach bad in array array['No sleep until done', 'skip meals', 'بدون أكل', 'أأخر الصلاة', 'أروح للطبيب بعدين', 'punishment', ''] loop
+    begin
+      insert into accountability_rules (task_id, consequence, custom_text) values ('acacacac-0000-0000-0000-000000000002', 'custom', bad);
+      raise exception 'FAILED: unsafe consequence accepted: %', bad;
+    exception when check_violation then null;
+    end;
+  end loop;
+  raise notice 'ok: unsafe custom consequences rejected';
+end $$;
+insert into accountability_rules (task_id, consequence, custom_text)
+  values ('acacacac-0000-0000-0000-000000000002', 'custom', 'أحل المشاكل وأرتب المجلد');
+do $$ begin
+  insert into accountability_rules (task_id, grace_days, consequence) values ('acacacac-0000-0000-0000-000000000002', 0, 'extraReview');
+  raise exception 'FAILED: grace 0';
+exception when check_violation then raise notice 'ok: grace 1-30';
+end $$;
+insert into accountability_events (id, rule_id, task_id, due_date, triggered_on)
+  values ('acacacac-0000-0000-0000-0000000000e1', 'acacacac-0000-0000-0000-0000000000a1', 'acacacac-0000-0000-0000-000000000001', current_date - 10, current_date - 3);
+do $$ begin
+  insert into accountability_events (rule_id, due_date, triggered_on)
+    values ('acacacac-0000-0000-0000-0000000000a1', current_date - 10, current_date);
+  raise exception 'FAILED: triggered twice for one deadline';
+exception when unique_violation then raise notice 'ok: once per deadline';
+end $$;
+do $$ begin
+  update accountability_events set reason = 'illness', outcome = 'consequenceAccepted' where id = 'acacacac-0000-0000-0000-0000000000e1';
+  raise exception 'FAILED: consequence after illness';
+exception when check_violation then raise notice 'ok: illness never brings a consequence';
+end $$;
+do $$ begin
+  update accountability_events set outcome = 'rescheduled' where id = 'acacacac-0000-0000-0000-0000000000e1';
+  raise exception 'FAILED: answered without a reason';
+exception when check_violation then raise notice 'ok: an answer says why';
+end $$;
+update accountability_events set reason = 'postponed', outcome = 'consequenceAccepted', new_due_date = current_date + 3, resolved_at = now()
+  where id = 'acacacac-0000-0000-0000-0000000000e1';
+delete from accountability_rules where id = 'acacacac-0000-0000-0000-0000000000a1';
+select pg_temp.check(
+  (select rule_id is null and outcome = 'consequenceAccepted' from accountability_events where id = 'acacacac-0000-0000-0000-0000000000e1'),
+  'deleting a rule keeps its history');
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from accountability_rules) + (select count(*) from accountability_events) = 0,
+  'B cannot read A''s commitments');
+do $$ begin
+  insert into accountability_rules (task_id, consequence) values ('acacacac-0000-0000-0000-000000000001', 'extraReview');
+  raise exception 'FAILED: rule on another user''s task';
+exception when foreign_key_violation or unique_violation or insufficient_privilege then raise notice 'ok: no rule on another user''s task';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

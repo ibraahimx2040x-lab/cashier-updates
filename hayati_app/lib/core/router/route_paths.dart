@@ -24,6 +24,7 @@ abstract final class Routes {
   static const fitness = '/fitness';
   static const fitnessSetup = '/fitness/setup';
   static const english = '/english';
+  static const accountability = '/accountability';
   static const englishReview = '/english/review';
   static const placement = '/english/test?kind=placement';
   static const levelCheck = '/english/test?kind=level';
@@ -36,6 +37,9 @@ abstract final class Routes {
   static String timeTab(String tab) => '/time?tab=$tab';
   static String exercise(String id) => '/fitness/exercise/$id';
   static String lesson(String id) => '/english/lesson/$id';
+  static String accountabilityRule({String? ruleId, String? taskId}) =>
+      '/accountability/rule${ruleId != null ? '?id=$ruleId' : (taskId != null ? '?task=$taskId' : '')}';
+  static String accountabilityEvent(String id) => '/accountability/event/$id';
   static String workout(String place, int weekday, {bool atHome = false}) =>
       '/fitness/session?place=$place&day=$weekday${atHome ? '&home=1' : ''}';
 }

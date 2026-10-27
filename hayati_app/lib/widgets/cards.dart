@@ -343,6 +343,7 @@ class NotificationTile extends StatelessWidget {
       NotificationType.plan => Icons.view_timeline_outlined,
       NotificationType.assistant => Icons.auto_awesome_outlined,
       NotificationType.billing => Icons.workspace_premium_outlined,
+      NotificationType.accountability => Icons.handshake_outlined,
     };
     return AppCard(
       onTap: onTap,

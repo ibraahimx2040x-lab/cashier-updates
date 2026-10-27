@@ -26,6 +26,7 @@ import '../../domain/prayer_times.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import '../shell/quick_add.dart';
 
@@ -324,18 +325,7 @@ class _NowCard extends StatelessWidget {
     return Semantics(
       container: true,
       label: '${l.nowLabel}: $headline, $detail',
-      child: Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Radii.sheet),
-          gradient: const LinearGradient(
-            begin: AlignmentDirectional.topStart,
-            end: AlignmentDirectional.bottomEnd,
-            colors: [AppColors.deepGreen, AppColors.midGreen],
-          ),
-          boxShadow: [
-            BoxShadow(color: AppColors.deepGreen.withValues(alpha: 0.25), blurRadius: 24, offset: const Offset(0, 10)),
-          ],
-        ),
+      child: HeroSurface(
         padding: const EdgeInsets.fromLTRB(Space.xl, Space.l, Space.l, Space.l),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Row(children: [
@@ -344,7 +334,7 @@ class _NowCard extends StatelessWidget {
               decoration: BoxDecoration(color: Colors.white24, borderRadius: BorderRadius.circular(20)),
               child: Row(mainAxisSize: MainAxisSize.min, children: [
                 const DecoratedBox(
-                  decoration: BoxDecoration(color: AppColors.lightGreen, shape: BoxShape.circle),
+                  decoration: BoxDecoration(color: AppColors.gold, shape: BoxShape.circle),
                   child: SizedBox.square(dimension: 8),
                 ),
                 const SizedBox(width: 6),
@@ -355,7 +345,7 @@ class _NowCard extends StatelessWidget {
             IconButton(
               tooltip: l.aiChipLate,
               color: fg,
-              icon: const Icon(Icons.auto_awesome),
+              icon: const Icon(Icons.auto_awesome, color: AppColors.gold),
               onPressed: onReplan,
             ),
           ]),
@@ -381,7 +371,7 @@ class _NowCard extends StatelessWidget {
                 duration: Motion.slow,
                 curve: Motion.curve,
                 builder: (_, v, _) =>
-                    LinearProgressIndicator(value: v, minHeight: 6, color: AppColors.lightGreen, backgroundColor: Colors.white24),
+                    LinearProgressIndicator(value: v, minHeight: 6, color: AppColors.gold, backgroundColor: Colors.white24),
               ),
             ),
           ],
@@ -428,7 +418,7 @@ class _PrayerStrip extends ConsumerWidget {
       return AppCard(
         onTap: () => context.push(Routes.prayerSettings),
         child: Row(children: [
-          CircleAvatar(backgroundColor: context.status.highlight, child: Icon(Icons.mosque_outlined, color: scheme.primary)),
+          const IconBadge(Icons.mosque_outlined, color: AppColors.gold, circle: true),
           const SizedBox(width: Space.m),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -449,7 +439,7 @@ class _PrayerStrip extends ConsumerWidget {
     return AppCard(
       onTap: () => context.push(Routes.prayer),
       child: Row(children: [
-        CircleAvatar(backgroundColor: context.status.highlight, child: Icon(Icons.mosque_outlined, color: scheme.primary)),
+        const IconBadge(Icons.mosque_outlined, color: AppColors.gold, circle: true),
         const SizedBox(width: Space.m),
         Expanded(
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -830,6 +820,7 @@ class _MoreMenu extends ConsumerWidget {
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         _item(Routes.english, Icons.translate, l.navEnglish),
+        _item(Routes.accountability, Icons.handshake_outlined, l.navAccountability),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),
         if (settings.has(AppModule.expenses)) _item(Routes.expenses, Icons.account_balance_wallet_outlined, l.navExpenses),
@@ -851,5 +842,5 @@ class _MoreMenu extends ConsumerWidget {
   }
 
   PopupMenuItem<String> _item(String route, IconData icon, String label) =>
-      PopupMenuItem(value: route, child: ListTile(contentPadding: EdgeInsets.zero, leading: Icon(icon), title: Text(label)));
+      PopupMenuItem(value: route, child: ListTile(contentPadding: EdgeInsets.zero, leading: IconBadge(icon, size: 18), title: Text(label)));
 }

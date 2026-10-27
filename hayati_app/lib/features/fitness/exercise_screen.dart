@@ -11,6 +11,7 @@ import '../../data/models/fitness.dart';
 import '../../domain/fitness/exercises.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 
 IconData muscleIcon(Muscle m) => switch (m) {
@@ -49,13 +50,9 @@ class ExerciseScreen extends ConsumerWidget {
           padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl),
           children: [
             FadeSlideIn(
-              child: Container(
+              child: HeroSurface(
                 height: 160,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(Radii.sheet),
-                  gradient: const LinearGradient(colors: [AppColors.deepGreen, AppColors.midGreen]),
-                ),
-                child: Center(child: Icon(muscleIcon(e.muscle), size: 72, color: Colors.white)),
+                child: Center(child: Icon(muscleIcon(e.muscle), size: 72, color: AppColors.gold)),
               ),
             ),
             const SizedBox(height: Space.l),
