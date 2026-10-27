@@ -316,7 +316,9 @@ void main() {
           await tester.pumpAndSettle();
           expect(tester.takeException(), isNull, reason: v);
         }
-        expect(find.text(l.nextPrayerIs(l.prayerName(nextPrayer(c.read(dataProvider).settings.prayer, DateTime.now())!.$1))), findsOneWidget);
+        // The prayer card names the next prayer; the hero's "next up" line
+        // may say the same when a prayer is the next item, depending on the hour.
+        expect(find.text(l.nextPrayerIs(l.prayerName(nextPrayer(c.read(dataProvider).settings.prayer, DateTime.now())!.$1))), findsAtLeastNWidgets(1));
       });
     }
   }
