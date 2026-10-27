@@ -10,6 +10,7 @@ import 'models/accountability.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
+import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
@@ -113,6 +114,14 @@ class DataController extends Notifier<AppData> {
 
   void updateSettings(UserSettings Function(UserSettings) f) =>
       _set(state.copyWith(settings: f(state.settings)));
+
+  /// Records the user's sex and turns on the matching health section
+  /// (switching it over if it changes). Other sections stay as they are.
+  void setSex(Sex sex) => updateSettings((s) {
+        final modules = {...s.health.modules}..removeAll({HealthModule.womens, HealthModule.mens});
+        modules.add(sex == Sex.female ? HealthModule.womens : HealthModule.mens);
+        return s.copyWith(sex: sex, health: s.health.copyWith(modules: modules));
+      });
 
   // ------------------------------------------------------------------- tasks
 
@@ -311,6 +320,43 @@ class DataController extends Notifier<AppData> {
           ? [...state.prayerLogs, PrayerLog(id: newId(), day: day, prayer: prayer)]
           : state.prayerLogs.where((l) => !(l.prayer == prayer && l.day == day)).toList(),
     ));
+  }
+
+  // ---------------------------------------------------------------- activity
+
+  /// Records a day's activity from one source, replacing that source's
+  /// previous numbers for the day. The id is derived from (user, day,
+  /// source) so two devices reading the same source write the same row.
+  void recordActivity(String day, ActivitySource source, {required int steps, int? distanceM, int? activeMinutes}) {
+    if (dateOnly(parseDayKey(day)).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    if (steps < 0 || steps > DailyActivity.maxSteps) throw ArgumentError('steps');
+    if ((distanceM ?? 0) < 0 || (activeMinutes ?? 0) < 0 || (activeMinutes ?? 0) > 1440) throw ArgumentError('value');
+    final existing = state.activity.where((a) => a.day == day && a.source == source).firstOrNull;
+    if (existing != null && existing.steps == steps && existing.distanceM == distanceM && existing.activeMinutes == activeMinutes) {
+      return;
+    }
+    final row = DailyActivity(
+      id: existing?.id ?? const Uuid().v5(Namespace.url.value, 'hayati:activity:$_userId:$day:${source.name}'),
+      day: day,
+      source: source,
+      steps: steps,
+      distanceM: distanceM,
+      activeMinutes: activeMinutes,
+      updatedAt: _now,
+    );
+    _set(state.copyWith(activity: _upsert(state.activity, row, (a) => a.id)));
+  }
+
+  void deleteActivity(String id) =>
+      _set(state.copyWith(activity: state.activity.where((a) => a.id != id).toList()));
+
+  void updateHealth(HealthSettings Function(HealthSettings) f) {
+    final next = f(state.settings.health);
+    if (next.stepGoal < HealthSettings.minStepGoal || next.stepGoal > HealthSettings.maxStepGoal) {
+      throw ArgumentError('stepGoal');
+    }
+    if (next.heightCm != null && (next.heightCm! < 80 || next.heightCm! > 250)) throw ArgumentError('height');
+    updateSettings((s) => s.copyWith(health: next));
   }
 
   // ----------------------------------------------------------------- fitness

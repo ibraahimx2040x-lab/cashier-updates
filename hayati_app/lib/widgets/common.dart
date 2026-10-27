@@ -417,7 +417,10 @@ class Pill extends StatelessWidget {
         ),
         child: Row(mainAxisSize: MainAxisSize.min, children: [
           if (icon != null) ...[Icon(icon, size: 13, color: color), const SizedBox(width: 4)],
-          Text(label, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color)),
+          Flexible(
+            child: Text(label,
+                maxLines: 1, overflow: TextOverflow.ellipsis, style: Theme.of(context).textTheme.labelSmall?.copyWith(color: color)),
+          ),
         ]),
       );
 }

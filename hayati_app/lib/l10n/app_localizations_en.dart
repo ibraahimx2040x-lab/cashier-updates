@@ -206,6 +206,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get active => 'Active';
 
   @override
+  String activeMinutesN(int n) {
+    return '$n active minutes';
+  }
+
+  @override
+  String get activityNote =>
+      'Steps come from your phone\'s health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.';
+
+  @override
+  String get activitySaved => 'Steps saved';
+
+  @override
+  String get activityWebNote =>
+      'In the browser steps can only be added by hand. Automatic counting works in the phone app.';
+
+  @override
   String get addEvent => 'Add event';
 
   @override
@@ -228,6 +244,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addNote => 'Add note';
+
+  @override
+  String get addStepsManually => 'Add steps';
 
   @override
   String get addTask => 'Add task';
@@ -634,6 +653,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get approved => 'Approved';
 
   @override
+  String get approx => 'approx.';
+
+  @override
   String approximateSwap(String from, String to) {
     return '$from → $to (approximate)';
   }
@@ -734,6 +756,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get benefit3Title => 'An assistant you control';
+
+  @override
+  String get bestDay => 'Best day';
 
   @override
   String get billingNote =>
@@ -930,6 +955,24 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get connect => 'Connect';
+
+  @override
+  String connectStepsBody(String store) {
+    return 'Hayati reads your daily step total from $store. It only reads steps and never writes anything.';
+  }
+
+  @override
+  String connectStepsTitle(String store) {
+    return 'Count steps automatically from $store';
+  }
+
+  @override
+  String connectedTo(String store) {
+    return 'Connected to $store';
+  }
+
+  @override
   String get contactSupport => 'Contact support';
 
   @override
@@ -964,6 +1007,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentStreak => 'Current streak';
 
   @override
+  String get dailyAverage => 'Daily average';
+
+  @override
   String get dataAccess => 'What the assistant can read';
 
   @override
@@ -989,6 +1035,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String daysCount(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String daysN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
       locale: localeName,
@@ -1161,6 +1218,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get discardTitle => 'Discard changes?';
 
   @override
+  String get disconnect => 'Disconnect';
+
+  @override
   String get dismiss => 'Dismiss';
 
   @override
@@ -1168,6 +1228,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get displayNameOptional => 'Your name (optional)';
+
+  @override
+  String distanceKm(String km) {
+    return '$km km';
+  }
 
   @override
   String get documents => 'Documents';
@@ -1369,6 +1434,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get errSave => 'Couldn\'t save. Check the fields and try again.';
 
   @override
+  String get errSex => 'Choose male or female';
+
+  @override
   String get errTargetBeforeStart => 'Target date must be after the start date';
 
   @override
@@ -1388,6 +1456,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get everyDay => 'Every day';
+
+  @override
+  String everyMinutes(int m) {
+    return 'Every $m min';
+  }
 
   @override
   String get examples => 'Examples';
@@ -1656,6 +1729,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get freeTimeNow => 'Free time';
 
   @override
+  String get from => 'From';
+
+  @override
   String get fsDays => 'Days per week';
 
   @override
@@ -1712,11 +1788,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get goalCompleted => 'Completed';
 
   @override
+  String get goalDays => 'Goal reached';
+
+  @override
   String get goalPaused => 'Paused';
 
   @override
   String get goalStepHint =>
       'Choose an example or write your own. You can skip this.';
+
+  @override
+  String get goalStreak => 'Streak';
 
   @override
   String get goalTitle => 'Goal title';
@@ -1792,6 +1874,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get haveAccount => 'I have an account';
 
   @override
+  String get healthSections => 'Health sections';
+
+  @override
+  String get healthSectionsNote =>
+      'Sections marked “coming soon” are saved now and appear when they\'re ready.';
+
+  @override
+  String get healthSetup => 'Health setup';
+
+  @override
+  String get heightCm => 'Height (cm)';
+
+  @override
+  String get heightForDistance => 'Height';
+
+  @override
+  String get heightHelp => 'Optional — makes the distance estimate closer';
+
+  @override
+  String get heightInvalid => 'Between 80 and 250 cm';
+
+  @override
   String get helpTitle => 'Help & support';
 
   @override
@@ -1801,8 +1905,26 @@ class AppLocalizationsEn extends AppLocalizations {
   String get highlights => 'Highlights';
 
   @override
+  String get history => 'History';
+
+  @override
   String get historyHint =>
       'Tap a past day to correct it. Days the habit isn\'t due are neutral.';
+
+  @override
+  String get hmActivity => 'Steps and activity';
+
+  @override
+  String get hmMens => 'Men\'s health';
+
+  @override
+  String get hmNutrition => 'Food and calories';
+
+  @override
+  String get hmSleep => 'Sleep and recovery';
+
+  @override
+  String get hmWomens => 'Women\'s health';
 
   @override
   String get homeInstead => 'At home instead';
@@ -1847,6 +1969,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get initialTasks => 'First tasks';
 
   @override
+  String get install => 'Install';
+
+  @override
+  String get installHealthConnect => 'Install Health Connect';
+
+  @override
+  String get installHealthConnectBody =>
+      'Android keeps steps from your phone and watch in Health Connect. Install or update it, then come back and connect.';
+
+  @override
   String get interestsHint =>
       'Pick any — you can change this later. Sections you don\'t pick are hidden, not deleted.';
 
@@ -1873,6 +2005,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get language => 'Language';
+
+  @override
+  String lastSyncAt(String time) {
+    return 'Last synced $time';
+  }
 
   @override
   String get lastWeek => 'Last week';
@@ -1995,6 +2132,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get manualHint => 'You set the percentage yourself.';
 
   @override
+  String get manualStepsNote =>
+      'If the phone app is connected, its number is used for that day.';
+
+  @override
   String get markAllRead => 'Mark all as read';
 
   @override
@@ -2088,6 +2229,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get moreOptions => 'More options';
 
   @override
+  String get moveReminders => 'Move reminders';
+
+  @override
+  String get moveRemindersOn => 'Remind me to move';
+
+  @override
+  String get moveRemindersSub => 'Stops for the day once you reach your goal';
+
+  @override
   String get moveTomorrow => 'Move to tomorrow';
 
   @override
@@ -2142,7 +2292,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get myNotes => 'My notes';
 
   @override
+  String nOfM(int n, int m) {
+    return '$n of $m';
+  }
+
+  @override
   String get navAccountability => 'Commitments';
+
+  @override
+  String get navActivity => 'Steps';
 
   @override
   String get navAssistant => 'Assistant';
@@ -2317,6 +2475,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notStarted => 'Not started';
 
   @override
+  String get notSyncedYet => 'Not synced yet';
+
+  @override
   String get noteBody => 'Write your note…';
 
   @override
@@ -2360,6 +2521,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String notifHabitTitle(String name) {
     return 'Habit reminder: $name';
   }
+
+  @override
+  String get notifMoveBody => 'A short walk or a few minutes of stretching.';
+
+  @override
+  String get notifMoveTitle => 'Time to move';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -2415,6 +2582,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get observations => 'Observations';
+
+  @override
+  String ofStepGoal(String goal) {
+    return 'of $goal';
+  }
 
   @override
   String get ok => 'OK';
@@ -3034,6 +3206,22 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get sexAskTitle => 'Tell us about you';
+
+  @override
+  String get sexFemale => 'Female';
+
+  @override
+  String get sexLabel => 'Sex';
+
+  @override
+  String get sexMale => 'Male';
+
+  @override
+  String get sexWhy =>
+      'Used only to tailor the health sections. You can change it from your profile.';
+
+  @override
   String get shareNotesSub => 'Off by default';
 
   @override
@@ -3101,6 +3289,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skipRest => 'Skip';
 
   @override
+  String get sourceHealthConnect => 'Health Connect';
+
+  @override
+  String get sourceHealthKit => 'Apple Health';
+
+  @override
+  String get sourceManual => 'Added by hand';
+
+  @override
+  String get sourcePhone => 'Phone sensor';
+
+  @override
   String get spending => 'Spending';
 
   @override
@@ -3143,12 +3343,41 @@ class AppLocalizationsEn extends AppLocalizations {
   String get statusTodo => 'To do';
 
   @override
+  String get stepGoal => 'Daily step goal';
+
+  @override
   String stepOf(int step, int total) {
     return 'Step $step of $total';
   }
 
   @override
+  String get stepsInvalid => 'Up to 150,000';
+
+  @override
+  String get stepsLabel => 'Steps';
+
+  @override
+  String get stepsNoData => 'No steps yet today — tap to connect or add them';
+
+  @override
+  String stepsOfGoal(String steps, String goal) {
+    return '$steps / $goal steps';
+  }
+
+  @override
   String get stepsOptional => 'Steps to reproduce (optional)';
+
+  @override
+  String stepsPerDay(String n) {
+    return '$n steps a day';
+  }
+
+  @override
+  String get stepsPermissionDenied =>
+      'Steps access wasn\'t given. You can allow it from the health app\'s settings.';
+
+  @override
+  String get stepsToday => 'Steps today';
 
   @override
   String get stop => 'Stop';
@@ -3182,6 +3411,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get switchToSignUp => 'New here? Create an account';
+
+  @override
+  String get syncFailedShort => 'Couldn\'t read steps — try again';
 
   @override
   String get syncNever => 'Not synced yet';
@@ -3308,7 +3540,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get timezoneDeviceNote => 'follows your device';
 
   @override
+  String get to => 'To';
+
+  @override
   String get today => 'Today';
+
+  @override
+  String todayFrom(String source) {
+    return 'Today: $source';
+  }
 
   @override
   String get todayPlan => 'Today\'s plan';
@@ -3576,6 +3816,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get workoutSavedPartial => 'Saved what you did. Every bit counts.';
+
+  @override
+  String get yesterday => 'Yesterday';
 
   @override
   String get yourData => 'Your data';

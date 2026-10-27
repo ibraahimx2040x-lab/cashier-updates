@@ -281,5 +281,54 @@ exception when foreign_key_violation or unique_violation or insufficient_privile
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Activity: sex from sign-up metadata, one row per day and source, no future days.
+reset role;
+insert into auth.users values
+  ('33333333-3333-3333-3333-333333333333', 'c@example.com', '{"sex": "female"}'),
+  ('44444444-4444-4444-4444-444444444444', 'd@example.com', '{"sex": "robot"}');
+select pg_temp.check((select sex = 'female' and health_settings -> 'modules' ? 'womens' and not health_settings -> 'modules' ? 'mens'
+  from profiles where user_id = '33333333-3333-3333-3333-333333333333'), 'sign-up sex copied to profile with its health section');
+select pg_temp.check((select sex is null from profiles where user_id = '44444444-4444-4444-4444-444444444444'), 'unknown sex ignored');
+set role authenticated;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+do $$ begin
+  update profiles set sex = 'other';
+  raise exception 'FAILED: unknown sex stored';
+exception when check_violation then raise notice 'ok: sex is male or female';
+end $$;
+update profiles set sex = 'male', health_settings = '{"stepGoal": 9000}';
+insert into daily_activity (id, day, source, steps) values ('adadadad-0000-0000-0000-000000000001', current_date - 1, 'phone', 6400);
+insert into daily_activity (id, day, source, steps, distance_m, active_minutes)
+  values ('adadadad-0000-0000-0000-000000000002', current_date - 1, 'healthConnect', 7100, 5200, 48);
+do $$ begin
+  insert into daily_activity (id, day, source, steps) values ('adadadad-0000-0000-0000-000000000003', current_date - 1, 'phone', 10);
+  raise exception 'FAILED: two rows for one day and source';
+exception when unique_violation then raise notice 'ok: one row per day and source';
+end $$;
+do $$ begin
+  insert into daily_activity (id, day, source, steps) values ('adadadad-0000-0000-0000-000000000004', current_date + 2, 'manual', 10);
+  raise exception 'FAILED: future activity';
+exception when check_violation then raise notice 'ok: no future activity';
+end $$;
+do $$ begin
+  insert into daily_activity (id, day, source, steps) values ('adadadad-0000-0000-0000-000000000005', current_date, 'manual', 200000);
+  raise exception 'FAILED: impossible step count';
+exception when check_violation then raise notice 'ok: step count in range';
+end $$;
+do $$ begin
+  insert into daily_activity (id, day, source, steps) values ('adadadad-0000-0000-0000-000000000006', current_date, 'fitbit', 10);
+  raise exception 'FAILED: unknown source';
+exception when check_violation then raise notice 'ok: only known sources';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check((select count(*) = 0 from daily_activity), 'B cannot read A''s activity');
+do $$ begin
+  insert into daily_activity (id, user_id, day, source, steps)
+    values ('adadadad-0000-0000-0000-000000000007', '11111111-1111-1111-1111-111111111111', current_date, 'manual', 10);
+  raise exception 'FAILED: wrote activity for another user';
+exception when insufficient_privilege then raise notice 'ok: no activity for another user';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

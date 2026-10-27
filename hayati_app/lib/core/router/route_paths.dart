@@ -25,6 +25,8 @@ abstract final class Routes {
   static const fitnessSetup = '/fitness/setup';
   static const english = '/english';
   static const accountability = '/accountability';
+  static const activity = '/activity';
+  static const healthSetup = '/health';
   static const englishReview = '/english/review';
   static const placement = '/english/test?kind=placement';
   static const levelCheck = '/english/test?kind=level';

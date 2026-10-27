@@ -8,15 +8,20 @@ import 'package:uuid/uuid.dart';
 
 import '../core/config.dart';
 import '../core/utils/dates.dart';
+import 'models/health.dart';
 import 'remote/supabase_auth.dart';
 import 'store/local_store.dart';
 
 class AuthUser {
-  const AuthUser({required this.id, required this.email, required this.createdAt, this.emailConfirmed = true});
+  const AuthUser({required this.id, required this.email, required this.createdAt, this.emailConfirmed = true, this.sex});
   final String id;
   final String email;
   final DateTime createdAt;
   final bool emailConfirmed;
+
+  /// Chosen at sign-up and kept with the account, so it survives email
+  /// confirmation and reaches every device.
+  final Sex? sex;
 }
 
 enum AuthErrorCode {
@@ -63,7 +68,7 @@ abstract interface class AuthBackend {
   bool get remote;
 
   Future<AuthUser?> restore();
-  Future<AuthUser> signUp(String email, String password);
+  Future<AuthUser> signUp(String email, String password, {Sex? sex});
   Future<AuthUser> signIn(String email, String password);
   Future<bool> verifyPassword(AuthUser user, String password);
   Future<void> changePassword(AuthUser user, String current, String next);
@@ -100,11 +105,11 @@ class AuthController extends Notifier<AuthState> {
 
   Future<void> restore() async => state = AuthState(user: await _backend.restore(), restored: true);
 
-  Future<void> signUp(String email, String password) async {
+  Future<void> signUp(String email, String password, {Sex? sex}) async {
     email = email.trim().toLowerCase();
     if (!isValidEmail(email)) throw const AuthException(AuthErrorCode.invalidEmail);
     if (!isStrongPassword(password)) throw const AuthException(AuthErrorCode.weakPassword);
-    state = AuthState(user: await _backend.signUp(email, password), restored: true);
+    state = AuthState(user: await _backend.signUp(email, password, sex: sex), restored: true);
   }
 
   Future<void> signIn(String email, String password) async {
@@ -180,8 +185,12 @@ class LocalAuthBackend implements AuthBackend {
 
   Map<String, Object?> get _accounts => _store.readJson(_accountsKey) ?? {};
 
-  AuthUser _user(String email, Map<String, Object?> a) =>
-      AuthUser(id: a['id'] as String, email: email, createdAt: decodeInstant(a['createdAt'])!);
+  AuthUser _user(String email, Map<String, Object?> a) => AuthUser(
+        id: a['id'] as String,
+        email: email,
+        createdAt: decodeInstant(a['createdAt'])!,
+        sex: Sex.values.where((x) => x.name == a['sex']).firstOrNull,
+      );
 
   @override
   Future<AuthUser?> restore() async {
@@ -195,7 +204,7 @@ class LocalAuthBackend implements AuthBackend {
   }
 
   @override
-  Future<AuthUser> signUp(String email, String password) async {
+  Future<AuthUser> signUp(String email, String password, {Sex? sex}) async {
     await Future<void>.delayed(const Duration(milliseconds: 250));
     final accounts = _accounts;
     if (accounts.containsKey(email)) throw const AuthException(AuthErrorCode.emailExists);
@@ -205,6 +214,7 @@ class LocalAuthBackend implements AuthBackend {
       'salt': salt,
       'hash': _hash(salt, password),
       'createdAt': encodeInstant(DateTime.now()),
+      'sex': ?sex?.name,
     };
     accounts[email] = a;
     await _store.writeJson(_accountsKey, accounts);

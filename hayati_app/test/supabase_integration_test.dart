@@ -20,12 +20,14 @@ import 'package:hayati/data/models/accountability.dart';
 import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
+import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/prayer.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
+import 'package:hayati/domain/activity.dart';
 import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/assistant/executor.dart';
@@ -300,6 +302,38 @@ void main() {
     final e = d.accountabilityEvent(eventId)!;
     expect((e.reason, e.outcome, e.newDueDate, e.note), (DelayReason.illness, EventOutcome.rescheduled, '2030-01-10', 'flu'));
     expect(d.task(task.id)!.dueDate, '2030-01-10');
+  }, skip: skip);
+
+  test('sex from sign-up and daily steps sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1', sex: Sex.female);
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    a.data.updateHealth((h) => h.copyWith(stepGoal: 9500, heightCm: () => 165));
+    final yesterday = dayKey(DateTime.now().subtract(const Duration(days: 1)));
+    a.data.recordActivity(yesterday, ActivitySource.healthConnect, steps: 7300);
+    a.data.recordActivity(yesterday, ActivitySource.manual, steps: 2000);
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final s = b.data.snapshot.settings;
+    expect((s.sex, s.health.has(HealthModule.womens), s.health.stepGoal, s.health.heightCm), (Sex.female, true, 9500, 165));
+    expect(activityDay(b.data.snapshot, yesterday).steps, 7300);
+    // The second device reads the same source for the same day: same row.
+    b.data.recordActivity(yesterday, ActivitySource.healthConnect, steps: 7450);
+    await b.settle();
+    expect(b.sync.rejected, 0);
+    expect(b.data.snapshot.activity.where((x) => x.source == ActivitySource.healthConnect), hasLength(1));
   }, skip: skip);
 
   test('another account sees nothing', () async {

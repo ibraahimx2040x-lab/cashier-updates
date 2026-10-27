@@ -12,3 +12,5 @@ GeneratedPluginRegistrant.java
 key.properties
 **/*.keystore
 **/*.jks
+# The shared debug key for sideloaded test builds (not a release key).
+!app/debug.keystore

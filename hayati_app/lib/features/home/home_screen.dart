@@ -14,8 +14,10 @@ import '../../data/app_data.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
+import '../../data/models/health.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../domain/activity.dart';
 import '../../domain/day_timeline.dart';
 import '../../domain/fitness/today.dart';
 import '../../domain/learning/curriculum.dart';
@@ -253,6 +255,7 @@ class _TodayView extends ConsumerWidget {
           onPlan: () => ask(l.aiChipPlanDay),
         ),
       _PrayerStrip(d: d, now: now, fmt: fmt),
+      if (d.settings.health.has(HealthModule.activity)) _StepsStrip(day: activityDay(d, dayKey(now)), goal: d.settings.health.stepGoal, fmt: fmt),
       if (d.learningPath != null)
         _EnglishStrip(lesson: nextLesson(d), done: lessonDoneToday(d, now), due: dueReviews(d, now).length),
       if (todaysWorkout(d, now) case (final plan, final day))
@@ -448,6 +451,49 @@ class _PrayerStrip extends ConsumerWidget {
           ]),
         ),
         Text(fmt.time(next.$2), style: t.titleMedium?.copyWith(color: scheme.primary)),
+        const SizedBox(width: Space.xs),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
+/// Today's steps against the goal.
+class _StepsStrip extends StatelessWidget {
+  const _StepsStrip({required this.day, required this.goal, required this.fmt});
+  final ActivityDay day;
+  final int goal;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final reached = day.steps >= goal;
+    return AppCard(
+      onTap: () => context.push(Routes.activity),
+      child: Row(children: [
+        IconBadge(reached ? Icons.emoji_events_outlined : Icons.directions_walk, color: reached ? AppColors.gold : null, circle: true),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(l.stepsOfGoal(fmt.number(day.steps), fmt.number(goal)), style: t.titleSmall),
+            const SizedBox(height: Space.xs),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(6),
+              child: TweenAnimationBuilder<double>(
+                tween: Tween(end: (day.steps / goal).clamp(0, 1).toDouble()),
+                duration: Motion.slow,
+                curve: Motion.curve,
+                builder: (_, v, _) => LinearProgressIndicator(value: v, minHeight: 6, color: reached ? AppColors.gold : null),
+              ),
+            ),
+            if (!day.hasData) ...[
+              const SizedBox(height: Space.xs),
+              Text(l.stepsNoData, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+            ],
+          ]),
+        ),
         const SizedBox(width: Space.xs),
         const Icon(Icons.chevron_right),
       ]),
@@ -820,6 +866,7 @@ class _MoreMenu extends ConsumerWidget {
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         _item(Routes.english, Icons.translate, l.navEnglish),
+        if (settings.health.has(HealthModule.activity)) _item(Routes.activity, Icons.directions_walk, l.navActivity),
         _item(Routes.accountability, Icons.handshake_outlined, l.navAccountability),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),

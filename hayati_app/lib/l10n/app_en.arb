@@ -104,6 +104,17 @@
   "actionLog": "Action log",
   "actionLogSub": "What the assistant changed, and when. No message content is stored here.",
   "active": "Active",
+  "activeMinutesN": "{n} active minutes",
+  "@activeMinutesN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "activityNote": "Steps come from your phone's health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.",
+  "activitySaved": "Steps saved",
+  "activityWebNote": "In the browser steps can only be added by hand. Automatic counting works in the phone app.",
   "addEvent": "Add event",
   "addExpense": "Add expense",
   "addFirstGoal": "Add a goal",
@@ -112,6 +123,7 @@
   "addHabit": "Add habit",
   "addMilestone": "Add milestone",
   "addNote": "Add note",
+  "addStepsManually": "Add steps",
   "addTask": "Add task",
   "adherence30": "Last 30 days",
   "affectedItems": "{n, plural, =1{1 item affected} other{{n} items affected}}",
@@ -480,6 +492,7 @@
   "approveReschedule": "Changing a time or deadline",
   "approveRescheduleSub": "Recommended. Applies to single changes only.",
   "approved": "Approved",
+  "approx": "approx.",
   "approximateSwap": "{from} → {to} (approximate)",
   "@approximateSwap": {
     "placeholders": {
@@ -537,6 +550,7 @@
   "benefit2Title": "Goals that move forward",
   "benefit3Body": "Suggests and prepares; sensitive changes always wait for your approval.",
   "benefit3Title": "An assistant you control",
+  "bestDay": "Best day",
   "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
   "bodyweight": "Body weight",
   "breakEnd": "Until",
@@ -658,6 +672,31 @@
       }
     }
   },
+  "connect": "Connect",
+  "connectStepsBody": "Hayati reads your daily step total from {store}. It only reads steps and never writes anything.",
+  "@connectStepsBody": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
+  "connectStepsTitle": "Count steps automatically from {store}",
+  "@connectStepsTitle": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
+  "connectedTo": "Connected to {store}",
+  "@connectedTo": {
+    "placeholders": {
+      "store": {
+        "type": "String"
+      }
+    }
+  },
   "contactSupport": "Contact support",
   "couldNotFit": "Couldn't fit",
   "courseComplete": "You've completed the B2 course!",
@@ -669,6 +708,7 @@
   "currentPassword": "Current password",
   "currentPlan": "Current plan",
   "currentStreak": "Current streak",
+  "dailyAverage": "Daily average",
   "dataAccess": "What the assistant can read",
   "dataAccessSub": "Only enabled sections are used to answer you.",
   "date": "Date",
@@ -679,6 +719,14 @@
   "dayStart": "Day starts",
   "daysCount": "{n, plural, =1{1 day} other{{n} days}}",
   "@daysCount": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "daysN": "{n, plural, =1{1 day} other{{n} days}}",
+  "@daysN": {
     "placeholders": {
       "n": {
         "type": "int"
@@ -747,9 +795,18 @@
   "discard": "Discard",
   "discardMessage": "You have unsaved changes. Leave without saving?",
   "discardTitle": "Discard changes?",
+  "disconnect": "Disconnect",
   "dismiss": "Dismiss",
   "displayName": "Display name",
   "displayNameOptional": "Your name (optional)",
+  "distanceKm": "{km} km",
+  "@distanceKm": {
+    "placeholders": {
+      "km": {
+        "type": "String"
+      }
+    }
+  },
   "documents": "Documents",
   "done": "Done",
   "doneDays": "Done / due",
@@ -825,6 +882,7 @@
   "errRateLimited": "Too many attempts. Please wait a little and try again.",
   "errRequired": "This field is required",
   "errSave": "Couldn't save. Check the fields and try again.",
+  "errSex": "Choose male or female",
   "errTargetBeforeStart": "Target date must be after the start date",
   "estimatedDuration": "Estimated 30 min",
   "estimatedMinutes": "Estimated duration (minutes)",
@@ -832,6 +890,14 @@
   "eventTitle": "Event title",
   "eventsLabel": "Events",
   "everyDay": "Every day",
+  "everyMinutes": "Every {m} min",
+  "@everyMinutes": {
+    "placeholders": {
+      "m": {
+        "type": "int"
+      }
+    }
+  },
   "examples": "Examples",
   "execute": "Apply changes",
   "executedCount": "{n, plural, =1{Done — 1 change applied} other{Done — {n} changes applied}}",
@@ -943,6 +1009,7 @@
   "forgotTitle": "Recover access",
   "freeTime": "Free time",
   "freeTimeNow": "Free time",
+  "from": "From",
   "fsDays": "Days per week",
   "fsEquipment": "Equipment at home",
   "fsEquipmentHint": "Leave empty for body-weight only.",
@@ -972,8 +1039,10 @@
   "goalActive": "Active",
   "goalArchived": "Archived",
   "goalCompleted": "Completed",
+  "goalDays": "Goal reached",
   "goalPaused": "Paused",
   "goalStepHint": "Choose an example or write your own. You can skip this.",
+  "goalStreak": "Streak",
   "goalTitle": "Goal title",
   "goalTitleHint": "e.g. Learn Flutter basics",
   "goalsEmptyBody": "A goal can have milestones and linked tasks. Progress follows what you complete.",
@@ -1016,10 +1085,23 @@
   "hasBreak": "Add a daily break",
   "hasWorkHours": "I have fixed work or study hours",
   "haveAccount": "I have an account",
+  "healthSections": "Health sections",
+  "healthSectionsNote": "Sections marked “coming soon” are saved now and appear when they're ready.",
+  "healthSetup": "Health setup",
+  "heightCm": "Height (cm)",
+  "heightForDistance": "Height",
+  "heightHelp": "Optional — makes the distance estimate closer",
+  "heightInvalid": "Between 80 and 250 cm",
   "helpTitle": "Help & support",
   "hidePassword": "Hide password",
   "highlights": "Highlights",
+  "history": "History",
   "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
+  "hmActivity": "Steps and activity",
+  "hmMens": "Men's health",
+  "hmNutrition": "Food and calories",
+  "hmSleep": "Sleep and recovery",
+  "hmWomens": "Women's health",
   "homeInstead": "At home instead",
   "homeSections": "Home screen",
   "homeVersionBody": "Exercises are swapped for ones you can do with your home equipment. Not every exercise has an exact match.",
@@ -1040,6 +1122,9 @@
   "inactiveHabits": "Inactive",
   "includeTechInfo": "Include technical info",
   "initialTasks": "First tasks",
+  "install": "Install",
+  "installHealthConnect": "Install Health Connect",
+  "installHealthConnectBody": "Android keeps steps from your phone and watch in Health Connect. Install or update it, then come back and connect.",
   "interestsHint": "Pick any — you can change this later. Sections you don't pick are hidden, not deleted.",
   "itemGone": "This item no longer exists.",
   "keepAnyway": "Keep anyway",
@@ -1049,6 +1134,14 @@
   "kindNotifications": "Notifications",
   "kindOther": "Other",
   "language": "Language",
+  "lastSyncAt": "Last synced {time}",
+  "@lastSyncAt": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
   "lastWeek": "Last week",
   "leave": "Leave",
   "leaveTestBody": "Your answers so far will be lost.",
@@ -1131,6 +1224,7 @@
   "manageAssistantAccess": "Manage assistant permissions",
   "manual": "Manually",
   "manualHint": "You set the percentage yourself.",
+  "manualStepsNote": "If the phone app is connected, its number is used for that day.",
   "markAllRead": "Mark all as read",
   "markDone": "Mark “{title}” done",
   "@markDone": {
@@ -1184,6 +1278,9 @@
   "more": "More",
   "moreFilters": "More filters",
   "moreOptions": "More options",
+  "moveReminders": "Move reminders",
+  "moveRemindersOn": "Remind me to move",
+  "moveRemindersSub": "Stops for the day once you reach your goal",
   "moveTomorrow": "Move to tomorrow",
   "movedTo": "Moved to {time}",
   "@movedTo": {
@@ -1208,7 +1305,19 @@
   "myGoals": "My goals",
   "myLocation": "My location",
   "myNotes": "My notes",
+  "nOfM": "{n} of {m}",
+  "@nOfM": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      },
+      "m": {
+        "type": "int"
+      }
+    }
+  },
   "navAccountability": "Commitments",
+  "navActivity": "Steps",
   "navAssistant": "Assistant",
   "navEnglish": "English",
   "navExpenses": "Expenses",
@@ -1285,6 +1394,7 @@
   "notLogged": "Not logged",
   "notSet": "Not set",
   "notStarted": "Not started",
+  "notSyncedYet": "Not synced yet",
   "noteBody": "Write your note…",
   "noteTitle": "Title",
   "notesOptional": "Notes (optional)",
@@ -1325,6 +1435,8 @@
       }
     }
   },
+  "notifMoveBody": "A short walk or a few minutes of stretching.",
+  "notifMoveTitle": "Time to move",
   "notifPrayerSoon": "{name} prayer in {minutes} min",
   "@notifPrayerSoon": {
     "placeholders": {
@@ -1377,6 +1489,14 @@
     }
   },
   "observations": "Observations",
+  "ofStepGoal": "of {goal}",
+  "@ofStepGoal": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
   "ok": "OK",
   "onboardingNoAuto": "Nothing is created or scheduled automatically. You'll choose what to add next.",
   "openSettings": "Open settings",
@@ -1702,6 +1822,11 @@
       }
     }
   },
+  "sexAskTitle": "Tell us about you",
+  "sexFemale": "Female",
+  "sexLabel": "Sex",
+  "sexMale": "Male",
+  "sexWhy": "Used only to tailor the health sections. You can change it from your profile.",
   "shareNotesSub": "Off by default",
   "shareSub": "Used to plan and summarize",
   "showActive": "Show active",
@@ -1724,6 +1849,10 @@
   "skillsMeasuredNote": "The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren't assessed yet.",
   "skip": "Skip",
   "skipRest": "Skip",
+  "sourceHealthConnect": "Health Connect",
+  "sourceHealthKit": "Apple Health",
+  "sourceManual": "Added by hand",
+  "sourcePhone": "Phone sensor",
   "spending": "Spending",
   "splashFailed": "We couldn't start Hayati.",
   "startDate": "Start date",
@@ -1738,6 +1867,7 @@
   "statusInProgress": "In progress",
   "statusLabel": "Status",
   "statusTodo": "To do",
+  "stepGoal": "Daily step goal",
   "stepOf": "Step {step} of {total}",
   "@stepOf": {
     "placeholders": {
@@ -1749,7 +1879,31 @@
       }
     }
   },
+  "stepsInvalid": "Up to 150,000",
+  "stepsLabel": "Steps",
+  "stepsNoData": "No steps yet today — tap to connect or add them",
+  "stepsOfGoal": "{steps} / {goal} steps",
+  "@stepsOfGoal": {
+    "placeholders": {
+      "steps": {
+        "type": "String"
+      },
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
   "stepsOptional": "Steps to reproduce (optional)",
+  "stepsPerDay": "{n} steps a day",
+  "@stepsPerDay": {
+    "placeholders": {
+      "n": {
+        "type": "String"
+      }
+    }
+  },
+  "stepsPermissionDenied": "Steps access wasn't given. You can allow it from the health app's settings.",
+  "stepsToday": "Steps today",
   "stop": "Stop",
   "streakDays": "{n, plural, =0{No streak yet} =1{1-day streak} other{{n}-day streak}}",
   "@streakDays": {
@@ -1765,6 +1919,7 @@
   "sunrise": "Sunrise",
   "switchToSignIn": "Already have an account? Sign in",
   "switchToSignUp": "New here? Create an account",
+  "syncFailedShort": "Couldn't read steps — try again",
   "syncNever": "Not synced yet",
   "syncNow": "Sync now",
   "syncOffline": "{n, plural, =0{Offline — showing saved data.} =1{Offline — 1 change will sync when you're back online.} other{Offline — {n} changes will sync when you're back online.}}",
@@ -1840,7 +1995,16 @@
   "timezone": "Time zone",
   "timezoneDetected": "Detected from your device. Times are shown in your device's time zone.",
   "timezoneDeviceNote": "follows your device",
+  "to": "To",
   "today": "Today",
+  "todayFrom": "Today: {source}",
+  "@todayFrom": {
+    "placeholders": {
+      "source": {
+        "type": "String"
+      }
+    }
+  },
   "todayPlan": "Today's plan",
   "todaysHabits": "Today's habits",
   "todaysLesson": "Today's lesson",
@@ -1992,6 +2156,7 @@
   "workoutNoteHint": "e.g. knee felt tight on lunges",
   "workoutSaved": "Workout saved. Well done!",
   "workoutSavedPartial": "Saved what you did. Every bit counts.",
+  "yesterday": "Yesterday",
   "yourData": "Your data",
   "yourSkills": "Your skills (placement test)"
 }

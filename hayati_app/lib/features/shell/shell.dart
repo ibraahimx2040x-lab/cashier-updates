@@ -7,6 +7,9 @@ import 'package:go_router/go_router.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../data/data_controller.dart';
+import '../../data/activity_sync.dart';
+import '../../data/auth.dart';
+import '../../data/models/health.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/settings.dart';
 import '../../data/remote/sync.dart';
@@ -17,6 +20,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/device_notifications.dart';
 import '../../widgets/common.dart';
 import '../auth/splash_screen.dart' show HayatiLogo;
+import '../settings/sex_dialog.dart';
 import 'quick_add.dart';
 
 /// Five fixed destinations: bottom bar on phones, sidebar on wide screens.
@@ -32,6 +36,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
   Timer? _timer;
   Timer? _plan;
   ProviderSubscription<Object>? _dataSub;
+  bool _askingSex = false;
 
   // Captured up front: `ref` is unusable in dispose().
   late final DeviceNotifications _device = ref.read(deviceNotificationsProvider);
@@ -43,6 +48,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     WidgetsBinding.instance.addObserver(this);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _sync();
+      ref.read(activitySyncProvider.notifier).sync();
       await _device.init(onOpen: (route) {
         if (mounted) ref.read(routerProvider).push(route);
       });
@@ -82,6 +88,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       _sync();
+      ref.read(activitySyncProvider.notifier).sync();
       ref.read(syncProvider.notifier).sync();
     }
   }
@@ -111,8 +118,37 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   void _go(int i) => widget.shell.goBranch(i, initialLocation: i == widget.shell.currentIndex);
 
+  /// The sex chosen at sign-up travels with the account and is adopted
+  /// here; accounts made before sign-up asked for it are asked once. Both
+  /// wait for the first sync, so a fresh device never writes over the
+  /// server's profile.
+  void _maybeAskSex() {
+    final s = ref.read(settingsProvider);
+    final sync = ref.read(syncProvider);
+    if (_askingSex || s.sex != null || !sync.ready || sync.phase == SyncPhase.syncing) return;
+    final fromSignUp = ref.read(authProvider).user?.sex;
+    if (fromSignUp != null) {
+      _askingSex = true;
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        if (mounted) ref.read(dataProvider.notifier).setSex(fromSignUp);
+        _askingSex = false;
+      });
+      return;
+    }
+    if (!s.onboardingDone) return;
+    _askingSex = true;
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      final sex = mounted ? await askSex(context, required: true) : null;
+      if (sex != null && mounted) ref.read(dataProvider.notifier).setSex(sex);
+      _askingSex = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    ref.watch(settingsProvider.select((s) => s.sex));
+    ref.watch(syncProvider.select((s) => (s.ready, s.phase)));
+    _maybeAskSex();
     final l = AppLocalizations.of(context);
     final i = widget.shell.currentIndex;
     final showFab = i <= 2;
@@ -206,6 +242,7 @@ class _Sidebar extends ConsumerWidget {
               item(Icons.mosque_outlined, l.navPrayer, () => context.push(Routes.prayer)),
               item(Icons.fitness_center, l.navFitness, () => context.push(Routes.fitness)),
               item(Icons.translate, l.navEnglish, () => context.push(Routes.english)),
+              if (s.health.has(HealthModule.activity)) item(Icons.directions_walk, l.navActivity, () => context.push(Routes.activity)),
               item(Icons.handshake_outlined, l.navAccountability, () => context.push(Routes.accountability)),
               if (s.has(AppModule.habits)) item(Icons.repeat, l.navHabits, () => context.push(Routes.habits)),
               if (s.has(AppModule.notes))

@@ -2,6 +2,7 @@ import 'models/accountability.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
+import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
 import 'models/prayer.dart';
@@ -27,6 +28,7 @@ class AppData {
     this.vocabReviews = const [],
     this.accountabilityRules = const [],
     this.accountabilityEvents = const [],
+    this.activity = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -58,6 +60,10 @@ class AppData {
   final List<VocabReview> vocabReviews;
   final List<AccountabilityRule> accountabilityRules;
   final List<AccountabilityEvent> accountabilityEvents;
+
+  /// One row per day and source; see `domain/activity.dart` for which one
+  /// counts.
+  final List<DailyActivity> activity;
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
@@ -137,6 +143,7 @@ class AppData {
     List<VocabReview>? vocabReviews,
     List<AccountabilityRule>? accountabilityRules,
     List<AccountabilityEvent>? accountabilityEvents,
+    List<DailyActivity>? activity,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -166,6 +173,7 @@ class AppData {
         vocabReviews: vocabReviews ?? this.vocabReviews,
         accountabilityRules: accountabilityRules ?? this.accountabilityRules,
         accountabilityEvents: accountabilityEvents ?? this.accountabilityEvents,
+        activity: activity ?? this.activity,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -197,6 +205,7 @@ class AppData {
         'vocabReviews': vocabReviews.map((e) => e.toJson()).toList(),
         'accountabilityRules': accountabilityRules.map((e) => e.toJson()).toList(),
         'accountabilityEvents': accountabilityEvents.map((e) => e.toJson()).toList(),
+        'activity': activity.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -232,6 +241,7 @@ class AppData {
       vocabReviews: list('vocabReviews', VocabReview.fromJson),
       accountabilityRules: list('accountabilityRules', AccountabilityRule.fromJson),
       accountabilityEvents: list('accountabilityEvents', AccountabilityEvent.fromJson),
+      activity: list('activity', DailyActivity.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

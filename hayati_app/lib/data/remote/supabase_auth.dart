@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:supabase_flutter/supabase_flutter.dart' as sb;
 
 import '../auth.dart';
+import '../models/health.dart';
 
 /// Supabase Auth. Sessions are persisted and refreshed by the Supabase
 /// client; email confirmation, password recovery and rate limits are
@@ -25,6 +26,7 @@ class SupabaseAuthBackend implements AuthBackend {
         email: u.email ?? '',
         createdAt: DateTime.tryParse(u.createdAt)?.toLocal() ?? DateTime.now(),
         emailConfirmed: u.emailConfirmedAt != null,
+        sex: Sex.values.where((x) => x.name == u.userMetadata?['sex']).firstOrNull,
       );
 
   static AuthException _err(Object e) {
@@ -81,8 +83,9 @@ class SupabaseAuthBackend implements AuthBackend {
   }
 
   @override
-  Future<AuthUser> signUp(String email, String password) => _guard(() async {
-        final r = await _auth.signUp(email: email, password: password);
+  Future<AuthUser> signUp(String email, String password, {Sex? sex}) => _guard(() async {
+        // Stored as account metadata; the profile trigger copies it.
+        final r = await _auth.signUp(email: email, password: password, data: {'sex': ?sex?.name});
         // With email confirmation enabled there is no session yet.
         if (r.session == null || r.user == null) throw const AuthException(AuthErrorCode.confirmEmail);
         return _map(r.user!);

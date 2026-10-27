@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
 import '../../data/auth.dart';
+import '../../data/models/health.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../settings/privacy_screen.dart';
@@ -25,6 +26,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
   late bool _signUp = widget.signUp;
   bool _show = false;
   bool _agree = false;
+  Sex? _sex;
   bool _loading = false;
   String? _error;
 
@@ -57,6 +59,10 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
       _info = false;
     });
     if (!_form.currentState!.validate()) return;
+    if (_signUp && _sex == null) {
+      setState(() => _error = l.errSex);
+      return;
+    }
     if (_signUp && !_agree) {
       setState(() => _error = l.errAgree);
       return;
@@ -65,7 +71,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     try {
       final auth = ref.read(authProvider.notifier);
       if (_signUp) {
-        await auth.signUp(_email.text, _password.text);
+        await auth.signUp(_email.text, _password.text, sex: _sex);
       } else {
         await auth.signIn(_email.text, _password.text);
       }
@@ -185,6 +191,21 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                     onSubmitted: (_) => _submit(),
                     validator: (v) => v == _password.text ? null : l.errPasswordMatch,
                   ),
+                  const SizedBox(height: Space.l),
+                  Text(l.sexLabel, style: Theme.of(context).textTheme.titleSmall),
+                  const SizedBox(height: Space.s),
+                  SegmentedButton<Sex>(
+                    emptySelectionAllowed: true,
+                    showSelectedIcon: false,
+                    segments: [
+                      ButtonSegment(value: Sex.male, label: Text(l.sexMale), icon: const Icon(Icons.male)),
+                      ButtonSegment(value: Sex.female, label: Text(l.sexFemale), icon: const Icon(Icons.female)),
+                    ],
+                    selected: {?_sex},
+                    onSelectionChanged: (v) => setState(() => _sex = v.firstOrNull),
+                  ),
+                  const SizedBox(height: Space.xs),
+                  Text(l.sexWhy, style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
                   const SizedBox(height: Space.m),
                   CheckboxListTile(
                     contentPadding: EdgeInsets.zero,
