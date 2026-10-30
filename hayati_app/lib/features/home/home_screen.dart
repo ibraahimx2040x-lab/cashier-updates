@@ -19,13 +19,13 @@ import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../data/models/womens.dart';
 import '../../domain/activity.dart';
+import '../../domain/day_schedule.dart';
 import '../../domain/day_timeline.dart';
 import '../../domain/fitness/today.dart';
 import '../../domain/learning/curriculum.dart';
 import '../../domain/learning/path.dart';
 import '../../domain/metrics.dart';
 import '../../domain/nutrition/summary.dart';
-import '../../domain/planner.dart';
 import '../../domain/prayer_times.dart';
 import '../../domain/womens/cycle.dart';
 import '../../l10n/app_localizations.dart';
@@ -830,7 +830,6 @@ class _WeekView extends StatelessWidget {
     final l = AppLocalizations.of(context);
     final t = Theme.of(context).textTheme;
     final today = dateOnly(now);
-    const planner = Planner();
     final days = [for (var i = 0; i < 7; i++) today.add(Duration(days: i))];
     return Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
       Text(l.weekAhead, style: t.titleMedium),
@@ -839,11 +838,12 @@ class _WeekView extends StatelessWidget {
         Builder(builder: (context) {
           final day = days[i];
           final key = dayKey(day);
-          final plan = planner.plan(day: day, now: now, tasks: d.tasks, events: d.events, settings: d.settings);
+          // Real time taken, not how many tasks exist (v4 change 11).
+          final sched = DaySchedule.build(d, day, now);
           final events = d.events.where((e) => isSameDay(e.start, day)).length;
           final due = d.tasks.where((x) => x.isOpen && !x.archived && x.dueDate == key).length;
-          final load = plan.freeMinutes == 0 ? (plan.neededMinutes > 0 ? 1.0 : 0.0) : plan.neededMinutes / plan.freeMinutes;
-          final busy = load > 0.85;
+          final load = sched.load;
+          final busy = sched.isBusy;
           return Padding(
             padding: const EdgeInsets.only(bottom: Space.s),
             child: FadeSlideIn(
@@ -865,6 +865,7 @@ class _WeekView extends StatelessWidget {
                       Wrap(spacing: Space.s, runSpacing: Space.xs, children: [
                         Pill(label: l.weekEvents(events), color: context.status.info, icon: Icons.event),
                         Pill(label: l.weekTasks(due), color: Theme.of(context).colorScheme.secondary, icon: Icons.check_circle_outline),
+                        Pill(label: l.dayFreeLeft(l.durationShort(sched.freeMinutes)), color: context.status.success, icon: Icons.schedule),
                         if (busy) Pill(label: l.weekBusy, color: context.status.warning, icon: Icons.warning_amber),
                       ]),
                       const SizedBox(height: Space.s),

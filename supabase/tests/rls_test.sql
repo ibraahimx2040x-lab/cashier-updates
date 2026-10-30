@@ -599,5 +599,15 @@ delete from recurring_items where id = '5a100000-0000-0000-0000-0000000000a1';
 select pg_temp.check((select count(*) = 1 from expenses where category = 'bills' and recurring_id is null),
   'deleting a monthly item keeps the expenses it made');
 
+-- A bedtime after midnight (v4 phase 15): stored past 24:00, at most 24 hours awake.
+update profiles set day_start = 480, day_end = 1500;
+select pg_temp.check((select day_end = 1500 from profiles), 'bedtime after midnight is kept');
+do $$ begin
+  update profiles set day_start = 60, day_end = 1600;
+  raise exception 'FAILED: more than 24 hours awake';
+exception when check_violation then raise notice 'ok: a day is at most 24 hours';
+end $$;
+update profiles set day_start = 420, day_end = 1380;
+
 reset role;
 \echo ALL RLS TESTS PASSED

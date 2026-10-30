@@ -804,6 +804,41 @@ void main() {
     expect(d.salaryRates, hasLength(anyOf(1, 2)), reason: 'switching today replaces a change made today');
   });
 
+  testWidgets('time: the day in hours, and a clash asks before saving (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true, dayStart: 8 * 60, dayEnd: 25 * 60, workDays: const {}));
+    final tomorrow = dateOnly(DateTime.now()).add(const Duration(days: 1));
+    data.saveEvent(CalendarEvent(id: 'ev1', title: 'Dentist', start: atMinutes(tomorrow, 600), end: atMinutes(tomorrow, 660), updatedAt: DateTime.now()));
+    data.saveEvent(CalendarEvent(id: 'ev2', title: 'Call', start: atMinutes(tomorrow, 630), end: atMinutes(tomorrow, 690), updatedAt: DateTime.now()));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.timeTab('planner'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.tomorrow));
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text(l.freeSlotsTitle), 300, scrollable: find.byType(Scrollable).last);
+    expect(find.text(l.dayOverview), findsOneWidget);
+    expect(find.text(l.clashesTitle), findsOneWidget);
+
+    router.push(Routes.event('ev2'));
+    await tester.pumpAndSettle();
+    expect(find.text(l.conflictWith('Dentist')), findsOneWidget);
+    await tapIn(tester, find.text(l.saveEvent));
+    await tester.pumpAndSettle();
+    expect(find.text(l.clashSave('Dentist')), findsOneWidget);
+    await tester.tap(find.text(l.cancel));
+    await tester.pumpAndSettle();
+    expect(find.text(l.saveEvent), findsOneWidget, reason: 'still editing');
+    await tapIn(tester, find.text(l.saveEvent));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.saveAnyway));
+    await tester.pumpAndSettle();
+    expect(find.text(l.saveEvent), findsNothing);
+  });
+
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {
     final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
     final l = lookupAppLocalizations(const Locale('en'));

@@ -150,15 +150,19 @@ class SettingsScreen extends ConsumerWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: Space.gutter),
             child: Column(children: [
+              // Bedtime after midnight is stored past 24:00 (v4 change 11).
               Row(children: [
-                Expanded(child: TimePickerField(label: l.dayStart, minutes: s.dayStart, fmt: fmt, clearable: false, onChanged: (v) {
-                  if (v! < s.dayEnd) up((x) => x.copyWith(dayStart: v));
+                Expanded(child: TimePickerField(label: l.wakeTime, minutes: s.dayStart, fmt: fmt, clearable: false, onChanged: (v) {
+                  final bed = s.dayEnd % (24 * 60);
+                  if (v! != bed) up((x) => x.copyWith(dayStart: v, dayEnd: bed <= v ? bed + 24 * 60 : bed));
                 })),
                 const SizedBox(width: Space.m),
-                Expanded(child: TimePickerField(label: l.dayEnd, minutes: s.dayEnd, fmt: fmt, clearable: false, onChanged: (v) {
-                  if (v! > s.dayStart) up((x) => x.copyWith(dayEnd: v));
+                Expanded(child: TimePickerField(label: l.bedTime, minutes: s.dayEnd % (24 * 60), fmt: fmt, clearable: false, onChanged: (v) {
+                  if (v! != s.dayStart) up((x) => x.copyWith(dayEnd: v <= x.dayStart ? v + 24 * 60 : v));
                 })),
               ]),
+              const SizedBox(height: Space.s),
+              Text(l.bedTimeHint, style: t.bodySmall),
               const SizedBox(height: Space.l),
               Row(children: [
                 Expanded(child: TimePickerField(label: l.workStart, minutes: s.work?.start, fmt: fmt, onChanged: (v) {
@@ -184,6 +188,38 @@ class SettingsScreen extends ConsumerWidget {
               ),
               const SizedBox(height: Space.s),
               Text(l.workDaysHint, style: t.bodySmall),
+              const SizedBox(height: Space.l),
+              Align(alignment: AlignmentDirectional.centerStart, child: Text(l.breaksTitle, style: t.labelMedium)),
+              for (final (i, b) in s.breaks.indexed)
+                ListTile(
+                  contentPadding: EdgeInsets.zero,
+                  leading: const Icon(Icons.free_breakfast_outlined),
+                  title: Text('${fmt.minutesOfDay(b.start)} – ${fmt.minutesOfDay(b.end)}'),
+                  trailing: IconButton(
+                    tooltip: l.delete,
+                    icon: const Icon(Icons.delete_outline),
+                    onPressed: () => up((x) => x.copyWith(breaks: [...x.breaks]..removeAt(i))),
+                  ),
+                ),
+              Align(
+                alignment: AlignmentDirectional.centerStart,
+                child: TextButton.icon(
+                  icon: const Icon(Icons.add),
+                  label: Text(l.addBreak),
+                  onPressed: () async {
+                    final start = await showTimePicker(context: context, initialTime: const TimeOfDay(hour: 13, minute: 0));
+                    if (start == null || !context.mounted) return;
+                    final end = await showTimePicker(context: context, initialTime: TimeOfDay(hour: (start.hour + 1) % 24, minute: start.minute));
+                    if (end == null) return;
+                    final a = start.hour * 60 + start.minute, b = end.hour * 60 + end.minute;
+                    if (b <= a) {
+                      if (context.mounted) showSnack(context, l.errEndBeforeStart);
+                      return;
+                    }
+                    up((x) => x.copyWith(breaks: [...x.breaks, TimeRange(a, b)]..sort((p, q) => p.start.compareTo(q.start))));
+                  },
+                ),
+              ),
             ]),
           ),
           header(l.more),

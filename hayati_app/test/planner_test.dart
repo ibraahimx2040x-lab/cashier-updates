@@ -44,12 +44,24 @@ void main() {
     expect(plan.freeMinutes, 360);
   });
 
+  test('tasks with no date are suggestions: they never make a day look full', () {
+    final plan = const Planner().plan(
+      day: day,
+      now: morning,
+      tasks: [for (var i = 0; i < 30; i++) task('u$i', minutes: 60)],
+      events: const [],
+      settings: settings,
+    );
+    expect((plan.neededMinutes, plan.overCapacity), (0, false));
+    expect(plan.planned, isNotEmpty);
+  });
+
   test('does not squeeze tasks in when the day is full', () {
     const tight = UserSettings(dayStart: 8 * 60, dayEnd: 10 * 60);
     final plan = const Planner().plan(
       day: day,
       now: morning,
-      tasks: [task('a', minutes: 60, p: Priority.high), task('b', minutes: 60), task('c', minutes: 60)],
+      tasks: [task('a', minutes: 60, p: Priority.high, due: '2026-03-10'), task('b', minutes: 60, due: '2026-03-10'), task('c', minutes: 60, due: '2026-03-10')],
       events: const [],
       settings: tight,
     );

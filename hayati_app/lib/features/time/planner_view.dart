@@ -10,10 +10,12 @@ import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/task.dart';
+import '../../domain/day_schedule.dart';
 import '../../domain/planner.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import 'day_overview.dart';
 
 /// Screen 9 — decide what to do and when. The plan is a suggestion: the
 /// user reorders, drops or defers items, reviews, then applies it.
@@ -138,6 +140,8 @@ class _PlannerViewState extends ConsumerState<PlannerView> {
             _Stat(label: l.fixedBlocks, value: '${plan.fixed.length}'),
           ]),
         ),
+        const SizedBox(height: Space.m),
+        DayOverviewCard(schedule: DaySchedule.build(d, _day, now), fmt: fmt),
         if (plan.overCapacity) ...[
           const SizedBox(height: Space.m),
           _Banner(icon: Icons.warning_amber, color: context.status.warning, text: l.overCapacity),

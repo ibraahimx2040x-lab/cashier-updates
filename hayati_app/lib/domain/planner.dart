@@ -141,7 +141,9 @@ class Planner {
       planned: placed,
       unscheduled: unscheduled,
       freeMinutes: freeMinutes,
-      neededMinutes: candidates.fold(0, (s, t) => s + (t.estimatedMinutes ?? defaultEstimate)),
+      // Only tasks due by this day need the time; undated ones are filler
+      // suggestions and don't make a day look full.
+      neededMinutes: candidates.where((t) => t.dueDate != null).fold(0, (s, t) => s + (t.estimatedMinutes ?? defaultEstimate)),
     );
   }
 

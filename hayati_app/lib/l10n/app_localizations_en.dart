@@ -225,6 +225,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addAppointment => 'Add appointment';
 
   @override
+  String get addBreak => 'Add a break';
+
+  @override
   String get addCup => 'Add a glass (250 ml)';
 
   @override
@@ -876,6 +879,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get barcodeNumber => 'Barcode number';
 
   @override
+  String get bedTime => 'I go to sleep at';
+
+  @override
+  String get bedTimeHint =>
+      'A bedtime after midnight counts as the same night. Outside these hours nothing counts as free time.';
+
+  @override
   String get bedtimeReminder => 'Bedtime reminder';
 
   @override
@@ -940,6 +950,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get breakStart => 'Break from';
 
   @override
+  String get breaksTitle => 'Breaks';
+
+  @override
   String get budget => 'Budget';
 
   @override
@@ -950,6 +963,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get builtinNote =>
       'Values are typical estimates for one portion; home recipes and sizes vary. Change the amount, or save your own version.';
+
+  @override
+  String get busyTime => 'Taken';
 
   @override
   String get byCategory => 'By category';
@@ -1094,6 +1110,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String checkinWeek(String energy, String recovery) {
     return 'This week: energy $energy, recovery $recovery on average';
   }
+
+  @override
+  String clashItem(String a, String b, String time) {
+    return '“$a” and “$b” at $time';
+  }
+
+  @override
+  String clashSave(String what) {
+    return 'This time clashes with $what. Save anyway?';
+  }
+
+  @override
+  String get clashSleep => 'your sleep time';
+
+  @override
+  String get clashesTitle => 'Clashes';
 
   @override
   String get clear => 'Clear';
@@ -1355,12 +1387,23 @@ class AppLocalizationsEn extends AppLocalizations {
   String get dayEnd => 'Day ends';
 
   @override
+  String get dayFits => 'Tasks due fit in the free time.';
+
+  @override
+  String dayFreeLeft(String free) {
+    return '$free free';
+  }
+
+  @override
   String get dayOfMonth => 'Day of the month';
 
   @override
   String dayOfMonthLabel(int day) {
     return 'Day $day of each month';
   }
+
+  @override
+  String get dayOverview => 'Your day in hours';
 
   @override
   String get daySchedule => 'Today\'s schedule';
@@ -1706,6 +1749,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get due => 'Due';
+
+  @override
+  String dueNeeds(String need, String free) {
+    return 'Tasks due need $need; only $free is free.';
+  }
 
   @override
   String get dueShort => 'due';
@@ -2299,6 +2347,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get forgotTitle => 'Recover access';
+
+  @override
+  String get freeSlotsTitle => 'Free times';
 
   @override
   String get freeTime => 'Free time';
@@ -3377,6 +3428,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noFoodFoundBody =>
       'Add it once as your own food and it\'s kept for next time.';
+
+  @override
+  String get noFreeSlots => 'No free time left on this day.';
 
   @override
   String get noGoalsYet => 'No goals yet';
@@ -4465,6 +4519,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get saveAndAdd => 'Save and add';
 
   @override
+  String get saveAnyway => 'Save anyway';
+
+  @override
   String get saveEvent => 'Save event';
 
   @override
@@ -4725,6 +4782,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String sleepWindow(String from, String to) {
     return '$from – $to';
   }
+
+  @override
+  String get slotEvent => 'Appointments';
+
+  @override
+  String get slotFree => 'Free';
+
+  @override
+  String get slotPast => 'Passed';
+
+  @override
+  String get slotPrayer => 'Prayer';
+
+  @override
+  String get slotSleep => 'Sleep';
+
+  @override
+  String get slotTask => 'Tasks at a time';
 
   @override
   String sourceDataRemoved(String source) {
@@ -5273,6 +5348,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'Last month: $amount';
   }
+
+  @override
+  String get wakeTime => 'I wake up at';
 
   @override
   String walkItem(int minutes) {
