@@ -252,10 +252,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addHabit => 'إضافة عادة';
 
   @override
+  String get addIncome => 'إضافة دخل';
+
+  @override
   String get addMeasurement => 'أضف قياس';
 
   @override
   String get addMilestone => 'إضافة مرحلة';
+
+  @override
+  String get addMonthlyExpense => 'إضافة مصروف شهري';
+
+  @override
+  String get addMonthlyIncome => 'إضافة دخل شهري';
 
   @override
   String get addMyOwnFood => 'أضف أكلة من عندي';
@@ -953,6 +962,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'التقدم = المراحل المكتملة ÷ كل المراحل. تكتمل المرحلة عند تحديدها أو عند إنجاز كل مهامها.';
 
   @override
+  String get byMonth => 'حسب الشهر';
+
+  @override
   String get calendar => 'التقويم';
 
   @override
@@ -1026,12 +1038,28 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cefrB2 => 'B2 · فوق المتوسط';
 
   @override
+  String changeDown(int pct) {
+    return 'أقل بـ$pct%';
+  }
+
+  @override
   String changeIn30Days(String change) {
     return '$change خلال 30 يوم';
   }
 
   @override
   String get changePassword => 'تغيير كلمة المرور';
+
+  @override
+  String get changeSalary => 'تغيير الراتب';
+
+  @override
+  String get changeSame => 'نفس الشهر الماضي';
+
+  @override
+  String changeUp(int pct) {
+    return 'أكثر بـ$pct%';
+  }
 
   @override
   String changesCount(int n) {
@@ -1045,6 +1073,14 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String chartCurrencyNote(String currency) {
+    return 'المبالغ بعملة $currency فقط';
+  }
+
+  @override
+  String get chartNeedsData => 'الرسم يظهر لما يكون عندك تسجيل في شهرين.';
 
   @override
   String get checkAnswer => 'تحقق';
@@ -1097,6 +1133,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get commonSymptoms => 'الأعراض الأكثر تسجيلًا';
+
+  @override
+  String get compareLastMonth => 'مقارنة بالشهر الماضي';
 
   @override
   String get completedAndArchived => 'المكتملة والمؤرشفة';
@@ -1227,7 +1266,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currentPlan => 'خطتك الحالية';
 
   @override
+  String get currentSalary => 'الراتب الحالي';
+
+  @override
   String get currentStreak => 'السلسلة الحالية';
+
+  @override
+  String get customRange => 'فترة مخصصة';
 
   @override
   String cycleDayN(int n) {
@@ -1306,6 +1351,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get dayEnd => 'نهاية اليوم';
+
+  @override
+  String get dayOfMonth => 'يوم الشهر';
+
+  @override
+  String dayOfMonthLabel(int day) {
+    return 'يوم $day من كل شهر';
+  }
 
   @override
   String get daySchedule => 'جدول اليوم';
@@ -1473,6 +1526,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteHealthDataTitle => 'تحذف كل البيانات الصحية؟';
 
   @override
+  String get deleteIncomeBody => 'ما بيدخل في مجاميعك بعدها.';
+
+  @override
+  String get deleteIncomeTitle => 'تحذف هذا الدخل؟';
+
+  @override
+  String get deleteMonthlyBody => 'الأشهر المسجلة تبقى في سجلك.';
+
+  @override
+  String get deleteMonthlyTitle => 'تحذف هذا البند الشهري؟';
+
+  @override
   String get deleteNoteBody =>
       'ستُحذف الملاحظة نهائيًا. يمكنك أرشفتها بدلًا من ذلك.';
 
@@ -1484,6 +1549,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get deletePeriodTitle => 'تحذفين هذي الدورة؟';
+
+  @override
+  String get deleteSalaryBody => 'الأشهر اللي يغطيها بتاخذ الراتب اللي قبله.';
+
+  @override
+  String get deleteSalaryTitle => 'تحذف هذا التغيير في الراتب؟';
 
   @override
   String deleteTaskBody(String title) {
@@ -1650,6 +1721,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editEvent => 'تعديل الموعد';
 
   @override
+  String get editExpense => 'تعديل المصروف';
+
+  @override
   String get editFood => 'تعديل الأكلة';
 
   @override
@@ -1659,6 +1733,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get editHabit => 'تعديل العادة';
 
   @override
+  String get editIncome => 'تعديل الدخل';
+
+  @override
   String get editMilestone => 'تعديل المرحلة';
 
   @override
@@ -1666,6 +1743,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get editTask => 'تعديل المهمة';
+
+  @override
+  String get effectiveFrom => 'يبدأ من';
 
   @override
   String effort(String n) {
@@ -1721,6 +1801,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get enableAssistantSub =>
       'تعطيله لا يؤثر في المهام أو التقويم أو بقية التطبيق.';
+
+  @override
+  String get endDateOptional => 'تاريخ الانتهاء (اختياري)';
 
   @override
   String get endTime => 'النهاية';
@@ -1796,6 +1879,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get errEndBeforeStart => 'يجب أن يكون وقت النهاية بعد البداية';
+
+  @override
+  String get errEndDateBeforeStart => 'تاريخ الانتهاء قبل البداية';
+
+  @override
+  String get errFutureIncome => 'ما يصير تسجل دخل بتاريخ جاي';
 
   @override
   String get errNetwork => 'مشكلة في الاتصال. حاول مرة أخرى.';
@@ -1920,6 +2009,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get expTransport => 'النقل';
+
+  @override
+  String get expectedLabel => 'متوقع';
 
   @override
   String get expenseList => 'قائمة المصروفات';
@@ -2108,6 +2200,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get filterUpcoming => 'القادمة';
+
+  @override
+  String get filteredTotal => 'المجموع';
 
   @override
   String get finishSetup => 'إنهاء الإعداد';
@@ -2590,6 +2685,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get includeTechInfo => 'إرفاق معلومات تقنية';
 
   @override
+  String get incomeFixed => 'راتب ثابت';
+
+  @override
+  String get incomeKindExtra => 'دخل إضافي';
+
+  @override
+  String get incomeKindPay => 'راتب أو أجر';
+
+  @override
+  String get incomeSource => 'المصدر';
+
+  @override
+  String get incomeSourceHint => 'مثلًا: عمل حر، إيجار';
+
+  @override
+  String get incomeType => 'نوع الدخل';
+
+  @override
+  String get incomeVariable => 'متغير';
+
+  @override
+  String get incomeVariableSub => 'سجّل كل مبلغ لما يوصلك.';
+
+  @override
   String get initialTasks => 'المهام الأولية';
 
   @override
@@ -2977,10 +3096,32 @@ class AppLocalizationsAr extends AppLocalizations {
   String get modelSaw => 'اللي شافه الجوال (اضغط للبحث):';
 
   @override
+  String get moneyTabExpenses => 'المصروفات';
+
+  @override
+  String get moneyTabIncome => 'الدخل';
+
+  @override
+  String get moneyTabSummary => 'الملخص';
+
+  @override
   String get month => 'شهر';
 
   @override
   String get monthlyBudget => 'الميزانية الشهرية';
+
+  @override
+  String get monthlyEditNote =>
+      'التعديل يطبق على الأشهر الجاية، والأشهر المسجلة تبقى مثل ما هي.';
+
+  @override
+  String get monthlyExpenses => 'مصروفات شهرية';
+
+  @override
+  String get monthlyIncome => 'دخل شهري';
+
+  @override
+  String get monthlyLabel => 'شهري';
 
   @override
   String get mood => 'المزاج';
@@ -3102,7 +3243,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navEnglish => 'الإنجليزية';
 
   @override
-  String get navExpenses => 'المصروفات';
+  String get navExpenses => 'المال';
 
   @override
   String get navFitness => 'الرياضة';
@@ -3257,6 +3398,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get noIncomeMonth => 'ما فيه دخل مسجل هالشهر';
+
+  @override
   String get noLinkedTasks => 'لا توجد مهام مرتبطة بهذا الهدف بعد.';
 
   @override
@@ -3264,6 +3408,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noMilestones => 'لا توجد مراحل بعد.';
+
+  @override
+  String get noMoneyYet => 'ما فيه شي مسجل هالشهر';
+
+  @override
+  String get noMoneyYetBody => 'أضف راتبك أو دخلك ومصروفاتك عشان تشوف المتبقي.';
 
   @override
   String get noNotesYet => 'لا توجد ملاحظات بعد';
@@ -3285,6 +3435,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noReviewsDue => 'لا توجد مراجعة الآن.';
+
+  @override
+  String get noSalaryYet => 'ما سجلت راتب للحين';
 
   @override
   String get noSearchResults => 'لا توجد نتائج';
@@ -3326,6 +3479,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notDue => 'غير مستحق';
+
+  @override
+  String get notEnoughToCompare =>
+      'ما فيه تسجيل كافي في الشهر الماضي للمقارنة.';
 
   @override
   String get notLogged => 'لم يُسجّل';
@@ -3497,6 +3654,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get organizeGroup => 'التنظيم';
 
   @override
+  String get otherIncome => 'دخل إضافي';
+
+  @override
   String get otherSymptoms => 'شي ثاني';
 
   @override
@@ -3514,6 +3674,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get overdueTasks => 'المتأخرة';
+
+  @override
+  String paidOnDay(int day) {
+    return 'ينزل يوم $day';
+  }
 
   @override
   String get pain => 'الألم';
@@ -3543,6 +3708,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pauseGoal => 'إيقاف مؤقت';
+
+  @override
+  String get pausedLabel => 'موقوف';
+
+  @override
+  String get payDay => 'يوم نزول الراتب';
 
   @override
   String get perOnePortion => 'لحصة واحدة';
@@ -4038,6 +4209,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get reasonNoTime => 'لا يكفي الوقت المتبقي اليوم';
 
   @override
+  String get receivedThisMonth => 'المستلم';
+
+  @override
   String get recentFoods => 'الأخيرة';
 
   @override
@@ -4057,10 +4231,19 @@ class AppLocalizationsAr extends AppLocalizations {
       'حصتان شاقتان في يومين متتاليين. يُفضّل يوم راحة بينهما.';
 
   @override
+  String get recurringActive => 'شغّال';
+
+  @override
   String get regional => 'المنطقة والوقت';
 
   @override
   String get reject => 'رفض';
+
+  @override
+  String get remaining => 'المتبقي';
+
+  @override
+  String get remainingFormula => 'الدخل − المصروفات';
 
   @override
   String get remind3HoursBefore => 'قبلها بـ3 ساعات';
@@ -4119,6 +4302,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get repeatDays => 'أيام التكرار';
+
+  @override
+  String get repeatMonthly => 'يتكرر كل شهر';
+
+  @override
+  String get repeatMonthlySub => 'ينسجل بنفس اليوم كل شهر';
 
   @override
   String reportFood(int days, String kcal) {
@@ -4233,6 +4422,26 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get reviewWhy =>
       'الكلمات التي تعلمتها تعود على فترات متزايدة لتثبت في الذاكرة.';
+
+  @override
+  String get salaryChangeNote =>
+      'الأشهر قبل هذا التاريخ تبقى بالراتب اللي كان لها.';
+
+  @override
+  String get salaryHistory => 'سجل الراتب';
+
+  @override
+  String get salaryLabel => 'الراتب';
+
+  @override
+  String salarySince(String amount, String date) {
+    return '$amount من $date';
+  }
+
+  @override
+  String salaryStoppedSince(String date) {
+    return 'دخل متغير من $date';
+  }
 
   @override
   String get sampleGoal1 => 'تعلم الإنجليزية';
@@ -4356,6 +4565,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get setSalary => 'تسجيل الراتب';
+
+  @override
   String setsLogged(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4453,6 +4665,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signUpTitle => 'إنشاء حساب';
 
   @override
+  String get sixMonths => 'آخر 6 أشهر';
+
+  @override
   String get skillGrammar => 'القواعد';
 
   @override
@@ -4535,6 +4750,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get spending => 'المصروفات';
+
+  @override
+  String get spentMoreThanIncome => 'صرفت هالشهر أكثر من اللي دخلك.';
 
   @override
   String get splashFailed => 'تعذر تشغيل حياتي.';
@@ -4662,10 +4880,20 @@ class AppLocalizationsAr extends AppLocalizations {
   String get sunrise => 'الشروق';
 
   @override
+  String get switchLabel => 'تحويل';
+
+  @override
   String get switchToSignIn => 'لديك حساب؟ سجّل الدخول';
 
   @override
   String get switchToSignUp => 'جديد هنا؟ أنشئ حسابًا';
+
+  @override
+  String get switchToVariableBody =>
+      'الراتب الثابت يوقف من التاريخ اللي تختاره، والأشهر الماضية تبقى مثل ما هي.';
+
+  @override
+  String get switchToVariableTitle => 'تحوّل للدخل المتغير؟';
 
   @override
   String get syAcne => 'حبوب';
@@ -4927,6 +5155,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get topPriorities => 'الأولويات الثلاث';
 
   @override
+  String get totalIncome => 'إجمالي الدخل';
+
+  @override
   String get totalSpent => 'إجمالي المصروفات';
 
   @override
@@ -5006,6 +5237,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get upcoming => 'المواعيد القادمة';
+
+  @override
+  String upcomingSalary(String amount, String date) {
+    return 'راتبك $amount ينزل $date';
+  }
 
   @override
   String get upgrade => 'الترقية';

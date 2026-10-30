@@ -124,8 +124,11 @@
   "addFood": "Add food",
   "addGoal": "Add goal",
   "addHabit": "Add habit",
+  "addIncome": "Add income",
   "addMeasurement": "Add measurement",
   "addMilestone": "Add milestone",
+  "addMonthlyExpense": "Add a monthly expense",
+  "addMonthlyIncome": "Add monthly income",
   "addMyOwnFood": "Add my own food",
   "addNote": "Add note",
   "addPastPeriod": "Add a past period",
@@ -690,6 +693,7 @@
   "byCategory": "By category",
   "byMilestones": "By milestones",
   "byMilestonesHint": "Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.",
+  "byMonth": "By month",
   "calendar": "Calendar",
   "calories": "Calories (kcal)",
   "caloriesByDay": "Calories by day",
@@ -718,6 +722,14 @@
   "cefrA2": "A2 · Elementary",
   "cefrB1": "B1 · Intermediate",
   "cefrB2": "B2 · Upper intermediate",
+  "changeDown": "{pct}% less",
+  "@changeDown": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
   "changeIn30Days": "{change} in 30 days",
   "@changeIn30Days": {
     "placeholders": {
@@ -727,6 +739,16 @@
     }
   },
   "changePassword": "Change password",
+  "changeSalary": "Change salary",
+  "changeSame": "Same as last month",
+  "changeUp": "{pct}% more",
+  "@changeUp": {
+    "placeholders": {
+      "pct": {
+        "type": "int"
+      }
+    }
+  },
   "changesCount": "{n, plural, =1{1 change} other{{n} changes}}",
   "@changesCount": {
     "placeholders": {
@@ -735,6 +757,15 @@
       }
     }
   },
+  "chartCurrencyNote": "Amounts in {currency} only",
+  "@chartCurrencyNote": {
+    "placeholders": {
+      "currency": {
+        "type": "String"
+      }
+    }
+  },
+  "chartNeedsData": "The chart shows once two months have records.",
   "checkAnswer": "Check",
   "checkFields": "Check the fields",
   "checkinScale": "1 is the lowest, 5 the highest. Saved as you tap.",
@@ -767,6 +798,7 @@
   },
   "comingSoon": "Coming soon",
   "commonSymptoms": "Symptoms you log most",
+  "compareLastMonth": "Compared with last month",
   "completedAndArchived": "Completed & archived",
   "completedPerDay": "Completed per day",
   "completionRate": "Completion rate",
@@ -869,7 +901,9 @@
   "currencyChangeNote": "Existing expenses keep their original currency.",
   "currentPassword": "Current password",
   "currentPlan": "Current plan",
+  "currentSalary": "Current salary",
   "currentStreak": "Current streak",
+  "customRange": "Custom dates",
   "cycleDayN": "Day {n} of your cycle",
   "@cycleDayN": {
     "placeholders": {
@@ -900,6 +934,15 @@
   "date": "Date",
   "day": "Day",
   "dayEnd": "Day ends",
+  "dayOfMonth": "Day of the month",
+  "dayOfMonthLabel": "Day {day} of each month",
+  "@dayOfMonthLabel": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
   "daySchedule": "Today's schedule",
   "dayScheduleDone": "Today's schedule is done",
   "dayStart": "Day starts",
@@ -978,10 +1021,16 @@
   "deleteHealthDataBody": "Steps, sleep, heart rate, workouts from your watch, food, water, cycle and appointments are removed from all your devices. This can't be undone.",
   "deleteHealthDataSub": "Only the health sections; the rest of your account stays",
   "deleteHealthDataTitle": "Delete all health data?",
+  "deleteIncomeBody": "It will no longer count in your totals.",
+  "deleteIncomeTitle": "Delete this income?",
+  "deleteMonthlyBody": "Months already recorded stay in your records.",
+  "deleteMonthlyTitle": "Remove this monthly item?",
   "deleteNoteBody": "This note will be permanently deleted. You can archive it instead.",
   "deleteNoteTitle": "Delete note?",
   "deletePeriodBody": "Estimates will be worked out again without it.",
   "deletePeriodTitle": "Delete this period?",
+  "deleteSalaryBody": "The months it covered will use the salary before it.",
+  "deleteSalaryTitle": "Delete this salary change?",
   "deleteTaskBody": "“{title}” will be permanently deleted. You can archive it instead.",
   "@deleteTaskBody": {
     "placeholders": {
@@ -1059,12 +1108,15 @@
   "edit": "Edit",
   "editAppointment": "Edit appointment",
   "editEvent": "Edit event",
+  "editExpense": "Edit expense",
   "editFood": "Edit food",
   "editGoal": "Goal",
   "editHabit": "Edit habit",
+  "editIncome": "Edit income",
   "editMilestone": "Edit milestone",
   "editPlan": "Change plan",
   "editTask": "Edit task",
+  "effectiveFrom": "Starts from",
   "effort": "{n, select, 1{easy} 2{fairly easy} 3{moderate} 4{hard} other{very hard}}",
   "@effort": {
     "placeholders": {
@@ -1087,6 +1139,7 @@
   "emptyUpcoming": "No upcoming tasks with a deadline.",
   "enableAssistant": "Assistant",
   "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
+  "endDateOptional": "End date (optional)",
   "endTime": "Ends",
   "energy": "Energy",
   "energyN": "Energy {n}/5",
@@ -1124,6 +1177,8 @@
   "errEmailExists": "An account with this email already exists",
   "errEmailNotConfirmed": "Please confirm your email first using the link we sent.",
   "errEndBeforeStart": "End time must be after the start time",
+  "errEndDateBeforeStart": "The end date is before the start",
+  "errFutureIncome": "Income can't be dated in the future",
   "errNetwork": "Connection problem. Please try again.",
   "errPasswordMatch": "Passwords don't match",
   "errPasswordWeak": "Password must be at least 8 characters and include a letter and a number",
@@ -1194,6 +1249,7 @@
   "expOther": "Other",
   "expShopping": "Shopping",
   "expTransport": "Transport",
+  "expectedLabel": "Expected",
   "expenseList": "Expenses",
   "expensesManualNote": "Expenses are entered manually. No bank accounts are linked.",
   "explanation": "Explanation",
@@ -1272,6 +1328,7 @@
   "filterOverdue": "Overdue",
   "filterToday": "Today",
   "filterUpcoming": "Upcoming",
+  "filteredTotal": "Total",
   "finishSetup": "Finish setup",
   "finishWorkout": "Finish workout",
   "fitnessIntroBody": "Answer a few questions and get a plan for home, the gym, or both — with alternatives when equipment is missing.",
@@ -1478,6 +1535,14 @@
   },
   "inactiveHabits": "Inactive",
   "includeTechInfo": "Include technical info",
+  "incomeFixed": "Fixed salary",
+  "incomeKindExtra": "Extra",
+  "incomeKindPay": "Pay",
+  "incomeSource": "Source",
+  "incomeSourceHint": "For example: freelance, rent",
+  "incomeType": "Income type",
+  "incomeVariable": "Variable",
+  "incomeVariableSub": "Record each amount when you receive it.",
   "initialTasks": "First tasks",
   "install": "Install",
   "installHealthConnect": "Install Health Connect",
@@ -1751,8 +1816,15 @@
   "modNotes": "Notes",
   "modTime": "Time management",
   "modelSaw": "What the phone saw (tap to search):",
+  "moneyTabExpenses": "Expenses",
+  "moneyTabIncome": "Income",
+  "moneyTabSummary": "Summary",
   "month": "Month",
   "monthlyBudget": "Monthly budget",
+  "monthlyEditNote": "Changes apply to the months to come. Months already recorded stay as they are.",
+  "monthlyExpenses": "Monthly expenses",
+  "monthlyIncome": "Monthly income",
+  "monthlyLabel": "Monthly",
   "mood": "Mood",
   "moodAnxious": "Anxious",
   "moodCalm": "Calm",
@@ -1808,7 +1880,7 @@
   "navActivity": "Steps",
   "navAssistant": "Assistant",
   "navEnglish": "English",
-  "navExpenses": "Expenses",
+  "navExpenses": "Money",
   "navFitness": "Fitness",
   "navGoals": "Goals",
   "navHabits": "Habits",
@@ -1881,9 +1953,12 @@
       }
     }
   },
+  "noIncomeMonth": "No income recorded this month",
   "noLinkedTasks": "No tasks linked to this goal yet.",
   "noMeasurementYet": "Nothing yet — tap to add",
   "noMilestones": "No milestones yet.",
+  "noMoneyYet": "Nothing recorded this month",
+  "noMoneyYetBody": "Add your salary or income and your expenses to see what's left.",
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
   "noPeriodsYet": "None recorded yet.",
@@ -1891,6 +1966,7 @@
   "noProgressYetBody": "Finish a workout or a program and your progress shows here.",
   "noReminder": "No reminder",
   "noReviewsDue": "Nothing to review right now.",
+  "noSalaryYet": "No salary recorded yet",
   "noSearchResults": "No results",
   "noSetsBody": "Nothing will be saved. Leave the workout?",
   "noSetsTitle": "No sets ticked",
@@ -1904,6 +1980,7 @@
   "noWorkoutThatDay": "No workout is planned for that day.",
   "none": "None",
   "notDue": "Not due",
+  "notEnoughToCompare": "Not enough records last month to compare.",
   "notLogged": "Not logged",
   "notSet": "Not set",
   "notStarted": "Not started",
@@ -2025,12 +2102,21 @@
   "openSettings": "Open settings",
   "orTypeBarcode": "Or type the barcode number",
   "organizeGroup": "Organize",
+  "otherIncome": "Other income",
   "otherSymptoms": "Something else",
   "overBudget": "Over budget",
   "overCapacity": "Your tasks need more time than you have. Some can't fit today — move them or shorten them.",
   "overdue": "Overdue",
   "overdueDef": "Due in period, deadline passed, still open",
   "overdueTasks": "Overdue",
+  "paidOnDay": "Paid on day {day}",
+  "@paidOnDay": {
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
   "pain": "Pain",
   "painN": "Pain {n}/10",
   "@painN": {
@@ -2047,6 +2133,8 @@
   "pastDay": "This day has passed.",
   "pathStarted": "Your path starts at A1.",
   "pauseGoal": "Pause",
+  "pausedLabel": "Paused",
+  "payDay": "Pay day",
   "perOnePortion": "For one portion",
   "perPortion": "Per portion: {portion}",
   "@perPortion": {
@@ -2316,14 +2404,18 @@
   "reasonDeadline": "Would finish after its deadline time",
   "reasonNoSlot": "No free slot is long enough",
   "reasonNoTime": "Not enough free time left today",
+  "receivedThisMonth": "Received",
   "recentFoods": "Recent",
   "recentNights": "Recent nights",
   "recentWorkouts": "Recent workouts",
   "recordedPeriods": "Recorded periods",
   "recovery": "Recovery",
   "recoveryWarning": "Two demanding sessions fall on back-to-back days. Consider a rest day between them.",
+  "recurringActive": "Active",
   "regional": "Region & time",
   "reject": "Reject",
+  "remaining": "Remaining",
+  "remainingFormula": "Income − expenses",
   "remind3HoursBefore": "3 hours before",
   "remindBeforeN": "{n} min before",
   "@remindBeforeN": {
@@ -2362,6 +2454,8 @@
   "reorder": "Reorder",
   "reorderHint": "Drag to change the order; times are recalculated.",
   "repeatDays": "Days",
+  "repeatMonthly": "Repeat every month",
+  "repeatMonthlySub": "Recorded on this day each month",
   "reportFood": "Food logged on {days} days, about {kcal} kcal a day",
   "@reportFood": {
     "placeholders": {
@@ -2459,6 +2553,28 @@
   "reviewMyPlan": "Review my plan",
   "reviewTitle": "Word review",
   "reviewWhy": "Words you learned come back at growing intervals so they stick.",
+  "salaryChangeNote": "Months before this date keep the salary they had.",
+  "salaryHistory": "Salary history",
+  "salaryLabel": "Salary",
+  "salarySince": "{amount} from {date}",
+  "@salarySince": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "salaryStoppedSince": "Variable income from {date}",
+  "@salaryStoppedSince": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "sampleGoal1": "Learn English",
   "sampleGoal2": "Learn programming",
   "sampleGoal3": "Exercise regularly",
@@ -2527,6 +2643,7 @@
       }
     }
   },
+  "setSalary": "Set salary",
   "setsLogged": "{n, plural, =1{1 set} other{{n} sets}}",
   "@setsLogged": {
     "placeholders": {
@@ -2572,6 +2689,7 @@
   "signOutBody": "Your data stays saved for when you sign in again.",
   "signUpSubtitle": "It takes less than a minute.",
   "signUpTitle": "Create your account",
+  "sixMonths": "Last 6 months",
   "skillGrammar": "Grammar",
   "skillReading": "Reading",
   "skillVocabulary": "Vocabulary",
@@ -2625,6 +2743,7 @@
   "sources": "Sources",
   "sourcesWithData": "Sources with your data",
   "spending": "Spending",
+  "spentMoreThanIncome": "You spent more than you received this month.",
   "splashFailed": "We couldn't start Hayati.",
   "startDate": "Start date",
   "startFromBeginning": "Start from the beginning",
@@ -2698,8 +2817,11 @@
   "suggestedPill": "Suggested",
   "suggestedPlan": "Suggested plan",
   "sunrise": "Sunrise",
+  "switchLabel": "Switch",
   "switchToSignIn": "Already have an account? Sign in",
   "switchToSignUp": "New here? Create an account",
+  "switchToVariableBody": "Your fixed salary stops from the date you pick. Past months stay as they were.",
+  "switchToVariableTitle": "Switch to variable income?",
   "syAcne": "Acne",
   "syBackPain": "Back pain",
   "syBloating": "Bloating",
@@ -2834,6 +2956,7 @@
   "toolMoveTask": "Change deadline",
   "toolPlanTask": "Set planned time",
   "topPriorities": "Top priorities",
+  "totalIncome": "Total income",
   "totalSpent": "Total spent",
   "tryAgain": "Study it again",
   "turnOnSection": "Turn on {section} in health settings first",
@@ -2880,6 +3003,17 @@
   "untilDeleted": "Until I delete them",
   "untitled": "Untitled",
   "upcoming": "Upcoming",
+  "upcomingSalary": "Salary of {amount} due {date}",
+  "@upcomingSalary": {
+    "placeholders": {
+      "amount": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
   "upgrade": "Upgrade",
   "usageToday": "{used}/{limit} assistant requests today",
   "@usageToday": {

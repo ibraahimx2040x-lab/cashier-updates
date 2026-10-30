@@ -24,6 +24,7 @@ import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/womens.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/money.dart';
 import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/prayer.dart';
 import 'package:hayati/data/models/task.dart';
@@ -467,6 +468,53 @@ void main() {
     expect((bp.value, bp.value2, d.bodyMetrics.firstWhere((m) => m.kind == MetricKind.weight).note), (126.0, 82.0, 'morning'));
     expect((d.sleep.single.quality, d.sleep.single.source), (4, ActivitySource.manual));
     expect((d.checkins.single.mood, d.settings.health.bedtimeReminder), (5, 22 * 60 + 30));
+  }, skip: skip);
+
+  test('salary history, income and monthly items sync; a deleted monthly item keeps its records', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1');
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final now = DateTime.now();
+    final start = DateTime(now.year, now.month - 2, 1);
+    a.data.setSalary(amountMinor: 500000, currency: 'SAR', from: start, payDay: 1);
+    a.data.setSalary(amountMinor: 600000, currency: 'SAR', from: DateTime(now.year, now.month, 1), payDay: 1, note: 'raise');
+    a.data.saveIncome(Income(id: newId(), amountMinor: 80000, currency: 'SAR', kind: IncomeKind.extra, source: 'Freelance', receivedAt: now));
+    final rent = RecurringItem(
+        id: newId(), kind: RecurringKind.expense, amountMinor: 150000, currency: 'SAR', category: 'bills', title: 'Rent',
+        dayOfMonth: 1, startsOn: dayKey(start), updatedAt: now);
+    a.data.saveRecurring(rent);
+    await a.settle();
+    expect(a.sync.rejected, 0);
+    expect(a.data.snapshot.expenses, hasLength(3));
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    var d = b.data.snapshot;
+    expect(d.salaryRates.map((r) => r.amountMinor).toSet(), {500000, 600000});
+    expect((d.incomes.single.source, d.recurring.single.generatedThrough), ('Freelance', monthKey(now)));
+    expect(d.expenses.where((e) => e.recurringId == rent.id), hasLength(3), reason: 'same ids, nothing made twice');
+
+    b.data.deleteRecurring(rent.id);
+    await b.settle();
+    expect(b.sync.rejected, 0);
+    final c3 = Device.create();
+    addTearDown(c3.dispose);
+    await c3.open();
+    await c3.auth.signIn(address, 'password1');
+    c3.c.read(dataProvider);
+    await c3.settle();
+    d = c3.data.snapshot;
+    expect(d.recurring, isEmpty);
+    expect((d.expenses.length, d.expenses.every((e) => e.recurringId == null)), (3, true));
   }, skip: skip);
 
   test('food, saved foods and water sync to another device', () async {

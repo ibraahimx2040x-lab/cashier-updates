@@ -5,6 +5,7 @@ import 'models/goal.dart';
 import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
+import 'models/money.dart';
 import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
@@ -44,6 +45,9 @@ class AppData {
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
+    this.salaryRates = const [],
+    this.incomes = const [],
+    this.recurring = const [],
     this.notifications = const [],
     this.conversations = const [],
     this.messages = const [],
@@ -103,6 +107,9 @@ class AppData {
   final List<Note> notes;
   final List<Expense> expenses;
   final List<Budget> budgets;
+  final List<SalaryRate> salaryRates;
+  final List<Income> incomes;
+  final List<RecurringItem> recurring;
   final List<AppNotification> notifications;
   final List<Conversation> conversations;
   final List<ChatMessage> messages;
@@ -193,6 +200,9 @@ class AppData {
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
+    List<SalaryRate>? salaryRates,
+    List<Income>? incomes,
+    List<RecurringItem>? recurring,
     List<AppNotification>? notifications,
     List<Conversation>? conversations,
     List<ChatMessage>? messages,
@@ -233,6 +243,9 @@ class AppData {
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
+        salaryRates: salaryRates ?? this.salaryRates,
+        incomes: incomes ?? this.incomes,
+        recurring: recurring ?? this.recurring,
         notifications: notifications ?? this.notifications,
         conversations: conversations ?? this.conversations,
         messages: messages ?? this.messages,
@@ -275,6 +288,9 @@ class AppData {
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
+        'salaryRates': salaryRates.map((e) => e.toJson()).toList(),
+        'incomes': incomes.map((e) => e.toJson()).toList(),
+        'recurring': recurring.map((e) => e.toJson()).toList(),
         'notifications': notifications.map((e) => e.toJson()).toList(),
         'conversations': conversations.map((e) => e.toJson()).toList(),
         'messages': messages.map((e) => e.toJson()).toList(),
@@ -321,6 +337,9 @@ class AppData {
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),
+      salaryRates: list('salaryRates', SalaryRate.fromJson),
+      incomes: list('incomes', Income.fromJson),
+      recurring: list('recurring', RecurringItem.fromJson),
       notifications: list('notifications', AppNotification.fromJson),
       conversations: list('conversations', Conversation.fromJson),
       messages: list('messages', ChatMessage.fromJson),

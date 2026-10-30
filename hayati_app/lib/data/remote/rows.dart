@@ -11,6 +11,7 @@ import '../models/goal.dart';
 import '../models/health.dart';
 import '../models/learning.dart';
 import '../models/misc.dart';
+import '../models/money.dart';
 import '../models/nutrition.dart';
 import '../models/prayer.dart';
 import '../models/settings.dart';
@@ -564,6 +565,7 @@ Row expenseRow(Expense e) => {
       'category': e.category,
       'spent_at': _ts(e.spentAt),
       'description': e.description,
+      'recurring_id': e.recurringId,
     };
 
 Expense expenseFrom(Row r) => Expense(
@@ -573,6 +575,79 @@ Expense expenseFrom(Row r) => Expense(
       category: r['category'] as String,
       spentAt: _dt(r['spent_at'])!,
       description: r['description'] as String,
+      recurringId: r['recurring_id'] as String?,
+    );
+
+Row salaryRateRow(SalaryRate x) => {
+      'id': x.id,
+      'amount_minor': x.amountMinor,
+      'currency': x.currency,
+      'effective_from': x.effectiveFrom,
+      'pay_day': x.payDay,
+      'note': x.note,
+      'updated_at': _ts(x.updatedAt),
+    };
+
+SalaryRate salaryRateFrom(Row r) => SalaryRate(
+      id: r['id'] as String,
+      amountMinor: r['amount_minor'] as int,
+      currency: (r['currency'] as String).trim(),
+      effectiveFrom: r['effective_from'] as String,
+      payDay: r['pay_day'] as int,
+      note: r['note'] as String,
+      updatedAt: _dt(r['updated_at'])!,
+    );
+
+Row incomeRow(Income x) => {
+      'id': x.id,
+      'amount_minor': x.amountMinor,
+      'currency': x.currency,
+      'kind': x.kind.name,
+      'source': x.source,
+      'received_at': _ts(x.receivedAt),
+      'recurring_id': x.recurringId,
+      'note': x.note,
+    };
+
+Income incomeFrom(Row r) => Income(
+      id: r['id'] as String,
+      amountMinor: r['amount_minor'] as int,
+      currency: (r['currency'] as String).trim(),
+      kind: IncomeKind.values.where((k) => k.name == r['kind']).firstOrNull ?? IncomeKind.extra,
+      source: r['source'] as String,
+      receivedAt: _dt(r['received_at'])!,
+      recurringId: r['recurring_id'] as String?,
+      note: r['note'] as String,
+    );
+
+Row recurringRow(RecurringItem x) => {
+      'id': x.id,
+      'kind': x.kind.name,
+      'amount_minor': x.amountMinor,
+      'currency': x.currency,
+      'category': x.category,
+      'title': x.title,
+      'day_of_month': x.dayOfMonth,
+      'starts_on': x.startsOn,
+      'ends_on': x.endsOn,
+      'generated_through': x.generatedThrough,
+      'active': x.active,
+      'updated_at': _ts(x.updatedAt),
+    };
+
+RecurringItem recurringFrom(Row r) => RecurringItem(
+      id: r['id'] as String,
+      kind: RecurringKind.values.byName(r['kind'] as String),
+      amountMinor: r['amount_minor'] as int,
+      currency: (r['currency'] as String).trim(),
+      category: r['category'] as String,
+      title: r['title'] as String,
+      dayOfMonth: r['day_of_month'] as int,
+      startsOn: r['starts_on'] as String,
+      endsOn: r['ends_on'] as String?,
+      generatedThrough: r['generated_through'] as String?,
+      active: r['active'] as bool,
+      updatedAt: _dt(r['updated_at'])!,
     );
 
 Row budgetRow(Budget b) => {'id': b.id, 'currency': b.currency, 'category': b.category, 'limit_minor': b.limitMinor};
@@ -686,7 +761,10 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('accountability_rules', (d) => [for (final x in d.accountabilityRules) ruleRow(x)], ruleFrom),
   SyncTable('accountability_events', (d) => [for (final x in d.accountabilityEvents) eventRowA(x)], eventFromA),
   SyncTable('notes', (d) => [for (final x in d.notes) noteRow(x)], noteFrom),
+  SyncTable('recurring_items', (d) => [for (final x in d.recurring) recurringRow(x)], recurringFrom),
   SyncTable('expenses', (d) => [for (final x in d.expenses) expenseRow(x)], expenseFrom),
+  SyncTable('salary_rates', (d) => [for (final x in d.salaryRates) salaryRateRow(x)], salaryRateFrom),
+  SyncTable('incomes', (d) => [for (final x in d.incomes) incomeRow(x)], incomeFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
 ];
 
@@ -727,5 +805,8 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     notes: read('notes', noteFrom),
     expenses: read('expenses', expenseFrom),
     budgets: read('budgets', budgetFrom),
+    recurring: read('recurring_items', recurringFrom),
+    salaryRates: read('salary_rates', salaryRateFrom),
+    incomes: read('incomes', incomeFrom),
   );
 }

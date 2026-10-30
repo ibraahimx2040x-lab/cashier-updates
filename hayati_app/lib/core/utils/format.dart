@@ -21,6 +21,7 @@ class Fmt {
   String weekdayDate(DateTime d) => DateFormat.MMMEd(locale).format(d);
   String fullDate(DateTime d) => DateFormat.yMMMMEEEEd(locale).format(d);
   String monthYear(DateTime d) => DateFormat.yMMMM(locale).format(d);
+  String monthShort(DateTime d) => DateFormat.MMM(locale).format(d);
   String weekdayShort(DateTime d) => DateFormat.E(locale).format(d);
   String day(String key) => date(parseDayKey(key));
   String dateTime(DateTime d) => '${dateShort(d)} · ${time(d)}';

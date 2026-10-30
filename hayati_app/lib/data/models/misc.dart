@@ -90,6 +90,7 @@ class Expense {
     required this.category,
     required this.spentAt,
     this.description = '',
+    this.recurringId,
   }) : assert(amountMinor > 0);
 
   final String id;
@@ -99,6 +100,9 @@ class Expense {
   final DateTime spentAt;
   final String description;
 
+  /// Set when a monthly [RecurringItem] made this record.
+  final String? recurringId;
+
   Map<String, Object?> toJson() => {
         'id': id,
         'amountMinor': amountMinor,
@@ -106,6 +110,7 @@ class Expense {
         'category': category,
         'spentAt': encodeInstant(spentAt),
         'description': description,
+        'recurringId': recurringId,
       };
 
   factory Expense.fromJson(Map<String, Object?> j) => Expense(
@@ -115,6 +120,7 @@ class Expense {
         category: j['category'] as String,
         spentAt: decodeInstant(j['spentAt'])!,
         description: (j['description'] as String?) ?? '',
+        recurringId: j['recurringId'] as String?,
       );
 }
 

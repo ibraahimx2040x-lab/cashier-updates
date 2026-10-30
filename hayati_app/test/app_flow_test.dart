@@ -14,6 +14,7 @@ import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/money.dart';
 import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/models/womens.dart';
@@ -25,6 +26,7 @@ import 'package:hayati/domain/assistant/assistant_service.dart';
 import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/domain/learning/curriculum.dart';
+import 'package:hayati/domain/money.dart';
 import 'package:hayati/domain/prayer_times.dart';
 import 'package:hayati/widgets/common.dart';
 import 'package:hayati/l10n/app_localizations.dart';
@@ -173,6 +175,11 @@ void seed(ProviderContainer c) {
   d.addExpense(Expense(id: 'x1', amountMinor: 2550, currency: 'SAR', category: 'food', spentAt: now, description: 'Lunch'));
   d.addExpense(Expense(id: 'x2', amountMinor: 1000, currency: 'USD', category: 'education', spentAt: now));
   d.saveBudget(const Budget(id: 'b1', currency: 'SAR', limitMinor: 2000));
+  d.setSalary(amountMinor: 500000, currency: 'SAR', from: now.subtract(const Duration(days: 70)), payDay: 1);
+  d.saveIncome(Income(id: 'in1', amountMinor: 80000, currency: 'SAR', source: 'Freelance', receivedAt: now));
+  d.saveRecurring(RecurringItem(
+      id: 'rc1', kind: RecurringKind.expense, amountMinor: 150000, currency: 'SAR', category: 'bills', title: 'Rent',
+      startsOn: dayKey(now.subtract(const Duration(days: 70))), updatedAt: now));
   final late = d.newTask(title: 'Late report', dueDate: dayKey(now.subtract(const Duration(days: 10))));
   d.saveTask(late);
   d.saveRule(AccountabilityRule(id: 'ar1', taskId: late.id, consequence: Consequence.planningSession, createdAt: now));
@@ -740,6 +747,61 @@ void main() {
     await tester.pumpAndSettle();
     final d = c.read(dataProvider);
     expect((d.sleep.isEmpty, d.activity.single.source), (true, ActivitySource.manual));
+  });
+
+  testWidgets('money: salary, income, a monthly expense, switch to variable (ar)', (tester) async {
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true, currency: 'SAR'));
+    await tester.pumpAndSettle();
+    c.read(routerProvider).push(Routes.expenses);
+    await tester.pumpAndSettle();
+    expect(find.text(l.noMoneyYet), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(Tab, l.moneyTabIncome));
+    await tester.pumpAndSettle();
+    await tester.tap(find.widgetWithText(OutlinedButton, l.setSalary));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)).first, '5000');
+    await tester.tap(find.descendant(of: find.byType(AlertDialog), matching: find.text(l.save)));
+    await tester.pumpAndSettle();
+    var d = c.read(dataProvider);
+    expect((d.salaryRates.single.amountMinor, d.salaryRates.single.payDay), (500000, 27));
+    expect(find.text(l.currentSalary), findsOneWidget);
+
+    await tester.tap(find.byTooltip(l.quickAdd));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '800');
+    await tester.tap(find.text(l.save).last);
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).incomes.single.amountMinor, 80000);
+
+    await tester.tap(find.widgetWithText(Tab, l.moneyTabExpenses));
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip(l.quickAdd));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '1500');
+    await tapIn(tester, find.text(l.repeatMonthly));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.save).last);
+    await tester.pumpAndSettle();
+    d = c.read(dataProvider);
+    expect((d.recurring.single.amountMinor, d.expenses.single.recurringId), (150000, d.recurring.single.id));
+
+    await tester.tap(find.widgetWithText(Tab, l.moneyTabSummary));
+    await tester.pumpAndSettle();
+    expect(find.text(l.remaining), findsOneWidget);
+
+    await tester.tap(find.widgetWithText(Tab, l.moneyTabIncome));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.incomeVariable));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.switchLabel));
+    await tester.pumpAndSettle();
+    d = c.read(dataProvider);
+    expect(currentSalary(d, DateTime.now()), isNull);
+    expect(d.salaryRates, hasLength(anyOf(1, 2)), reason: 'switching today replaces a change made today');
   });
 
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {
