@@ -67,6 +67,7 @@ abstract final class Routes {
   static String program(String id) => '/fitness/program/$id';
   static String programSession(String id) => '/fitness/session?program=$id';
   static const fitnessProgress = '/fitness/progress';
+  static const exerciseLibrary = '/fitness/library';
   static String lesson(String id) => '/english/lesson/$id';
   static String accountabilityRule({String? ruleId, String? taskId}) =>
       '/accountability/rule${ruleId != null ? '?id=$ruleId' : (taskId != null ? '?task=$taskId' : '')}';

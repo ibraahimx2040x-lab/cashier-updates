@@ -56,6 +56,20 @@ class FitnessScreen extends ConsumerWidget {
             ),
             const SizedBox(height: Space.l),
             _Programs(settings: d.settings),
+      AppCard(
+        onTap: () => context.push(Routes.exerciseLibrary),
+        child: Row(children: [
+          const IconBadge(Icons.menu_book_outlined),
+          const SizedBox(width: Space.m),
+          Expanded(
+            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Text(l.exerciseLibrary, style: t.titleSmall),
+              Text(l.exerciseLibraryHint, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+            ]),
+          ),
+          const Icon(Icons.chevron_right),
+        ]),
+      ),
             const SizedBox(height: Space.l),
             _SafetyNote(),
           ]),

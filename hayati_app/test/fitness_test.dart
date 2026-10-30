@@ -1,13 +1,17 @@
+import 'dart:io';
+
 import 'package:flutter/widgets.dart' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/core/utils/dates.dart';
 import 'package:hayati/data/app_data.dart';
 import 'package:hayati/data/data_controller.dart';
 import 'package:hayati/data/models/fitness.dart';
+import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/settings.dart';
 import 'package:hayati/data/remote/rows.dart';
 import 'package:hayati/domain/assistant/engine.dart';
 import 'package:hayati/domain/day_timeline.dart';
+import 'package:hayati/domain/fitness/exercise_info.dart';
 import 'package:hayati/domain/fitness/exercises.dart';
 import 'package:hayati/domain/fitness/plan_generator.dart';
 import 'package:hayati/l10n/app_localizations.dart';
@@ -36,6 +40,59 @@ void main() {
   const g = PlanGenerator();
 
   group('exercise library', () {
+    test('photos: every listed one is bundled, and every bundled one is listed', () {
+      final listed = {for (final e in exercises) ...exercisePhotos(e)};
+      expect(listed.length, greaterThanOrEqualTo(80));
+      for (final p in listed) {
+        expect(File(p).existsSync(), isTrue, reason: p);
+      }
+      final bundled = {for (final f in Directory('assets/exercises').listSync()) if (f.path.endsWith('.jpg')) 'assets/exercises/${f.uri.pathSegments.last}'};
+      expect(bundled, listed);
+      // A near match is worse than none: these have no photo of their movement.
+      expect(exercisePhotos(exerciseById('bird_dog')!), isEmpty);
+      expect(exercisePhotos(exerciseById('quad_stretch')!), isEmpty);
+    });
+
+    test('every exercise has target muscles, goals and cautions', () {
+      for (final e in exercises) {
+        final (main, helpers) = targetsOf(e);
+        expect(main, isNotEmpty, reason: e.id);
+        expect(main.toSet().intersection(helpers.toSet()), isEmpty, reason: e.id);
+        expect(goalsOf(e), contains(FitnessGoal.general), reason: e.id);
+        expect(cautionsOf(e).last, Caution.stopIfPain, reason: e.id);
+      }
+      expect(cautionsOf(exerciseById('barbell_squat')!), containsAll([Caution.knees, Caution.back, Caution.heavyLoad]));
+      expect(cautionsOf(exerciseById('treadmill')!), contains(Caution.heart));
+      expect(cautionsOf(exerciseById('pelvic_floor_hold')!, sex: Sex.female), contains(Caution.pregnancy));
+      expect(cautionsOf(exerciseById('plank')!, sex: Sex.male), isNot(contains(Caution.pregnancy)));
+      expect(goalsOf(exerciseById('brisk_walk')!), contains(FitnessGoal.fatLoss));
+      expect(goalsOf(exerciseById('cat_cow')!), isNot(contains(FitnessGoal.strength)));
+    });
+
+    test('suggested dosage for each level grows with the level', () {
+      final d = dosageOf(exerciseById('goblet_squat')!, FitnessGoal.strength);
+      expect(d.keys, FitnessLevel.values);
+      expect(d[FitnessLevel.beginner]!.sets, lessThan(d[FitnessLevel.advanced]!.sets));
+      expect(dosageOf(exerciseById('plank')!, FitnessGoal.general)[FitnessLevel.beginner]!.seconds, isNotNull);
+    });
+
+    test('filters by muscle, level, goal, place and name', () {
+      expect(filterExercises().length, exercises.length);
+      expect(filterExercises(muscle: Muscle.chest).every((e) => e.muscle == Muscle.chest), isTrue);
+      expect(filterExercises(level: 3).every((e) => e.difficulty == 3), isTrue);
+      expect(filterExercises(goal: FitnessGoal.mobility).map((e) => e.id), containsAll(['cat_cow', 'single_leg_stand']));
+      final home = filterExercises(place: WorkoutPlace.home);
+      expect(home.any((e) => e.gymOnly.isNotEmpty || e.equipment.isNotEmpty), isFalse);
+      expect(filterExercises(place: WorkoutPlace.home, home: {Equipment.dumbbells}).map((e) => e.id), contains('db_row'));
+      expect(filterExercises(query: 'سكوات').map((e) => e.id), containsAll(['bw_squat', 'goblet_squat']));
+      expect(filterExercises(query: 'PUSH').map((e) => e.id), contains('pushup'));
+      expect(filterExercises(muscle: Muscle.chest, level: 3), isEmpty);
+      final all = filterExercises();
+      for (var i = 1; i < all.length; i++) {
+        expect(all[i - 1].muscle.index, lessThanOrEqualTo(all[i].muscle.index));
+      }
+    });
+
     test('ids are unique and alternatives exist', () {
       final ids = exercises.map((e) => e.id).toList();
       expect(ids.toSet().length, ids.length);

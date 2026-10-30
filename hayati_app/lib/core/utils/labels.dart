@@ -9,6 +9,7 @@ import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
 import '../../data/models/womens.dart';
+import '../../domain/fitness/exercise_info.dart';
 import '../../domain/fitness/exercises.dart';
 import '../../domain/nutrition/foods.dart';
 import '../../domain/planner.dart';
@@ -87,6 +88,39 @@ extension Labels on AppLocalizations {
         Muscle.mobility => muMobility,
         Muscle.balance => muBalance,
         Muscle.pelvicFloor => muPelvicFloor,
+      };
+
+  String target(Target x) => switch (x) {
+        Target.quads => tgQuads,
+        Target.hamstrings => tgHamstrings,
+        Target.glutes => tgGlutes,
+        Target.calves => tgCalves,
+        Target.hips => tgHips,
+        Target.chest => tgChest,
+        Target.upperBack => tgUpperBack,
+        Target.lats => tgLats,
+        Target.lowerBack => tgLowerBack,
+        Target.shoulders => tgShoulders,
+        Target.biceps => tgBiceps,
+        Target.triceps => tgTriceps,
+        Target.abs => tgAbs,
+        Target.obliques => tgObliques,
+        Target.neck => tgNeck,
+        Target.pelvicFloor => tgPelvicFloor,
+        Target.heartLungs => tgHeartLungs,
+        Target.diaphragm => tgDiaphragm,
+      };
+
+  String caution(Caution c) => switch (c) {
+        Caution.knees => cautionKnees,
+        Caution.back => cautionBack,
+        Caution.shoulders => cautionShoulders,
+        Caution.heavyLoad => cautionHeavyLoad,
+        Caution.heart => cautionHeart,
+        Caution.balance => cautionBalance,
+        Caution.neck => cautionNeck,
+        Caution.pregnancy => cautionPregnancy,
+        Caution.stopIfPain => cautionStopIfPain,
       };
 
   String difficulty(int d) => switch (d) {
