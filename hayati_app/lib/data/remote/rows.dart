@@ -15,6 +15,7 @@ import '../models/nutrition.dart';
 import '../models/prayer.dart';
 import '../models/settings.dart';
 import '../models/task.dart';
+import '../models/womens.dart';
 
 typedef Row = Map<String, Object?>;
 
@@ -233,6 +234,75 @@ DeviceWorkout deviceWorkoutFrom(Row r) => DeviceWorkout(
       kcal: r['kcal'] as int?,
       distanceM: r['distance_m'] as int?,
       steps: r['steps'] as int?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
+Row periodRow(CyclePeriod x) => {
+      'id': x.id,
+      'start_date': x.start,
+      'end_date': x.end,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+CyclePeriod periodFrom(Row r) => CyclePeriod(
+      id: r['id'] as String,
+      start: r['start_date'] as String,
+      end: r['end_date'] as String?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
+/// Symptom names as the database lists them (snake_case).
+String _snake(String s) => s.replaceAllMapped(RegExp('[A-Z]'), (m) => '_${m[0]!.toLowerCase()}');
+
+Row cycleLogRow(CycleDayLog x) => {
+      'id': x.id,
+      'day': x.day,
+      'flow': x.flow?.name,
+      'pain': x.pain,
+      'symptoms': [for (final s in x.symptoms) _snake(s.name)]..sort(),
+      'other_symptoms': x.otherSymptoms,
+      'mood': x.mood?.name,
+      'energy': x.energy,
+      'note': x.note,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+CycleDayLog cycleLogFrom(Row r) => CycleDayLog(
+      id: r['id'] as String,
+      day: r['day'] as String,
+      flow: FlowLevel.values.where((f) => f.name == r['flow']).firstOrNull,
+      pain: r['pain'] as int?,
+      symptoms: {
+        for (final s in (r['symptoms'] as List? ?? const [])) ?Symptom.values.where((x) => _snake(x.name) == s).firstOrNull,
+      },
+      otherSymptoms: (r['other_symptoms'] as String?) ?? '',
+      mood: CycleMood.values.where((m) => m.name == r['mood']).firstOrNull,
+      energy: r['energy'] as int?,
+      note: (r['note'] as String?) ?? '',
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
+Row appointmentRow(HealthAppointment x) => {
+      'id': x.id,
+      'title': x.title,
+      'kind': x.kind.name,
+      'at': x.at.toUtc().toIso8601String(),
+      'place': x.place,
+      'notes': x.notes,
+      'questions': x.questions,
+      'reminder_minutes': x.reminderMinutes,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+HealthAppointment appointmentFrom(Row r) => HealthAppointment(
+      id: r['id'] as String,
+      title: r['title'] as String,
+      kind: AppointmentKind.values.where((k) => k.name == r['kind']).firstOrNull ?? AppointmentKind.other,
+      at: DateTime.parse(r['at'] as String).toLocal(),
+      place: (r['place'] as String?) ?? '',
+      notes: (r['notes'] as String?) ?? '',
+      questions: [for (final q in (r['questions'] as List? ?? const [])) q as String],
+      reminderMinutes: r['reminder_minutes'] as int?,
       updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
     );
 
@@ -558,10 +628,14 @@ UserSettings settingsFrom(Row r) {
 /// back. Ordered parents-first so upserts satisfy foreign keys; deletes run
 /// in the reverse order.
 class SyncTable<T> {
-  const SyncTable(this.name, this.rows, this.from);
+  const SyncTable(this.name, this.rows, this.from, {this.cycle = false});
   final String name;
   final List<Row> Function(AppData) rows;
   final T Function(Row) from;
+
+  /// Cycle data: not sent to (or read from) the server while the user keeps
+  /// it on the device only.
+  final bool cycle;
 }
 
 final syncTables = <SyncTable<Object>>[
@@ -576,6 +650,9 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('sleep_sessions', (d) => [for (final x in d.sleep) sleepRow(x)], sleepFrom),
   SyncTable('body_metrics', (d) => [for (final x in d.bodyMetrics) bodyMetricRow(x)], bodyMetricFrom),
   SyncTable('device_workouts', (d) => [for (final x in d.deviceWorkouts) deviceWorkoutRow(x)], deviceWorkoutFrom),
+  SyncTable('cycle_periods', (d) => [for (final x in d.periods) periodRow(x)], periodFrom, cycle: true),
+  SyncTable('cycle_day_logs', (d) => [for (final x in d.cycleLogs) cycleLogRow(x)], cycleLogFrom, cycle: true),
+  SyncTable('health_appointments', (d) => [for (final x in d.appointments) appointmentRow(x)], appointmentFrom),
   SyncTable('custom_foods', (d) => [for (final x in d.customFoods) customFoodRow(x)], customFoodFrom),
   SyncTable('food_logs', (d) => [for (final x in d.foodLogs) foodLogRow(x)], foodLogFrom),
   SyncTable('water_intake', (d) => [for (final x in d.water) waterRow(x)], waterFrom),
@@ -596,6 +673,8 @@ final syncTables = <SyncTable<Object>>[
 /// device-only ones (notifications, assistant chats, support outbox).
 AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>> rows) {
   List<T> read<T>(String t, T Function(Row) f) => [for (final r in rows[t] ?? const <Row>[]) f(r)];
+  // Kept on this device only: the server has none of it.
+  final localCycle = settings.health.cycleLocalOnly;
   return local.copyWith(
     settings: settings,
     goals: read('goals', goalFrom),
@@ -609,6 +688,9 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     sleep: read('sleep_sessions', sleepFrom),
     bodyMetrics: read('body_metrics', bodyMetricFrom),
     deviceWorkouts: read('device_workouts', deviceWorkoutFrom),
+    periods: localCycle ? local.periods : read('cycle_periods', periodFrom),
+    cycleLogs: localCycle ? local.cycleLogs : read('cycle_day_logs', cycleLogFrom),
+    appointments: read('health_appointments', appointmentFrom),
     customFoods: read('custom_foods', customFoodFrom),
     foodLogs: read('food_logs', foodLogFrom),
     water: read('water_intake', waterFrom),

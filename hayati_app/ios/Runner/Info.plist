@@ -6,6 +6,8 @@
 		<string>لتصوير الوجبة أو مسح باركود المنتج. الصورة تبقى على جهازك.</string>
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>لاختيار صورة وجبة. الصورة تبقى على جهازك.</string>
+		<key>NSFaceIDUsageDescription</key>
+		<string>لفتح الأقسام الصحية المقفولة في حياتي، إذا شغّلت القفل.</string>
 		<key>NSHealthShareUsageDescription</key>
 		<string>يقرأ حياتي من تطبيق الصحة ما تختاره فقط: الخطوات والنوم ونبض الراحة والتمارين، ليعرض نشاطك وأهدافك. لا يكتب فيه شيئًا.</string>
 		<key>NSHealthUpdateUsageDescription</key>

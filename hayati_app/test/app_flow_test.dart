@@ -16,6 +16,7 @@ import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/task.dart';
+import 'package:hayati/data/models/womens.dart';
 import 'package:hayati/data/store/local_store.dart';
 import 'package:hayati/features/home/home_screen.dart';
 import 'package:hayati/features/nutrition/scan_screen.dart';
@@ -30,6 +31,7 @@ import 'package:hayati/l10n/app_localizations.dart';
 import 'package:hayati/services/device_notifications.dart';
 import 'package:hayati/services/barcode_lookup.dart';
 import 'package:hayati/services/food_recognizer.dart';
+import 'package:hayati/services/health_lock.dart';
 import 'package:hayati/services/health_reader.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -67,7 +69,20 @@ class FakeBarcodeLookup implements BarcodeLookup {
       : const LookupResult.failed(LookupFailure.notFound);
 }
 
-Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size, HealthReader? reader}) async {
+/// The phone's unlock, answering [ok].
+class FakeDeviceAuth implements DeviceAuth {
+  bool ok = true;
+  int asked = 0;
+  @override
+  Future<bool> available() async => true;
+  @override
+  Future<bool> authenticate(String reason) async {
+    asked++;
+    return ok;
+  }
+}
+
+Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, required Size size, HealthReader? reader, DeviceAuth? auth}) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1;
   addTearDown(tester.view.reset);
@@ -77,6 +92,7 @@ Future<ProviderContainer> pumpApp(WidgetTester tester, {required String locale, 
     localStoreProvider.overrideWithValue(LocalStore(prefs)),
     deviceNotificationsProvider.overrideWithValue(FakeDeviceNotifications()),
     healthReaderProvider.overrideWithValue(reader ?? const UnsupportedHealthReader()),
+    deviceAuthProvider.overrideWithValue(auth ?? const NoDeviceAuth()),
     foodRecognizerProvider.overrideWithValue(const UnavailableFoodRecognizer()),
     barcodeLookupProvider.overrideWithValue(FakeBarcodeLookup()),
     scanCameraProvider.overrideWithValue(false),
@@ -172,6 +188,10 @@ void seed(ProviderContainer c) {
   d.saveCustomFood(CustomFood(id: 'cf1', name: 'My laban', portion: 'bottle', per: const Nutrients(kcal: 120, protein: 8), barcode: '6281000000001', createdAt: now));
   d.addWater(today, 1250);
   d.setSex(Sex.male);
+  d.saveAppointment(HealthAppointment(
+      id: 'ap1', title: 'Annual checkup', kind: AppointmentKind.checkup, at: now.add(const Duration(days: 2)), place: 'Clinic',
+      questions: const ['Blood test?', 'Vitamin D?'], reminderMinutes: 60, updatedAt: now));
+  d.saveAppointment(HealthAppointment(id: 'ap0', title: 'Blood test', kind: AppointmentKind.test, at: now.subtract(const Duration(days: 20)), updatedAt: now));
   final night = DateTime(now.year, now.month, now.day);
   d.importSleep(ActivitySource.healthConnect, [
     for (var i = 0; i < 6; i++) (night.subtract(Duration(days: i, minutes: 60 + i * 20)), night.subtract(Duration(days: i)).add(Duration(hours: 6, minutes: i * 10))),
@@ -313,6 +333,10 @@ void main() {
           Routes.programSession('balance'),
           Routes.fitnessProgress,
           Routes.devices,
+          Routes.appointments,
+          Routes.appointment('ap1'),
+          Routes.appointment('new'),
+          Routes.healthPrivacy,
         ];
         for (final r in routes) {
           router.go(r);
@@ -359,6 +383,146 @@ void main() {
     expect(d.tasks, hasLength(7));
     expect(find.text(l.proposalExecuted), findsOneWidget);
     expect(c.read(assistantProvider).busy, isFalse);
+  });
+
+  /// A female account with periods, day logs and an appointment.
+  void seedWomens(ProviderContainer c) {
+    final d = c.read(dataProvider.notifier);
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    String back(int n) => dayKey(today.subtract(Duration(days: n)));
+    for (final (s, e) in [(88, 84), (60, 55), (31, 27)]) {
+      d.savePeriod(CyclePeriod(id: 'p$s', start: back(s), end: back(e), updatedAt: now));
+    }
+    d.startPeriod(back(2));
+    for (final (n, sy) in [(31, {Symptom.cramps, Symptom.fatigue}), (30, {Symptom.cramps}), (2, {Symptom.cramps, Symptom.backPain}), (1, {Symptom.headache})]) {
+      d.saveCycleLog(CycleDayLog(id: '', day: back(n), flow: FlowLevel.medium, pain: 4, symptoms: sy, mood: CycleMood.low, energy: 2, note: 'note', updatedAt: now));
+    }
+    d.saveAppointment(HealthAppointment(id: 'ap1', title: 'Checkup', at: now.add(const Duration(days: 3)), questions: const ['Q'], updatedAt: now));
+  }
+
+  for (final (name, size) in [('phone', const Size(390, 844)), ('desktop', const Size(1366, 900))]) {
+    for (final locale in ['ar', 'en']) {
+      testWidgets("women's health screens render ($name, $locale)", (tester) async {
+        final c = await pumpApp(tester, locale: locale, size: size);
+        await signUp(tester, c, sex: Sex.female);
+        final data = c.read(dataProvider.notifier);
+        data.updateSettings((s) => s.copyWith(onboardingDone: true));
+        data.setSex(Sex.female);
+        seedWomens(c);
+        await tester.pumpAndSettle();
+        final router = c.read(routerProvider);
+        for (final r in [
+          Routes.home,
+          Routes.womens,
+          Routes.womensDay(dayKey(DateTime.now())),
+          Routes.womensDay(dayKey(DateTime.now().subtract(const Duration(days: 30)))),
+          Routes.womensInsights,
+          Routes.appointments,
+          Routes.appointment('ap1'),
+          Routes.healthPrivacy,
+          Routes.healthSetup,
+        ]) {
+          router.go(r);
+          await tester.pumpAndSettle();
+          expect(tester.takeException(), isNull, reason: r);
+          expect(find.byType(Text).evaluate().length + find.byType(EditableText).evaluate().length, greaterThan(6), reason: r);
+        }
+      });
+    }
+  }
+
+  testWidgets("women's health: record a period, log a day, men never see it (en)", (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c, sex: Sex.female);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    data.setSex(Sex.female);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.womens);
+    await tester.pumpAndSettle();
+    expect(find.text(l.cycleStartTitle), findsOneWidget);
+    await tester.tap(find.text(l.periodStartedToday));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).periods.single.end, isNull);
+    expect(find.text(l.periodDayN(1)), findsOneWidget);
+
+    // Log today: pain and a symptom.
+    await tapIn(tester, find.text(l.howIsToday));
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.flowLevel(FlowLevel.heavy)));
+    await tapIn(tester, find.text(l.symptom(Symptom.cramps)));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.save));
+    await tester.pumpAndSettle();
+    final log = c.read(dataProvider).cycleLog(dayKey(DateTime.now()))!;
+    expect((log.flow, log.symptoms.single), (FlowLevel.heavy, Symptom.cramps));
+    expect(find.text(l.todayLogged), findsOneWidget);
+    await tester.drag(find.byType(Scrollable).first, const Offset(0, 600));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.periodEndedToday));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).periods.single.end, dayKey(DateTime.now()));
+
+    // A male account: no menu item, and the screens refuse.
+    data.setSex(Sex.male);
+    router.go(Routes.womens);
+    await tester.pumpAndSettle();
+    expect(find.text(l.womensUnavailable), findsOneWidget);
+    expect(find.text(l.periodStartedToday), findsNothing);
+  });
+
+  testWidgets('health lock: phone unlock first, locks again in the background; cycle data on this phone only (ar)', (tester) async {
+    final auth = FakeDeviceAuth();
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844), auth: auth);
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await signUp(tester, c, sex: Sex.female);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    data.setSex(Sex.female);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.healthPrivacy);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.healthLock));
+    await tester.pumpAndSettle();
+    expect((auth.asked, c.read(dataProvider).settings.health.lockEnabled), (1, true));
+
+    // Home shows nothing but the section's name while locked.
+    data.startPeriod(dayKey(DateTime.now()));
+    router.go(Routes.home);
+    await tester.pumpAndSettle();
+    expect(find.text(l.periodDayN(1), skipOffstage: false), findsNothing);
+    expect(find.text(l.navWomens, skipOffstage: false), findsOneWidget);
+
+    // Back from the background: locked until the phone says yes.
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.paused);
+    await tester.pump();
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.hidden);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.inactive);
+    tester.binding.handleAppLifecycleStateChanged(AppLifecycleState.resumed);
+    auth.ok = false;
+    router.go(Routes.womens);
+    await tester.pumpAndSettle();
+    expect(find.text(l.healthLocked), findsOneWidget);
+    expect(find.text(l.periodDayN(1)), findsNothing);
+    auth.ok = true;
+    await tester.tap(find.text(l.unlock));
+    await tester.pumpAndSettle();
+    expect(find.text(l.periodDayN(1)), findsOneWidget);
+
+    // Keep it on this phone only, after confirming.
+    router.go(Routes.healthPrivacy);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.text(l.cycleLocalOnly));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.continueLabel));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).settings.health.cycleLocalOnly, isTrue);
   });
 
   testWidgets('accountability: agree to a rule, then answer a late task (en)', (tester) async {

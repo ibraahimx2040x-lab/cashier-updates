@@ -115,6 +115,7 @@
   "activityNote": "Steps come from your phone's health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.",
   "activitySaved": "Steps saved",
   "activityWebNote": "In the browser steps can only be added by hand. Automatic counting works in the phone app.",
+  "addAppointment": "Add appointment",
   "addCup": "Add a glass (250 ml)",
   "addEvent": "Add event",
   "addExpense": "Add expense",
@@ -126,6 +127,8 @@
   "addMilestone": "Add milestone",
   "addMyOwnFood": "Add my own food",
   "addNote": "Add note",
+  "addPastPeriod": "Add a past period",
+  "addQuestion": "Add a question",
   "addStepsManually": "Add steps",
   "addTask": "Add task",
   "addTo": "Add to {meal}",
@@ -485,6 +488,10 @@
     }
   },
   "any": "Any",
+  "apCheckup": "Checkup",
+  "apFollowup": "Follow-up",
+  "apOther": "Other",
+  "apTest": "Test",
   "appName": "Hayati",
   "appVersion": "App version",
   "appearance": "Appearance",
@@ -497,6 +504,10 @@
       }
     }
   },
+  "appointmentReminderNote": "The reminder says “Health appointment” and the time only, not the title.",
+  "appointmentTitle": "What is it for?",
+  "appointments": "Health appointments",
+  "appointmentsSub": "Checkups, tests and questions for the doctor",
   "approvals": "Always ask before",
   "approve": "Approve",
   "approveBulk": "Changes to several items at once",
@@ -547,6 +558,8 @@
   "autoActions": "May do without asking",
   "autoActionsSub": "Each permission is separate and can be withdrawn at any time.",
   "automatic": "Automatic",
+  "averageCycle": "Average cycle",
+  "averagePeriod": "Average period",
   "avgKcalPerDay": "{kcal} kcal a day on average",
   "@avgKcalPerDay": {
     "placeholders": {
@@ -649,6 +662,7 @@
     }
   },
   "checkAnswer": "Check",
+  "checkFields": "Check the fields",
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
@@ -658,6 +672,7 @@
   "clearanceTitle": "Your doctor's go-ahead first",
   "cloudModeNotice": "Your data is saved to your account and kept on this device for offline use.",
   "comingSoon": "Coming soon",
+  "commonSymptoms": "Symptoms you log most",
   "completedAndArchived": "Completed & archived",
   "completedPerDay": "Completed per day",
   "completionRate": "Completion rate",
@@ -761,6 +776,30 @@
   "currentPassword": "Current password",
   "currentPlan": "Current plan",
   "currentStreak": "Current streak",
+  "cycleDayN": "Day {n} of your cycle",
+  "@cycleDayN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "cycleDisclaimer": "Estimates from what you recorded, not medical advice and not a way to prevent or plan pregnancy.",
+  "cycleInsights": "Cycle insights",
+  "cycleLengthOverTime": "Cycle length over time",
+  "cycleLocalOnly": "Keep cycle data on this phone only",
+  "cycleLocalOnlyBody": "Your periods and day logs are removed from your account and stay on this phone. If you delete the app or change phones, they are gone.",
+  "cycleLocalOnlyOff": "Off: saved to your account, so it appears on your phone, iPhone and the web.",
+  "cycleLocalOnlyOn": "On: it isn't saved to your account and doesn't appear on your other devices.",
+  "cycleLocalOnlyTitle": "Keep it on this phone only?",
+  "cycleRange": "Range",
+  "cycleReminders": "Reminder before the next period",
+  "cycleRemindersSub": "Two days before the estimated window. It only says “Hayati reminder”.",
+  "cycleStartBody": "Tap “It started today” on the first day of your period, or add past ones below.",
+  "cycleStartTitle": "Track your cycle",
+  "cycleSyncBody": "What this phone holds is uploaded to your account and appears on your other devices.",
+  "cycleSyncTitle": "Save it to your account?",
+  "cyclesCounted": "Cycles counted",
   "dailyAverage": "Daily average",
   "dataAccess": "What the assistant can read",
   "dataAccessSub": "Only enabled sections are used to answer you.",
@@ -794,6 +833,17 @@
       }
     }
   },
+  "daysRange": "{min}–{max} days",
+  "@daysRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "deadlineDate": "Deadline",
   "deadlineTime": "Deadline time",
   "deadlineVsPlanned": "Deadline = when it must be done. Planned time = when you intend to work on it.",
@@ -805,6 +855,8 @@
   "deleteAccountSub": "Permanently remove your account and data",
   "deleteAllChats": "Delete all chats",
   "deleteAllChatsBody": "All conversations and pending suggestions will be deleted. Applied changes stay.",
+  "deleteAppointmentBody": "Its notes and questions go too.",
+  "deleteAppointmentTitle": "Delete this appointment?",
   "deleteChatBody": "This chat and its pending suggestions will be deleted. Changes you already applied stay.",
   "deleteChatTitle": "Delete chat?",
   "deleteConfirmWord": "DELETE",
@@ -828,8 +880,14 @@
   "deleteGoalTitle": "Delete goal?",
   "deleteHabitBody": "The habit and its whole history will be deleted. You can make it inactive instead.",
   "deleteHabitTitle": "Delete habit?",
+  "deleteHealthData": "Delete health data",
+  "deleteHealthDataBody": "Steps, sleep, heart rate, workouts from your watch, food, water, cycle and appointments are removed from all your devices. This can't be undone.",
+  "deleteHealthDataSub": "Only the health sections; the rest of your account stays",
+  "deleteHealthDataTitle": "Delete all health data?",
   "deleteNoteBody": "This note will be permanently deleted. You can archive it instead.",
   "deleteNoteTitle": "Delete note?",
+  "deletePeriodBody": "Estimates will be worked out again without it.",
+  "deletePeriodTitle": "Delete this period?",
   "deleteTaskBody": "“{title}” will be permanently deleted. You can archive it instead.",
   "@deleteTaskBody": {
     "placeholders": {
@@ -904,6 +962,7 @@
   "due": "Due",
   "dueShort": "due",
   "edit": "Edit",
+  "editAppointment": "Edit appointment",
   "editEvent": "Edit event",
   "editFood": "Edit food",
   "editGoal": "Goal",
@@ -934,6 +993,15 @@
   "enableAssistant": "Assistant",
   "enableAssistantSub": "Turning it off doesn't affect tasks, calendar or anything else.",
   "endTime": "Ends",
+  "energy": "Energy",
+  "energyN": "Energy {n}/5",
+  "@energyN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "energySplit": "Where the energy came from (daily average)",
   "englishIntroBody": "A short placement test finds your level in vocabulary, grammar and reading, then you get a lesson a day and reviews of what you learned.",
   "englishIntroTitle": "English, step by step",
@@ -984,6 +1052,17 @@
   "estimatedDuration": "Estimated 30 min",
   "estimatedMinutes": "Estimated duration (minutes)",
   "estimatedPill": "Estimated length",
+  "estimatedWindow": "Estimated window: {from} – {to}",
+  "@estimatedWindow": {
+    "placeholders": {
+      "from": {
+        "type": "String"
+      },
+      "to": {
+        "type": "String"
+      }
+    }
+  },
   "eventTitle": "Event title",
   "eventsLabel": "Events",
   "everyDay": "Every day",
@@ -1033,6 +1112,8 @@
   },
   "exportData": "Export my data",
   "exportDataSub": "Copies all your data as JSON to the clipboard",
+  "exportHealthData": "Export health data",
+  "exportHealthDataSub": "Steps, sleep, food, cycle and appointments, copied as JSON",
   "extraLesson": "Extra lesson",
   "faq": "Frequently asked questions",
   "faq1a": "The deadline is when a task must be finished. Planned time is when you intend to work on it — the planner sets it, and you can change it.",
@@ -1106,6 +1187,11 @@
   "flAdvanced": "Advanced",
   "flBeginner": "Beginner",
   "flIntermediate": "Intermediate",
+  "flow": "Flow",
+  "flowHeavy": "Heavy",
+  "flowLight": "Light",
+  "flowMedium": "Medium",
+  "flowNone": "None",
   "focusConditioning": "Conditioning",
   "focusFullBody": "Full body",
   "focusLower": "Lower body",
@@ -1157,6 +1243,8 @@
       }
     }
   },
+  "futureDay": "Not yet",
+  "futureDayBody": "Days can be logged once they come.",
   "getStarted": "Get started",
   "goBackOver": "Go back over these lessons:",
   "goalActive": "Active",
@@ -1217,7 +1305,17 @@
   "hasBreak": "Add a daily break",
   "hasWorkHours": "I have fixed work or study hours",
   "haveAccount": "I have an account",
+  "healthDataDeleted": "Health data deleted",
+  "healthDataTitle": "Your health data",
+  "healthLock": "Lock with fingerprint or passcode",
+  "healthLockSub": "Health sections open only after your phone's unlock. Locks again when you leave the app.",
+  "healthLockUnavailable": "Not available here: set up a screen lock on your phone first. On the web your account password protects it.",
+  "healthLocked": "Locked",
+  "healthLockedBody": "Unlock with your fingerprint, face or phone passcode.",
   "healthPermissionDenied": "Permission wasn't given. You can allow it from the health app's settings.",
+  "healthPrivacy": "Health privacy",
+  "healthPrivacyNote": "Cycle data is never shared with the assistant, and its reminders never say what they're about. Women's health shows only on accounts registered as female.",
+  "healthPrivacySub": "Lock, home screen, reminders, export and delete",
   "healthSections": "Health sections",
   "healthSectionsNote": "Sections marked “coming soon” are saved now and appear when they're ready.",
   "healthSetup": "Health setup",
@@ -1235,6 +1333,8 @@
   "heightHelp": "Optional — makes the distance estimate closer",
   "heightInvalid": "Between 80 and 250 cm",
   "helpTitle": "Help & support",
+  "hideFromHome": "Hide from the home screen",
+  "hideFromHomeSub": "Women's health won't appear on “My day”.",
   "hidePassword": "Hide password",
   "highlights": "Highlights",
   "history": "History",
@@ -1260,6 +1360,8 @@
   "homeViewToday": "Today",
   "homeViewWeek": "Week",
   "howDidItFeel": "How did it feel? (optional)",
+  "howIsToday": "How's today?",
+  "howIsTodaySub": "Flow, pain, symptoms, mood, energy",
   "howMuch": "How much?",
   "howTo": "How to do it",
   "inDuration": "in {duration}",
@@ -1277,6 +1379,7 @@
   "installHealthConnect": "Install Health Connect",
   "installHealthConnectBody": "Android keeps steps from your phone and watch in Health Connect. Install or update it, then come back and connect.",
   "interestsHint": "Pick any — you can change this later. Sections you don't pick are hidden, not deleted.",
+  "irregularNote": "Your recorded cycles vary a lot, or some are unusually short or long. This alone doesn't mean anything is wrong, but it's worth mentioning to a doctor.",
   "itemGone": "This item no longer exists.",
   "kcalGoalOn": "Daily calorie target",
   "kcalGoalSub": "Optional. Set your own number; the app doesn't suggest one.",
@@ -1340,6 +1443,9 @@
   "leaveTestBody": "Your answers so far will be lost.",
   "leaveTestTitle": "Leave the test?",
   "leaveWithoutSaving": "Leave without saving",
+  "legendEstimated": "Estimated",
+  "legendLogged": "Day logged",
+  "legendPeriod": "Period",
   "less": "Less",
   "lessonAgain": "Not mastered yet (80% needed). We'll repeat this lesson before moving on.",
   "lessonDoneToday": "Today's English lesson is done",
@@ -1495,6 +1601,12 @@
   "modelSaw": "What the phone saw (tap to search):",
   "month": "Month",
   "monthlyBudget": "Monthly budget",
+  "mood": "Mood",
+  "moodAnxious": "Anxious",
+  "moodCalm": "Calm",
+  "moodHappy": "Happy",
+  "moodIrritable": "Irritable",
+  "moodLow": "Low",
   "more": "More",
   "moreFilters": "More filters",
   "moreOptions": "More options",
@@ -1557,6 +1669,8 @@
   "navSettings": "Settings",
   "navTasks": "Tasks",
   "navTime": "My time",
+  "navWomens": "Women's health",
+  "needMoreData": "Two recorded periods are needed to estimate the next one. You can also set your usual cycle length.",
   "neededTime": "Tasks need",
   "needsReviewScore": "Needs another go · best {n}%",
   "@needsReviewScore": {
@@ -1578,6 +1692,14 @@
   "next": "Next",
   "nextDay": "Next day",
   "nextPeriod": "Next",
+  "nextPeriodIn": "{n, plural, =1{Next period in about a day} other{Next period in about {n} days}}",
+  "@nextPeriodIn": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "nextPrayerIs": "Next: {name}",
   "@nextPrayerIs": {
     "placeholders": {
@@ -1589,6 +1711,8 @@
   "nextUp": "Next",
   "noActions": "No actions yet.",
   "noActiveGoals": "No active goals right now.",
+  "noAppointments": "No appointments",
+  "noAppointmentsBody": "Add checkups and tests, with what you want to ask.",
   "noConversations": "No previous chats.",
   "noExpensesPeriod": "No expenses in this period",
   "noFoodFound": "No match",
@@ -1609,6 +1733,7 @@
   "noMilestones": "No milestones yet.",
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
+  "noPeriodsYet": "None recorded yet.",
   "noProgressYet": "No logged sets yet",
   "noProgressYetBody": "Finish a workout or a program and your progress shows here.",
   "noReminder": "No reminder",
@@ -1618,6 +1743,7 @@
   "noSetsTitle": "No sets ticked",
   "noSleepYet": "No sleep recorded",
   "noSourcesYet": "Nothing yet. Connect from the Hayati phone app, or add steps by hand.",
+  "noSymptomsYet": "No symptoms logged yet.",
   "noTasksToday": "No tasks for today.",
   "noUnread": "You're all caught up",
   "noUpcoming": "No upcoming events.",
@@ -1645,6 +1771,7 @@
     }
   },
   "notifAccountabilityBody": "No blame — tell us what happened and pick what's next.",
+  "notifAppointmentTitle": "Health appointment",
   "notifDue": "Check its deadline in your tasks.",
   "notifEventBody": "Starts in {minutes} min",
   "@notifEventBody": {
@@ -1672,6 +1799,8 @@
   },
   "notifMoveBody": "A short walk or a few minutes of stretching.",
   "notifMoveTitle": "Time to move",
+  "notifNeutralBody": "Open the app to see it",
+  "notifNeutralTitle": "Hayati reminder",
   "notifPrayerSoon": "{name} prayer in {minutes} min",
   "@notifPrayerSoon": {
     "placeholders": {
@@ -1740,14 +1869,25 @@
   "openSettings": "Open settings",
   "orTypeBarcode": "Or type the barcode number",
   "organizeGroup": "Organize",
+  "otherSymptoms": "Something else",
   "overBudget": "Over budget",
   "overCapacity": "Your tasks need more time than you have. Some can't fit today — move them or shorten them.",
   "overdue": "Overdue",
   "overdueDef": "Due in period, deadline passed, still open",
   "overdueTasks": "Overdue",
+  "pain": "Pain",
+  "painN": "Pain {n}/10",
+  "@painN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "password": "Password",
   "passwordChanged": "Password changed",
   "passwordRule": "At least 8 characters, with a letter and a number",
+  "past": "Past",
   "pastDay": "This day has passed.",
   "pathStarted": "Your path starts at A1.",
   "pauseGoal": "Pause",
@@ -1779,6 +1919,37 @@
       }
     }
   },
+  "periodDayN": "Period, day {n}",
+  "@periodDayN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "periodDueAbout": "Your period may start about now",
+  "periodEnded": "Saved: period ended",
+  "periodEndedToday": "It ended today",
+  "periodInvalid": "That doesn't fit: check the dates (no future days, no overlap, 15 days at most).",
+  "periodLateBy": "{n, plural, =1{A day past the estimated window} other{{n} days past the estimated window}}",
+  "@periodLateBy": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "periodSaved": "Period saved",
+  "periodSinceDate": "Since {date} (going on)",
+  "@periodSinceDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "periodStarted": "Saved: period started",
+  "periodStartedToday": "It started today",
   "permAddNotes": "Add notes",
   "permAddNotesSub": "Save a note you dictate.",
   "permCreateTasks": "Create a single task",
@@ -1957,6 +2128,15 @@
       }
     }
   },
+  "questionsForDoctor": "Questions for the doctor",
+  "questionsN": "{n, plural, =1{1 question} other{{n} questions}}",
+  "@questionsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "quickAdd": "Quick add",
   "readOnlyNote": "Each switch asks {store} for permission the first time. Turning one off stops reading; what came in stays.",
   "@readOnlyNote": {
@@ -1973,9 +2153,21 @@
   "reasonNoTime": "Not enough free time left today",
   "recentFoods": "Recent",
   "recentWorkouts": "Recent workouts",
+  "recordedPeriods": "Recorded periods",
   "recoveryWarning": "Two demanding sessions fall on back-to-back days. Consider a rest day between them.",
   "regional": "Region & time",
   "reject": "Reject",
+  "remind3HoursBefore": "3 hours before",
+  "remindBeforeN": "{n} min before",
+  "@remindBeforeN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "remindDayBefore": "A day before",
+  "remindHourBefore": "An hour before",
   "reminder": "Reminder",
   "reminderNeedsTime": "Set a deadline or a planned time for the reminder.",
   "reminderTimeOptional": "Reminder time (optional)",
@@ -2289,6 +2481,19 @@
   "sunrise": "Sunrise",
   "switchToSignIn": "Already have an account? Sign in",
   "switchToSignUp": "New here? Create an account",
+  "syAcne": "Acne",
+  "syBackPain": "Back pain",
+  "syBloating": "Bloating",
+  "syBreastTenderness": "Breast tenderness",
+  "syCramps": "Cramps",
+  "syCravings": "Cravings",
+  "syFatigue": "Tiredness",
+  "syHeadache": "Headache",
+  "syInsomnia": "Poor sleep",
+  "syMoodSwings": "Mood swings",
+  "syNausea": "Nausea",
+  "sySpotting": "Spotting",
+  "symptoms": "Symptoms",
   "syncFailedShort": "Couldn't read steps — try again",
   "syncNever": "Not synced yet",
   "syncNow": "Sync now",
@@ -2385,6 +2590,7 @@
       }
     }
   },
+  "todayLogged": "Today, logged",
   "todayPlan": "Today's plan",
   "todaysHabits": "Today's habits",
   "todaysLesson": "Today's lesson",
@@ -2443,6 +2649,9 @@
       }
     }
   },
+  "unlock": "Unlock",
+  "unlockFailed": "Not unlocked",
+  "unlockReason": "Open your health sections in Hayati",
   "unpin": "Unpin",
   "unread": "Unread",
   "unscheduled": "Unscheduled",
@@ -2463,6 +2672,14 @@
   },
   "use24h": "24-hour time",
   "useMyLocation": "Use my location",
+  "usuallyOnDay": "Usually on day {n} of the cycle",
+  "@usuallyOnDay": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "verificationLocal": "Not required in local mode",
   "viewAll": "View all",
   "viewAllGoals": "View all goals",
@@ -2601,6 +2818,7 @@
   "woTennis": "Tennis",
   "woWalking": "Walking",
   "woYoga": "Yoga",
+  "womensUnavailable": "This section is part of women's health.",
   "wordsAddedToReview": "This lesson's words are added to your reviews, starting tomorrow.",
   "workBlock": "Work / study",
   "workDaysHint": "Work/study hours apply on the selected days. Clear the start time to remove them.",

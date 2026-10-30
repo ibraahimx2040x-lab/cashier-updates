@@ -54,8 +54,23 @@ class SyncOp {
 List<SyncOp> diff(AppData prev, AppData next) {
   final deletes = <SyncOp>[];
   final upserts = <SyncOp>[];
+  final wasLocal = prev.settings.health.cycleLocalOnly;
+  final isLocal = next.settings.health.cycleLocalOnly;
   for (final t in syncTables) {
-    final before = {for (final r in t.rows(prev)) r['id'] as String: jsonEncode(r)};
+    if (t.cycle && isLocal) {
+      // Switching to "this device only" removes the server's copy.
+      if (!wasLocal) {
+        for (final r in t.rows(prev)) {
+          deletes.add(SyncOp(t.name, 'delete', r['id'] as String));
+        }
+      }
+      continue;
+    }
+    // Switching back uploads everything kept on the device.
+    final before = {
+      if (!(t.cycle && wasLocal))
+        for (final r in t.rows(prev)) r['id'] as String: jsonEncode(r),
+    };
     final after = {for (final r in t.rows(next)) r['id'] as String: r};
     for (final id in before.keys) {
       if (!after.containsKey(id)) deletes.add(SyncOp(t.name, 'delete', id));
@@ -184,12 +199,13 @@ class SyncController extends Notifier<SyncState> {
 
   Future<void> _pull() async {
     final db = _client!;
-    final rows = <String, List<Row>>{};
-    for (final t in syncTables) {
-      rows[t.name] = [for (final r in await db.from(t.name).select()) r.cast<String, Object?>()];
-    }
     final profile = await db.from('profiles').select().eq('user_id', _userId!).single();
     final settings = settingsFrom(profile.cast<String, Object?>());
+    final rows = <String, List<Row>>{};
+    for (final t in syncTables) {
+      if (t.cycle && settings.health.cycleLocalOnly) continue;
+      rows[t.name] = [for (final r in await db.from(t.name).select()) r.cast<String, Object?>()];
+    }
     // Writes made while pulling win: skip applying a now-stale snapshot.
     if (_queue.isNotEmpty) return;
     _apply?.call((local) => mergeRemote(local, settings, rows));
