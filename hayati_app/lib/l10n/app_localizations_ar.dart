@@ -1107,6 +1107,42 @@ class AppLocalizationsAr extends AppLocalizations {
   String get categoryOptional => 'التصنيف (اختياري)';
 
   @override
+  String get cautionBack =>
+      'خلّ ظهرك مستقيم لا تقوّسه، والقوة من الورك. إذا عندك مشكلة في الظهر استشر مختص أول.';
+
+  @override
+  String get cautionBalance =>
+      'قف جنب جدار أو كرسي ثابت تقدر تمسكه، على أرض ما فيها شي يطيّحك.';
+
+  @override
+  String get cautionHeart =>
+      'لازم تقدر تتكلم وأنت تتمرن. إذا عندك مرض قلب أو ضغط استشر طبيبك أول. ألم في الصدر أو دوخة: وقف فورًا.';
+
+  @override
+  String get cautionHeavyLoad =>
+      'أوزان ثقيلة: سخّن أول، استخدم مساند الأمان، وخلّ أحد يساعدك وأنت تتعلم.';
+
+  @override
+  String get cautionKnees =>
+      'خلّ ركبك باتجاه أصابع رجلك ولا تخليها تميل للداخل. إذا ألمتك الركبة: انزل أقل أو اختر بديل.';
+
+  @override
+  String get cautionNeck =>
+      'تحرك بهدوء وببطء، لا تهز ولا تضغط بقوة. إذا حسيت تنميل في اليدين وقف.';
+
+  @override
+  String get cautionPregnancy =>
+      'حامل أو ولدتي قريب؟ استشيري طبيبتك أول، وبعد الثلث الأول تجنبي الاستلقاء على الظهر لفترة طويلة.';
+
+  @override
+  String get cautionShoulders =>
+      'تحرك في المدى المريح. إذا حسيت قرصة أو ألم في الكتف وقف واختر خيار أخف.';
+
+  @override
+  String get cautionStopIfPain =>
+      'تعب العضلة الخفيف طبيعي، أما الألم الحاد فلا. وقف إذا حسيت ألم.';
+
+  @override
   String get cefrA1 => 'A1 · مبتدئ';
 
   @override
@@ -1198,6 +1234,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get clear => 'مسح';
+
+  @override
+  String get clearFilters => 'مسح الاختيارات';
 
   @override
   String get clearLog => 'مسح السجل';
@@ -1808,6 +1847,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get doneDays => 'منجز / مستحق';
 
   @override
+  String dosageForGoal(String goal) {
+    return 'حسب هدفك: $goal';
+  }
+
+  @override
   String get drEmergency => 'ظرف طارئ';
 
   @override
@@ -2118,6 +2162,13 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get exerciseLibrary => 'مكتبة التمارين';
+
+  @override
+  String get exerciseLibraryHint =>
+      'كل التمارين وطريقة أدائها، حسب العضلة والمستوى والهدف';
+
+  @override
   String get expBills => 'الفواتير';
 
   @override
@@ -2321,7 +2372,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get filterCompleted => 'المكتملة';
 
   @override
+  String get filterGoal => 'الهدف';
+
+  @override
+  String get filterLevel => 'المستوى';
+
+  @override
+  String get filterMuscle => 'العضلة';
+
+  @override
   String get filterOverdue => 'المتأخرة';
+
+  @override
+  String get filterPlace => 'المكان';
 
   @override
   String get filterToday => 'اليوم';
@@ -2712,6 +2775,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get helpTitle => 'المساعدة والدعم';
 
   @override
+  String get helperTargets => 'مساعدة';
+
+  @override
   String get hideFromHome => 'إخفاء من الشاشة الرئيسية';
 
   @override
@@ -3099,6 +3165,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String macroLine(String kcal, String p, String c, String f) {
     return '$kcal سعرة · ب $p · ك $c · د $f';
   }
+
+  @override
+  String get mainTargets => 'أساسية';
 
   @override
   String get manageAssistantAccess => 'إدارة صلاحيات المساعد';
@@ -3569,6 +3638,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noConversations => 'لا توجد محادثات سابقة.';
 
   @override
+  String get noExercisesMatch => 'ما فيه تمارين تطابق هذي الاختيارات.';
+
+  @override
   String get noExpensesPeriod => 'لا توجد مصروفات في هذه الفترة';
 
   @override
@@ -3623,6 +3695,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noPeriodsYet => 'ما فيه دورات مسجلة للحين.';
+
+  @override
+  String get noPhotoYet =>
+      'ما عندنا صورة لهذي الحركة بالضبط للحين، فما نعرض صورة غلط. اتبع الخطوات تحت.';
 
   @override
   String get noPreviousPeriod => 'ما فيه تسجيل في الفترة السابقة للمقارنة.';
@@ -4113,6 +4189,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get permLogHabitsSub => 'عندما تذكر أنك أنجزت عادة اليوم.';
 
   @override
+  String get photoCredit => 'الصور: free-exercise-db (ملكية عامة)';
+
+  @override
+  String get photoEnd => 'النهاية';
+
+  @override
   String get photoFailed => 'ما قدرنا نقرأ الصورة. جرّب صورة ثانية، أو ابحث.';
 
   @override
@@ -4127,6 +4209,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get photoPrivacy => 'الصورة تنقرأ على جوالك فقط. ما ترتفع ولا تنحفظ.';
 
   @override
+  String get photoStart => 'البداية';
+
+  @override
   String get photoStep1 => 'صوّر الصحن';
 
   @override
@@ -4134,6 +4219,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get photoStep3 => 'حدد الكمية وخلاص';
+
+  @override
+  String get photosPause => 'إيقاف الحركة';
+
+  @override
+  String get photosPlay => 'تشغيل الحركة';
 
   @override
   String get pickCity => 'اختر مدينة';
@@ -4727,6 +4818,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'الكلمات التي تعلمتها تعود على فترات متزايدة لتثبت في الذاكرة.';
 
   @override
+  String get safetyAndWarnings => 'السلامة والتحذيرات';
+
+  @override
   String get salaryChangeNote =>
       'الأشهر قبل هذا التاريخ تبقى بالراتب اللي كان لها.';
 
@@ -4813,6 +4907,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get searchCity => 'ابحث عن مدينة';
+
+  @override
+  String get searchExercises => 'ابحث عن تمرين';
 
   @override
   String get searchFoods => 'ابحث عن أكلة';
@@ -5201,6 +5298,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get subscriptionTitle => 'الاشتراك';
 
   @override
+  String get suggestedDosage => 'المجموعات والتكرار المقترح';
+
+  @override
   String get suggestedPill => 'مقترح';
 
   @override
@@ -5328,6 +5428,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get targetDate => 'التاريخ المستهدف';
 
   @override
+  String get targetMuscles => 'العضلات المستهدفة';
+
+  @override
   String targetOn(String date) {
     return 'الهدف $date';
   }
@@ -5366,6 +5469,60 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get testHistory => 'سجل الاختبارات';
+
+  @override
+  String get tgAbs => 'عضلات البطن';
+
+  @override
+  String get tgBiceps => 'الباي (أمام الذراع)';
+
+  @override
+  String get tgCalves => 'السمانة';
+
+  @override
+  String get tgChest => 'الصدر';
+
+  @override
+  String get tgDiaphragm => 'الحجاب الحاجز';
+
+  @override
+  String get tgGlutes => 'الأرداف';
+
+  @override
+  String get tgHamstrings => 'خلف الفخذ';
+
+  @override
+  String get tgHeartLungs => 'القلب والرئتان';
+
+  @override
+  String get tgHips => 'الورك';
+
+  @override
+  String get tgLats => 'جانبي الظهر';
+
+  @override
+  String get tgLowerBack => 'أسفل الظهر';
+
+  @override
+  String get tgNeck => 'الرقبة';
+
+  @override
+  String get tgObliques => 'جوانب البطن';
+
+  @override
+  String get tgPelvicFloor => 'قاع الحوض';
+
+  @override
+  String get tgQuads => 'أمام الفخذ';
+
+  @override
+  String get tgShoulders => 'الأكتاف';
+
+  @override
+  String get tgTriceps => 'التراي (خلف الذراع)';
+
+  @override
+  String get tgUpperBack => 'أعلى الظهر';
 
   @override
   String get theme => 'السمة';

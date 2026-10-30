@@ -41,6 +41,7 @@ import '../../features/english/lesson_screen.dart';
 import '../../features/english/review_screen.dart';
 import '../../features/expenses/expenses_screen.dart';
 import '../../data/models/fitness.dart';
+import '../../features/fitness/exercise_library_screen.dart';
 import '../../features/fitness/exercise_screen.dart';
 import '../../features/fitness/fitness_screen.dart';
 import '../../features/fitness/fitness_setup_screen.dart';
@@ -176,6 +177,7 @@ final routerProvider = Provider<GoRouter>((ref) {
           )),
       page('/fitness/program/:id', (s) => ProgramScreen(programId: s.pathParameters['id']!)),
       page(Routes.fitnessProgress, (_) => const ExerciseProgressScreen()),
+      page(Routes.exerciseLibrary, (_) => const ExerciseLibraryScreen()),
       page(Routes.english, (_) => const EnglishScreen()),
       page('/english/test', (s) => EnglishTestScreen(levelCheck: s.uri.queryParameters['kind'] == 'level')),
       page('/english/lesson/:id', (s) => LessonScreen(lessonId: s.pathParameters['id']!)),

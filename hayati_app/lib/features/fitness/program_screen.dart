@@ -12,7 +12,7 @@ import '../../domain/fitness/programs.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
-import 'exercise_screen.dart' show muscleIcon;
+import 'exercise_media.dart';
 import '../../widgets/home_logo.dart';
 
 /// Screen 19b — one program: what it's for, its exercises, safety notes,
@@ -116,7 +116,7 @@ class _ProgramScreenState extends ConsumerState<ProgramScreen> {
                 child: AppCard(
                   onTap: () => context.push(Routes.exercise(e.id)),
                   child: Row(children: [
-                    IconBadge(muscleIcon(e.muscle)),
+                    ExerciseThumb(exercise: e, size: 44),
                     const SizedBox(width: Space.m),
                     Expanded(
                       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

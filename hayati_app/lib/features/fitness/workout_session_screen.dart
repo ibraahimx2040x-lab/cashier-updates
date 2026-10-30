@@ -18,6 +18,7 @@ import '../../domain/fitness/programs.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/home_logo.dart';
+import 'exercise_media.dart';
 
 class _Entry {
   _Entry(this.target);
@@ -300,6 +301,8 @@ class _ExerciseCard extends StatelessWidget {
       child: AppCard(
         child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
           Row(children: [
+            ExerciseThumb(exercise: e, size: 48),
+            const SizedBox(width: Space.m),
             Expanded(
               child: InkWell(
                 onTap: () => context.push(Routes.exercise(e.id)),

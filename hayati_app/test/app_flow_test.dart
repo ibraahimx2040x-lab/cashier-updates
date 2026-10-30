@@ -320,6 +320,8 @@ void main() {
           Routes.fitness,
           Routes.fitnessSetup,
           Routes.exercise('goblet_squat'),
+          Routes.exercise('bird_dog'),
+          Routes.exerciseLibrary,
           Routes.workout('gym', DateTime.now().weekday),
           Routes.workout('gym', DateTime.now().weekday, atHome: true),
           Routes.english,

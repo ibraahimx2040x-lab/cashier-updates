@@ -43,6 +43,7 @@ flutter:
   generate: true
   assets:
     - assets/models/food_v1.tflite
+    - assets/exercises/
   fonts:
     - family: Readex
       fonts:

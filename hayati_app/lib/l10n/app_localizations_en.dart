@@ -1107,6 +1107,42 @@ class AppLocalizationsEn extends AppLocalizations {
   String get categoryOptional => 'Category (optional)';
 
   @override
+  String get cautionBack =>
+      'Keep your back flat, never rounded, and lift with your hips. With a back problem, ask a specialist first.';
+
+  @override
+  String get cautionBalance =>
+      'Stand next to a wall or sturdy chair you can hold, on a floor with nothing to trip on.';
+
+  @override
+  String get cautionHeart =>
+      'You should still be able to talk. With a heart condition or high blood pressure, check with your doctor first. Chest pain or dizziness: stop now.';
+
+  @override
+  String get cautionHeavyLoad =>
+      'Heavy weights: warm up first, use the safety bars, and have someone spot you while you learn.';
+
+  @override
+  String get cautionKnees =>
+      'Keep your knees pointing the same way as your toes and don\'t let them cave in. Knee pain: go less deep or pick an alternative.';
+
+  @override
+  String get cautionNeck =>
+      'Move gently and slowly; never bounce or force the stretch. Numbness or tingling in the arms: stop.';
+
+  @override
+  String get cautionPregnancy =>
+      'Pregnant or recently gave birth? Ask your doctor first, and after the first trimester avoid lying flat on your back for long.';
+
+  @override
+  String get cautionShoulders =>
+      'Move within a comfortable range. Pinching or pain in the shoulder means stop and use a lighter option.';
+
+  @override
+  String get cautionStopIfPain =>
+      'Mild muscle effort is normal; sharp pain is not. Stop if it hurts.';
+
+  @override
   String get cefrA1 => 'A1 · Beginner';
 
   @override
@@ -1197,6 +1233,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get clear => 'Clear';
+
+  @override
+  String get clearFilters => 'Clear filters';
 
   @override
   String get clearLog => 'Clear log';
@@ -1807,6 +1846,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get doneDays => 'Done / due';
 
   @override
+  String dosageForGoal(String goal) {
+    return 'For your goal: $goal';
+  }
+
+  @override
   String get drEmergency => 'An emergency';
 
   @override
@@ -2113,6 +2157,13 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get exerciseLibrary => 'Exercise library';
+
+  @override
+  String get exerciseLibraryHint =>
+      'Every exercise with how to do it, by muscle, level and goal';
+
+  @override
   String get expBills => 'Bills';
 
   @override
@@ -2318,7 +2369,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get filterCompleted => 'Completed';
 
   @override
+  String get filterGoal => 'Goal';
+
+  @override
+  String get filterLevel => 'Level';
+
+  @override
+  String get filterMuscle => 'Muscle';
+
+  @override
   String get filterOverdue => 'Overdue';
+
+  @override
+  String get filterPlace => 'Place';
 
   @override
   String get filterToday => 'Today';
@@ -2707,6 +2770,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpTitle => 'Help & support';
+
+  @override
+  String get helperTargets => 'Also works';
 
   @override
   String get hideFromHome => 'Hide from the home screen';
@@ -3101,6 +3167,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String macroLine(String kcal, String p, String c, String f) {
     return '$kcal kcal · P $p · C $c · F $f';
   }
+
+  @override
+  String get mainTargets => 'Main';
 
   @override
   String get manageAssistantAccess => 'Manage assistant permissions';
@@ -3567,6 +3636,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noConversations => 'No previous chats.';
 
   @override
+  String get noExercisesMatch => 'No exercises match these filters.';
+
+  @override
   String get noExpensesPeriod => 'No expenses in this period';
 
   @override
@@ -3623,6 +3695,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noPeriodsYet => 'None recorded yet.';
+
+  @override
+  String get noPhotoYet =>
+      'No photo of this exact movement yet, so we show none rather than a wrong one. Follow the steps below.';
 
   @override
   String get noPreviousPeriod =>
@@ -4116,6 +4192,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get permLogHabitsSub => 'When you say you did a habit today.';
 
   @override
+  String get photoCredit => 'Photos: free-exercise-db (public domain)';
+
+  @override
+  String get photoEnd => 'End';
+
+  @override
   String get photoFailed =>
       'Couldn\'t read the photo. Try another one, or search instead.';
 
@@ -4132,6 +4214,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'The photo is read on your phone only. It isn\'t uploaded or kept.';
 
   @override
+  String get photoStart => 'Start';
+
+  @override
   String get photoStep1 => 'Take a photo of the plate';
 
   @override
@@ -4139,6 +4224,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get photoStep3 => 'Choose the amount — that\'s it';
+
+  @override
+  String get photosPause => 'Pause the movement';
+
+  @override
+  String get photosPlay => 'Play the movement';
 
   @override
   String get pickCity => 'Choose a city';
@@ -4732,6 +4823,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Words you learned come back at growing intervals so they stick.';
 
   @override
+  String get safetyAndWarnings => 'Safety and warnings';
+
+  @override
   String get salaryChangeNote =>
       'Months before this date keep the salary they had.';
 
@@ -4819,6 +4913,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get searchCity => 'Search for a city';
+
+  @override
+  String get searchExercises => 'Search exercises';
 
   @override
   String get searchFoods => 'Search foods';
@@ -5200,6 +5297,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get subscriptionTitle => 'Subscription';
 
   @override
+  String get suggestedDosage => 'Suggested sets and reps';
+
+  @override
   String get suggestedPill => 'Suggested';
 
   @override
@@ -5323,6 +5423,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get targetDate => 'Target date';
 
   @override
+  String get targetMuscles => 'Muscles worked';
+
+  @override
   String targetOn(String date) {
     return 'Target $date';
   }
@@ -5358,6 +5461,60 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get testHistory => 'Test history';
+
+  @override
+  String get tgAbs => 'Abs';
+
+  @override
+  String get tgBiceps => 'Biceps';
+
+  @override
+  String get tgCalves => 'Calves';
+
+  @override
+  String get tgChest => 'Chest';
+
+  @override
+  String get tgDiaphragm => 'Diaphragm';
+
+  @override
+  String get tgGlutes => 'Glutes';
+
+  @override
+  String get tgHamstrings => 'Back thighs (hamstrings)';
+
+  @override
+  String get tgHeartLungs => 'Heart and lungs';
+
+  @override
+  String get tgHips => 'Hips';
+
+  @override
+  String get tgLats => 'Lats (side back)';
+
+  @override
+  String get tgLowerBack => 'Lower back';
+
+  @override
+  String get tgNeck => 'Neck';
+
+  @override
+  String get tgObliques => 'Side abs (obliques)';
+
+  @override
+  String get tgPelvicFloor => 'Pelvic floor';
+
+  @override
+  String get tgQuads => 'Front thighs (quads)';
+
+  @override
+  String get tgShoulders => 'Shoulders';
+
+  @override
+  String get tgTriceps => 'Triceps';
+
+  @override
+  String get tgUpperBack => 'Upper back';
 
   @override
   String get theme => 'Theme';

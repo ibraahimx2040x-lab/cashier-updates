@@ -1874,6 +1874,60 @@ abstract class AppLocalizations {
   /// **'Category (optional)'**
   String get categoryOptional;
 
+  /// No description provided for @cautionBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your back flat, never rounded, and lift with your hips. With a back problem, ask a specialist first.'**
+  String get cautionBack;
+
+  /// No description provided for @cautionBalance.
+  ///
+  /// In en, this message translates to:
+  /// **'Stand next to a wall or sturdy chair you can hold, on a floor with nothing to trip on.'**
+  String get cautionBalance;
+
+  /// No description provided for @cautionHeart.
+  ///
+  /// In en, this message translates to:
+  /// **'You should still be able to talk. With a heart condition or high blood pressure, check with your doctor first. Chest pain or dizziness: stop now.'**
+  String get cautionHeart;
+
+  /// No description provided for @cautionHeavyLoad.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy weights: warm up first, use the safety bars, and have someone spot you while you learn.'**
+  String get cautionHeavyLoad;
+
+  /// No description provided for @cautionKnees.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep your knees pointing the same way as your toes and don\'t let them cave in. Knee pain: go less deep or pick an alternative.'**
+  String get cautionKnees;
+
+  /// No description provided for @cautionNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Move gently and slowly; never bounce or force the stretch. Numbness or tingling in the arms: stop.'**
+  String get cautionNeck;
+
+  /// No description provided for @cautionPregnancy.
+  ///
+  /// In en, this message translates to:
+  /// **'Pregnant or recently gave birth? Ask your doctor first, and after the first trimester avoid lying flat on your back for long.'**
+  String get cautionPregnancy;
+
+  /// No description provided for @cautionShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Move within a comfortable range. Pinching or pain in the shoulder means stop and use a lighter option.'**
+  String get cautionShoulders;
+
+  /// No description provided for @cautionStopIfPain.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild muscle effort is normal; sharp pain is not. Stop if it hurts.'**
+  String get cautionStopIfPain;
+
   /// No description provided for @cefrA1.
   ///
   /// In en, this message translates to:
@@ -2011,6 +2065,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clear'**
   String get clear;
+
+  /// No description provided for @clearFilters.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear filters'**
+  String get clearFilters;
 
   /// No description provided for @clearLog.
   ///
@@ -3026,6 +3086,12 @@ abstract class AppLocalizations {
   /// **'Done / due'**
   String get doneDays;
 
+  /// No description provided for @dosageForGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'For your goal: {goal}'**
+  String dosageForGoal(String goal);
+
   /// No description provided for @drEmergency.
   ///
   /// In en, this message translates to:
@@ -3554,6 +3620,18 @@ abstract class AppLocalizations {
   /// **'{n, plural, =1{1 exercise} other{{n} exercises}}'**
   String exerciseCount(int n);
 
+  /// No description provided for @exerciseLibrary.
+  ///
+  /// In en, this message translates to:
+  /// **'Exercise library'**
+  String get exerciseLibrary;
+
+  /// No description provided for @exerciseLibraryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Every exercise with how to do it, by muscle, level and goal'**
+  String get exerciseLibraryHint;
+
   /// No description provided for @expBills.
   ///
   /// In en, this message translates to:
@@ -3926,11 +4004,35 @@ abstract class AppLocalizations {
   /// **'Completed'**
   String get filterCompleted;
 
+  /// No description provided for @filterGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Goal'**
+  String get filterGoal;
+
+  /// No description provided for @filterLevel.
+  ///
+  /// In en, this message translates to:
+  /// **'Level'**
+  String get filterLevel;
+
+  /// No description provided for @filterMuscle.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscle'**
+  String get filterMuscle;
+
   /// No description provided for @filterOverdue.
   ///
   /// In en, this message translates to:
   /// **'Overdue'**
   String get filterOverdue;
+
+  /// No description provided for @filterPlace.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get filterPlace;
 
   /// No description provided for @filterToday.
   ///
@@ -4615,6 +4717,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help & support'**
   String get helpTitle;
+
+  /// No description provided for @helperTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Also works'**
+  String get helperTargets;
 
   /// No description provided for @hideFromHome.
   ///
@@ -5305,6 +5413,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{kcal} kcal · P {p} · C {c} · F {f}'**
   String macroLine(String kcal, String p, String c, String f);
+
+  /// No description provided for @mainTargets.
+  ///
+  /// In en, this message translates to:
+  /// **'Main'**
+  String get mainTargets;
 
   /// No description provided for @manageAssistantAccess.
   ///
@@ -6146,6 +6260,12 @@ abstract class AppLocalizations {
   /// **'No previous chats.'**
   String get noConversations;
 
+  /// No description provided for @noExercisesMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No exercises match these filters.'**
+  String get noExercisesMatch;
+
   /// No description provided for @noExpensesPeriod.
   ///
   /// In en, this message translates to:
@@ -6253,6 +6373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'None recorded yet.'**
   String get noPeriodsYet;
+
+  /// No description provided for @noPhotoYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No photo of this exact movement yet, so we show none rather than a wrong one. Follow the steps below.'**
+  String get noPhotoYet;
 
   /// No description provided for @noPreviousPeriod.
   ///
@@ -7094,6 +7220,18 @@ abstract class AppLocalizations {
   /// **'When you say you did a habit today.'**
   String get permLogHabitsSub;
 
+  /// No description provided for @photoCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'Photos: free-exercise-db (public domain)'**
+  String get photoCredit;
+
+  /// No description provided for @photoEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'End'**
+  String get photoEnd;
+
   /// No description provided for @photoFailed.
   ///
   /// In en, this message translates to:
@@ -7118,6 +7256,12 @@ abstract class AppLocalizations {
   /// **'The photo is read on your phone only. It isn\'t uploaded or kept.'**
   String get photoPrivacy;
 
+  /// No description provided for @photoStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get photoStart;
+
   /// No description provided for @photoStep1.
   ///
   /// In en, this message translates to:
@@ -7135,6 +7279,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Choose the amount — that\'s it'**
   String get photoStep3;
+
+  /// No description provided for @photosPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause the movement'**
+  String get photosPause;
+
+  /// No description provided for @photosPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the movement'**
+  String get photosPlay;
 
   /// No description provided for @pickCity.
   ///
@@ -8144,6 +8300,12 @@ abstract class AppLocalizations {
   /// **'Words you learned come back at growing intervals so they stick.'**
   String get reviewWhy;
 
+  /// No description provided for @safetyAndWarnings.
+  ///
+  /// In en, this message translates to:
+  /// **'Safety and warnings'**
+  String get safetyAndWarnings;
+
   /// No description provided for @salaryChangeNote.
   ///
   /// In en, this message translates to:
@@ -8305,6 +8467,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Search for a city'**
   String get searchCity;
+
+  /// No description provided for @searchExercises.
+  ///
+  /// In en, this message translates to:
+  /// **'Search exercises'**
+  String get searchExercises;
 
   /// No description provided for @searchFoods.
   ///
@@ -8942,6 +9110,12 @@ abstract class AppLocalizations {
   /// **'Subscription'**
   String get subscriptionTitle;
 
+  /// No description provided for @suggestedDosage.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested sets and reps'**
+  String get suggestedDosage;
+
   /// No description provided for @suggestedPill.
   ///
   /// In en, this message translates to:
@@ -9146,6 +9320,12 @@ abstract class AppLocalizations {
   /// **'Target date'**
   String get targetDate;
 
+  /// No description provided for @targetMuscles.
+  ///
+  /// In en, this message translates to:
+  /// **'Muscles worked'**
+  String get targetMuscles;
+
   /// No description provided for @targetOn.
   ///
   /// In en, this message translates to:
@@ -9193,6 +9373,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Test history'**
   String get testHistory;
+
+  /// No description provided for @tgAbs.
+  ///
+  /// In en, this message translates to:
+  /// **'Abs'**
+  String get tgAbs;
+
+  /// No description provided for @tgBiceps.
+  ///
+  /// In en, this message translates to:
+  /// **'Biceps'**
+  String get tgBiceps;
+
+  /// No description provided for @tgCalves.
+  ///
+  /// In en, this message translates to:
+  /// **'Calves'**
+  String get tgCalves;
+
+  /// No description provided for @tgChest.
+  ///
+  /// In en, this message translates to:
+  /// **'Chest'**
+  String get tgChest;
+
+  /// No description provided for @tgDiaphragm.
+  ///
+  /// In en, this message translates to:
+  /// **'Diaphragm'**
+  String get tgDiaphragm;
+
+  /// No description provided for @tgGlutes.
+  ///
+  /// In en, this message translates to:
+  /// **'Glutes'**
+  String get tgGlutes;
+
+  /// No description provided for @tgHamstrings.
+  ///
+  /// In en, this message translates to:
+  /// **'Back thighs (hamstrings)'**
+  String get tgHamstrings;
+
+  /// No description provided for @tgHeartLungs.
+  ///
+  /// In en, this message translates to:
+  /// **'Heart and lungs'**
+  String get tgHeartLungs;
+
+  /// No description provided for @tgHips.
+  ///
+  /// In en, this message translates to:
+  /// **'Hips'**
+  String get tgHips;
+
+  /// No description provided for @tgLats.
+  ///
+  /// In en, this message translates to:
+  /// **'Lats (side back)'**
+  String get tgLats;
+
+  /// No description provided for @tgLowerBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower back'**
+  String get tgLowerBack;
+
+  /// No description provided for @tgNeck.
+  ///
+  /// In en, this message translates to:
+  /// **'Neck'**
+  String get tgNeck;
+
+  /// No description provided for @tgObliques.
+  ///
+  /// In en, this message translates to:
+  /// **'Side abs (obliques)'**
+  String get tgObliques;
+
+  /// No description provided for @tgPelvicFloor.
+  ///
+  /// In en, this message translates to:
+  /// **'Pelvic floor'**
+  String get tgPelvicFloor;
+
+  /// No description provided for @tgQuads.
+  ///
+  /// In en, this message translates to:
+  /// **'Front thighs (quads)'**
+  String get tgQuads;
+
+  /// No description provided for @tgShoulders.
+  ///
+  /// In en, this message translates to:
+  /// **'Shoulders'**
+  String get tgShoulders;
+
+  /// No description provided for @tgTriceps.
+  ///
+  /// In en, this message translates to:
+  /// **'Triceps'**
+  String get tgTriceps;
+
+  /// No description provided for @tgUpperBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper back'**
+  String get tgUpperBack;
 
   /// No description provided for @theme.
   ///
