@@ -284,15 +284,17 @@ class EventCard extends StatelessWidget {
 }
 
 class ExpenseCard extends StatelessWidget {
-  const ExpenseCard({super.key, required this.expense, required this.fmt, this.onDelete});
+  const ExpenseCard({super.key, required this.expense, required this.fmt, this.onDelete, this.onTap});
   final Expense expense;
   final Fmt fmt;
   final VoidCallback? onDelete;
+  final VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     return AppCard(
+      onTap: onTap,
       padding: const EdgeInsets.symmetric(horizontal: Space.l, vertical: Space.s),
       child: Row(children: [
         CircleAvatar(
@@ -304,7 +306,8 @@ class ExpenseCard extends StatelessWidget {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(expense.description.isEmpty ? l.expenseCategory(expense.category) : expense.description,
                 style: Theme.of(context).textTheme.titleSmall),
-            Text('${l.expenseCategory(expense.category)} · ${fmt.dateShort(expense.spentAt)}',
+            Text(
+                [l.expenseCategory(expense.category), fmt.dateShort(expense.spentAt), if (expense.recurringId != null) l.monthlyLabel].join(' · '),
                 style: Theme.of(context).textTheme.bodySmall?.copyWith(color: context.status.textSecondary)),
           ]),
         ),

@@ -249,10 +249,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addHabit => 'Add habit';
 
   @override
+  String get addIncome => 'Add income';
+
+  @override
   String get addMeasurement => 'Add measurement';
 
   @override
   String get addMilestone => 'Add milestone';
+
+  @override
+  String get addMonthlyExpense => 'Add a monthly expense';
+
+  @override
+  String get addMonthlyIncome => 'Add monthly income';
 
   @override
   String get addMyOwnFood => 'Add my own food';
@@ -953,6 +962,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.';
 
   @override
+  String get byMonth => 'By month';
+
+  @override
   String get calendar => 'Calendar';
 
   @override
@@ -1026,12 +1038,28 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cefrB2 => 'B2 · Upper intermediate';
 
   @override
+  String changeDown(int pct) {
+    return '$pct% less';
+  }
+
+  @override
   String changeIn30Days(String change) {
     return '$change in 30 days';
   }
 
   @override
   String get changePassword => 'Change password';
+
+  @override
+  String get changeSalary => 'Change salary';
+
+  @override
+  String get changeSame => 'Same as last month';
+
+  @override
+  String changeUp(int pct) {
+    return '$pct% more';
+  }
 
   @override
   String changesCount(int n) {
@@ -1043,6 +1071,14 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String chartCurrencyNote(String currency) {
+    return 'Amounts in $currency only';
+  }
+
+  @override
+  String get chartNeedsData => 'The chart shows once two months have records.';
 
   @override
   String get checkAnswer => 'Check';
@@ -1096,6 +1132,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get commonSymptoms => 'Symptoms you log most';
+
+  @override
+  String get compareLastMonth => 'Compared with last month';
 
   @override
   String get completedAndArchived => 'Completed & archived';
@@ -1229,7 +1268,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentPlan => 'Current plan';
 
   @override
+  String get currentSalary => 'Current salary';
+
+  @override
   String get currentStreak => 'Current streak';
+
+  @override
+  String get customRange => 'Custom dates';
 
   @override
   String cycleDayN(int n) {
@@ -1308,6 +1353,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dayEnd => 'Day ends';
+
+  @override
+  String get dayOfMonth => 'Day of the month';
+
+  @override
+  String dayOfMonthLabel(int day) {
+    return 'Day $day of each month';
+  }
 
   @override
   String get daySchedule => 'Today\'s schedule';
@@ -1468,6 +1521,19 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteHealthDataTitle => 'Delete all health data?';
 
   @override
+  String get deleteIncomeBody => 'It will no longer count in your totals.';
+
+  @override
+  String get deleteIncomeTitle => 'Delete this income?';
+
+  @override
+  String get deleteMonthlyBody =>
+      'Months already recorded stay in your records.';
+
+  @override
+  String get deleteMonthlyTitle => 'Remove this monthly item?';
+
+  @override
   String get deleteNoteBody =>
       'This note will be permanently deleted. You can archive it instead.';
 
@@ -1480,6 +1546,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get deletePeriodTitle => 'Delete this period?';
+
+  @override
+  String get deleteSalaryBody =>
+      'The months it covered will use the salary before it.';
+
+  @override
+  String get deleteSalaryTitle => 'Delete this salary change?';
 
   @override
   String deleteTaskBody(String title) {
@@ -1647,6 +1720,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editEvent => 'Edit event';
 
   @override
+  String get editExpense => 'Edit expense';
+
+  @override
   String get editFood => 'Edit food';
 
   @override
@@ -1656,6 +1732,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get editHabit => 'Edit habit';
 
   @override
+  String get editIncome => 'Edit income';
+
+  @override
   String get editMilestone => 'Edit milestone';
 
   @override
@@ -1663,6 +1742,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get editTask => 'Edit task';
+
+  @override
+  String get effectiveFrom => 'Starts from';
 
   @override
   String effort(String n) {
@@ -1718,6 +1800,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get enableAssistantSub =>
       'Turning it off doesn\'t affect tasks, calendar or anything else.';
+
+  @override
+  String get endDateOptional => 'End date (optional)';
 
   @override
   String get endTime => 'Ends';
@@ -1793,6 +1878,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errEndBeforeStart => 'End time must be after the start time';
+
+  @override
+  String get errEndDateBeforeStart => 'The end date is before the start';
+
+  @override
+  String get errFutureIncome => 'Income can\'t be dated in the future';
 
   @override
   String get errNetwork => 'Connection problem. Please try again.';
@@ -1913,6 +2004,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get expTransport => 'Transport';
+
+  @override
+  String get expectedLabel => 'Expected';
 
   @override
   String get expenseList => 'Expenses';
@@ -2103,6 +2197,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get filterUpcoming => 'Upcoming';
+
+  @override
+  String get filteredTotal => 'Total';
 
   @override
   String get finishSetup => 'Finish setup';
@@ -2587,6 +2684,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get includeTechInfo => 'Include technical info';
 
   @override
+  String get incomeFixed => 'Fixed salary';
+
+  @override
+  String get incomeKindExtra => 'Extra';
+
+  @override
+  String get incomeKindPay => 'Pay';
+
+  @override
+  String get incomeSource => 'Source';
+
+  @override
+  String get incomeSourceHint => 'For example: freelance, rent';
+
+  @override
+  String get incomeType => 'Income type';
+
+  @override
+  String get incomeVariable => 'Variable';
+
+  @override
+  String get incomeVariableSub => 'Record each amount when you receive it.';
+
+  @override
   String get initialTasks => 'First tasks';
 
   @override
@@ -2974,10 +3095,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get modelSaw => 'What the phone saw (tap to search):';
 
   @override
+  String get moneyTabExpenses => 'Expenses';
+
+  @override
+  String get moneyTabIncome => 'Income';
+
+  @override
+  String get moneyTabSummary => 'Summary';
+
+  @override
   String get month => 'Month';
 
   @override
   String get monthlyBudget => 'Monthly budget';
+
+  @override
+  String get monthlyEditNote =>
+      'Changes apply to the months to come. Months already recorded stay as they are.';
+
+  @override
+  String get monthlyExpenses => 'Monthly expenses';
+
+  @override
+  String get monthlyIncome => 'Monthly income';
+
+  @override
+  String get monthlyLabel => 'Monthly';
 
   @override
   String get mood => 'Mood';
@@ -3099,7 +3242,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navEnglish => 'English';
 
   @override
-  String get navExpenses => 'Expenses';
+  String get navExpenses => 'Money';
 
   @override
   String get navFitness => 'Fitness';
@@ -3253,6 +3396,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get noIncomeMonth => 'No income recorded this month';
+
+  @override
   String get noLinkedTasks => 'No tasks linked to this goal yet.';
 
   @override
@@ -3260,6 +3406,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noMilestones => 'No milestones yet.';
+
+  @override
+  String get noMoneyYet => 'Nothing recorded this month';
+
+  @override
+  String get noMoneyYetBody =>
+      'Add your salary or income and your expenses to see what\'s left.';
 
   @override
   String get noNotesYet => 'No notes yet';
@@ -3282,6 +3435,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noReviewsDue => 'Nothing to review right now.';
+
+  @override
+  String get noSalaryYet => 'No salary recorded yet';
 
   @override
   String get noSearchResults => 'No results';
@@ -3323,6 +3479,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notDue => 'Not due';
+
+  @override
+  String get notEnoughToCompare => 'Not enough records last month to compare.';
 
   @override
   String get notLogged => 'Not logged';
@@ -3497,6 +3656,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get organizeGroup => 'Organize';
 
   @override
+  String get otherIncome => 'Other income';
+
+  @override
   String get otherSymptoms => 'Something else';
 
   @override
@@ -3514,6 +3676,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get overdueTasks => 'Overdue';
+
+  @override
+  String paidOnDay(int day) {
+    return 'Paid on day $day';
+  }
 
   @override
   String get pain => 'Pain';
@@ -3544,6 +3711,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pauseGoal => 'Pause';
+
+  @override
+  String get pausedLabel => 'Paused';
+
+  @override
+  String get payDay => 'Pay day';
 
   @override
   String get perOnePortion => 'For one portion';
@@ -4039,6 +4212,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get reasonNoTime => 'Not enough free time left today';
 
   @override
+  String get receivedThisMonth => 'Received';
+
+  @override
   String get recentFoods => 'Recent';
 
   @override
@@ -4058,10 +4234,19 @@ class AppLocalizationsEn extends AppLocalizations {
       'Two demanding sessions fall on back-to-back days. Consider a rest day between them.';
 
   @override
+  String get recurringActive => 'Active';
+
+  @override
   String get regional => 'Region & time';
 
   @override
   String get reject => 'Reject';
+
+  @override
+  String get remaining => 'Remaining';
+
+  @override
+  String get remainingFormula => 'Income − expenses';
 
   @override
   String get remind3HoursBefore => '3 hours before';
@@ -4120,6 +4305,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repeatDays => 'Days';
+
+  @override
+  String get repeatMonthly => 'Repeat every month';
+
+  @override
+  String get repeatMonthlySub => 'Recorded on this day each month';
 
   @override
   String reportFood(int days, String kcal) {
@@ -4234,6 +4425,26 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get reviewWhy =>
       'Words you learned come back at growing intervals so they stick.';
+
+  @override
+  String get salaryChangeNote =>
+      'Months before this date keep the salary they had.';
+
+  @override
+  String get salaryHistory => 'Salary history';
+
+  @override
+  String get salaryLabel => 'Salary';
+
+  @override
+  String salarySince(String amount, String date) {
+    return '$amount from $date';
+  }
+
+  @override
+  String salaryStoppedSince(String date) {
+    return 'Variable income from $date';
+  }
 
   @override
   String get sampleGoal1 => 'Learn English';
@@ -4358,6 +4569,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get setSalary => 'Set salary';
+
+  @override
   String setsLogged(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4453,6 +4667,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'Create your account';
 
   @override
+  String get sixMonths => 'Last 6 months';
+
+  @override
   String get skillGrammar => 'Grammar';
 
   @override
@@ -4534,6 +4751,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get spending => 'Spending';
+
+  @override
+  String get spentMoreThanIncome =>
+      'You spent more than you received this month.';
 
   @override
   String get splashFailed => 'We couldn\'t start Hayati.';
@@ -4656,10 +4877,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get sunrise => 'Sunrise';
 
   @override
+  String get switchLabel => 'Switch';
+
+  @override
   String get switchToSignIn => 'Already have an account? Sign in';
 
   @override
   String get switchToSignUp => 'New here? Create an account';
+
+  @override
+  String get switchToVariableBody =>
+      'Your fixed salary stops from the date you pick. Past months stay as they were.';
+
+  @override
+  String get switchToVariableTitle => 'Switch to variable income?';
 
   @override
   String get syAcne => 'Acne';
@@ -4912,6 +5143,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get topPriorities => 'Top priorities';
 
   @override
+  String get totalIncome => 'Total income';
+
+  @override
   String get totalSpent => 'Total spent';
 
   @override
@@ -4984,6 +5218,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get upcoming => 'Upcoming';
+
+  @override
+  String upcomingSalary(String amount, String date) {
+    return 'Salary of $amount due $date';
+  }
 
   @override
   String get upgrade => 'Upgrade';

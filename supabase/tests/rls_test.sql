@@ -555,5 +555,49 @@ select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
 select pg_temp.check((select count(*) = 0 from wellbeing_checkins), 'B cannot read A''s check-ins');
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Income and monthly items (v4 phase 14).
+insert into salary_rates (id, amount_minor, currency, effective_from, pay_day) values
+  ('5a100000-0000-0000-0000-000000000001', 500000, 'SAR', '2026-01-01', 27),
+  ('5a100000-0000-0000-0000-000000000002', 600000, 'SAR', '2026-06-01', 27);
+do $$ begin
+  insert into salary_rates (id, amount_minor, currency, effective_from) values (gen_random_uuid(), 1, 'SAR', '2026-06-01');
+  raise exception 'FAILED: two salary rates on one day';
+exception when unique_violation then raise notice 'ok: one salary change per day';
+end $$;
+do $$ begin
+  insert into salary_rates (id, amount_minor, currency, effective_from, pay_day) values (gen_random_uuid(), 1, 'SAR', '2026-07-01', 32);
+  raise exception 'FAILED: pay day 32';
+exception when check_violation then raise notice 'ok: pay day 1-31';
+end $$;
+insert into recurring_items (id, kind, amount_minor, currency, category, title, day_of_month, starts_on)
+  values ('5a100000-0000-0000-0000-0000000000a1', 'expense', 150000, 'SAR', 'bills', 'Rent', 1, '2026-01-01');
+insert into expenses (amount_minor, currency, category, recurring_id)
+  values (150000, 'SAR', 'bills', '5a100000-0000-0000-0000-0000000000a1');
+insert into incomes (id, amount_minor, currency, kind, source, received_at)
+  values ('5a100000-0000-0000-0000-0000000000b1', 80000, 'SAR', 'extra', 'Freelance', now());
+do $$ begin
+  insert into incomes (id, amount_minor, currency, received_at) values (gen_random_uuid(), 100, 'SAR', now() + interval '3 days');
+  raise exception 'FAILED: future income';
+exception when check_violation then raise notice 'ok: no future income';
+end $$;
+do $$ begin
+  insert into recurring_items (id, kind, amount_minor, currency, starts_on, ends_on) values (gen_random_uuid(), 'income', 1, 'SAR', '2026-05-01', '2026-04-01');
+  raise exception 'FAILED: ends before it starts';
+exception when check_violation then raise notice 'ok: monthly item ends after it starts';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from salary_rates) + (select count(*) from incomes) + (select count(*) from recurring_items) = 0,
+  'B cannot read A''s income');
+do $$ begin
+  insert into expenses (amount_minor, currency, category, recurring_id) values (1, 'SAR', 'bills', '5a100000-0000-0000-0000-0000000000a1');
+  raise exception 'FAILED: B linked an expense to A''s monthly item';
+exception when foreign_key_violation then raise notice 'ok: B cannot use A''s monthly item';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+delete from recurring_items where id = '5a100000-0000-0000-0000-0000000000a1';
+select pg_temp.check((select count(*) = 1 from expenses where category = 'bills' and recurring_id is null),
+  'deleting a monthly item keeps the expenses it made');
+
 reset role;
 \echo ALL RLS TESTS PASSED

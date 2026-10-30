@@ -476,6 +476,12 @@ abstract class AppLocalizations {
   /// **'Add habit'**
   String get addHabit;
 
+  /// No description provided for @addIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add income'**
+  String get addIncome;
+
   /// No description provided for @addMeasurement.
   ///
   /// In en, this message translates to:
@@ -487,6 +493,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add milestone'**
   String get addMilestone;
+
+  /// No description provided for @addMonthlyExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a monthly expense'**
+  String get addMonthlyExpense;
+
+  /// No description provided for @addMonthlyIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add monthly income'**
+  String get addMonthlyIncome;
 
   /// No description provided for @addMyOwnFood.
   ///
@@ -1598,6 +1616,12 @@ abstract class AppLocalizations {
   /// **'Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.'**
   String get byMilestonesHint;
 
+  /// No description provided for @byMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'By month'**
+  String get byMonth;
+
   /// No description provided for @calendar.
   ///
   /// In en, this message translates to:
@@ -1724,6 +1748,12 @@ abstract class AppLocalizations {
   /// **'B2 · Upper intermediate'**
   String get cefrB2;
 
+  /// No description provided for @changeDown.
+  ///
+  /// In en, this message translates to:
+  /// **'{pct}% less'**
+  String changeDown(int pct);
+
   /// No description provided for @changeIn30Days.
   ///
   /// In en, this message translates to:
@@ -1736,11 +1766,41 @@ abstract class AppLocalizations {
   /// **'Change password'**
   String get changePassword;
 
+  /// No description provided for @changeSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Change salary'**
+  String get changeSalary;
+
+  /// No description provided for @changeSame.
+  ///
+  /// In en, this message translates to:
+  /// **'Same as last month'**
+  String get changeSame;
+
+  /// No description provided for @changeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'{pct}% more'**
+  String changeUp(int pct);
+
   /// No description provided for @changesCount.
   ///
   /// In en, this message translates to:
   /// **'{n, plural, =1{1 change} other{{n} changes}}'**
   String changesCount(int n);
+
+  /// No description provided for @chartCurrencyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Amounts in {currency} only'**
+  String chartCurrencyNote(String currency);
+
+  /// No description provided for @chartNeedsData.
+  ///
+  /// In en, this message translates to:
+  /// **'The chart shows once two months have records.'**
+  String get chartNeedsData;
 
   /// No description provided for @checkAnswer.
   ///
@@ -1831,6 +1891,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Symptoms you log most'**
   String get commonSymptoms;
+
+  /// No description provided for @compareLastMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Compared with last month'**
+  String get compareLastMonth;
 
   /// No description provided for @completedAndArchived.
   ///
@@ -2048,11 +2114,23 @@ abstract class AppLocalizations {
   /// **'Current plan'**
   String get currentPlan;
 
+  /// No description provided for @currentSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Current salary'**
+  String get currentSalary;
+
   /// No description provided for @currentStreak.
   ///
   /// In en, this message translates to:
   /// **'Current streak'**
   String get currentStreak;
+
+  /// No description provided for @customRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom dates'**
+  String get customRange;
 
   /// No description provided for @cycleDayN.
   ///
@@ -2191,6 +2269,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Day ends'**
   String get dayEnd;
+
+  /// No description provided for @dayOfMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Day of the month'**
+  String get dayOfMonth;
+
+  /// No description provided for @dayOfMonthLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {day} of each month'**
+  String dayOfMonthLabel(int day);
 
   /// No description provided for @daySchedule.
   ///
@@ -2432,6 +2522,30 @@ abstract class AppLocalizations {
   /// **'Delete all health data?'**
   String get deleteHealthDataTitle;
 
+  /// No description provided for @deleteIncomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'It will no longer count in your totals.'**
+  String get deleteIncomeBody;
+
+  /// No description provided for @deleteIncomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this income?'**
+  String get deleteIncomeTitle;
+
+  /// No description provided for @deleteMonthlyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Months already recorded stay in your records.'**
+  String get deleteMonthlyBody;
+
+  /// No description provided for @deleteMonthlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove this monthly item?'**
+  String get deleteMonthlyTitle;
+
   /// No description provided for @deleteNoteBody.
   ///
   /// In en, this message translates to:
@@ -2455,6 +2569,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete this period?'**
   String get deletePeriodTitle;
+
+  /// No description provided for @deleteSalaryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'The months it covered will use the salary before it.'**
+  String get deleteSalaryBody;
+
+  /// No description provided for @deleteSalaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this salary change?'**
+  String get deleteSalaryTitle;
 
   /// No description provided for @deleteTaskBody.
   ///
@@ -2750,6 +2876,12 @@ abstract class AppLocalizations {
   /// **'Edit event'**
   String get editEvent;
 
+  /// No description provided for @editExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit expense'**
+  String get editExpense;
+
   /// No description provided for @editFood.
   ///
   /// In en, this message translates to:
@@ -2768,6 +2900,12 @@ abstract class AppLocalizations {
   /// **'Edit habit'**
   String get editHabit;
 
+  /// No description provided for @editIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit income'**
+  String get editIncome;
+
   /// No description provided for @editMilestone.
   ///
   /// In en, this message translates to:
@@ -2785,6 +2923,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit task'**
   String get editTask;
+
+  /// No description provided for @effectiveFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Starts from'**
+  String get effectiveFrom;
 
   /// No description provided for @effort.
   ///
@@ -2875,6 +3019,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Turning it off doesn\'t affect tasks, calendar or anything else.'**
   String get enableAssistantSub;
+
+  /// No description provided for @endDateOptional.
+  ///
+  /// In en, this message translates to:
+  /// **'End date (optional)'**
+  String get endDateOptional;
 
   /// No description provided for @endTime.
   ///
@@ -3013,6 +3163,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'End time must be after the start time'**
   String get errEndBeforeStart;
+
+  /// No description provided for @errEndDateBeforeStart.
+  ///
+  /// In en, this message translates to:
+  /// **'The end date is before the start'**
+  String get errEndDateBeforeStart;
+
+  /// No description provided for @errFutureIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income can\'t be dated in the future'**
+  String get errFutureIncome;
 
   /// No description provided for @errNetwork.
   ///
@@ -3205,6 +3367,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Transport'**
   String get expTransport;
+
+  /// No description provided for @expectedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Expected'**
+  String get expectedLabel;
 
   /// No description provided for @expenseList.
   ///
@@ -3547,6 +3715,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upcoming'**
   String get filterUpcoming;
+
+  /// No description provided for @filteredTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get filteredTotal;
 
   /// No description provided for @finishSetup.
   ///
@@ -4412,6 +4586,54 @@ abstract class AppLocalizations {
   /// **'Include technical info'**
   String get includeTechInfo;
 
+  /// No description provided for @incomeFixed.
+  ///
+  /// In en, this message translates to:
+  /// **'Fixed salary'**
+  String get incomeFixed;
+
+  /// No description provided for @incomeKindExtra.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra'**
+  String get incomeKindExtra;
+
+  /// No description provided for @incomeKindPay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay'**
+  String get incomeKindPay;
+
+  /// No description provided for @incomeSource.
+  ///
+  /// In en, this message translates to:
+  /// **'Source'**
+  String get incomeSource;
+
+  /// No description provided for @incomeSourceHint.
+  ///
+  /// In en, this message translates to:
+  /// **'For example: freelance, rent'**
+  String get incomeSourceHint;
+
+  /// No description provided for @incomeType.
+  ///
+  /// In en, this message translates to:
+  /// **'Income type'**
+  String get incomeType;
+
+  /// No description provided for @incomeVariable.
+  ///
+  /// In en, this message translates to:
+  /// **'Variable'**
+  String get incomeVariable;
+
+  /// No description provided for @incomeVariableSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Record each amount when you receive it.'**
+  String get incomeVariableSub;
+
   /// No description provided for @initialTasks.
   ///
   /// In en, this message translates to:
@@ -5066,6 +5288,24 @@ abstract class AppLocalizations {
   /// **'What the phone saw (tap to search):'**
   String get modelSaw;
 
+  /// No description provided for @moneyTabExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Expenses'**
+  String get moneyTabExpenses;
+
+  /// No description provided for @moneyTabIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get moneyTabIncome;
+
+  /// No description provided for @moneyTabSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get moneyTabSummary;
+
   /// No description provided for @month.
   ///
   /// In en, this message translates to:
@@ -5077,6 +5317,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Monthly budget'**
   String get monthlyBudget;
+
+  /// No description provided for @monthlyEditNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Changes apply to the months to come. Months already recorded stay as they are.'**
+  String get monthlyEditNote;
+
+  /// No description provided for @monthlyExpenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly expenses'**
+  String get monthlyExpenses;
+
+  /// No description provided for @monthlyIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly income'**
+  String get monthlyIncome;
+
+  /// No description provided for @monthlyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly'**
+  String get monthlyLabel;
 
   /// No description provided for @mood.
   ///
@@ -5309,7 +5573,7 @@ abstract class AppLocalizations {
   /// No description provided for @navExpenses.
   ///
   /// In en, this message translates to:
-  /// **'Expenses'**
+  /// **'Money'**
   String get navExpenses;
 
   /// No description provided for @navFitness.
@@ -5576,6 +5840,12 @@ abstract class AppLocalizations {
   /// **'{name}: no home alternative, skipped today'**
   String noHomeAlternative(String name);
 
+  /// No description provided for @noIncomeMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'No income recorded this month'**
+  String get noIncomeMonth;
+
   /// No description provided for @noLinkedTasks.
   ///
   /// In en, this message translates to:
@@ -5593,6 +5863,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No milestones yet.'**
   String get noMilestones;
+
+  /// No description provided for @noMoneyYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded this month'**
+  String get noMoneyYet;
+
+  /// No description provided for @noMoneyYetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add your salary or income and your expenses to see what\'s left.'**
+  String get noMoneyYetBody;
 
   /// No description provided for @noNotesYet.
   ///
@@ -5635,6 +5917,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing to review right now.'**
   String get noReviewsDue;
+
+  /// No description provided for @noSalaryYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No salary recorded yet'**
+  String get noSalaryYet;
 
   /// No description provided for @noSearchResults.
   ///
@@ -5713,6 +6001,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not due'**
   String get notDue;
+
+  /// No description provided for @notEnoughToCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough records last month to compare.'**
+  String get notEnoughToCompare;
 
   /// No description provided for @notLogged.
   ///
@@ -6002,6 +6296,12 @@ abstract class AppLocalizations {
   /// **'Organize'**
   String get organizeGroup;
 
+  /// No description provided for @otherIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Other income'**
+  String get otherIncome;
+
   /// No description provided for @otherSymptoms.
   ///
   /// In en, this message translates to:
@@ -6037,6 +6337,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Overdue'**
   String get overdueTasks;
+
+  /// No description provided for @paidOnDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Paid on day {day}'**
+  String paidOnDay(int day);
 
   /// No description provided for @pain.
   ///
@@ -6091,6 +6397,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pause'**
   String get pauseGoal;
+
+  /// No description provided for @pausedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Paused'**
+  String get pausedLabel;
+
+  /// No description provided for @payDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Pay day'**
+  String get payDay;
 
   /// No description provided for @perOnePortion.
   ///
@@ -6920,6 +7238,12 @@ abstract class AppLocalizations {
   /// **'Not enough free time left today'**
   String get reasonNoTime;
 
+  /// No description provided for @receivedThisMonth.
+  ///
+  /// In en, this message translates to:
+  /// **'Received'**
+  String get receivedThisMonth;
+
   /// No description provided for @recentFoods.
   ///
   /// In en, this message translates to:
@@ -6956,6 +7280,12 @@ abstract class AppLocalizations {
   /// **'Two demanding sessions fall on back-to-back days. Consider a rest day between them.'**
   String get recoveryWarning;
 
+  /// No description provided for @recurringActive.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get recurringActive;
+
   /// No description provided for @regional.
   ///
   /// In en, this message translates to:
@@ -6967,6 +7297,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reject'**
   String get reject;
+
+  /// No description provided for @remaining.
+  ///
+  /// In en, this message translates to:
+  /// **'Remaining'**
+  String get remaining;
+
+  /// No description provided for @remainingFormula.
+  ///
+  /// In en, this message translates to:
+  /// **'Income − expenses'**
+  String get remainingFormula;
 
   /// No description provided for @remind3HoursBefore.
   ///
@@ -7069,6 +7411,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Days'**
   String get repeatDays;
+
+  /// No description provided for @repeatMonthly.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat every month'**
+  String get repeatMonthly;
+
+  /// No description provided for @repeatMonthlySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded on this day each month'**
+  String get repeatMonthlySub;
 
   /// No description provided for @reportFood.
   ///
@@ -7243,6 +7597,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Words you learned come back at growing intervals so they stick.'**
   String get reviewWhy;
+
+  /// No description provided for @salaryChangeNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Months before this date keep the salary they had.'**
+  String get salaryChangeNote;
+
+  /// No description provided for @salaryHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary history'**
+  String get salaryHistory;
+
+  /// No description provided for @salaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary'**
+  String get salaryLabel;
+
+  /// No description provided for @salarySince.
+  ///
+  /// In en, this message translates to:
+  /// **'{amount} from {date}'**
+  String salarySince(String amount, String date);
+
+  /// No description provided for @salaryStoppedSince.
+  ///
+  /// In en, this message translates to:
+  /// **'Variable income from {date}'**
+  String salaryStoppedSince(String date);
 
   /// No description provided for @sampleGoal1.
   ///
@@ -7466,6 +7850,12 @@ abstract class AppLocalizations {
   /// **'Set {n}'**
   String setN(int n);
 
+  /// No description provided for @setSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Set salary'**
+  String get setSalary;
+
   /// No description provided for @setsLogged.
   ///
   /// In en, this message translates to:
@@ -7634,6 +8024,12 @@ abstract class AppLocalizations {
   /// **'Create your account'**
   String get signUpTitle;
 
+  /// No description provided for @sixMonths.
+  ///
+  /// In en, this message translates to:
+  /// **'Last 6 months'**
+  String get sixMonths;
+
   /// No description provided for @skillGrammar.
   ///
   /// In en, this message translates to:
@@ -7765,6 +8161,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Spending'**
   String get spending;
+
+  /// No description provided for @spentMoreThanIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'You spent more than you received this month.'**
+  String get spentMoreThanIncome;
 
   /// No description provided for @splashFailed.
   ///
@@ -7958,6 +8360,12 @@ abstract class AppLocalizations {
   /// **'Sunrise'**
   String get sunrise;
 
+  /// No description provided for @switchLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch'**
+  String get switchLabel;
+
   /// No description provided for @switchToSignIn.
   ///
   /// In en, this message translates to:
@@ -7969,6 +8377,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'New here? Create an account'**
   String get switchToSignUp;
+
+  /// No description provided for @switchToVariableBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your fixed salary stops from the date you pick. Past months stay as they were.'**
+  String get switchToVariableBody;
+
+  /// No description provided for @switchToVariableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch to variable income?'**
+  String get switchToVariableTitle;
 
   /// No description provided for @syAcne.
   ///
@@ -8378,6 +8798,12 @@ abstract class AppLocalizations {
   /// **'Top priorities'**
   String get topPriorities;
 
+  /// No description provided for @totalIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Total income'**
+  String get totalIncome;
+
   /// No description provided for @totalSpent.
   ///
   /// In en, this message translates to:
@@ -8485,6 +8911,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Upcoming'**
   String get upcoming;
+
+  /// No description provided for @upcomingSalary.
+  ///
+  /// In en, this message translates to:
+  /// **'Salary of {amount} due {date}'**
+  String upcomingSalary(String amount, String date);
 
   /// No description provided for @upgrade.
   ///

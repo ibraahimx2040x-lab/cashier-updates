@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uuid/uuid.dart';
 
 import '../core/utils/dates.dart';
+import '../domain/money.dart';
 import '../domain/sleep.dart';
 import '../domain/womens/cycle.dart';
 import 'app_data.dart';
@@ -15,6 +16,7 @@ import 'models/goal.dart';
 import 'models/health.dart';
 import 'models/learning.dart';
 import 'models/misc.dart';
+import 'models/money.dart';
 import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
@@ -59,7 +61,9 @@ class DataController extends Notifier<AppData> {
     // (providers can't be modified during build).
     final user = _userId;
     Future.microtask(() {
-      if (_userId == user) ref.read(syncProvider.notifier).start(hasCache: raw != null, apply: _applyRemote);
+      if (_userId != user) return;
+      ref.read(syncProvider.notifier).start(hasCache: raw != null, apply: _applyRemote);
+      runRecurringDue();
     });
     return _applyRetention(data);
   }
@@ -69,6 +73,7 @@ class DataController extends Notifier<AppData> {
     if (_userId == null) return;
     state = merge(state);
     _store.writeJson(_key, state.toJson());
+    runRecurringDue();
   }
 
   AppData _applyRetention(AppData d) {
@@ -916,6 +921,113 @@ class DataController extends Notifier<AppData> {
 
   void deleteBudget(String id) =>
       _set(state.copyWith(budgets: state.budgets.where((b) => b.id != id).toList()));
+
+  // ------------------------------------------------------------------ income
+
+  static final _currency = RegExp(r'^[A-Z]{3}$');
+
+  /// Sets the fixed salary from [from] on. Months before [from] keep the
+  /// amount they were paid. A second change on the same day replaces it.
+  SalaryRate setSalary({required int amountMinor, required String currency, required DateTime from, int payDay = 1, String note = ''}) {
+    if (amountMinor <= 0) throw ArgumentError('amount');
+    return _saveRate(SalaryRate(
+      id: newId(),
+      amountMinor: amountMinor,
+      currency: currency,
+      effectiveFrom: dayKey(from),
+      payDay: payDay,
+      note: note.trim(),
+      updatedAt: _now,
+    ));
+  }
+
+  /// Switches to variable income from [from] on: no fixed salary after it.
+  SalaryRate stopSalary(DateTime from) {
+    final cur = rateOn(state, from);
+    if (cur == null || cur.isStop) throw StateError('no_salary');
+    return _saveRate(SalaryRate(
+      id: newId(),
+      amountMinor: 0,
+      currency: cur.currency,
+      effectiveFrom: dayKey(from),
+      payDay: cur.payDay,
+      updatedAt: _now,
+    ));
+  }
+
+  SalaryRate _saveRate(SalaryRate r) {
+    if (!_currency.hasMatch(r.currency)) throw ArgumentError('currency');
+    if (r.payDay < 1 || r.payDay > 31) throw ArgumentError('payDay');
+    final sameDay = state.salaryRates.where((x) => x.effectiveFrom == r.effectiveFrom).firstOrNull;
+    final saved = sameDay == null ? r : SalaryRate(
+        id: sameDay.id,
+        amountMinor: r.amountMinor,
+        currency: r.currency,
+        effectiveFrom: r.effectiveFrom,
+        payDay: r.payDay,
+        note: r.note,
+        updatedAt: r.updatedAt);
+    _set(state.copyWith(salaryRates: _upsert(state.salaryRates, saved, (x) => x.id)));
+    return saved;
+  }
+
+  void deleteSalaryRate(String id) =>
+      _set(state.copyWith(salaryRates: state.salaryRates.where((r) => r.id != id).toList()));
+
+  /// Adds or edits money received. Not in the future.
+  void saveIncome(Income i) {
+    if (i.amountMinor <= 0) throw ArgumentError('amount');
+    if (!_currency.hasMatch(i.currency)) throw ArgumentError('currency');
+    if (dateOnly(i.receivedAt).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    _set(state.copyWith(incomes: _upsert(state.incomes, i, (x) => x.id)));
+  }
+
+  void deleteIncome(String id) => _set(state.copyWith(incomes: state.incomes.where((i) => i.id != id).toList()));
+
+  /// Adds or edits a monthly expense or income, then makes any month already
+  /// due. Editing changes the months to come, not the ones already recorded.
+  void saveRecurring(RecurringItem it) {
+    if (it.amountMinor <= 0) throw ArgumentError('amount');
+    if (!_currency.hasMatch(it.currency)) throw ArgumentError('currency');
+    if (it.dayOfMonth < 1 || it.dayOfMonth > 31) throw ArgumentError('day');
+    if (it.endsOn != null && it.endsOn!.compareTo(it.startsOn) < 0) throw ArgumentError('endsOn');
+    _set(state.copyWith(recurring: _upsert(state.recurring, it.copyWith(updatedAt: _now), (x) => x.id)));
+    runRecurringDue();
+  }
+
+  /// Stops a monthly item. The records it already made stay.
+  void deleteRecurring(String id) => _set(state.copyWith(
+        recurring: state.recurring.where((r) => r.id != id).toList(),
+        // Same as the server's `on delete set null`.
+        expenses: [
+          for (final e in state.expenses)
+            e.recurringId == id
+                ? Expense(id: e.id, amountMinor: e.amountMinor, currency: e.currency, category: e.category, spentAt: e.spentAt, description: e.description)
+                : e,
+        ],
+        incomes: [
+          for (final i in state.incomes)
+            i.recurringId == id
+                ? Income(id: i.id, amountMinor: i.amountMinor, currency: i.currency, kind: i.kind, source: i.source, receivedAt: i.receivedAt, note: i.note)
+                : i,
+        ],
+      ));
+
+  /// Makes the records of monthly items that have fallen due.
+  void runRecurringDue() {
+    if (_userId == null) return;
+    final r = runRecurring(state, _now);
+    if (r.items.isEmpty && r.expenses.isEmpty && r.incomes.isEmpty) return;
+    var items = state.recurring;
+    for (final it in r.items) {
+      items = _upsert(items, it, (x) => x.id);
+    }
+    _set(state.copyWith(
+      recurring: items,
+      expenses: [...state.expenses, ...r.expenses],
+      incomes: [...state.incomes, ...r.incomes],
+    ));
+  }
 
   // ----------------------------------------------------------- notifications
 
