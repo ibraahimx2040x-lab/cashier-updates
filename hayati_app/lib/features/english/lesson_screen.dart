@@ -14,6 +14,7 @@ import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'quiz.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 18 — a lesson: explanation, examples, new words, then a short
 /// quiz. 80% marks it mastered; below that it comes back before the next.
@@ -35,7 +36,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
     final lesson = lessonById(widget.lessonId);
-    if (lesson == null) return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
+    if (lesson == null) return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
     final t = Theme.of(context).textTheme;
     final scheme = Theme.of(context).colorScheme;
     final lang = l.localeName;
@@ -59,7 +60,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(en, style: t.titleMedium?.copyWith(fontFamily: 'Inter')),
+                child: Text(en, style: t.titleMedium?.copyWith(fontFamily: 'Readex')),
               ),
               const SizedBox(height: 2),
               Text(ar, style: t.bodyMedium?.copyWith(color: context.status.textSecondary)),
@@ -75,11 +76,11 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             ListTile(
               title: Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(w.en, style: t.titleSmall?.copyWith(fontFamily: 'Inter')),
+                child: Text(w.en, style: t.titleSmall?.copyWith(fontFamily: 'Readex')),
               ),
               subtitle: Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(w.example, style: t.bodySmall?.copyWith(fontFamily: 'Inter')),
+                child: Text(w.example, style: t.bodySmall?.copyWith(fontFamily: 'Readex')),
               ),
               trailing: Text(isolateLatin(w.ar), style: t.bodyMedium?.copyWith(color: scheme.primary)),
             ),
@@ -121,7 +122,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
     ]);
 
     return Scaffold(
-      appBar: AppBar(title: Text(lesson.title(lang))),
+      appBar: AppBar(title: Text(lesson.title(lang)), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(

@@ -12,6 +12,7 @@ import '../../domain/learning/path.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 19 — spaced review of learned words: pick the meaning; right
 /// answers come back later, missed ones tomorrow.
@@ -91,12 +92,12 @@ class _EnglishReviewScreenState extends ConsumerState<EnglishReviewScreen> {
             Text(l.questionOf(_i + 1, _due.length), style: t.labelMedium),
             const SizedBox(height: Space.l),
             Center(
-              child: Text(w.en, style: t.displaySmall?.copyWith(fontFamily: 'Inter'), textDirection: TextDirection.ltr),
+              child: Text(w.en, style: t.displaySmall?.copyWith(fontFamily: 'Readex'), textDirection: TextDirection.ltr),
             ),
             if (_chosen != null)
               Center(
                 child: Text(w.example,
-                    style: t.bodyMedium?.copyWith(fontFamily: 'Inter', color: context.status.textSecondary),
+                    style: t.bodyMedium?.copyWith(fontFamily: 'Readex', color: context.status.textSecondary),
                     textDirection: TextDirection.ltr),
               ),
             const SizedBox(height: Space.xl),
@@ -140,7 +141,7 @@ class _EnglishReviewScreenState extends ConsumerState<EnglishReviewScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.reviewTitle)),
+      appBar: AppBar(title: Text(l.reviewTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl), children: [body]),

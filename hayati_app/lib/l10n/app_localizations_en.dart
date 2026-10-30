@@ -709,7 +709,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get apTest => 'Test';
 
   @override
-  String get appName => 'Hayati';
+  String get appName => 'Sanad';
 
   @override
   String get appVersion => 'App version';
@@ -801,14 +801,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get askAssistantReview => 'Ask the assistant';
 
   @override
-  String get askHayati => 'Ask Hayati';
+  String get askHayati => 'Ask Sanad';
 
   @override
   String get assistantDisabled => 'The assistant is turned off';
 
   @override
   String get assistantDisabledBody =>
-      'Everything else in Hayati keeps working. Turn it on in settings any time.';
+      'Everything else in Sanad keeps working. Turn it on in settings any time.';
 
   @override
   String get assistantHint => 'Ask me to plan, add or review…';
@@ -827,7 +827,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get assistantSubtitle => 'I help you organize your time and goals';
 
   @override
-  String get assistantTitle => 'Hayati assistant';
+  String get assistantTitle => 'Sanad assistant';
 
   @override
   String assistantUsage(int used, int limit) {
@@ -863,6 +863,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get back => 'Back';
+
+  @override
+  String get backHome => 'Back to My day';
 
   @override
   String get backToPath => 'Back to the path';
@@ -1252,7 +1255,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String connectStepsBody(String store) {
-    return 'Hayati reads your daily step total from $store. It only reads steps and never writes anything.';
+    return 'Sanad reads your daily step total from $store. It only reads steps and never writes anything.';
   }
 
   @override
@@ -1267,6 +1270,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contactSupport => 'Contact support';
+
+  @override
+  String get continueAsGuest => 'Continue as a guest';
 
   @override
   String get continueLabel => 'Continue';
@@ -1349,7 +1355,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get cycleRemindersSub =>
-      'Two days before the estimated window. It only says “Hayati reminder”.';
+      'Two days before the estimated window. It only says “Sanad reminder”.';
 
   @override
   String get cycleStartBody =>
@@ -1625,33 +1631,33 @@ class AppLocalizationsEn extends AppLocalizations {
   String get details => 'Details';
 
   @override
-  String get devNotifBody => 'Get reminders even when Hayati is closed.';
+  String get devNotifBody => 'Get reminders even when Sanad is closed.';
 
   @override
   String get devNotifBodyWeb =>
-      'Show reminders as browser notifications while Hayati is open.';
+      'Show reminders as browser notifications while Sanad is open.';
 
   @override
   String get devNotifDenied =>
-      'Notifications are blocked. To get reminders, allow them for Hayati in your device or browser settings.';
+      'Notifications are blocked. To get reminders, allow them for Sanad in your device or browser settings.';
 
   @override
   String get devNotifEnable => 'Turn on';
 
   @override
   String get devNotifOn =>
-      'On — reminders arrive even when Hayati is closed (sometimes a few minutes late).';
+      'On — reminders arrive even when Sanad is closed (sometimes a few minutes late).';
 
   @override
   String get devNotifOnWeb =>
-      'On — browsers show reminders only while Hayati is open.';
+      'On — browsers show reminders only while Sanad is open.';
 
   @override
   String get devNotifTitle => 'Phone notifications';
 
   @override
   String get devicesPrivacy =>
-      'Hayati only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.';
+      'Sanad only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.';
 
   @override
   String devicesStoreBody(String store) {
@@ -1667,7 +1673,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get devicesWebBody =>
-      'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.';
+      'Connecting happens in the Sanad phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.';
 
   @override
   String get diastolic => 'Lower (diastolic)';
@@ -2114,7 +2120,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get faq4a =>
-      'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Hayati is open.';
+      'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Sanad is open.';
 
   @override
   String get faq4q => 'I\'m not getting reminders';
@@ -2264,7 +2270,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fitnessSafety =>
-      'Hayati gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.';
+      'Sanad gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.';
 
   @override
   String get fitnessSetupTitle => 'Your training plan';
@@ -2473,6 +2479,17 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get gramsOptional => 'Grams (optional)';
+
+  @override
+  String get guestAvailable => 'Open to guests';
+
+  @override
+  String get guestBanner =>
+      'You\'re using Sanad as a guest. Create an account to keep your data safe and open every section.';
+
+  @override
+  String get guestNote =>
+      'Tasks, calendar and habits, on this phone only. Create an account any time and they come with you.';
 
   @override
   String get habitAdherence => 'Habit check-ins';
@@ -2806,6 +2823,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepChats => 'Keep chats for';
 
   @override
+  String get keepEditing => 'Keep editing';
+
+  @override
   String kgN(String v) {
     return '$v kg';
   }
@@ -2860,10 +2880,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leave => 'Leave';
 
   @override
+  String get leaveGuest => 'Leave guest mode';
+
+  @override
   String get leaveTestBody => 'Your answers so far will be lost.';
 
   @override
   String get leaveTestTitle => 'Leave the test?';
+
+  @override
+  String get leaveUnsavedBody =>
+      'What you\'ve typed on this page will be lost.';
+
+  @override
+  String get leaveUnsavedTitle => 'Leave without saving?';
 
   @override
   String get leaveWithoutSaving => 'Leave without saving';
@@ -2975,6 +3005,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get locationPrivacy =>
       'Your location is used on this device to calculate times and saved only as coordinates in your settings.';
+
+  @override
+  String get lockedBody =>
+      'As a guest you can use tasks, the calendar and habits. A free account opens everything else: prayer, health, money, learning and the assistant, synced on all your devices. What you\'ve added so far comes with you.';
+
+  @override
+  String get lockedTitle => 'This section needs an account';
+
+  @override
+  String get logoHome => 'Sanad: go to My day';
 
   @override
   String get lookUp => 'Look up';
@@ -3370,7 +3410,7 @@ class AppLocalizationsEn extends AppLocalizations {
       'Start with one task and one goal. Then ask the assistant to plan your day.';
 
   @override
-  String get newUserTitle => 'Welcome to Hayati 👋';
+  String get newUserTitle => 'Welcome to Sanad 👋';
 
   @override
   String get newWords => 'New words';
@@ -3511,7 +3551,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSourcesYet =>
-      'Nothing yet. Connect from the Hayati phone app, or add steps by hand.';
+      'Nothing yet. Connect from the Sanad phone app, or add steps by hand.';
 
   @override
   String get noSymptomsYet => 'No symptoms logged yet.';
@@ -3619,7 +3659,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifNeutralBody => 'Open the app to see it';
 
   @override
-  String get notifNeutralTitle => 'Hayati reminder';
+  String get notifNeutralTitle => 'Sanad reminder';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -3947,7 +3987,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get planLabel => 'Plan';
 
   @override
-  String get planPro => 'Hayati Pro';
+  String get planPro => 'Sanad Pro';
 
   @override
   String get planSaved => 'Plan saved';
@@ -4038,7 +4078,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get prayerLogHint =>
-      'Mark it yourself after you pray. Hayati never assumes.';
+      'Mark it yourself after you pray. Sanad never assumes.';
 
   @override
   String prayerLogLabel(String name) {
@@ -4131,7 +4171,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get privacyText =>
-      'Hayati — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it\'s stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.';
+      'Sanad — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it\'s stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.';
 
   @override
   String get privacyTitle => 'Privacy & data';
@@ -4340,7 +4380,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String removeSourceDataBody(String source) {
-    return 'Steps, sleep, heart rate and workouts that came from $source are removed from Hayati on all your devices. Nothing changes in $source itself.';
+    return 'Steps, sleep, heart rate and workouts that came from $source are removed from Sanad on all your devices. Nothing changes in $source itself.';
   }
 
   @override
@@ -4724,6 +4764,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'Create your account';
 
   @override
+  String get signedInAs => 'Signed in. Welcome to Sanad.';
+
+  @override
   String get sixMonths => 'Last 6 months';
 
   @override
@@ -4832,7 +4875,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'You spent more than you received this month.';
 
   @override
-  String get splashFailed => 'We couldn\'t start Hayati.';
+  String get splashFailed => 'We couldn\'t start Sanad.';
+
+  @override
+  String get splashTagline => 'Your whole life in one place';
 
   @override
   String get startDate => 'Start date';
@@ -5097,7 +5143,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get termsText =>
-      'Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.';
+      'Sanad — Terms of use (draft)\n\nSanad helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Sanad is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.';
 
   @override
   String get testHistory => 'Test history';
@@ -5274,7 +5320,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get unlockFailed => 'Not unlocked';
 
   @override
-  String get unlockReason => 'Open your health sections in Hayati';
+  String get unlockReason => 'Open your health sections in Sanad';
 
   @override
   String get unpin => 'Unpin';
@@ -5499,6 +5545,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get weightKg => 'kg';
 
   @override
+  String get welcomeBack => 'Welcome back';
+
+  @override
   String get welcomeBody =>
       'Your time, goals, habits, notes and spending — in one place that plans with you.';
 
@@ -5512,7 +5561,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get whatThisPhoneReads => 'What this phone reads';
 
   @override
-  String get whatWeStore => 'What Hayati stores';
+  String get whatWeStore => 'What Sanad stores';
 
   @override
   String get whatWeStoreBody =>

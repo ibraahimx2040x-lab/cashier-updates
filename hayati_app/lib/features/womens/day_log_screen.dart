@@ -11,6 +11,7 @@ import '../../data/models/womens.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 42 — how a day went: flow, pain, symptoms, mood, energy, a note.
 /// Everything is optional; clearing all of it removes the day.
@@ -78,7 +79,7 @@ class _DayLogScreenState extends ConsumerState<DayLogScreen> {
         ]);
 
     return Scaffold(
-      appBar: AppBar(title: Text(fmt.fullDate(parseDayKey(widget.day)))),
+      appBar: AppBar(title: Text(fmt.fullDate(parseDayKey(widget.day))), actions: const [HomeLogoButton()]),
       body: HealthLockGate(
         child: future
             ? EmptyState(icon: Icons.event_busy, title: l.futureDay, message: l.futureDayBody)

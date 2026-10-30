@@ -9,6 +9,7 @@ import '../../data/auth.dart';
 import '../../data/data_controller.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Shows the privacy policy or terms. The text describes what local mode
 /// actually does, so it matches real behaviour.
@@ -37,7 +38,7 @@ class PrivacyScreen extends ConsumerWidget {
           child: Text(s, style: t.titleSmall?.copyWith(color: Theme.of(context).colorScheme.secondary)),
         );
     return Scaffold(
-      appBar: AppBar(title: Text(l.privacyTitle)),
+      appBar: AppBar(title: Text(l.privacyTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.only(bottom: Space.xxl), children: [

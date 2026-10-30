@@ -10,6 +10,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/misc.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 15 — notes list with search, pinning and archive.
 class NotesScreen extends ConsumerStatefulWidget {
@@ -68,8 +69,7 @@ class _NotesScreenState extends ConsumerState<NotesScreen> {
             icon: Icon(_archived ? Icons.unarchive_outlined : Icons.inventory_2_outlined),
             onPressed: () => setState(() => _archived = !_archived),
           ),
-          IconButton(tooltip: l.addNote, onPressed: () => context.push(Routes.note('new')), icon: const Icon(Icons.add)),
-        ],
+          IconButton(tooltip: l.addNote, onPressed: () => context.push(Routes.note('new')), icon: const Icon(Icons.add)), const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         child: Column(children: [

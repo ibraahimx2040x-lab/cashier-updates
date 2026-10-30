@@ -246,11 +246,11 @@ void main() {
       await tester.enterText(fields.at(2), 'password1');
       await tapIn(tester, find.byType(Checkbox));
       // Sex is required at sign-up.
-      await tapIn(tester, find.text(l.createAccount));
+      await tapIn(tester, find.widgetWithText(PrimaryButton, l.createAccount));
       await tester.pumpAndSettle();
       expect(find.text(l.errSex), findsOneWidget);
       await tapIn(tester, find.text(l.sexFemale));
-      await tapIn(tester, find.text(l.createAccount));
+      await tapIn(tester, find.widgetWithText(PrimaryButton, l.createAccount));
       await tester.pumpAndSettle();
 
       // Onboarding: 4 steps.
@@ -837,6 +837,64 @@ void main() {
     await tester.tap(find.text(l.saveAnyway));
     await tester.pumpAndSettle();
     expect(find.text(l.saveEvent), findsNothing);
+  });
+
+  testWidgets('guest: tasks only, other sections ask for an account, data comes along on sign-up (ar)', (tester) async {
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await tapIn(tester, find.text(l.continueAsGuest));
+    await tester.pumpAndSettle();
+    expect(find.text(l.guestBanner), findsOneWidget, reason: 'straight to My day, no onboarding');
+    expect(c.read(authProvider).user!.guest, isTrue);
+    final data = c.read(dataProvider.notifier);
+    data.saveTask(data.newTask(title: 'مهمة الزائر'));
+    await tester.pumpAndSettle();
+
+    final router = c.read(routerProvider);
+    router.push(Routes.expenses);
+    await tester.pumpAndSettle();
+    expect(find.text(l.lockedTitle), findsOneWidget);
+    router.go(Routes.habits);
+    await tester.pumpAndSettle();
+    expect(find.text(l.lockedTitle), findsNothing, reason: 'habits are open to guests');
+
+    router.push('${Routes.auth}?mode=signup');
+    await tester.pumpAndSettle();
+    final fields = find.byType(TextFormField);
+    await tester.enterText(fields.at(0), 'guest@example.com');
+    await tester.enterText(fields.at(1), 'password1');
+    await tester.enterText(fields.at(2), 'password1');
+    await tapIn(tester, find.text(l.sexMale));
+    await tapIn(tester, find.byType(Checkbox));
+    await tapIn(tester, find.widgetWithText(PrimaryButton, l.createAccount));
+    await tester.pumpAndSettle();
+    final u = c.read(authProvider).user!;
+    expect((u.guest, u.email), (false, 'guest@example.com'));
+    expect(c.read(dataProvider).tasks.map((t) => t.title), contains('مهمة الزائر'), reason: "the guest's task moved into the account");
+  });
+
+  testWidgets('the logo goes back to My day and asks before losing typing (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.push(Routes.task('new'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextFormField).first, 'Half-typed');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip(l.logoHome));
+    await tester.pumpAndSettle();
+    expect(find.text(l.discardTitle), findsOneWidget);
+    await tester.tap(find.text(l.cancel));
+    await tester.pumpAndSettle();
+    expect(find.text('Half-typed'), findsOneWidget, reason: 'still editing');
+    await tester.tap(find.byTooltip(l.logoHome));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.discard));
+    await tester.pumpAndSettle();
+    expect(router.routeInformationProvider.value.uri.path, Routes.home);
   });
 
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {

@@ -15,6 +15,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 16 — the English path: level, today's lesson, reviews due, the
 /// weekly goal, the lessons of the current level, and test history.
@@ -33,7 +34,7 @@ class EnglishScreen extends ConsumerWidget {
 
     if (path == null) {
       return Scaffold(
-        appBar: AppBar(title: Text(l.navEnglish)),
+        appBar: AppBar(title: Text(l.navEnglish), actions: const [HomeLogoButton()]),
         body: ResponsiveContainer(
           maxWidth: 720,
           child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [
@@ -194,7 +195,7 @@ class EnglishScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navEnglish)),
+      appBar: AppBar(title: Text(l.navEnglish), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView.separated(

@@ -14,6 +14,7 @@ import '../../domain/metrics.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 11 — create/edit a goal, its milestones and linked tasks.
 class GoalEditScreen extends ConsumerStatefulWidget {
@@ -37,10 +38,16 @@ class _GoalEditScreenState extends ConsumerState<GoalEditScreen> {
   late double _manual = (_orig?.manualProgress ?? 0).toDouble();
   late List<Milestone> _milestones = _orig == null ? [] : ref.read(dataProvider).milestonesOf(_orig.id);
   late final String _id = _orig?.id ?? newId();
-  bool _dirty = false;
+  bool _isDirty = false;
+  bool get _dirty => _isDirty;
+  set _dirty(bool v) {
+    _isDirty = v;
+    UnsavedGuard.mark(this, v);
+  }
 
   @override
   void dispose() {
+    UnsavedGuard.mark(this, false);
     _title.dispose();
     _desc.dispose();
     _why.dispose();
@@ -156,8 +163,7 @@ class _GoalEditScreenState extends ConsumerState<GoalEditScreen> {
                   if (saved.status != GoalStatus.archived) PopupMenuItem(value: 'archive', child: Text(l.archiveGoal)),
                   PopupMenuItem(value: 'delete', child: Text(l.delete)),
                 ],
-              ),
-          ],
+              ), const HomeLogoButton()],
         ),
         body: Form(
           key: _form,

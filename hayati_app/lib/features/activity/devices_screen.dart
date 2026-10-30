@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/health_reader.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
+import '../../widgets/home_logo.dart';
 
 IconData kindIcon(HealthKind k) => switch (k) {
       HealthKind.steps => Icons.directions_walk,
@@ -191,7 +192,7 @@ class DevicesScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.devicesTitle)),
+      appBar: AppBar(title: Text(l.devicesTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView.separated(

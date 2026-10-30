@@ -1187,7 +1187,7 @@ abstract class AppLocalizations {
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Hayati'**
+  /// **'Sanad'**
   String get appName;
 
   /// No description provided for @appVersion.
@@ -1343,7 +1343,7 @@ abstract class AppLocalizations {
   /// No description provided for @askHayati.
   ///
   /// In en, this message translates to:
-  /// **'Ask Hayati'**
+  /// **'Ask Sanad'**
   String get askHayati;
 
   /// No description provided for @assistantDisabled.
@@ -1355,7 +1355,7 @@ abstract class AppLocalizations {
   /// No description provided for @assistantDisabledBody.
   ///
   /// In en, this message translates to:
-  /// **'Everything else in Hayati keeps working. Turn it on in settings any time.'**
+  /// **'Everything else in Sanad keeps working. Turn it on in settings any time.'**
   String get assistantDisabledBody;
 
   /// No description provided for @assistantHint.
@@ -1391,7 +1391,7 @@ abstract class AppLocalizations {
   /// No description provided for @assistantTitle.
   ///
   /// In en, this message translates to:
-  /// **'Hayati assistant'**
+  /// **'Sanad assistant'**
   String get assistantTitle;
 
   /// No description provided for @assistantUsage.
@@ -1453,6 +1453,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Back'**
   String get back;
+
+  /// No description provided for @backHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to My day'**
+  String get backHome;
 
   /// No description provided for @backToPath.
   ///
@@ -2087,7 +2093,7 @@ abstract class AppLocalizations {
   /// No description provided for @connectStepsBody.
   ///
   /// In en, this message translates to:
-  /// **'Hayati reads your daily step total from {store}. It only reads steps and never writes anything.'**
+  /// **'Sanad reads your daily step total from {store}. It only reads steps and never writes anything.'**
   String connectStepsBody(String store);
 
   /// No description provided for @connectStepsTitle.
@@ -2107,6 +2113,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact support'**
   String get contactSupport;
+
+  /// No description provided for @continueAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as a guest'**
+  String get continueAsGuest;
 
   /// No description provided for @continueLabel.
   ///
@@ -2255,7 +2267,7 @@ abstract class AppLocalizations {
   /// No description provided for @cycleRemindersSub.
   ///
   /// In en, this message translates to:
-  /// **'Two days before the estimated window. It only says “Hayati reminder”.'**
+  /// **'Two days before the estimated window. It only says “Sanad reminder”.'**
   String get cycleRemindersSub;
 
   /// No description provided for @cycleStartBody.
@@ -2705,19 +2717,19 @@ abstract class AppLocalizations {
   /// No description provided for @devNotifBody.
   ///
   /// In en, this message translates to:
-  /// **'Get reminders even when Hayati is closed.'**
+  /// **'Get reminders even when Sanad is closed.'**
   String get devNotifBody;
 
   /// No description provided for @devNotifBodyWeb.
   ///
   /// In en, this message translates to:
-  /// **'Show reminders as browser notifications while Hayati is open.'**
+  /// **'Show reminders as browser notifications while Sanad is open.'**
   String get devNotifBodyWeb;
 
   /// No description provided for @devNotifDenied.
   ///
   /// In en, this message translates to:
-  /// **'Notifications are blocked. To get reminders, allow them for Hayati in your device or browser settings.'**
+  /// **'Notifications are blocked. To get reminders, allow them for Sanad in your device or browser settings.'**
   String get devNotifDenied;
 
   /// No description provided for @devNotifEnable.
@@ -2729,13 +2741,13 @@ abstract class AppLocalizations {
   /// No description provided for @devNotifOn.
   ///
   /// In en, this message translates to:
-  /// **'On — reminders arrive even when Hayati is closed (sometimes a few minutes late).'**
+  /// **'On — reminders arrive even when Sanad is closed (sometimes a few minutes late).'**
   String get devNotifOn;
 
   /// No description provided for @devNotifOnWeb.
   ///
   /// In en, this message translates to:
-  /// **'On — browsers show reminders only while Hayati is open.'**
+  /// **'On — browsers show reminders only while Sanad is open.'**
   String get devNotifOnWeb;
 
   /// No description provided for @devNotifTitle.
@@ -2747,7 +2759,7 @@ abstract class AppLocalizations {
   /// No description provided for @devicesPrivacy.
   ///
   /// In en, this message translates to:
-  /// **'Hayati only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.'**
+  /// **'Sanad only reads, never writes, and only what you turn on. The numbers are saved to your account so your other devices see them.'**
   String get devicesPrivacy;
 
   /// No description provided for @devicesStoreBody.
@@ -2771,7 +2783,7 @@ abstract class AppLocalizations {
   /// No description provided for @devicesWebBody.
   ///
   /// In en, this message translates to:
-  /// **'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.'**
+  /// **'Connecting happens in the Sanad phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.'**
   String get devicesWebBody;
 
   /// No description provided for @diastolic.
@@ -3551,7 +3563,7 @@ abstract class AppLocalizations {
   /// No description provided for @faq4a.
   ///
   /// In en, this message translates to:
-  /// **'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Hayati is open.'**
+  /// **'Turn on phone notifications from the Notifications screen or Settings, and give the task a reminder plus a deadline or planned time. On phones, reminders arrive even when the app is closed (sometimes a few minutes late); in a browser they only appear while Sanad is open.'**
   String get faq4a;
 
   /// No description provided for @faq4q.
@@ -3827,7 +3839,7 @@ abstract class AppLocalizations {
   /// No description provided for @fitnessSafety.
   ///
   /// In en, this message translates to:
-  /// **'Hayati gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.'**
+  /// **'Sanad gives general exercise guidance, not medical advice. If you have an injury or health condition, check with a professional first, and stop if something hurts.'**
   String get fitnessSafety;
 
   /// No description provided for @fitnessSetupTitle.
@@ -4207,6 +4219,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Grams (optional)'**
   String get gramsOptional;
+
+  /// No description provided for @guestAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Open to guests'**
+  String get guestAvailable;
+
+  /// No description provided for @guestBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re using Sanad as a guest. Create an account to keep your data safe and open every section.'**
+  String get guestBanner;
+
+  /// No description provided for @guestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks, calendar and habits, on this phone only. Create an account any time and they come with you.'**
+  String get guestNote;
 
   /// No description provided for @habitAdherence.
   ///
@@ -4796,6 +4826,12 @@ abstract class AppLocalizations {
   /// **'Keep chats for'**
   String get keepChats;
 
+  /// No description provided for @keepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get keepEditing;
+
   /// No description provided for @kgN.
   ///
   /// In en, this message translates to:
@@ -4886,6 +4922,12 @@ abstract class AppLocalizations {
   /// **'Leave'**
   String get leave;
 
+  /// No description provided for @leaveGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave guest mode'**
+  String get leaveGuest;
+
   /// No description provided for @leaveTestBody.
   ///
   /// In en, this message translates to:
@@ -4897,6 +4939,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave the test?'**
   String get leaveTestTitle;
+
+  /// No description provided for @leaveUnsavedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'ve typed on this page will be lost.'**
+  String get leaveUnsavedBody;
+
+  /// No description provided for @leaveUnsavedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving?'**
+  String get leaveUnsavedTitle;
 
   /// No description provided for @leaveWithoutSaving.
   ///
@@ -5077,6 +5131,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your location is used on this device to calculate times and saved only as coordinates in your settings.'**
   String get locationPrivacy;
+
+  /// No description provided for @lockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'As a guest you can use tasks, the calendar and habits. A free account opens everything else: prayer, health, money, learning and the assistant, synced on all your devices. What you\'ve added so far comes with you.'**
+  String get lockedBody;
+
+  /// No description provided for @lockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This section needs an account'**
+  String get lockedTitle;
+
+  /// No description provided for @logoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Sanad: go to My day'**
+  String get logoHome;
 
   /// No description provided for @lookUp.
   ///
@@ -5801,7 +5873,7 @@ abstract class AppLocalizations {
   /// No description provided for @newUserTitle.
   ///
   /// In en, this message translates to:
-  /// **'Welcome to Hayati 👋'**
+  /// **'Welcome to Sanad 👋'**
   String get newUserTitle;
 
   /// No description provided for @newWords.
@@ -6047,7 +6119,7 @@ abstract class AppLocalizations {
   /// No description provided for @noSourcesYet.
   ///
   /// In en, this message translates to:
-  /// **'Nothing yet. Connect from the Hayati phone app, or add steps by hand.'**
+  /// **'Nothing yet. Connect from the Sanad phone app, or add steps by hand.'**
   String get noSourcesYet;
 
   /// No description provided for @noSymptomsYet.
@@ -6245,7 +6317,7 @@ abstract class AppLocalizations {
   /// No description provided for @notifNeutralTitle.
   ///
   /// In en, this message translates to:
-  /// **'Hayati reminder'**
+  /// **'Sanad reminder'**
   String get notifNeutralTitle;
 
   /// No description provided for @notifPrayerSoon.
@@ -6779,7 +6851,7 @@ abstract class AppLocalizations {
   /// No description provided for @planPro.
   ///
   /// In en, this message translates to:
-  /// **'Hayati Pro'**
+  /// **'Sanad Pro'**
   String get planPro;
 
   /// No description provided for @planSaved.
@@ -6941,7 +7013,7 @@ abstract class AppLocalizations {
   /// No description provided for @prayerLogHint.
   ///
   /// In en, this message translates to:
-  /// **'Mark it yourself after you pray. Hayati never assumes.'**
+  /// **'Mark it yourself after you pray. Sanad never assumes.'**
   String get prayerLogHint;
 
   /// No description provided for @prayerLogLabel.
@@ -7097,7 +7169,7 @@ abstract class AppLocalizations {
   /// No description provided for @privacyText.
   ///
   /// In en, this message translates to:
-  /// **'Hayati — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it\'s stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.'**
+  /// **'Sanad — Privacy policy (local mode draft)\n\n1. What we collect: only what you enter — your email, a salted hash of your password, your preferences, tasks, events, goals, habits, notes, expenses and assistant chats.\n\n2. Where it\'s stored: on this device. Nothing is sent to our servers or to an AI provider in this version.\n\n3. The assistant: it runs on your device and reads only the sections you allow in assistant settings.\n\n4. Your control: you can export all your data, delete chats, and delete your account at any time.\n\n5. Support reports never include your chats, notes or expenses; technical info is added only if you choose.\n\nThis draft must be reviewed and replaced with the final policy before public launch.'**
   String get privacyText;
 
   /// No description provided for @privacyTitle.
@@ -7469,7 +7541,7 @@ abstract class AppLocalizations {
   /// No description provided for @removeSourceDataBody.
   ///
   /// In en, this message translates to:
-  /// **'Steps, sleep, heart rate and workouts that came from {source} are removed from Hayati on all your devices. Nothing changes in {source} itself.'**
+  /// **'Steps, sleep, heart rate and workouts that came from {source} are removed from Sanad on all your devices. Nothing changes in {source} itself.'**
   String removeSourceDataBody(String source);
 
   /// No description provided for @removeSourceDataTitle.
@@ -8120,6 +8192,12 @@ abstract class AppLocalizations {
   /// **'Create your account'**
   String get signUpTitle;
 
+  /// No description provided for @signedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in. Welcome to Sanad.'**
+  String get signedInAs;
+
   /// No description provided for @sixMonths.
   ///
   /// In en, this message translates to:
@@ -8303,8 +8381,14 @@ abstract class AppLocalizations {
   /// No description provided for @splashFailed.
   ///
   /// In en, this message translates to:
-  /// **'We couldn\'t start Hayati.'**
+  /// **'We couldn\'t start Sanad.'**
   String get splashFailed;
+
+  /// No description provided for @splashTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'Your whole life in one place'**
+  String get splashTagline;
 
   /// No description provided for @startDate.
   ///
@@ -8717,7 +8801,7 @@ abstract class AppLocalizations {
   /// No description provided for @termsText.
   ///
   /// In en, this message translates to:
-  /// **'Hayati — Terms of use (draft)\n\nHayati helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Hayati is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.'**
+  /// **'Sanad — Terms of use (draft)\n\nSanad helps you organize your time, goals, habits, notes and expenses. Plans and suggestions are estimates, not guarantees. Sanad is not a banking, financial-advice or medical service. You are responsible for the data you enter and for decisions you make based on it.\n\nThis draft must be reviewed and replaced with the final terms before public launch.'**
   String get termsText;
 
   /// No description provided for @testHistory.
@@ -9005,7 +9089,7 @@ abstract class AppLocalizations {
   /// No description provided for @unlockReason.
   ///
   /// In en, this message translates to:
-  /// **'Open your health sections in Hayati'**
+  /// **'Open your health sections in Sanad'**
   String get unlockReason;
 
   /// No description provided for @unpin.
@@ -9368,6 +9452,12 @@ abstract class AppLocalizations {
   /// **'kg'**
   String get weightKg;
 
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get welcomeBack;
+
   /// No description provided for @welcomeBody.
   ///
   /// In en, this message translates to:
@@ -9395,7 +9485,7 @@ abstract class AppLocalizations {
   /// No description provided for @whatWeStore.
   ///
   /// In en, this message translates to:
-  /// **'What Hayati stores'**
+  /// **'What Sanad stores'**
   String get whatWeStore;
 
   /// No description provided for @whatWeStoreBody.

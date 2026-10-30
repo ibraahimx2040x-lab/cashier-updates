@@ -13,6 +13,7 @@ import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
 import '../habits/habits_screen.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 18 — in-app notification centre. Removing a notification never
 /// deletes the task or event it points to.
@@ -73,8 +74,7 @@ class _NotificationsScreenState extends ConsumerState<NotificationsScreen> {
               PopupMenuItem(value: 'read', child: Text(l.markAllRead)),
               PopupMenuItem(value: 'clear', child: Text(l.clearRead)),
             ],
-          ),
-        ],
+          ), const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         maxWidth: 760,

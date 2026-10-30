@@ -17,6 +17,7 @@ import '../../widgets/common.dart';
 import '../auth/onboarding_screen.dart' show currencies;
 import 'money_chart.dart';
 import 'money_editors.dart';
+import '../../widgets/home_logo.dart';
 
 export 'money_editors.dart' show parseAmountMinor, showExpenseEditor;
 
@@ -63,8 +64,7 @@ class _ExpensesScreenState extends ConsumerState<ExpensesScreen> {
                   2 => showIncomeEditor(context),
                   _ => _addChoice(context),
                 },
-              ),
-            ],
+              ), const HomeLogoButton()],
             bottom: TabBar(tabs: [Tab(text: l.moneyTabSummary), Tab(text: l.moneyTabExpenses), Tab(text: l.moneyTabIncome)]),
           ),
           body: TabBarView(children: [_summary(context), _expenses(context), _income(context)]),

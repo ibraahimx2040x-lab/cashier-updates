@@ -13,6 +13,7 @@ import '../../domain/assistant/executor.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'describe.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 13 — the assistant conversation.
 class AssistantScreen extends ConsumerStatefulWidget {
@@ -130,8 +131,7 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
         actions: [
           IconButton(tooltip: l.previousChats, onPressed: _history, icon: const Icon(Icons.history)),
           IconButton(tooltip: l.newChat, onPressed: _newChat, icon: const Icon(Icons.add_comment_outlined)),
-          IconButton(tooltip: l.assistantSettings, onPressed: () => context.push(Routes.assistantSettings), icon: const Icon(Icons.tune)),
-        ],
+          IconButton(tooltip: l.assistantSettings, onPressed: () => context.push(Routes.assistantSettings), icon: const Icon(Icons.tune)), const HomeLogoButton()],
       ),
       body: !perms.enabled
           ? EmptyState(

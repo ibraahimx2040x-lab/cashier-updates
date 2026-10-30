@@ -16,6 +16,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/motion.dart';
 import 'exercise_screen.dart' show muscleIcon;
+import '../../widgets/home_logo.dart';
 
 /// Screen 15b — how each exercise has gone over time, from logged sets.
 class ExerciseProgressScreen extends ConsumerWidget {
@@ -37,7 +38,7 @@ class ExerciseProgressScreen extends ConsumerWidget {
         };
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.progressLog)),
+      appBar: AppBar(title: Text(l.progressLog), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: list.isEmpty

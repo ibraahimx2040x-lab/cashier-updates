@@ -1,48 +1,70 @@
-"""Draws Hayati's brand images (same mark as HayatiLogo in splash_screen.dart).
+"""Draws Sanad's brand images (same mark as SanadMark in splash_screen.dart).
+
+The mark is the letter S drawn as the sun's path: the upper bowl is the
+day's arc, the lower bowl its return, and a saffron sun sits where the
+day begins.
 
 Run: python3 tool/make_brand.py  → assets/brand/*.png
 Then: dart run flutter_launcher_icons && dart run flutter_native_splash:create
 """
+import math
+
 from PIL import Image, ImageDraw
 
-NAVY = (0x1E, 0x2A, 0x5A, 255)
-GOLD = (0xD4, 0xA8, 0x4B, 255)
+INK = (0x1F, 0x27, 0x66)
+SKY = (0x2F, 0x6D, 0xAE)
+SAFFRON = (0xE0, 0x9A, 0x2F, 255)
 WHITE = (255, 255, 255, 255)
 SS = 4  # supersampling for smooth edges
 
 
+def s_path(cx, cy, size):
+    """Points of the S, `size` = full letter height. Two bowls of radius r,
+    stacked, joined at the centre."""
+    r = size / 4
+    pts = []
+    # Upper bowl: from 48° (upper right) over the top to 270°; the sun
+    # waits just past its start, separated by a gap.
+    for i in range(361):
+        a = math.radians(48 + (270 - 48) * i / 360)
+        pts.append((cx + r * math.cos(a), cy - r - r * math.sin(a)))
+    # Lower bowl: from 90° (its top, the centre of the letter) clockwise to -160°.
+    for i in range(361):
+        a = math.radians(90 - (90 + 160) * i / 360)
+        pts.append((cx + r * math.cos(a), cy + r - r * math.sin(a)))
+    sun = (cx + r * math.cos(math.radians(8)), cy - r - r * math.sin(math.radians(8)))
+    return pts, sun
+
+
 def mark(size, scale, bg):
-    """Ring with a curved path and two dots; `scale` = mark diameter / size."""
+    """`bg`: None (transparent) or 'tile' (sky gradient). `scale`: letter
+    height / size."""
     n = size * SS
-    img = Image.new("RGBA", (n, n), bg)
+    if bg == "tile":
+        img = Image.new("RGBA", (n, n))
+        top, bot = INK, SKY
+        px = img.load()
+        for y in range(n):
+            t = y / (n - 1)
+            col = tuple(int(top[k] + (bot[k] - top[k]) * t) for k in range(3)) + (255,)
+            for x in range(n):
+                px[x, y] = col
+    else:
+        img = Image.new("RGBA", (n, n), (0, 0, 0, 0))
     d = ImageDraw.Draw(img)
-    c = n / 2
-    r = n * scale / 2
-    w = max(2, int(r * 2 * 0.07))
-    ring = r * 0.86
-    d.ellipse([c - ring, c - ring, c + ring, c + ring], outline=GOLD, width=w)
-    # A winding S-shaped path (bottom-left → top-right) with a dot at each
-    # end: "a connected path", deliberately not a straight diagonal.
-    a = (c - r * 0.40, c + r * 0.36)
-    m = (c, c)
-    b = (c + r * 0.40, c - r * 0.36)
-    def quad(p0, p1, p2, steps=400):
-        return [((1 - t) ** 2 * p0[0] + 2 * (1 - t) * t * p1[0] + t ** 2 * p2[0],
-                 (1 - t) ** 2 * p0[1] + 2 * (1 - t) * t * p1[1] + t ** 2 * p2[1])
-                for t in (i / steps for i in range(steps + 1))]
-    pts = quad(a, (c + r * 0.05, c + r * 0.50), m) + quad(m, (c - r * 0.05, c - r * 0.50), b)
-    # Stroke by stamping discs: smooth joints at any thickness.
-    for x, y in pts:
+    h = n * scale
+    w = h * 0.17
+    pts, sun = s_path(n / 2, n / 2, h)
+    for x, y in pts:  # stroke by stamping discs: smooth joints
         d.ellipse([x - w / 2, y - w / 2, x + w / 2, y + w / 2], fill=WHITE)
-    for p in (a, b):
-        dr = r * 0.11
-        d.ellipse([p[0] - dr, p[1] - dr, p[0] + dr, p[1] + dr], fill=GOLD)
+    sr = w * 0.78
+    d.ellipse([sun[0] - sr, sun[1] - sr, sun[0] + sr, sun[1] + sr], fill=SAFFRON)
     return img.resize((size, size), Image.LANCZOS)
 
 
 if __name__ == "__main__":
     out = "assets/brand"
-    mark(1024, 0.62, NAVY).save(f"{out}/icon.png")                 # full-bleed app icon
-    mark(1024, 0.42, (0, 0, 0, 0)).save(f"{out}/icon_foreground.png")  # Android adaptive (66% safe zone)
-    mark(768, 0.5, (0, 0, 0, 0)).save(f"{out}/splash.png")          # centred on navy splash
+    mark(1024, 0.56, "tile").save(f"{out}/icon.png")          # full-bleed app icon
+    mark(1024, 0.38, None).save(f"{out}/icon_foreground.png")  # Android adaptive (66% safe zone)
+    mark(768, 0.42, None).save(f"{out}/splash.png")            # centred on the ink splash
     print("ok")

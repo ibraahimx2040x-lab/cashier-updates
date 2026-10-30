@@ -19,6 +19,7 @@ import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../womens/womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 45 — sleep and recovery: the last two weeks of sleep (from the
 /// phone's health app or entered by hand), how rested the user feels each
@@ -174,8 +175,7 @@ class SleepScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l.sleepAndRecovery), actions: [
-        IconButton(tooltip: l.devicesTitle, icon: const Icon(Icons.watch_outlined), onPressed: () => context.push(Routes.devices)),
-      ]),
+        IconButton(tooltip: l.devicesTitle, icon: const Icon(Icons.watch_outlined), onPressed: () => context.push(Routes.devices)), const HomeLogoButton()]),
       body: HealthLockGate(
         child: ResponsiveContainer(
           maxWidth: 720,

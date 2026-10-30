@@ -21,6 +21,7 @@ import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'health_cards.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screens 34–35 — today's steps against the goal, where they came from,
 /// and the last week or month.
@@ -155,8 +156,7 @@ class _ActivityScreenState extends ConsumerState<ActivityScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l.navActivity), actions: [
         IconButton(tooltip: l.devicesTitle, icon: const Icon(Icons.watch_outlined), onPressed: () => context.push(Routes.devices)),
-        IconButton(tooltip: l.healthSetup, icon: const Icon(Icons.tune), onPressed: () => context.push(Routes.healthSetup)),
-      ]),
+        IconButton(tooltip: l.healthSetup, icon: const Icon(Icons.tune), onPressed: () => context.push(Routes.healthSetup)), const HomeLogoButton()]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => _manual(context),
         icon: const Icon(Icons.edit_outlined),

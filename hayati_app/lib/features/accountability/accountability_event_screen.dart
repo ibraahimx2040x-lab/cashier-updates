@@ -17,6 +17,7 @@ import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// A late task: first why, then what follows. Only a deliberate
 /// postponement brings the agreed consequence; nothing changes until the
@@ -73,7 +74,7 @@ class _AccountabilityEventScreenState extends ConsumerState<AccountabilityEventS
     final e = d.accountabilityEvent(widget.eventId);
     final t = Theme.of(context).textTheme;
     final fmt = Fmt.of(context, use24h: d.settings.use24h);
-    if (e == null) return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
+    if (e == null) return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
     final task = d.task(e.taskId);
     final rule = d.rule(e.ruleId);
     final now = ref.watch(clockProvider)();
@@ -89,7 +90,7 @@ class _AccountabilityEventScreenState extends ConsumerState<AccountabilityEventS
         if (e.note.isNotEmpty) (Icons.notes, e.note),
       ];
       return Scaffold(
-        appBar: AppBar(title: Text(l.navAccountability)),
+        appBar: AppBar(title: Text(l.navAccountability), actions: const [HomeLogoButton()]),
         body: ResponsiveContainer(
           maxWidth: 720,
           child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [
@@ -168,7 +169,7 @@ class _AccountabilityEventScreenState extends ConsumerState<AccountabilityEventS
     };
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navAccountability)),
+      appBar: AppBar(title: Text(l.navAccountability), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(

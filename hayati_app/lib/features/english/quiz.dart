@@ -84,7 +84,7 @@ class _QuizRunnerState extends State<QuizRunner> {
                 const SizedBox(height: Space.s),
                 Directionality(
                   textDirection: TextDirection.ltr,
-                  child: Text(passage.text, style: t.bodyLarge?.copyWith(fontFamily: 'Inter')),
+                  child: Text(passage.text, style: t.bodyLarge?.copyWith(fontFamily: 'Readex')),
                 ),
               ]),
             ),
@@ -92,7 +92,7 @@ class _QuizRunnerState extends State<QuizRunner> {
           ],
           Directionality(
             textDirection: TextDirection.ltr,
-            child: Text(_q.prompt, style: t.titleLarge?.copyWith(fontFamily: 'Inter')),
+            child: Text(_q.prompt, style: t.titleLarge?.copyWith(fontFamily: 'Readex')),
           ),
           const SizedBox(height: Space.l),
           for (var i = 0; i < _q.options.length; i++)
@@ -120,7 +120,7 @@ class _QuizRunnerState extends State<QuizRunner> {
                         color: border(i) ?? context.status.inactive,
                       ),
                       const SizedBox(width: Space.m),
-                      Expanded(child: Text(_q.options[i], style: t.titleMedium?.copyWith(fontFamily: 'Inter'))),
+                      Expanded(child: Text(_q.options[i], style: t.titleMedium?.copyWith(fontFamily: 'Readex'))),
                     ]),
                   ),
                 ),

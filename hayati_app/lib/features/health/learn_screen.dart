@@ -10,6 +10,7 @@ import '../../domain/fitness/programs.dart' show Audience;
 import '../../domain/health_articles.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 IconData _audienceIcon(Audience a) => switch (a) {
       Audience.female => Icons.female,
@@ -30,7 +31,7 @@ class LearnScreen extends ConsumerWidget {
     final list = articlesFor(ref.watch(settingsProvider));
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.healthLearn)),
+      appBar: AppBar(title: Text(l.healthLearn), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl), children: [
@@ -71,10 +72,10 @@ class ArticleScreen extends ConsumerWidget {
     final lang = l.localeName;
     final a = articleById(id);
     if (a == null || !articlesFor(ref.watch(settingsProvider)).contains(a)) {
-      return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.articleUnavailable));
+      return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.articleUnavailable));
     }
     return Scaffold(
-      appBar: AppBar(title: Text(a.title(lang))),
+      appBar: AppBar(title: Text(a.title(lang)), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 680,
         // Short pages: built whole, so the sources at the end are always there.

@@ -11,6 +11,7 @@ import '../../core/utils/dates.dart';
 import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/app_data.dart';
+import '../../data/auth.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/fitness.dart';
 import '../../data/models/goal.dart';
@@ -29,6 +30,7 @@ import '../../domain/nutrition/summary.dart';
 import '../../domain/prayer_times.dart';
 import '../../domain/womens/cycle.dart';
 import '../../l10n/app_localizations.dart';
+import '../auth/guest_locked_screen.dart' show GuestCard;
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
@@ -122,6 +124,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(Space.gutter, Space.xs, Space.gutter, 112),
           children: [
+            if (ref.watch(authProvider).user?.guest ?? false) ...[const GuestCard(), const SizedBox(height: Space.l)],
             SegmentedButton<HomeView>(
               showSelectedIcon: false,
               segments: [

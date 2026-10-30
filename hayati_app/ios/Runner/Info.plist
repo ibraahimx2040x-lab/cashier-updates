@@ -7,11 +7,11 @@
 		<key>NSPhotoLibraryUsageDescription</key>
 		<string>لاختيار صورة وجبة. الصورة تبقى على جهازك.</string>
 		<key>NSFaceIDUsageDescription</key>
-		<string>لفتح الأقسام الصحية المقفولة في حياتي، إذا شغّلت القفل.</string>
+		<string>لفتح الأقسام الصحية المقفولة في سند، إذا شغّلت القفل.</string>
 		<key>NSHealthShareUsageDescription</key>
-		<string>يقرأ حياتي من تطبيق الصحة ما تختاره فقط: الخطوات والنوم ونبض الراحة والتمارين والوزن والضغط، ليعرض نشاطك وأهدافك. لا يكتب فيه شيئًا.</string>
+		<string>يقرأ سند من تطبيق الصحة ما تختاره فقط: الخطوات والنوم ونبض الراحة والتمارين والوزن والضغط، ليعرض نشاطك وأهدافك. لا يكتب فيه شيئًا.</string>
 		<key>NSHealthUpdateUsageDescription</key>
-		<string>حياتي لا يكتب في تطبيق الصحة.</string>
+		<string>سند لا يكتب في تطبيق الصحة.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>
 		<string>Used only when you choose "Use my location" to calculate prayer times.</string>
 		<key>CFBundleLocalizations</key>
@@ -24,7 +24,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>حياتي</string>
+		<string>سند</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>

@@ -10,6 +10,7 @@ import '../../data/models/health.dart';
 import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 20 — each assistant capability is a separate, revocable grant.
 /// Disabling the assistant never disables the rest of the app.
@@ -46,7 +47,7 @@ class AssistantSettingsScreen extends ConsumerWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.assistantSettings)),
+      appBar: AppBar(title: Text(l.assistantSettings), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.only(bottom: Space.xxl), children: [

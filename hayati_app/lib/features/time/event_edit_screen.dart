@@ -13,6 +13,7 @@ import '../../domain/day_schedule.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 import '../../widgets/device_notifications_card.dart';
 import 'day_overview.dart';
 
@@ -39,7 +40,12 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
   late int _start = _orig == null ? _defaultStart() : _orig.start.hour * 60 + _orig.start.minute;
   late int _end = _orig == null ? _start + 60 : _orig.end.hour * 60 + _orig.end.minute;
   late int? _reminder = _orig?.reminderMinutesBefore;
-  bool _dirty = false;
+  bool _isDirty = false;
+  bool get _dirty => _isDirty;
+  set _dirty(bool v) {
+    _isDirty = v;
+    UnsavedGuard.mark(this, v);
+  }
 
   int _defaultStart() {
     final n = DateTime.now();
@@ -48,6 +54,7 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
 
   @override
   void dispose() {
+    UnsavedGuard.mark(this, false);
     _title.dispose();
     _location.dispose();
     _notes.dispose();
@@ -120,8 +127,7 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
                     if (context.mounted) context.pop();
                   }
                 },
-              ),
-          ],
+              ), const HomeLogoButton()],
         ),
         body: Form(
           key: _form,

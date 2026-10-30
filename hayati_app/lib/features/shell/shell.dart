@@ -20,7 +20,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/device_notifications.dart';
 import '../../services/health_lock.dart';
 import '../../widgets/common.dart';
-import '../auth/splash_screen.dart' show HayatiLogo;
+import '../../widgets/brand.dart';
 import '../settings/sex_dialog.dart';
 import 'quick_add.dart';
 
@@ -129,7 +129,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
   void _maybeAskSex() {
     final s = ref.read(settingsProvider);
     final sync = ref.read(syncProvider);
-    if (_askingSex || s.sex != null || !sync.ready || sync.phase == SyncPhase.syncing) return;
+    if (_askingSex || s.sex != null || !sync.ready || sync.phase == SyncPhase.syncing || (ref.read(authProvider).user?.guest ?? false)) return;
     final fromSignUp = ref.read(authProvider).user?.sex;
     if (fromSignUp != null) {
       _askingSex = true;
@@ -234,7 +234,7 @@ class _Sidebar extends ConsumerWidget {
                 padding: const EdgeInsets.fromLTRB(Space.xl, 0, Space.xl, Space.l),
                 child: Row(
                   children: [
-                    HayatiLogo(size: 28, color: scheme.primary),
+                    SanadMark(size: 28, color: scheme.primary),
                     const SizedBox(width: Space.s),
                     Text(l.appName, style: Theme.of(context).textTheme.titleLarge?.copyWith(color: scheme.primary)),
                   ],

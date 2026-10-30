@@ -10,6 +10,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/health_lock.dart';
 import '../../widgets/common.dart';
 import 'womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 48 — health privacy: the lock, keeping women's health off the
 /// home screen, neutral reminders, keeping cycle data on this device only,
@@ -29,7 +30,7 @@ class HealthPrivacyScreen extends ConsumerWidget {
     void up(HealthSettings Function(HealthSettings) f) => data.updateHealth(f);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.healthPrivacy)),
+      appBar: AppBar(title: Text(l.healthPrivacy), actions: const [HomeLogoButton()]),
       body: HealthLockGate(
         child: ResponsiveContainer(
           maxWidth: 720,
