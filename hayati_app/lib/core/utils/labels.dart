@@ -342,6 +342,8 @@ extension Labels on AppLocalizations {
         'create_goal' => toolCreateGoal,
         'add_milestones' => toolAddMilestones,
         'delete_task' => toolDeleteTask,
+        'log_water' => toolLogWater,
+        'add_appointment' => toolAddAppointment,
         _ => tool,
       };
 

@@ -10,7 +10,9 @@ import '../day_timeline.dart';
 import '../fitness/exercises.dart';
 import '../fitness/plan_generator.dart';
 import '../learning/path.dart';
+import '../activity.dart';
 import '../metrics.dart';
+import '../nutrition/summary.dart';
 import '../planner.dart';
 import 'tools.dart';
 
@@ -53,6 +55,7 @@ class AssistantContext {
         fitness = p.shareFitness ? d.settings.fitness : null,
         gymPlan = p.shareFitness ? d.activePlan(WorkoutPlace.gym) : null,
         learning = p.shareLearning ? d : null,
+        health = p.shareActivity || p.shareNutrition || p.shareSleep || p.shareVitals ? _healthOnly(d, p) : null,
         perms = p,
         _data = d;
 
@@ -68,6 +71,20 @@ class AssistantContext {
 
   /// Learning data, when shared.
   final AppData? learning;
+
+  /// Health data cut down to what the user shares (spec 6); cycle data is
+  /// never included.
+  final AppData? health;
+
+  static AppData _healthOnly(AppData d, AssistantPermissions p) => AppData(
+        settings: d.settings,
+        activity: p.shareActivity ? d.activity : const [],
+        foodLogs: p.shareNutrition ? d.foodLogs : const [],
+        water: p.shareNutrition ? d.water : const [],
+        sleep: p.shareSleep ? d.sleep : const [],
+        checkins: p.shareSleep ? d.checkins : const [],
+        bodyMetrics: p.shareVitals ? d.bodyMetrics : const [],
+      );
   final AssistantPermissions perms;
   final AppData _data;
 
@@ -96,6 +113,16 @@ class LocalAssistantEngine {
     if (t.isEmpty) return EngineReply(l.aiUnsupported, kind: MessageKind.info);
 
     if (_has(t, const ['متاخر', 'المتاخره', 'overdue', 'late tasks'])) return _overdue(ctx, now);
+    // Health (spec 6), before the general "add / log" intents.
+    if (_has(t, const ['ماء', 'مويه', 'موية', 'water'])) return _logWater(t, ctx, now);
+    if (_has(t, const ['كم مشيت', 'كم خطوه', 'كم خطوة', 'خطواتي', 'how many steps', 'how much did i walk', 'my steps'])) {
+      return _steps(ctx, now);
+    }
+    if (_has(t, const ['وش اكلت', 'ايش اكلت', 'ماذا اكلت', 'شو اكلت', 'what did i eat', 'what have i eaten'])) return _food(ctx, now);
+    if (_has(t, const ['موعد طبيب', 'موعد دكتور', 'موعد عند الطبيب', 'موعد مستشفى', 'موعد عياده', 'doctor appointment', 'doctor\'s appointment',
+        'appointment with'])) {
+      return _appointment(input, ctx, now);
+    }
     // "I'm late, rearrange the rest of my day": the plan always starts
     // from now, so re-planning is the answer.
     if (_has(t, const ['خطط', 'خطه يومي', 'رتب يومي', 'بقيه يومي', 'تاخرت', 'plan my day', 'plan today', 'plan the day',
@@ -145,6 +172,58 @@ class LocalAssistantEngine {
   }
 
   // ------------------------------------------------------------- intents
+
+  /// "How much did I walk today?": steps against the goal, from the source
+  /// that counts.
+  EngineReply _steps(AssistantContext ctx, DateTime now) {
+    final d = ctx.health;
+    if (d == null || !ctx.perms.shareActivity) return EngineReply(l.aiNeedsSharing(l.navActivity), kind: MessageKind.info);
+    final day = activityDay(d, dayKey(now));
+    final goal = d.settings.health.stepGoal;
+    if (!day.hasData) return EngineReply(l.aiNoStepsYet, kind: MessageKind.info);
+    final left = goal - day.steps;
+    return EngineReply(left > 0 ? l.aiStepsToday(day.steps, goal, left) : l.aiStepsGoalMet(day.steps, goal), kind: MessageKind.info);
+  }
+
+  /// "Log a glass of water": 250 ml today (or the amount said in ml).
+  EngineReply _logWater(String t, AssistantContext ctx, DateTime now) {
+    if (!ctx.perms.shareNutrition) return EngineReply(l.aiNeedsSharing(l.navNutrition), kind: MessageKind.info);
+    final ml = RegExp(r'(\d{2,4})\s*(مل|ml)').firstMatch(t);
+    final amount = (ml == null ? 250 : int.parse(ml.group(1)!)).clamp(50, 1000);
+    return EngineReply(
+      l.aiWaterLogged(amount),
+      calls: [ToolCall(Tools.logWater, {'day': dayKey(now), 'ml': amount})],
+      reason: l.aiReasonWater,
+    );
+  }
+
+  /// "What did I eat today?": the day's foods and estimated totals.
+  EngineReply _food(AssistantContext ctx, DateTime now) {
+    final d = ctx.health;
+    if (d == null || !ctx.perms.shareNutrition) return EngineReply(l.aiNeedsSharing(l.navNutrition), kind: MessageKind.info);
+    final day = nutritionDay(d, dayKey(now));
+    if (day.items == 0) return EngineReply(l.foodNoneYet, kind: MessageKind.info);
+    final names = [for (final list in day.byMeal.values) for (final f in list) f.name];
+    return EngineReply(
+      '${l.aiFoodToday(day.total.kcal.round(), day.waterMl)}\n${names.map((n) => '• $n').join('\n')}',
+      kind: MessageKind.info,
+    );
+  }
+
+  /// "I have a doctor's appointment on Thursday": proposes it, to approve.
+  EngineReply _appointment(String raw, AssistantContext ctx, DateTime now) {
+    final parsed = parseTaskRequest(raw, now);
+    final day = weekdayIn(normalize(raw), now) ?? (parsed.dueDate == null ? null : parseDayKey(parsed.dueDate!));
+    if (day == null) return EngineReply(l.aiAppointmentWhen, kind: MessageKind.info);
+    final at = atMinutes(day, parsed.dueTime ?? 9 * 60);
+    final title = l.aiAppointmentTitle;
+    return EngineReply(
+      l.aiAppointmentReady(title),
+      calls: [ToolCall(Tools.addAppointment, {'title': title, 'at': at.toUtc().toIso8601String()})],
+      reason: l.aiReasonAppointment,
+      warnings: [if (at.isBefore(now)) l.aiTimeInPast, if (parsed.dueTime == null) l.aiAppointmentNoTime],
+    );
+  }
 
   /// A home version of today's gym workout, saying plainly which
   /// exercises have no real home equivalent.
@@ -450,6 +529,26 @@ class ParsedTask {
 /// Extracts title, day, time, duration and urgency from e.g.
 /// «أضف مهمة مراجعة الإنجليزية غدًا الساعة 8 مساءً» or
 /// "add task review English tomorrow at 8pm".
+/// The next date (today included) of a weekday named in [norm], if any.
+DateTime? weekdayIn(String norm, DateTime now) {
+  const names = {
+    DateTime.monday: ['الاثنين', 'الاتنين', 'monday'],
+    DateTime.tuesday: ['الثلاثاء', 'الثلاثا', 'tuesday'],
+    DateTime.wednesday: ['الاربعاء', 'الاربعا', 'wednesday'],
+    DateTime.thursday: ['الخميس', 'thursday'],
+    DateTime.friday: ['الجمعه', 'friday'],
+    DateTime.saturday: ['السبت', 'saturday'],
+    DateTime.sunday: ['الاحد', 'sunday'],
+  };
+  for (final e in names.entries) {
+    if (e.value.any((n) => norm.contains(normalize(n)))) {
+      final today = dateOnly(now);
+      return today.add(Duration(days: (e.key - today.weekday + 7) % 7));
+    }
+  }
+  return null;
+}
+
 ParsedTask parseTaskRequest(String raw, DateTime now) {
   var text = raw.replaceAllMapped(RegExp('[٠-٩]'), (m) => '${m[0]!.codeUnitAt(0) - 0x660}');
   final norm = normalize(text);

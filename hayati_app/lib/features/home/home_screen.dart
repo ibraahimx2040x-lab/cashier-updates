@@ -722,6 +722,7 @@ class _Timeline extends StatelessWidget {
               TimelineKind.task => scheme.secondary,
               TimelineKind.workout => context.status.success,
               TimelineKind.lesson => context.status.info,
+              TimelineKind.walk => context.status.success,
               TimelineKind.work => context.status.warning,
               TimelineKind.rest => context.status.inactive,
             };
@@ -733,6 +734,7 @@ class _Timeline extends StatelessWidget {
                   TimelineKind.task => () => context.push(Routes.task(it.refId!)),
                   TimelineKind.workout => () => context.push(Routes.fitness),
                   TimelineKind.lesson => () => context.push(Routes.lesson(it.refId!)),
+                  TimelineKind.walk => () => context.push(Routes.activity),
                   TimelineKind.event => () => context.push(Routes.event(it.refId!)),
                   TimelineKind.prayer => () => context.push(Routes.prayer),
                   _ => null,
@@ -800,6 +802,7 @@ IconData iconFor(TimelineItem it) => switch (it.kind) {
       TimelineKind.task => Icons.check_circle_outline,
       TimelineKind.workout => Icons.fitness_center,
       TimelineKind.lesson => Icons.translate,
+      TimelineKind.walk => Icons.directions_walk,
       TimelineKind.work => Icons.work_outline,
       TimelineKind.rest => Icons.free_breakfast_outlined,
     };
@@ -808,6 +811,7 @@ String itemTitle(AppLocalizations l, TimelineItem it) => switch (it.kind) {
       TimelineKind.prayer => l.prayerName(it.prayer!),
       TimelineKind.workout => l.todaysWorkout(l.dayFocus(it.focus!)),
       TimelineKind.lesson => l.englishLessonItem(lessonById(it.refId!)?.title(l.localeName) ?? ''),
+      TimelineKind.walk => l.walkItem(walkMinutes),
       TimelineKind.work => l.workBlock,
       TimelineKind.rest => l.restBlock,
       _ => it.title ?? '',

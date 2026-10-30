@@ -1,14 +1,16 @@
 import '../core/utils/dates.dart';
 import '../data/app_data.dart';
 import '../data/models/fitness.dart';
+import '../data/models/health.dart';
 import '../data/models/prayer.dart';
 import '../data/models/task.dart';
+import 'activity.dart';
 import 'fitness/today.dart';
 import 'learning/path.dart';
 import 'planner.dart';
 import 'prayer_times.dart';
 
-enum TimelineKind { prayer, event, task, workout, lesson, work, rest }
+enum TimelineKind { prayer, event, task, workout, lesson, walk, work, rest }
 
 /// One row of "today's schedule" on the home screen.
 class TimelineItem {
@@ -88,10 +90,16 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
   final lessonTask = lesson == null
       ? null
       : Task(id: '$_lessonPrefix${lesson.id}', title: '', estimatedMinutes: lesson.minutes, createdAt: now, updatedAt: now);
+  // A short walk when today's steps are behind the goal (spec 6): only a
+  // suggestion in free time, never added to the user's tasks.
+  final h = d.settings.health;
+  final walkTask = h.has(HealthModule.activity) && activityDay(d, dayKey(today)).steps < h.stepGoal
+      ? Task(id: _walkId, title: '', estimatedMinutes: walkMinutes, createdAt: now, updatedAt: now)
+      : null;
   final plan = planner.plan(
     day: today,
     now: now,
-    tasks: [...d.tasks, ?workoutTask, ?lessonTask],
+    tasks: [...d.tasks, ?workoutTask, ?lessonTask, ?walkTask],
     events: [
       ...d.events,
       // Treat user-planned tasks as busy time so suggestions don't overlap.
@@ -136,6 +144,8 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
           focus: workout!.$2.focus,
           suggested: true,
         )
+      else if (p.task.id == _walkId)
+        TimelineItem(kind: TimelineKind.walk, start: p.start, end: p.end, suggested: true)
       else if (p.task.id.startsWith(_lessonPrefix))
         TimelineItem(
           kind: TimelineKind.lesson,
@@ -173,6 +183,10 @@ DayTimeline buildTimeline(AppData d, DateTime now, {Planner planner = const Plan
 }
 
 const _workoutPrefix = 'workout:';
+const _walkId = 'walk:';
+
+/// Length of the suggested walk.
+const walkMinutes = 10;
 const _lessonPrefix = 'lesson:';
 
 TimelineItem _taskItem(Task t, DateTime start, DateTime end, {required bool suggested, bool estimated = false}) =>

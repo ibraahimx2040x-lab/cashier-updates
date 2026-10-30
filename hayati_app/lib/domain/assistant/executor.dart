@@ -4,6 +4,7 @@ import '../../data/models/assistant.dart';
 import '../../data/models/goal.dart';
 import '../../data/models/misc.dart';
 import '../../data/models/task.dart';
+import '../../data/models/womens.dart';
 import 'tools.dart';
 
 enum ExecOutcome { executed, alreadyExecuted, stale, invalid, failed, notPending }
@@ -119,6 +120,16 @@ class AssistantExecutor {
         data.saveTask(t.copyWith(dueDate: () => a['dueDate'] as String));
       case Tools.deleteTask:
         data.deleteTask(a['taskId'] as String);
+      case Tools.logWater:
+        data.addWater((a['day'] as String?) ?? dayKey(now()), a['ml'] as int);
+      case Tools.addAppointment:
+        data.saveAppointment(HealthAppointment(
+          id: newId(),
+          title: (a['title'] as String).trim(),
+          at: DateTime.parse(a['at'] as String).toLocal(),
+          reminderMinutes: 60,
+          updatedAt: now(),
+        ));
       case Tools.addMilestones:
         final g = data.snapshot.goal(a['goalId'] as String)!;
         final existing = data.snapshot.milestonesOf(g.id);

@@ -6,6 +6,7 @@ import '../../core/theme/app_theme.dart';
 import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/data_controller.dart';
+import '../../data/models/health.dart';
 import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
@@ -73,6 +74,13 @@ class AssistantSettingsScreen extends ConsumerWidget {
           sw(l.navExpenses, l.shareSub, p.shareExpenses, (v) => up((x) => x.copyWith(shareExpenses: v))),
           sw(l.navFitness, l.shareSub, p.shareFitness, (v) => up((x) => x.copyWith(shareFitness: v))),
           sw(l.navEnglish, l.shareSub, p.shareLearning, (v) => up((x) => x.copyWith(shareLearning: v))),
+          header(l.healthSharing, l.healthSharingSub),
+          sw(l.navActivity, l.shareActivitySub, p.shareActivity, (v) => up((x) => x.copyWith(shareActivity: v))),
+          sw(l.navNutrition, l.shareNutritionSub, p.shareNutrition, (v) => up((x) => x.copyWith(shareNutrition: v))),
+          sw(l.sleepAndRecovery, l.shareSleepSub, p.shareSleep, (v) => up((x) => x.copyWith(shareSleep: v))),
+          sw(l.vitals, l.shareVitalsSub, p.shareVitals, (v) => up((x) => x.copyWith(shareVitals: v))),
+          if (ref.watch(settingsProvider).sex == Sex.female)
+            sw(l.navWomens, l.shareCycleSub, p.shareCycle, (v) => up((x) => x.copyWith(shareCycle: v))),
           header(l.privacyRetention),
           ListTile(
             title: Text(l.keepChats),

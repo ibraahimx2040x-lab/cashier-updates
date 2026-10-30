@@ -7,8 +7,10 @@ import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
 import '../../core/utils/dates.dart';
 import '../../core/utils/format.dart';
+import '../../core/utils/labels.dart';
 import '../../data/app_data.dart';
 import '../../data/data_controller.dart';
+import '../../domain/health_report.dart';
 import '../../domain/metrics.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
@@ -117,6 +119,18 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
                 ]),
               ),
             ],
+            if (HealthReport.build(d, from, to, now) case final hr when !hr.isEmpty) ...[
+              const SizedBox(height: Space.xl),
+              SectionHeader(l.healthThisPeriod),
+              AppCard(
+                child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                  if (hr.goalDays != null) _HealthLine(Icons.directions_walk, l.reportStepGoal(hr.goalDays!, hr.stepDays)),
+                  if (hr.sleepAvg != null) _HealthLine(Icons.bedtime_outlined, l.reportSleep(l.durationText(hr.sleepAvg!), hr.sleepNights)),
+                  if (hr.foodDays > 0) _HealthLine(Icons.restaurant_outlined, l.reportFood(hr.foodDays, fmt.number(hr.kcalAvg ?? 0))),
+                  if (hr.waterAvg != null) _HealthLine(Icons.water_drop_outlined, l.waterAverage(fmt.number(hr.waterAvg!))),
+                ]),
+              ),
+            ],
             if (r.highlights.isNotEmpty) ...[
               const SizedBox(height: Space.xl),
               SectionHeader(l.highlights),
@@ -157,6 +171,22 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
     if (rate >= 0.5) return l.obsHalf;
     return l.obsFew;
   }
+}
+
+class _HealthLine extends StatelessWidget {
+  const _HealthLine(this.icon, this.text);
+  final IconData icon;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+        padding: const EdgeInsets.symmetric(vertical: Space.xs),
+        child: Row(children: [
+          Icon(icon, size: 20, color: Theme.of(context).colorScheme.primary),
+          const SizedBox(width: Space.m),
+          Expanded(child: Text(text)),
+        ]),
+      );
 }
 
 class _StatCard extends StatelessWidget {

@@ -301,6 +301,22 @@ class AppLocalizationsEn extends AppLocalizations {
   String get agreePrefix => 'I agree to the ';
 
   @override
+  String get aiAppointmentNoTime =>
+      'No time given: set for 9:00, change it after';
+
+  @override
+  String aiAppointmentReady(String title) {
+    return '“$title” is ready to add to your health appointments.';
+  }
+
+  @override
+  String get aiAppointmentTitle => 'Doctor appointment';
+
+  @override
+  String get aiAppointmentWhen =>
+      'When is it? For example: “doctor appointment on Thursday at 10”.';
+
+  @override
   String aiAskAmPm(int hour) {
     return 'Do you mean $hour in the morning or in the evening?';
   }
@@ -364,6 +380,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aiFailed =>
       'Something went wrong and I couldn\'t answer. Your message is kept — try again.';
+
+  @override
+  String aiFoodToday(int kcal, int water) {
+    return 'Today: about $kcal kcal and $water ml of water.';
+  }
 
   @override
   String aiFreeTime(int minutes) {
@@ -472,6 +493,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'There\'s no free slot left today; tomorrow is fine — the path waits for you.';
 
   @override
+  String get aiNoStepsYet => 'No steps recorded today yet.';
+
+  @override
   String get aiNoteEmpty => 'What should the note say?';
 
   @override
@@ -504,6 +528,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get aiReasonAppointment => 'You mentioned an appointment';
+
+  @override
   String get aiReasonGoal =>
       'You asked for a learning goal with regular practice.';
 
@@ -530,6 +557,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get aiReasonTask => 'You asked to add a task.';
+
+  @override
+  String get aiReasonWater => 'You asked to log water';
 
   @override
   String get aiRefused =>
@@ -580,6 +610,16 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String aiStepsGoalMet(int steps, int goal) {
+    return '$steps steps today: your goal of $goal is reached.';
+  }
+
+  @override
+  String aiStepsToday(int steps, int goal, int left) {
+    return '$steps steps today, $left to your goal of $goal.';
+  }
+
+  @override
   String get aiTaskNoTitle =>
       'What\'s the task? For example: “Add task review English tomorrow at 8 pm”.';
 
@@ -594,6 +634,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get aiUnsupported =>
       'I can\'t do that yet. I can plan your day, sort overdue tasks, add tasks or notes, log habits, break a goal into milestones, or review your week.';
+
+  @override
+  String aiWaterLogged(int ml) {
+    return 'Logging $ml ml of water for today.';
+  }
 
   @override
   String get allCategories => 'All categories';
@@ -2385,6 +2430,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healthSetup => 'Health setup';
 
   @override
+  String get healthSharing => 'Health';
+
+  @override
+  String get healthSharingSub =>
+      'Summaries only. Measurements and the cycle are off until you turn them on.';
+
+  @override
+  String get healthThisPeriod => 'Health';
+
+  @override
   String heartDaysN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4067,6 +4122,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get repeatDays => 'Days';
 
   @override
+  String reportFood(int days, String kcal) {
+    return 'Food logged on $days days, about $kcal kcal a day';
+  }
+
+  @override
   String get reportNoData => 'Not enough data for this period yet.';
 
   @override
@@ -4082,6 +4142,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get reportSaved =>
       'Report saved. It will be sent when the support service is connected.';
+
+  @override
+  String reportSleep(String avg, int nights) {
+    return 'Slept $avg on average ($nights nights recorded)';
+  }
+
+  @override
+  String reportStepGoal(int days, int total) {
+    return 'Step goal reached $days of $total days';
+  }
 
   @override
   String get repsLabel => 'Reps';
@@ -4320,10 +4390,25 @@ class AppLocalizationsEn extends AppLocalizations {
       'Used only to tailor the health sections. You can change it from your profile.';
 
   @override
+  String get shareActivitySub => 'Steps and active minutes of the last 7 days';
+
+  @override
+  String get shareCycleSub => 'Not used by the assistant yet; stays private';
+
+  @override
   String get shareNotesSub => 'Off by default';
 
   @override
+  String get shareNutritionSub => 'Daily food totals and water, no photos';
+
+  @override
+  String get shareSleepSub => 'Sleep length and how rested you felt';
+
+  @override
   String get shareSub => 'Used to plan and summarize';
+
+  @override
+  String get shareVitalsSub => 'Weight, blood pressure and other measurements';
 
   @override
   String get showActive => 'Show active';
@@ -4794,6 +4879,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get tomorrow => 'Tomorrow';
 
   @override
+  String get toolAddAppointment => 'Add health appointment';
+
+  @override
   String get toolAddMilestones => 'Add milestones';
 
   @override
@@ -4810,6 +4898,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get toolLogHabit => 'Log habit';
+
+  @override
+  String get toolLogWater => 'Log water';
 
   @override
   String get toolMoveTask => 'Change deadline';
@@ -4942,6 +5033,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String vsLastMonth(String amount) {
     return 'Last month: $amount';
+  }
+
+  @override
+  String walkItem(int minutes) {
+    return 'A $minutes-minute walk';
   }
 
   @override
