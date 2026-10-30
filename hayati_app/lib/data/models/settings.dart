@@ -168,6 +168,55 @@ class AssistantPermissions {
   }
 }
 
+/// Sections that can send notifications (v4 change 14). Prayer, movement,
+/// bedtime and the cycle keep their own switches where they are set up.
+enum NotifySection { tasks, events, habits, goals, fitness, water, learning, money }
+
+/// Which sections may notify, and at what time of day for the ones that
+/// remind on a schedule rather than at an item's own time.
+class NotificationPrefs {
+  const NotificationPrefs({this.off = const {NotifySection.water}, this.times = const {}});
+
+  final Set<NotifySection> off;
+
+  /// Minutes after midnight, per section; [defaultTime] otherwise.
+  final Map<NotifySection, int> times;
+
+  static const defaultTime = {
+    NotifySection.goals: 9 * 60,
+    NotifySection.fitness: 18 * 60,
+    NotifySection.water: 13 * 60,
+    NotifySection.learning: 20 * 60,
+    NotifySection.money: 9 * 60,
+  };
+
+  /// Sections whose reminders follow each item's own time (no daily time).
+  static const itemTimed = {NotifySection.tasks, NotifySection.events, NotifySection.habits};
+
+  bool on(NotifySection s) => !off.contains(s);
+  int timeOf(NotifySection s) => times[s] ?? defaultTime[s] ?? 9 * 60;
+
+  NotificationPrefs copyWith({Set<NotifySection>? off, Map<NotifySection, int>? times}) =>
+      NotificationPrefs(off: off ?? this.off, times: times ?? this.times);
+
+  Map<String, Object?> toJson() => {
+        'off': [for (final s in off) s.name],
+        'times': {for (final e in times.entries) e.key.name: e.value},
+      };
+
+  factory NotificationPrefs.fromJson(Map<String, Object?>? j) {
+    if (j == null) return const NotificationPrefs();
+    NotifySection? byName(Object? n) => NotifySection.values.where((s) => s.name == n).firstOrNull;
+    return NotificationPrefs(
+      off: {for (final n in (j['off'] as List?) ?? const []) ?byName(n)},
+      times: {
+        for (final e in ((j['times'] as Map?) ?? const {}).entries)
+          if (byName(e.key) != null && e.value is int) byName(e.key)!: e.value as int,
+      },
+    );
+  }
+}
+
 class UserSettings {
   const UserSettings({
     this.displayName = '',
@@ -197,6 +246,7 @@ class UserSettings {
     this.fitness,
     this.sex,
     this.health = const HealthSettings(),
+    this.notify = const NotificationPrefs(),
   });
 
   final String displayName;
@@ -226,6 +276,7 @@ class UserSettings {
   /// Chosen at sign-up; null only for accounts made before it was asked.
   final Sex? sex;
   final HealthSettings health;
+  final NotificationPrefs notify;
 
   bool has(AppModule m) => modules.contains(m);
 
@@ -251,6 +302,7 @@ class UserSettings {
     FitnessProfile? Function()? fitness,
     Sex? sex,
     HealthSettings? health,
+    NotificationPrefs? notify,
   }) =>
       UserSettings(
         displayName: displayName ?? this.displayName,
@@ -274,6 +326,7 @@ class UserSettings {
         fitness: fitness != null ? fitness() : this.fitness,
         sex: sex ?? this.sex,
         health: health ?? this.health,
+        notify: notify ?? this.notify,
       );
 
   Map<String, Object?> toJson() => {
@@ -298,6 +351,7 @@ class UserSettings {
         'fitness': fitness?.toJson(),
         'sex': sex?.name,
         'health': health.toJson(),
+        'notify': notify.toJson(),
       };
 
   factory UserSettings.fromJson(Map<String, Object?> j) {
@@ -329,6 +383,7 @@ class UserSettings {
       fitness: FitnessProfile.fromJson((j['fitness'] as Map?)?.cast()),
       sex: Sex.values.where((x) => x.name == j['sex']).firstOrNull,
       health: HealthSettings.fromJson((j['health'] as Map?)?.cast()),
+      notify: NotificationPrefs.fromJson((j['notify'] as Map?)?.cast()),
     );
   }
 }

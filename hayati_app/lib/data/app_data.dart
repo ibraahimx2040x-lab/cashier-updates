@@ -1,4 +1,5 @@
 import 'models/accountability.dart';
+import 'models/alarm.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
@@ -48,6 +49,7 @@ class AppData {
     this.salaryRates = const [],
     this.incomes = const [],
     this.recurring = const [],
+    this.alarms = const [],
     this.notifications = const [],
     this.conversations = const [],
     this.messages = const [],
@@ -110,6 +112,7 @@ class AppData {
   final List<SalaryRate> salaryRates;
   final List<Income> incomes;
   final List<RecurringItem> recurring;
+  final List<Alarm> alarms;
   final List<AppNotification> notifications;
   final List<Conversation> conversations;
   final List<ChatMessage> messages;
@@ -203,6 +206,7 @@ class AppData {
     List<SalaryRate>? salaryRates,
     List<Income>? incomes,
     List<RecurringItem>? recurring,
+    List<Alarm>? alarms,
     List<AppNotification>? notifications,
     List<Conversation>? conversations,
     List<ChatMessage>? messages,
@@ -246,6 +250,7 @@ class AppData {
         salaryRates: salaryRates ?? this.salaryRates,
         incomes: incomes ?? this.incomes,
         recurring: recurring ?? this.recurring,
+        alarms: alarms ?? this.alarms,
         notifications: notifications ?? this.notifications,
         conversations: conversations ?? this.conversations,
         messages: messages ?? this.messages,
@@ -291,6 +296,7 @@ class AppData {
         'salaryRates': salaryRates.map((e) => e.toJson()).toList(),
         'incomes': incomes.map((e) => e.toJson()).toList(),
         'recurring': recurring.map((e) => e.toJson()).toList(),
+        'alarms': alarms.map((e) => e.toJson()).toList(),
         'notifications': notifications.map((e) => e.toJson()).toList(),
         'conversations': conversations.map((e) => e.toJson()).toList(),
         'messages': messages.map((e) => e.toJson()).toList(),
@@ -340,6 +346,7 @@ class AppData {
       salaryRates: list('salaryRates', SalaryRate.fromJson),
       incomes: list('incomes', Income.fromJson),
       recurring: list('recurring', RecurringItem.fromJson),
+      alarms: list('alarms', Alarm.fromJson),
       notifications: list('notifications', AppNotification.fromJson),
       conversations: list('conversations', Conversation.fromJson),
       messages: list('messages', ChatMessage.fromJson),

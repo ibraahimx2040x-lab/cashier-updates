@@ -422,6 +422,12 @@ abstract class AppLocalizations {
   /// **'In the browser steps can only be added by hand. Automatic counting works in the phone app.'**
   String get activityWebNote;
 
+  /// No description provided for @addAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an alarm'**
+  String get addAlarm;
+
   /// No description provided for @addAppointment.
   ///
   /// In en, this message translates to:
@@ -1081,6 +1087,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logging {ml} ml of water for today.'**
   String aiWaterLogged(int ml);
+
+  /// No description provided for @alarmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze or stop'**
+  String get alarmBody;
+
+  /// No description provided for @alarmDefaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm'**
+  String get alarmDefaultTitle;
+
+  /// No description provided for @alarmEveryDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get alarmEveryDay;
+
+  /// No description provided for @alarmExactNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'To ring on the minute, allow \"Alarms & reminders\" for Sanad in Android settings.'**
+  String get alarmExactNeeded;
+
+  /// No description provided for @alarmFor.
+  ///
+  /// In en, this message translates to:
+  /// **'For a task or appointment (optional)'**
+  String get alarmFor;
+
+  /// No description provided for @alarmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Label (optional)'**
+  String get alarmLabel;
+
+  /// No description provided for @alarmNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing'**
+  String get alarmNone;
+
+  /// No description provided for @alarmOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'Once'**
+  String get alarmOnce;
+
+  /// No description provided for @alarmRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get alarmRepeat;
+
+  /// No description provided for @alarmSnooze.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze'**
+  String get alarmSnooze;
+
+  /// No description provided for @alarmSnoozeFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze length'**
+  String get alarmSnoozeFor;
+
+  /// No description provided for @alarmSnoozed.
+  ///
+  /// In en, this message translates to:
+  /// **'Snoozed until {time}'**
+  String alarmSnoozed(String time);
+
+  /// No description provided for @alarmStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get alarmStop;
+
+  /// No description provided for @alarmTone.
+  ///
+  /// In en, this message translates to:
+  /// **'Tone'**
+  String get alarmTone;
+
+  /// No description provided for @alarmVibrate.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrate'**
+  String get alarmVibrate;
+
+  /// No description provided for @alarmsIosNote.
+  ///
+  /// In en, this message translates to:
+  /// **'On iPhone an alarm plays the system sound once, for up to 30 seconds.'**
+  String get alarmsIosNote;
+
+  /// No description provided for @alarmsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms'**
+  String get alarmsTitle;
+
+  /// No description provided for @alarmsWebNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms ring on the phone app. A browser can\'t ring when the page is closed.'**
+  String get alarmsWebNote;
 
   /// No description provided for @allCategories.
   ///
@@ -1838,6 +1952,12 @@ abstract class AppLocalizations {
   /// **'The chart shows once two months have records.'**
   String get chartNeedsData;
 
+  /// No description provided for @chartsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Charts'**
+  String get chartsTitle;
+
   /// No description provided for @checkAnswer.
   ///
   /// In en, this message translates to:
@@ -2462,6 +2582,12 @@ abstract class AppLocalizations {
   /// **'Permanently remove your account and data'**
   String get deleteAccountSub;
 
+  /// No description provided for @deleteAlarmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this alarm?'**
+  String get deleteAlarmTitle;
+
   /// No description provided for @deleteAllChats.
   ///
   /// In en, this message translates to:
@@ -2948,11 +3074,23 @@ abstract class AppLocalizations {
   /// **'due'**
   String get dueShort;
 
+  /// No description provided for @eachBarWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Each bar is a week'**
+  String get eachBarWeek;
+
   /// No description provided for @edit.
   ///
   /// In en, this message translates to:
   /// **'Edit'**
   String get edit;
+
+  /// No description provided for @editAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit alarm'**
+  String get editAlarm;
 
   /// No description provided for @editAppointment.
   ///
@@ -5324,11 +5462,53 @@ abstract class AppLocalizations {
   /// **'Umm al-Qura (Makkah)'**
   String get methodUmmAlQura;
 
+  /// No description provided for @metricHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits kept'**
+  String get metricHabits;
+
+  /// No description provided for @metricIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Income'**
+  String get metricIncome;
+
+  /// No description provided for @metricLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning sessions'**
+  String get metricLessons;
+
   /// No description provided for @metricOutOfRange.
   ///
   /// In en, this message translates to:
   /// **'Enter a number between {min} and {max}'**
   String metricOutOfRange(int min, int max);
+
+  /// No description provided for @metricSpending.
+  ///
+  /// In en, this message translates to:
+  /// **'Spending'**
+  String get metricSpending;
+
+  /// No description provided for @metricSteps.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps'**
+  String get metricSteps;
+
+  /// No description provided for @metricTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks done'**
+  String get metricTasks;
+
+  /// No description provided for @metricWorkouts.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get metricWorkouts;
 
   /// No description provided for @milestone.
   ///
@@ -5353,6 +5533,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{done}/{total} milestones'**
   String milestonesDone(int done, int total);
+
+  /// No description provided for @minutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} min'**
+  String minutesShort(int n);
 
   /// No description provided for @mkBloodPressure.
   ///
@@ -5930,6 +6116,18 @@ abstract class AppLocalizations {
   /// **'No active goals right now.'**
   String get noActiveGoals;
 
+  /// No description provided for @noAlarms.
+  ///
+  /// In en, this message translates to:
+  /// **'No alarms yet'**
+  String get noAlarms;
+
+  /// No description provided for @noAlarmsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'An alarm rings with sound until you stop or snooze it, unlike a quiet notification.'**
+  String get noAlarmsBody;
+
   /// No description provided for @noAppointments.
   ///
   /// In en, this message translates to:
@@ -6056,6 +6254,12 @@ abstract class AppLocalizations {
   /// **'None recorded yet.'**
   String get noPeriodsYet;
 
+  /// No description provided for @noPreviousPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded in the previous period to compare.'**
+  String get noPreviousPeriod;
+
   /// No description provided for @noProgressYet.
   ///
   /// In en, this message translates to:
@@ -6067,6 +6271,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Finish a workout or a program and your progress shows here.'**
   String get noProgressYetBody;
+
+  /// No description provided for @noRecordsPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing recorded'**
+  String get noRecordsPeriod;
 
   /// No description provided for @noReminder.
   ///
@@ -6163,6 +6373,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Not due'**
   String get notDue;
+
+  /// No description provided for @notEnoughForChart.
+  ///
+  /// In en, this message translates to:
+  /// **'Not enough records yet to draw a trend.'**
+  String get notEnoughForChart;
 
   /// No description provided for @notEnoughToCompare.
   ///
@@ -6290,11 +6506,71 @@ abstract class AppLocalizations {
   /// **'Upcoming: {title}'**
   String notifEventTitle(String title);
 
+  /// No description provided for @notifEventsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Before each appointment, as set on it'**
+  String get notifEventsSub;
+
+  /// No description provided for @notifFitnessSub.
+  ///
+  /// In en, this message translates to:
+  /// **'On workout days, until you log it'**
+  String get notifFitnessSub;
+
+  /// No description provided for @notifGoalSoon.
+  ///
+  /// In en, this message translates to:
+  /// **'“{goal}” is due in {days} days'**
+  String notifGoalSoon(String goal, int days);
+
+  /// No description provided for @notifGoalToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today is the date you set for “{goal}”'**
+  String notifGoalToday(String goal);
+
+  /// No description provided for @notifGoalsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Three days before a goal\'s date and on the day'**
+  String get notifGoalsSub;
+
   /// No description provided for @notifHabitTitle.
   ///
   /// In en, this message translates to:
   /// **'Habit reminder: {name}'**
   String notifHabitTitle(String name);
+
+  /// No description provided for @notifHabitsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'At each habit\'s reminder time'**
+  String get notifHabitsSub;
+
+  /// No description provided for @notifLearningSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Until you study that day'**
+  String get notifLearningSub;
+
+  /// No description provided for @notifLessonTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s lesson'**
+  String get notifLessonTitle;
+
+  /// No description provided for @notifMoneyDue.
+  ///
+  /// In en, this message translates to:
+  /// **'Due today: {title}'**
+  String notifMoneyDue(String title);
+
+  /// No description provided for @notifMoneySub.
+  ///
+  /// In en, this message translates to:
+  /// **'On the day a monthly expense or income is due'**
+  String get notifMoneySub;
 
   /// No description provided for @notifMoveBody.
   ///
@@ -6320,6 +6596,12 @@ abstract class AppLocalizations {
   /// **'Sanad reminder'**
   String get notifNeutralTitle;
 
+  /// No description provided for @notifOtherSections.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer, movement, bedtime and health reminders are set in their own sections.'**
+  String get notifOtherSections;
+
   /// No description provided for @notifPrayerSoon.
   ///
   /// In en, this message translates to:
@@ -6332,11 +6614,113 @@ abstract class AppLocalizations {
   /// **'Time for {name} prayer'**
   String notifPrayerTitle(String name);
 
+  /// No description provided for @notifSectionEvents.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointments'**
+  String get notifSectionEvents;
+
+  /// No description provided for @notifSectionFitness.
+  ///
+  /// In en, this message translates to:
+  /// **'Workouts'**
+  String get notifSectionFitness;
+
+  /// No description provided for @notifSectionGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get notifSectionGoals;
+
+  /// No description provided for @notifSectionHabits.
+  ///
+  /// In en, this message translates to:
+  /// **'Habits'**
+  String get notifSectionHabits;
+
+  /// No description provided for @notifSectionLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Language learning'**
+  String get notifSectionLearning;
+
+  /// No description provided for @notifSectionMoney.
+  ///
+  /// In en, this message translates to:
+  /// **'Money'**
+  String get notifSectionMoney;
+
+  /// No description provided for @notifSectionTasks.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks'**
+  String get notifSectionTasks;
+
+  /// No description provided for @notifSectionWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Water'**
+  String get notifSectionWater;
+
+  /// No description provided for @notifSettingsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn each section on or off, and pick when its daily reminder comes.'**
+  String get notifSettingsSub;
+
+  /// No description provided for @notifSettingsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What notifies you'**
+  String get notifSettingsTitle;
+
   /// No description provided for @notifTaskTitle.
   ///
   /// In en, this message translates to:
   /// **'Reminder: {title}'**
   String notifTaskTitle(String title);
+
+  /// No description provided for @notifTasksSub.
+  ///
+  /// In en, this message translates to:
+  /// **'At each task\'s own reminder time'**
+  String get notifTasksSub;
+
+  /// No description provided for @notifTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Time'**
+  String get notifTime;
+
+  /// No description provided for @notifWaterBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Have a glass and log it.'**
+  String get notifWaterBody;
+
+  /// No description provided for @notifWaterSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Once a day, until you reach your goal'**
+  String get notifWaterSub;
+
+  /// No description provided for @notifWaterTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time for some water'**
+  String get notifWaterTitle;
+
+  /// No description provided for @notifWorkoutBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{minutes} minutes · {place}'**
+  String notifWorkoutBody(int minutes, String place);
+
+  /// No description provided for @notifWorkoutTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Today\'s workout is waiting'**
+  String get notifWorkoutTitle;
 
   /// No description provided for @nowLabel.
   ///
@@ -8948,6 +9332,30 @@ abstract class AppLocalizations {
   /// **'Tomorrow'**
   String get tomorrow;
 
+  /// No description provided for @toneBells.
+  ///
+  /// In en, this message translates to:
+  /// **'Bells'**
+  String get toneBells;
+
+  /// No description provided for @toneChime.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime'**
+  String get toneChime;
+
+  /// No description provided for @toneDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn'**
+  String get toneDawn;
+
+  /// No description provided for @tonePulse.
+  ///
+  /// In en, this message translates to:
+  /// **'Pulse'**
+  String get tonePulse;
+
   /// No description provided for @toolAddAppointment.
   ///
   /// In en, this message translates to:
@@ -9217,6 +9625,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last month: {amount}'**
   String vsLastMonth(String amount);
+
+  /// No description provided for @vsPreviousPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'vs the previous period'**
+  String get vsPreviousPeriod;
 
   /// No description provided for @wakeTime.
   ///

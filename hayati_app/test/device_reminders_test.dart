@@ -3,6 +3,10 @@ import 'dart:ui';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hayati/data/app_data.dart';
 import 'package:hayati/data/models/goal.dart';
+import 'package:hayati/data/models/health.dart';
+import 'package:hayati/data/models/money.dart';
+import 'package:hayati/data/models/nutrition.dart';
+import 'package:hayati/data/models/settings.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/domain/device_reminders.dart';
 import 'package:hayati/l10n/app_localizations.dart';
@@ -58,5 +62,49 @@ void main() {
     expect(a.map((x) => x.id), b.map((x) => x.id));
     expect(a.map((x) => x.id).toSet().length, a.length);
     expect(stableId('x'), inInclusiveRange(0, 0x7fffffff));
+  });
+
+  group('section notifications (v4 change 14)', () {
+    test('a section switched off sends nothing; the others keep theirs', () {
+      final d = AppData(tasks: [task('t', reminder: now.add(const Duration(hours: 1)))]);
+      expect(planDeviceReminders(d, now, l), hasLength(1));
+      final off = d.copyWith(settings: const UserSettings(notify: NotificationPrefs(off: {NotifySection.tasks, NotifySection.water})));
+      expect(planDeviceReminders(off, now, l), isEmpty);
+    });
+
+    test('goals three days before and on the day, at the chosen time', () {
+      final g = Goal(id: 'g', title: 'نصف ماراثون', targetDate: '2026-03-14', createdAt: now, updatedAt: now);
+      final d = AppData(goals: [g], settings: const UserSettings(notify: NotificationPrefs(off: {}, times: {NotifySection.goals: 8 * 60})));
+      final r = planDeviceReminders(d, now, l).where((x) => x.route == '/goal/g').toList();
+      expect(r.map((x) => x.at), [DateTime(2026, 3, 11, 8), DateTime(2026, 3, 14, 8)]);
+    });
+
+    test('water only below the goal, and off unless turned on', () {
+      const health = HealthSettings(modules: {HealthModule.nutrition}, waterGoalMl: 2000);
+      final d = AppData(settings: const UserSettings(health: health));
+      expect(planDeviceReminders(d, now, l).where((x) => x.title == l.notifWaterTitle), isEmpty, reason: 'off by default');
+      final on = AppData(
+        settings: const UserSettings(health: health, notify: NotificationPrefs(off: {})),
+        water: const [WaterDay(id: 'w', day: '2026-03-10', ml: 2000)],
+      );
+      final r = planDeviceReminders(on, now, l).where((x) => x.title == l.notifWaterTitle).map((x) => x.at).toList();
+      expect(r, [DateTime(2026, 3, 11, 13)], reason: "today's goal is met; tomorrow's isn't yet");
+    });
+
+    test('a monthly expense on the day it is due', () {
+      final d = AppData(recurring: [
+        RecurringItem(id: 'rent', kind: RecurringKind.expense, amountMinor: 150000, currency: 'SAR', title: 'الإيجار', dayOfMonth: 11, startsOn: '2026-01-01', updatedAt: now),
+      ]);
+      final r = planDeviceReminders(d, now, l).where((x) => x.route == '/expenses').single;
+      expect((r.at, r.title, r.body), (DateTime(2026, 3, 11, 9), l.notifMoneyDue('الإيجار'), '1500 SAR'));
+    });
+
+    test('preferences round-trip and keep defaults', () {
+      const p = NotificationPrefs(off: {NotifySection.money}, times: {NotifySection.fitness: 1200});
+      final back = NotificationPrefs.fromJson(p.toJson());
+      expect((back.on(NotifySection.money), back.timeOf(NotifySection.fitness), back.timeOf(NotifySection.learning)), (false, 1200, 20 * 60));
+      expect(const NotificationPrefs().on(NotifySection.water), isFalse);
+      expect(UserSettings.fromJson(const UserSettings(notify: p).toJson()).notify.off, {NotifySection.money});
+    });
   });
 }

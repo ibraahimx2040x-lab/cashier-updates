@@ -10,13 +10,17 @@ import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/app_data.dart';
 import '../../data/data_controller.dart';
+import '../../data/models/health.dart';
+import '../../data/models/settings.dart';
 import '../../domain/health_report.dart';
 import '../../domain/metrics.dart';
+import '../../domain/progress_series.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/home_logo.dart';
+import 'metric_card.dart';
 
-enum Period { thisWeek, lastWeek, thisMonth }
+enum Period { today, thisWeek, thisMonth, custom }
 
 /// Screen 17 — progress and weekly report, computed only from recorded
 /// data. Every chart also has its numbers as text.
@@ -29,14 +33,34 @@ class ProgressScreen extends ConsumerStatefulWidget {
 
 class _ProgressScreenState extends ConsumerState<ProgressScreen> {
   Period _p = Period.thisWeek;
+  DateTimeRange? _custom;
 
   (DateTime, DateTime) _range(DateTime now, int weekStart) {
     final w = startOfWeek(now, weekStart);
+    final today = dateOnly(now);
     return switch (_p) {
+      Period.today => (today, today.add(const Duration(days: 1))),
       Period.thisWeek => (w, w.add(const Duration(days: 7))),
-      Period.lastWeek => (w.subtract(const Duration(days: 7)), w),
       Period.thisMonth => (DateTime(now.year, now.month), DateTime(now.year, now.month + 1)),
+      Period.custom => _custom == null
+          ? (w, w.add(const Duration(days: 7)))
+          : (dateOnly(_custom!.start), dateOnly(_custom!.end).add(const Duration(days: 1))),
     };
+  }
+
+  Future<void> _pickRange(DateTime now) async {
+    final r = await showDateRangePicker(
+      context: context,
+      firstDate: DateTime(now.year - 3),
+      lastDate: dateOnly(now),
+      initialDateRange: _custom ?? DateTimeRange(start: dateOnly(now).subtract(const Duration(days: 29)), end: dateOnly(now)),
+    );
+    if (r != null) {
+      setState(() {
+        _custom = r;
+        _p = Period.custom;
+      });
+    }
   }
 
   @override
@@ -72,13 +96,15 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
       body: ResponsiveContainer(
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, 0, Space.gutter, Space.xxl), children: [
           SegmentedButton<Period>(
+            showSelectedIcon: false,
             segments: [
+              ButtonSegment(value: Period.today, label: Text(l.today)),
               ButtonSegment(value: Period.thisWeek, label: Text(l.thisWeek)),
-              ButtonSegment(value: Period.lastWeek, label: Text(l.lastWeek)),
               ButtonSegment(value: Period.thisMonth, label: Text(l.thisMonth)),
+              ButtonSegment(value: Period.custom, icon: const Icon(Icons.date_range_outlined), tooltip: l.customRange),
             ],
             selected: {_p},
-            onSelectionChanged: (v) => setState(() => _p = v.first),
+            onSelectionChanged: (v) => v.first == Period.custom ? _pickRange(now) : setState(() => _p = v.first),
           ),
           const SizedBox(height: Space.s),
           Text(l.periodCovers(fmt.date(from), fmt.date(to.subtract(const Duration(days: 1)))), style: t.bodySmall),
@@ -96,8 +122,19 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
               children: stats,
             ),
             const SizedBox(height: Space.xl),
-            SectionHeader(l.completedPerDay),
-            AppCard(child: _DailyBars(data: d, from: from, to: to, fmt: fmt)),
+            SectionHeader(l.chartsTitle),
+            GridView.count(
+              crossAxisCount: wide ? 2 : 1,
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              mainAxisSpacing: Space.m,
+              crossAxisSpacing: Space.m,
+              childAspectRatio: wide ? 1.9 : 1.75,
+              children: [
+                for (final m in ProgressMetric.values)
+                  if (_shown(d, m)) MetricCard(series: ProgressSeries.build(d, m, from, to, now), fmt: fmt, currency: d.settings.currency),
+              ],
+            ),
             if (r.goals.isNotEmpty) ...[
               const SizedBox(height: Space.xl),
               SectionHeader(l.goalsProgress),
@@ -164,6 +201,16 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
     );
   }
 
+  /// Sections the user has turned off stay off the charts.
+  bool _shown(AppData d, ProgressMetric m) => switch (m) {
+        ProgressMetric.habits => d.settings.has(AppModule.habits),
+        ProgressMetric.steps => d.settings.health.has(HealthModule.activity),
+        ProgressMetric.workouts => d.workoutPlans.isNotEmpty || d.workoutSessions.isNotEmpty || d.deviceWorkouts.isNotEmpty,
+        ProgressMetric.lessons => d.learningPath != null,
+        ProgressMetric.spending || ProgressMetric.income => d.settings.has(AppModule.expenses),
+        ProgressMetric.tasks => true,
+      };
+
   /// Descriptive only — never causal claims.
   String _observation(AppLocalizations l, PeriodReport r) {
     final rate = r.completionRate;
@@ -208,51 +255,6 @@ class _StatCard extends StatelessWidget {
         Text(label, style: t.labelMedium),
         if (note != null)
           Text(note!, style: t.bodySmall?.copyWith(color: context.status.textSecondary, fontSize: 11), maxLines: 2, overflow: TextOverflow.ellipsis),
-      ]),
-    );
-  }
-}
-
-class _DailyBars extends StatelessWidget {
-  const _DailyBars({required this.data, required this.from, required this.to, required this.fmt});
-  final AppData data;
-  final DateTime from;
-  final DateTime to;
-  final Fmt fmt;
-
-  @override
-  Widget build(BuildContext context) {
-    final days = <DateTime>[];
-    for (var d = from; d.isBefore(to); d = d.add(const Duration(days: 1))) {
-      days.add(d);
-    }
-    final counts = [
-      for (final d in days) data.tasks.where((t) => t.isDone && t.completedAt != null && isSameDay(t.completedAt!, d)).length,
-    ];
-    final max = counts.fold<int>(1, (a, b) => a > b ? a : b);
-    final color = Theme.of(context).colorScheme.secondary;
-    final labelEvery = days.length > 10 ? 5 : 1;
-    return SizedBox(
-      height: 150,
-      child: Row(crossAxisAlignment: CrossAxisAlignment.end, children: [
-        for (var i = 0; i < days.length; i++)
-          Expanded(
-            child: Semantics(
-              label: '${fmt.date(days[i])}: ${counts[i]}',
-              child: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
-                if (days.length <= 10) Text('${counts[i]}', style: Theme.of(context).textTheme.labelSmall),
-                const SizedBox(height: 2),
-                Container(
-                  height: 100 * counts[i] / max + 2,
-                  margin: EdgeInsets.symmetric(horizontal: days.length > 10 ? 1 : 6),
-                  decoration: BoxDecoration(color: color, borderRadius: BorderRadius.circular(4)),
-                ),
-                const SizedBox(height: 4),
-                Text(i % labelEvery == 0 ? (days.length > 10 ? '${days[i].day}' : fmt.weekdayShort(days[i])) : '',
-                    style: Theme.of(context).textTheme.labelSmall, maxLines: 1),
-              ]),
-            ),
-          ),
       ]),
     );
   }

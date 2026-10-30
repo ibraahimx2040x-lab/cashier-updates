@@ -24,9 +24,11 @@ import 'package:hayati/data/models/health.dart';
 import 'package:hayati/data/models/womens.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
+import 'package:hayati/data/models/alarm.dart';
 import 'package:hayati/data/models/money.dart';
 import 'package:hayati/data/models/nutrition.dart';
 import 'package:hayati/data/models/prayer.dart';
+import 'package:hayati/data/models/settings.dart';
 import 'package:hayati/data/models/task.dart';
 import 'package:hayati/data/remote/sync.dart';
 import 'package:hayati/data/store/local_store.dart';
@@ -488,6 +490,8 @@ void main() {
         id: newId(), kind: RecurringKind.expense, amountMinor: 150000, currency: 'SAR', category: 'bills', title: 'Rent',
         dayOfMonth: 1, startsOn: dayKey(start), updatedAt: now);
     a.data.saveRecurring(rent);
+    a.data.saveAlarm(Alarm(id: newId(), label: 'Fajr', minutes: 285, weekdays: const {1, 2, 3}, tone: AlarmTone.chime, updatedAt: now));
+    a.data.updateSettings((s) => s.copyWith(notify: const NotificationPrefs(off: {NotifySection.money}, times: {NotifySection.fitness: 1140})));
     await a.settle();
     expect(a.sync.rejected, 0);
     expect(a.data.snapshot.expenses, hasLength(3));
@@ -502,6 +506,8 @@ void main() {
     expect(d.salaryRates.map((r) => r.amountMinor).toSet(), {500000, 600000});
     expect((d.incomes.single.source, d.recurring.single.generatedThrough), ('Freelance', monthKey(now)));
     expect(d.expenses.where((e) => e.recurringId == rent.id), hasLength(3), reason: 'same ids, nothing made twice');
+    expect((d.alarms.single.label, d.alarms.single.tone, d.settings.notify.on(NotifySection.money), d.settings.notify.timeOf(NotifySection.fitness)),
+        ('Fajr', AlarmTone.chime, false, 1140));
 
     b.data.deleteRecurring(rent.id);
     await b.settle();

@@ -225,6 +225,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'في المتصفح تقدر تضيف الخطوات يدويًا فقط. العد التلقائي يشتغل في تطبيق الجوال.';
 
   @override
+  String get addAlarm => 'إضافة منبه';
+
+  @override
   String get addAppointment => 'أضف موعد';
 
   @override
@@ -652,6 +655,65 @@ class AppLocalizationsAr extends AppLocalizations {
   String aiWaterLogged(int ml) {
     return 'بسجّل $ml مل ماء لليوم.';
   }
+
+  @override
+  String get alarmBody => 'غفوة أو إيقاف';
+
+  @override
+  String get alarmDefaultTitle => 'منبه';
+
+  @override
+  String get alarmEveryDay => 'كل يوم';
+
+  @override
+  String get alarmExactNeeded =>
+      'عشان يرن بالدقيقة، فعّل «المنبهات والتذكيرات» لسند من إعدادات الأندرويد.';
+
+  @override
+  String get alarmFor => 'مرتبط بمهمة أو موعد (اختياري)';
+
+  @override
+  String get alarmLabel => 'الاسم (اختياري)';
+
+  @override
+  String get alarmNone => 'بدون';
+
+  @override
+  String get alarmOnce => 'مرة وحدة';
+
+  @override
+  String get alarmRepeat => 'التكرار';
+
+  @override
+  String get alarmSnooze => 'غفوة';
+
+  @override
+  String get alarmSnoozeFor => 'مدة الغفوة';
+
+  @override
+  String alarmSnoozed(String time) {
+    return 'مؤجل لين $time';
+  }
+
+  @override
+  String get alarmStop => 'إيقاف';
+
+  @override
+  String get alarmTone => 'النغمة';
+
+  @override
+  String get alarmVibrate => 'اهتزاز';
+
+  @override
+  String get alarmsIosNote =>
+      'في الآيفون المنبه يشغّل صوت النظام مرة وحدة، حتى 30 ثانية.';
+
+  @override
+  String get alarmsTitle => 'المنبهات';
+
+  @override
+  String get alarmsWebNote =>
+      'المنبهات ترن في تطبيق الجوال. المتصفح ما يقدر يرن والصفحة مسكّرة.';
 
   @override
   String get allCategories => 'كل الفئات';
@@ -1102,6 +1164,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get chartNeedsData => 'الرسم يظهر لما يكون عندك تسجيل في شهرين.';
 
   @override
+  String get chartsTitle => 'الرسوم البيانية';
+
+  @override
   String get checkAnswer => 'تحقق';
 
   @override
@@ -1496,6 +1561,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteAccountSub => 'إزالة حسابك وبياناتك نهائيًا';
 
   @override
+  String get deleteAlarmTitle => 'تحذف هذا المنبه؟';
+
+  @override
   String get deleteAllChats => 'حذف كل المحادثات';
 
   @override
@@ -1766,7 +1834,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dueShort => 'تستحق';
 
   @override
+  String get eachBarWeek => 'كل عمود أسبوع';
+
+  @override
   String get edit => 'تعديل';
+
+  @override
+  String get editAlarm => 'تعديل المنبه';
 
   @override
   String get editAppointment => 'تعديل الموعد';
@@ -3120,9 +3194,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get methodUmmAlQura => 'أم القرى (مكة)';
 
   @override
+  String get metricHabits => 'الالتزام بالعادات';
+
+  @override
+  String get metricIncome => 'الدخل';
+
+  @override
+  String get metricLessons => 'جلسات التعلّم';
+
+  @override
   String metricOutOfRange(int min, int max) {
     return 'اكتب رقم بين $min و$max';
   }
+
+  @override
+  String get metricSpending => 'المصروفات';
+
+  @override
+  String get metricSteps => 'الخطوات';
+
+  @override
+  String get metricTasks => 'المهام المنجزة';
+
+  @override
+  String get metricWorkouts => 'التمارين';
 
   @override
   String get milestone => 'مرحلة';
@@ -3136,6 +3231,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String milestonesDone(int done, int total) {
     return '$done/$total مراحل';
+  }
+
+  @override
+  String minutesShort(int n) {
+    return '$n د';
   }
 
   @override
@@ -3452,6 +3552,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noActiveGoals => 'لا توجد أهداف نشطة حاليًا.';
 
   @override
+  String get noAlarms => 'ما فيه منبهات للحين';
+
+  @override
+  String get noAlarmsBody =>
+      'المنبه يرن بصوت لين توقفه أو تأجله، بعكس الإشعار الهادئ.';
+
+  @override
   String get noAppointments => 'ما فيه مواعيد';
 
   @override
@@ -3518,10 +3625,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noPeriodsYet => 'ما فيه دورات مسجلة للحين.';
 
   @override
+  String get noPreviousPeriod => 'ما فيه تسجيل في الفترة السابقة للمقارنة.';
+
+  @override
   String get noProgressYet => 'ما فيه مجموعات مسجلة للحين';
 
   @override
   String get noProgressYetBody => 'خلّص تمرين أو برنامج ويظهر تقدمك هنا.';
+
+  @override
+  String get noRecordsPeriod => 'ما فيه تسجيل';
 
   @override
   String get noReminder => 'بدون تذكير';
@@ -3572,6 +3685,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notDue => 'غير مستحق';
+
+  @override
+  String get notEnoughForChart => 'ما فيه تسجيل كافي للرسم للحين.';
 
   @override
   String get notEnoughToCompare =>
@@ -3645,9 +3761,45 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get notifEventsSub => 'قبل كل موعد حسب اللي حطيته فيه';
+
+  @override
+  String get notifFitnessSub => 'في أيام التمرين، لين تسجّله';
+
+  @override
+  String notifGoalSoon(String goal, int days) {
+    return 'باقي $days أيام على هدف «$goal»';
+  }
+
+  @override
+  String notifGoalToday(String goal) {
+    return 'اليوم موعد هدف «$goal»';
+  }
+
+  @override
+  String get notifGoalsSub => 'قبل موعد الهدف بثلاث أيام ويوم الموعد';
+
+  @override
   String notifHabitTitle(String name) {
     return 'تذكير بالعادة: $name';
   }
+
+  @override
+  String get notifHabitsSub => 'بوقت تذكير كل عادة';
+
+  @override
+  String get notifLearningSub => 'لين تذاكر ذاك اليوم';
+
+  @override
+  String get notifLessonTitle => 'درس اليوم';
+
+  @override
+  String notifMoneyDue(String title) {
+    return 'مستحق اليوم: $title';
+  }
+
+  @override
+  String get notifMoneySub => 'يوم استحقاق المصروف أو الدخل الشهري';
 
   @override
   String get notifMoveBody => 'مشي قصير أو تمدد بسيط لدقائق.';
@@ -3662,6 +3814,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notifNeutralTitle => 'تذكير من سند';
 
   @override
+  String get notifOtherSections =>
+      'تذكيرات الصلاة والحركة والنوم والصحة تنضبط من أقسامها.';
+
+  @override
   String notifPrayerSoon(String name, int minutes) {
     return 'صلاة $name بعد $minutes دقيقة';
   }
@@ -3672,9 +3828,63 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get notifSectionEvents => 'المواعيد';
+
+  @override
+  String get notifSectionFitness => 'التمارين';
+
+  @override
+  String get notifSectionGoals => 'الأهداف';
+
+  @override
+  String get notifSectionHabits => 'العادات';
+
+  @override
+  String get notifSectionLearning => 'تعلّم اللغات';
+
+  @override
+  String get notifSectionMoney => 'المال';
+
+  @override
+  String get notifSectionTasks => 'المهام';
+
+  @override
+  String get notifSectionWater => 'الماء';
+
+  @override
+  String get notifSettingsSub =>
+      'شغّل أو أطفئ كل قسم، واختر وقت تذكيره اليومي.';
+
+  @override
+  String get notifSettingsTitle => 'وش يرسل لك إشعارات';
+
+  @override
   String notifTaskTitle(String title) {
     return 'تذكير: $title';
   }
+
+  @override
+  String get notifTasksSub => 'بوقت التذكير اللي حطيته لكل مهمة';
+
+  @override
+  String get notifTime => 'الوقت';
+
+  @override
+  String get notifWaterBody => 'اشرب كوب وسجّله.';
+
+  @override
+  String get notifWaterSub => 'مرة باليوم، لين توصل هدفك';
+
+  @override
+  String get notifWaterTitle => 'وقت الماء';
+
+  @override
+  String notifWorkoutBody(int minutes, String place) {
+    return '$minutes دقيقة · $place';
+  }
+
+  @override
+  String get notifWorkoutTitle => 'تمرين اليوم بانتظارك';
 
   @override
   String get nowLabel => 'الآن';
@@ -5242,6 +5452,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tomorrow => 'غدًا';
 
   @override
+  String get toneBells => 'أجراس';
+
+  @override
+  String get toneChime => 'جرس هادئ';
+
+  @override
+  String get toneDawn => 'فجر';
+
+  @override
+  String get tonePulse => 'نبض';
+
+  @override
   String get toolAddAppointment => 'إضافة موعد صحي';
 
   @override
@@ -5411,6 +5633,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'الشهر الماضي: $amount';
   }
+
+  @override
+  String get vsPreviousPeriod => 'مقارنة بالفترة السابقة';
 
   @override
   String get wakeTime => 'أصحى الساعة';

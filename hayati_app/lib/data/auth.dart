@@ -31,7 +31,7 @@ class AuthUser {
 
 /// What a guest may open. Everything else asks them to create an account.
 bool guestAllowed(String path) =>
-    const {'/home', '/time', '/habits', '/settings', '/settings/help', '/settings/privacy', '/notifications', '/locked'}.contains(path) ||
+    const {'/home', '/time', '/habits', '/settings', '/settings/help', '/settings/privacy', '/settings/notifications', '/notifications', '/locked'}.contains(path) ||
     path.startsWith('/task/') ||
     path.startsWith('/event/');
 

@@ -115,6 +115,7 @@
   "activityNote": "Steps come from your phone's health app (Health Connect or Apple Health), which already combines your phone and watch. Distance is estimated from steps and height.",
   "activitySaved": "Steps saved",
   "activityWebNote": "In the browser steps can only be added by hand. Automatic counting works in the phone app.",
+  "addAlarm": "Add an alarm",
   "addAppointment": "Add appointment",
   "addBreak": "Add a break",
   "addCup": "Add a glass (250 ml)",
@@ -525,6 +526,31 @@
       }
     }
   },
+  "alarmBody": "Snooze or stop",
+  "alarmDefaultTitle": "Alarm",
+  "alarmEveryDay": "Every day",
+  "alarmExactNeeded": "To ring on the minute, allow \"Alarms & reminders\" for Sanad in Android settings.",
+  "alarmFor": "For a task or appointment (optional)",
+  "alarmLabel": "Label (optional)",
+  "alarmNone": "Nothing",
+  "alarmOnce": "Once",
+  "alarmRepeat": "Repeat",
+  "alarmSnooze": "Snooze",
+  "alarmSnoozeFor": "Snooze length",
+  "alarmSnoozed": "Snoozed until {time}",
+  "@alarmSnoozed": {
+    "placeholders": {
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "alarmStop": "Stop",
+  "alarmTone": "Tone",
+  "alarmVibrate": "Vibrate",
+  "alarmsIosNote": "On iPhone an alarm plays the system sound once, for up to 30 seconds.",
+  "alarmsTitle": "Alarms",
+  "alarmsWebNote": "Alarms ring on the phone app. A browser can't ring when the page is closed.",
   "allCategories": "All categories",
   "allDoneToday": "You've finished everything planned for today.",
   "allMilestonesDone": "All milestones are done. Mark the goal as completed?",
@@ -772,6 +798,7 @@
     }
   },
   "chartNeedsData": "The chart shows once two months have records.",
+  "chartsTitle": "Charts",
   "checkAnswer": "Check",
   "checkFields": "Check the fields",
   "checkinScale": "1 is the lowest, 5 the highest. Saved as you tap.",
@@ -1031,6 +1058,7 @@
   "deleteAccountConsequences": "This permanently deletes your account and everything in it from this device: tasks, events, goals, habits, notes, expenses and assistant chats. This can't be undone. Consider exporting your data first (Privacy & data).",
   "deleteAccountConsequencesRemote": "This requests permanent deletion of your account and everything in it: tasks, events, goals, habits, notes, expenses and assistant chats. You'll be signed out now and this device's copy will be removed; the server removes the rest per our retention policy. This can't be undone. Consider exporting your data first.",
   "deleteAccountSub": "Permanently remove your account and data",
+  "deleteAlarmTitle": "Delete this alarm?",
   "deleteAllChats": "Delete all chats",
   "deleteAllChatsBody": "All conversations and pending suggestions will be deleted. Applied changes stay.",
   "deleteAppointmentBody": "Its notes and questions go too.",
@@ -1157,7 +1185,9 @@
     }
   },
   "dueShort": "due",
+  "eachBarWeek": "Each bar is a week",
   "edit": "Edit",
+  "editAlarm": "Edit alarm",
   "editAppointment": "Edit appointment",
   "editEvent": "Edit event",
   "editExpense": "Edit expense",
@@ -1829,6 +1859,9 @@
   "methodMwl": "Muslim World League",
   "methodQatar": "Qatar",
   "methodUmmAlQura": "Umm al-Qura (Makkah)",
+  "metricHabits": "Habits kept",
+  "metricIncome": "Income",
+  "metricLessons": "Learning sessions",
   "metricOutOfRange": "Enter a number between {min} and {max}",
   "@metricOutOfRange": {
     "placeholders": {
@@ -1840,6 +1873,10 @@
       }
     }
   },
+  "metricSpending": "Spending",
+  "metricSteps": "Steps",
+  "metricTasks": "Tasks done",
+  "metricWorkouts": "Workouts",
   "milestone": "Milestone",
   "milestoneHint": "e.g. Understand Dart basics",
   "milestones": "Milestones",
@@ -1850,6 +1887,14 @@
         "type": "int"
       },
       "total": {
+        "type": "int"
+      }
+    }
+  },
+  "minutesShort": "{n} min",
+  "@minutesShort": {
+    "placeholders": {
+      "n": {
         "type": "int"
       }
     }
@@ -1998,6 +2043,8 @@
   "nextUp": "Next",
   "noActions": "No actions yet.",
   "noActiveGoals": "No active goals right now.",
+  "noAlarms": "No alarms yet",
+  "noAlarmsBody": "An alarm rings with sound until you stop or snooze it, unlike a quiet notification.",
   "noAppointments": "No appointments",
   "noAppointmentsBody": "Add checkups and tests, with what you want to ask.",
   "noConversations": "No previous chats.",
@@ -2026,8 +2073,10 @@
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
   "noPeriodsYet": "None recorded yet.",
+  "noPreviousPeriod": "Nothing recorded in the previous period to compare.",
   "noProgressYet": "No logged sets yet",
   "noProgressYetBody": "Finish a workout or a program and your progress shows here.",
+  "noRecordsPeriod": "Nothing recorded",
   "noReminder": "No reminder",
   "noReviewsDue": "Nothing to review right now.",
   "noSalaryYet": "No salary recorded yet",
@@ -2044,6 +2093,7 @@
   "noWorkoutThatDay": "No workout is planned for that day.",
   "none": "None",
   "notDue": "Not due",
+  "notEnoughForChart": "Not enough records yet to draw a trend.",
   "notEnoughToCompare": "Not enough records last month to compare.",
   "notLogged": "Not logged",
   "notSet": "Not set",
@@ -2086,6 +2136,28 @@
       }
     }
   },
+  "notifEventsSub": "Before each appointment, as set on it",
+  "notifFitnessSub": "On workout days, until you log it",
+  "notifGoalSoon": "“{goal}” is due in {days} days",
+  "@notifGoalSoon": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notifGoalToday": "Today is the date you set for “{goal}”",
+  "@notifGoalToday": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "notifGoalsSub": "Three days before a goal's date and on the day",
   "notifHabitTitle": "Habit reminder: {name}",
   "@notifHabitTitle": {
     "placeholders": {
@@ -2094,10 +2166,23 @@
       }
     }
   },
+  "notifHabitsSub": "At each habit's reminder time",
+  "notifLearningSub": "Until you study that day",
+  "notifLessonTitle": "Today's lesson",
+  "notifMoneyDue": "Due today: {title}",
+  "@notifMoneyDue": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMoneySub": "On the day a monthly expense or income is due",
   "notifMoveBody": "A short walk or a few minutes of stretching.",
   "notifMoveTitle": "Time to move",
   "notifNeutralBody": "Open the app to see it",
   "notifNeutralTitle": "Sanad reminder",
+  "notifOtherSections": "Prayer, movement, bedtime and health reminders are set in their own sections.",
   "notifPrayerSoon": "{name} prayer in {minutes} min",
   "@notifPrayerSoon": {
     "placeholders": {
@@ -2117,6 +2202,16 @@
       }
     }
   },
+  "notifSectionEvents": "Appointments",
+  "notifSectionFitness": "Workouts",
+  "notifSectionGoals": "Goals",
+  "notifSectionHabits": "Habits",
+  "notifSectionLearning": "Language learning",
+  "notifSectionMoney": "Money",
+  "notifSectionTasks": "Tasks",
+  "notifSectionWater": "Water",
+  "notifSettingsSub": "Turn each section on or off, and pick when its daily reminder comes.",
+  "notifSettingsTitle": "What notifies you",
   "notifTaskTitle": "Reminder: {title}",
   "@notifTaskTitle": {
     "placeholders": {
@@ -2125,6 +2220,23 @@
       }
     }
   },
+  "notifTasksSub": "At each task's own reminder time",
+  "notifTime": "Time",
+  "notifWaterBody": "Have a glass and log it.",
+  "notifWaterSub": "Once a day, until you reach your goal",
+  "notifWaterTitle": "Time for some water",
+  "notifWorkoutBody": "{minutes} minutes · {place}",
+  "@notifWorkoutBody": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "notifWorkoutTitle": "Today's workout is waiting",
   "nowLabel": "Now",
   "nowUntil": "Until {time}",
   "@nowUntil": {
@@ -3018,6 +3130,10 @@
     }
   },
   "tomorrow": "Tomorrow",
+  "toneBells": "Bells",
+  "toneChime": "Chime",
+  "toneDawn": "Dawn",
+  "tonePulse": "Pulse",
   "toolAddAppointment": "Add health appointment",
   "toolAddMilestones": "Add milestones",
   "toolAddNote": "Add note",
@@ -3125,6 +3241,7 @@
       }
     }
   },
+  "vsPreviousPeriod": "vs the previous period",
   "wakeTime": "I wake up at",
   "walkItem": "A {minutes}-minute walk",
   "@walkItem": {

@@ -6,6 +6,7 @@ library;
 import '../../core/utils/dates.dart';
 import '../app_data.dart';
 import '../models/accountability.dart';
+import '../models/alarm.dart';
 import '../models/fitness.dart';
 import '../models/goal.dart';
 import '../models/health.dart';
@@ -650,6 +651,38 @@ RecurringItem recurringFrom(Row r) => RecurringItem(
       updatedAt: _dt(r['updated_at'])!,
     );
 
+Row alarmRow(Alarm a) => {
+      'id': a.id,
+      'label': a.label,
+      'minutes': a.minutes,
+      'weekdays': a.weekdays.toList()..sort(),
+      'on_date': a.onDate,
+      'tone': a.tone.name,
+      'vibrate': a.vibrate,
+      'snooze_minutes': a.snoozeMinutes,
+      'enabled': a.enabled,
+      'task_id': a.taskId,
+      'event_id': a.eventId,
+      'snoozed_until': _ts(a.snoozedUntil),
+      'updated_at': _ts(a.updatedAt),
+    };
+
+Alarm alarmFrom(Row r) => Alarm(
+      id: r['id'] as String,
+      label: r['label'] as String,
+      minutes: r['minutes'] as int,
+      weekdays: {...(r['weekdays'] as List).cast<int>()},
+      onDate: r['on_date'] as String?,
+      tone: AlarmTone.values.where((t) => t.name == r['tone']).firstOrNull ?? AlarmTone.dawn,
+      vibrate: r['vibrate'] as bool,
+      snoozeMinutes: r['snooze_minutes'] as int,
+      enabled: r['enabled'] as bool,
+      taskId: r['task_id'] as String?,
+      eventId: r['event_id'] as String?,
+      snoozedUntil: _dt(r['snoozed_until']),
+      updatedAt: _dt(r['updated_at'])!,
+    );
+
 Row budgetRow(Budget b) => {'id': b.id, 'currency': b.currency, 'category': b.category, 'limit_minor': b.limitMinor};
 
 Budget budgetFrom(Row r) => Budget(
@@ -686,6 +719,7 @@ Row profileRow(UserSettings s) => {
       'fitness_profile': s.fitness?.toJson() ?? const <String, Object?>{},
       'sex': s.sex?.name,
       'health_settings': s.health.toJson(),
+      'notification_settings': s.notify.toJson(),
     };
 
 UserSettings settingsFrom(Row r) {
@@ -716,6 +750,7 @@ UserSettings settingsFrom(Row r) {
     fitness: FitnessProfile.fromJson((r['fitness_profile'] as Map?)?.cast<String, Object?>()),
     sex: Sex.values.where((x) => x.name == r['sex']).firstOrNull,
     health: HealthSettings.fromJson((r['health_settings'] as Map?)?.cast<String, Object?>()),
+    notify: NotificationPrefs.fromJson((r['notification_settings'] as Map?)?.cast<String, Object?>()),
   );
 }
 
@@ -766,6 +801,7 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('salary_rates', (d) => [for (final x in d.salaryRates) salaryRateRow(x)], salaryRateFrom),
   SyncTable('incomes', (d) => [for (final x in d.incomes) incomeRow(x)], incomeFrom),
   SyncTable('budgets', (d) => [for (final x in d.budgets) budgetRow(x)], budgetFrom),
+  SyncTable('alarms', (d) => [for (final x in d.alarms) alarmRow(x)], alarmFrom),
 ];
 
 /// Replaces the synced collections of [local] with server data, keeping the
@@ -808,5 +844,6 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     recurring: read('recurring_items', recurringFrom),
     salaryRates: read('salary_rates', salaryRateFrom),
     incomes: read('incomes', incomeFrom),
+    alarms: read('alarms', alarmFrom),
   );
 }
