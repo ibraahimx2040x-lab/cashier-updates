@@ -1100,6 +1100,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get chartNeedsData => 'The chart shows once two months have records.';
 
   @override
+  String get chartsTitle => 'Charts';
+
+  @override
   String get checkAnswer => 'Check';
 
   @override
@@ -1763,6 +1766,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get dueShort => 'due';
+
+  @override
+  String get eachBarWeek => 'Each bar is a week';
 
   @override
   String get edit => 'Edit';
@@ -3120,9 +3126,30 @@ class AppLocalizationsEn extends AppLocalizations {
   String get methodUmmAlQura => 'Umm al-Qura (Makkah)';
 
   @override
+  String get metricHabits => 'Habits kept';
+
+  @override
+  String get metricIncome => 'Income';
+
+  @override
+  String get metricLessons => 'Learning sessions';
+
+  @override
   String metricOutOfRange(int min, int max) {
     return 'Enter a number between $min and $max';
   }
+
+  @override
+  String get metricSpending => 'Spending';
+
+  @override
+  String get metricSteps => 'Steps';
+
+  @override
+  String get metricTasks => 'Tasks done';
+
+  @override
+  String get metricWorkouts => 'Workouts';
 
   @override
   String get milestone => 'Milestone';
@@ -3518,11 +3545,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noPeriodsYet => 'None recorded yet.';
 
   @override
+  String get noPreviousPeriod =>
+      'Nothing recorded in the previous period to compare.';
+
+  @override
   String get noProgressYet => 'No logged sets yet';
 
   @override
   String get noProgressYetBody =>
       'Finish a workout or a program and your progress shows here.';
+
+  @override
+  String get noRecordsPeriod => 'Nothing recorded';
 
   @override
   String get noReminder => 'No reminder';
@@ -3573,6 +3607,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notDue => 'Not due';
+
+  @override
+  String get notEnoughForChart => 'Not enough records yet to draw a trend.';
 
   @override
   String get notEnoughToCompare => 'Not enough records last month to compare.';
@@ -3645,9 +3682,45 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get notifEventsSub => 'Before each appointment, as set on it';
+
+  @override
+  String get notifFitnessSub => 'On workout days, until you log it';
+
+  @override
+  String notifGoalSoon(String goal, int days) {
+    return '“$goal” is due in $days days';
+  }
+
+  @override
+  String notifGoalToday(String goal) {
+    return 'Today is the date you set for “$goal”';
+  }
+
+  @override
+  String get notifGoalsSub => 'Three days before a goal\'s date and on the day';
+
+  @override
   String notifHabitTitle(String name) {
     return 'Habit reminder: $name';
   }
+
+  @override
+  String get notifHabitsSub => 'At each habit\'s reminder time';
+
+  @override
+  String get notifLearningSub => 'Until you study that day';
+
+  @override
+  String get notifLessonTitle => 'Today\'s lesson';
+
+  @override
+  String notifMoneyDue(String title) {
+    return 'Due today: $title';
+  }
+
+  @override
+  String get notifMoneySub => 'On the day a monthly expense or income is due';
 
   @override
   String get notifMoveBody => 'A short walk or a few minutes of stretching.';
@@ -3662,6 +3735,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get notifNeutralTitle => 'Sanad reminder';
 
   @override
+  String get notifOtherSections =>
+      'Prayer, movement, bedtime and health reminders are set in their own sections.';
+
+  @override
   String notifPrayerSoon(String name, int minutes) {
     return '$name prayer in $minutes min';
   }
@@ -3672,9 +3749,63 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get notifSectionEvents => 'Appointments';
+
+  @override
+  String get notifSectionFitness => 'Workouts';
+
+  @override
+  String get notifSectionGoals => 'Goals';
+
+  @override
+  String get notifSectionHabits => 'Habits';
+
+  @override
+  String get notifSectionLearning => 'Language learning';
+
+  @override
+  String get notifSectionMoney => 'Money';
+
+  @override
+  String get notifSectionTasks => 'Tasks';
+
+  @override
+  String get notifSectionWater => 'Water';
+
+  @override
+  String get notifSettingsSub =>
+      'Turn each section on or off, and pick when its daily reminder comes.';
+
+  @override
+  String get notifSettingsTitle => 'What notifies you';
+
+  @override
   String notifTaskTitle(String title) {
     return 'Reminder: $title';
   }
+
+  @override
+  String get notifTasksSub => 'At each task\'s own reminder time';
+
+  @override
+  String get notifTime => 'Time';
+
+  @override
+  String get notifWaterBody => 'Have a glass and log it.';
+
+  @override
+  String get notifWaterSub => 'Once a day, until you reach your goal';
+
+  @override
+  String get notifWaterTitle => 'Time for some water';
+
+  @override
+  String notifWorkoutBody(int minutes, String place) {
+    return '$minutes minutes · $place';
+  }
+
+  @override
+  String get notifWorkoutTitle => 'Today\'s workout is waiting';
 
   @override
   String get nowLabel => 'Now';
@@ -5394,6 +5525,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'Last month: $amount';
   }
+
+  @override
+  String get vsPreviousPeriod => 'vs the previous period';
 
   @override
   String get wakeTime => 'I wake up at';

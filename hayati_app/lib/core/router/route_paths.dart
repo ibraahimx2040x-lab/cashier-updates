@@ -16,6 +16,7 @@ abstract final class Routes {
   static const notifications = '/notifications';
   static const settings = '/settings';
   static const assistantSettings = '/settings/assistant';
+  static const notificationSettings = '/settings/notifications';
   static const profile = '/settings/profile';
   static const subscription = '/settings/subscription';
   static const help = '/settings/help';

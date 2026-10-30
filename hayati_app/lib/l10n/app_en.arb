@@ -772,6 +772,7 @@
     }
   },
   "chartNeedsData": "The chart shows once two months have records.",
+  "chartsTitle": "Charts",
   "checkAnswer": "Check",
   "checkFields": "Check the fields",
   "checkinScale": "1 is the lowest, 5 the highest. Saved as you tap.",
@@ -1157,6 +1158,7 @@
     }
   },
   "dueShort": "due",
+  "eachBarWeek": "Each bar is a week",
   "edit": "Edit",
   "editAppointment": "Edit appointment",
   "editEvent": "Edit event",
@@ -1829,6 +1831,9 @@
   "methodMwl": "Muslim World League",
   "methodQatar": "Qatar",
   "methodUmmAlQura": "Umm al-Qura (Makkah)",
+  "metricHabits": "Habits kept",
+  "metricIncome": "Income",
+  "metricLessons": "Learning sessions",
   "metricOutOfRange": "Enter a number between {min} and {max}",
   "@metricOutOfRange": {
     "placeholders": {
@@ -1840,6 +1845,10 @@
       }
     }
   },
+  "metricSpending": "Spending",
+  "metricSteps": "Steps",
+  "metricTasks": "Tasks done",
+  "metricWorkouts": "Workouts",
   "milestone": "Milestone",
   "milestoneHint": "e.g. Understand Dart basics",
   "milestones": "Milestones",
@@ -2026,8 +2035,10 @@
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
   "noPeriodsYet": "None recorded yet.",
+  "noPreviousPeriod": "Nothing recorded in the previous period to compare.",
   "noProgressYet": "No logged sets yet",
   "noProgressYetBody": "Finish a workout or a program and your progress shows here.",
+  "noRecordsPeriod": "Nothing recorded",
   "noReminder": "No reminder",
   "noReviewsDue": "Nothing to review right now.",
   "noSalaryYet": "No salary recorded yet",
@@ -2044,6 +2055,7 @@
   "noWorkoutThatDay": "No workout is planned for that day.",
   "none": "None",
   "notDue": "Not due",
+  "notEnoughForChart": "Not enough records yet to draw a trend.",
   "notEnoughToCompare": "Not enough records last month to compare.",
   "notLogged": "Not logged",
   "notSet": "Not set",
@@ -2086,6 +2098,28 @@
       }
     }
   },
+  "notifEventsSub": "Before each appointment, as set on it",
+  "notifFitnessSub": "On workout days, until you log it",
+  "notifGoalSoon": "“{goal}” is due in {days} days",
+  "@notifGoalSoon": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      },
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "notifGoalToday": "Today is the date you set for “{goal}”",
+  "@notifGoalToday": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "notifGoalsSub": "Three days before a goal's date and on the day",
   "notifHabitTitle": "Habit reminder: {name}",
   "@notifHabitTitle": {
     "placeholders": {
@@ -2094,10 +2128,23 @@
       }
     }
   },
+  "notifHabitsSub": "At each habit's reminder time",
+  "notifLearningSub": "Until you study that day",
+  "notifLessonTitle": "Today's lesson",
+  "notifMoneyDue": "Due today: {title}",
+  "@notifMoneyDue": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "notifMoneySub": "On the day a monthly expense or income is due",
   "notifMoveBody": "A short walk or a few minutes of stretching.",
   "notifMoveTitle": "Time to move",
   "notifNeutralBody": "Open the app to see it",
   "notifNeutralTitle": "Sanad reminder",
+  "notifOtherSections": "Prayer, movement, bedtime and health reminders are set in their own sections.",
   "notifPrayerSoon": "{name} prayer in {minutes} min",
   "@notifPrayerSoon": {
     "placeholders": {
@@ -2117,6 +2164,16 @@
       }
     }
   },
+  "notifSectionEvents": "Appointments",
+  "notifSectionFitness": "Workouts",
+  "notifSectionGoals": "Goals",
+  "notifSectionHabits": "Habits",
+  "notifSectionLearning": "Language learning",
+  "notifSectionMoney": "Money",
+  "notifSectionTasks": "Tasks",
+  "notifSectionWater": "Water",
+  "notifSettingsSub": "Turn each section on or off, and pick when its daily reminder comes.",
+  "notifSettingsTitle": "What notifies you",
   "notifTaskTitle": "Reminder: {title}",
   "@notifTaskTitle": {
     "placeholders": {
@@ -2125,6 +2182,23 @@
       }
     }
   },
+  "notifTasksSub": "At each task's own reminder time",
+  "notifTime": "Time",
+  "notifWaterBody": "Have a glass and log it.",
+  "notifWaterSub": "Once a day, until you reach your goal",
+  "notifWaterTitle": "Time for some water",
+  "notifWorkoutBody": "{minutes} minutes · {place}",
+  "@notifWorkoutBody": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
+      },
+      "place": {
+        "type": "String"
+      }
+    }
+  },
+  "notifWorkoutTitle": "Today's workout is waiting",
   "nowLabel": "Now",
   "nowUntil": "Until {time}",
   "@nowUntil": {
@@ -3125,6 +3199,7 @@
       }
     }
   },
+  "vsPreviousPeriod": "vs the previous period",
   "wakeTime": "I wake up at",
   "walkItem": "A {minutes}-minute walk",
   "@walkItem": {

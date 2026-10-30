@@ -686,6 +686,7 @@ Row profileRow(UserSettings s) => {
       'fitness_profile': s.fitness?.toJson() ?? const <String, Object?>{},
       'sex': s.sex?.name,
       'health_settings': s.health.toJson(),
+      'notification_settings': s.notify.toJson(),
     };
 
 UserSettings settingsFrom(Row r) {
@@ -716,6 +717,7 @@ UserSettings settingsFrom(Row r) {
     fitness: FitnessProfile.fromJson((r['fitness_profile'] as Map?)?.cast<String, Object?>()),
     sex: Sex.values.where((x) => x.name == r['sex']).firstOrNull,
     health: HealthSettings.fromJson((r['health_settings'] as Map?)?.cast<String, Object?>()),
+    notify: NotificationPrefs.fromJson((r['notification_settings'] as Map?)?.cast<String, Object?>()),
   );
 }
 
