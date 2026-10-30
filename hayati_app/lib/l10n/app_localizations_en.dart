@@ -249,6 +249,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get addHabit => 'Add habit';
 
   @override
+  String get addMeasurement => 'Add measurement';
+
+  @override
   String get addMilestone => 'Add milestone';
 
   @override
@@ -262,6 +265,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addQuestion => 'Add a question';
+
+  @override
+  String get addSleep => 'Add sleep';
 
   @override
   String get addStepsManually => 'Add steps';
@@ -724,6 +730,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get archivedNotes => 'Archived notes';
 
   @override
+  String get articleDisclaimer =>
+      'General information, not a diagnosis or treatment. Contact a doctor about your own health, and emergency services if it\'s urgent.';
+
+  @override
+  String get articleUnavailable =>
+      'This article isn\'t in your health sections.';
+
+  @override
   String get askAssistantReplan => 'Ask the assistant to rearrange my day';
 
   @override
@@ -808,6 +822,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get barcodeNumber => 'Barcode number';
 
   @override
+  String get bedtimeReminder => 'Bedtime reminder';
+
+  @override
+  String get bedtimeReminderSub => 'A nudge to start winding down';
+
+  @override
   String beforeMinutes(String duration) {
     return '$duration before';
   }
@@ -845,6 +865,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get bodyweight => 'Body weight';
+
+  @override
+  String get bpSeeDoctor =>
+      'Your last three blood pressure readings average 140/90 or higher. That\'s worth checking with a doctor.';
+
+  @override
+  String get bpUrgent =>
+      'Your last reading is 180/120 or higher. If you have chest pain, shortness of breath, a severe headache or changes in vision, get urgent help now. Otherwise rest a few minutes, measure again, and contact a doctor today.';
 
   @override
   String bpmN(int n) {
@@ -953,6 +981,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get cefrB2 => 'B2 · Upper intermediate';
 
   @override
+  String changeIn30Days(String change) {
+    return '$change in 30 days';
+  }
+
+  @override
   String get changePassword => 'Change password';
 
   @override
@@ -971,6 +1004,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get checkFields => 'Check the fields';
+
+  @override
+  String get checkinScale =>
+      '1 is the lowest, 5 the highest. Saved as you tap.';
+
+  @override
+  String checkinWeek(String energy, String recovery) {
+    return 'This week: energy $energy, recovery $recovery on average';
+  }
 
   @override
   String get clear => 'Clear';
@@ -998,6 +1040,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get cloudModeNotice =>
       'Your data is saved to your account and kept on this device for offline use.';
+
+  @override
+  String cmN(String v) {
+    return '$v cm';
+  }
 
   @override
   String get comingSoon => 'Coming soon';
@@ -1462,6 +1509,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.';
 
   @override
+  String get diastolic => 'Lower (diastolic)';
+
+  @override
   String get didYouEat => 'Is it one of these?';
 
   @override
@@ -1900,6 +1950,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get fatG => 'Fat (g)';
 
   @override
+  String get fatigue => 'Fatigue';
+
+  @override
   String get featAdvancedReports => 'Detailed reports and insights';
 
   @override
@@ -2283,6 +2336,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get healthDataTitle => 'Your health data';
 
   @override
+  String get healthLearn => 'Health reading';
+
+  @override
+  String get healthLearnSub => 'Short articles from public health sources';
+
+  @override
   String get healthLock => 'Lock with fingerprint or passcode';
 
   @override
@@ -2375,6 +2434,13 @@ class AppLocalizationsEn extends AppLocalizations {
       'Tap a past day to correct it. Days the habit isn\'t due are neutral.';
 
   @override
+  String get hkBody => 'Weight and blood pressure';
+
+  @override
+  String get hkBodySub =>
+      'Readings from a smart scale or blood pressure monitor';
+
+  @override
   String get hkHeartRate => 'Resting heart rate';
 
   @override
@@ -2449,6 +2515,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get howMuch => 'How much?';
 
   @override
+  String get howRested => 'How do you feel today?';
+
+  @override
   String get howTo => 'How to do it';
 
   @override
@@ -2510,6 +2579,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepChats => 'Keep chats for';
 
   @override
+  String kgN(String v) {
+    return '$v kg';
+  }
+
+  @override
   String kgTimesReps(String kg, int reps) {
     return '$kg kg × $reps';
   }
@@ -2541,12 +2615,19 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get lastTwoWeeks => 'Last two weeks';
+
+  @override
   String get lastWeek => 'Last week';
 
   @override
   String latestOn(String date) {
     return 'Latest: $date';
   }
+
+  @override
+  String get learnIntro =>
+      'Short, general reading from public health organisations. It isn\'t advice for you personally; a doctor can tell you what applies to you.';
 
   @override
   String get leave => 'Leave';
@@ -2731,6 +2812,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get mealSnack => 'Snacks';
 
   @override
+  String measurementsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n measurements',
+      one: '1 measurement',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get memberSince => 'Member since';
 
   @override
@@ -2761,6 +2853,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get methodUmmAlQura => 'Umm al-Qura (Makkah)';
 
   @override
+  String metricOutOfRange(int min, int max) {
+    return 'Enter a number between $min and $max';
+  }
+
+  @override
   String get milestone => 'Milestone';
 
   @override
@@ -2772,6 +2869,35 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String milestonesDone(int done, int total) {
     return '$done/$total milestones';
+  }
+
+  @override
+  String get mkBloodPressure => 'Blood pressure';
+
+  @override
+  String get mkBodyFat => 'Body fat';
+
+  @override
+  String get mkBodyFatPct => 'Body fat (%)';
+
+  @override
+  String get mkHeartBpm => 'Resting heart rate (bpm)';
+
+  @override
+  String get mkWaist => 'Waist';
+
+  @override
+  String get mkWaistCm => 'Waist (cm)';
+
+  @override
+  String get mkWeight => 'Weight';
+
+  @override
+  String get mkWeightKg => 'Weight (kg)';
+
+  @override
+  String mmHgN(int sys, int dia) {
+    return '$sys/$dia mmHg';
   }
 
   @override
@@ -3075,6 +3201,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noLinkedTasks => 'No tasks linked to this goal yet.';
 
   @override
+  String get noMeasurementYet => 'Nothing yet — tap to add';
+
+  @override
   String get noMilestones => 'No milestones yet.';
 
   @override
@@ -3110,6 +3239,10 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noSleepYet => 'No sleep recorded';
+
+  @override
+  String get noSleepYetBody =>
+      'Add a night by hand, or read sleep from your phone\'s health app in Devices and sources.';
 
   @override
   String get noSourcesYet =>
@@ -3183,6 +3316,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifAppointmentTitle => 'Health appointment';
+
+  @override
+  String get notifBedtimeBody => 'Screens down, lights low';
+
+  @override
+  String get notifBedtimeTitle => 'Time to wind down';
 
   @override
   String get notifDue => 'Check its deadline in your tasks.';
@@ -3362,6 +3501,11 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String perWeek(int n) {
     return '$n a week';
+  }
+
+  @override
+  String percentN(String v) {
+    return '$v%';
   }
 
   @override
@@ -3822,6 +3966,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get readSleepBasics => 'Read: sleep basics';
+
+  @override
   String get readThis => 'Read:';
 
   @override
@@ -3840,10 +3987,16 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentFoods => 'Recent';
 
   @override
+  String get recentNights => 'Recent nights';
+
+  @override
   String get recentWorkouts => 'Recent workouts';
 
   @override
   String get recordedPeriods => 'Recorded periods';
+
+  @override
+  String get recovery => 'Recovery';
 
   @override
   String get recoveryWarning =>
@@ -4234,6 +4387,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get skipRest => 'Skip';
 
   @override
+  String get sleepAndRecovery => 'Sleep and recovery';
+
+  @override
+  String get sleepAndRecoverySub =>
+      'Your nights, how rested you feel, a bedtime reminder';
+
+  @override
+  String get sleepGoldNote => 'Gold marks nights of 7 hours or more.';
+
+  @override
+  String get sleepInvalid =>
+      'That doesn\'t fit: check the times (up to 24 hours, not in the future, not overlapping another night you added).';
+
+  @override
   String sleepNightsN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4242,6 +4409,14 @@ class AppLocalizationsEn extends AppLocalizations {
       one: '1 night',
     );
     return '$_temp0';
+  }
+
+  @override
+  String get sleepQuality => 'How did you sleep?';
+
+  @override
+  String sleepQualityN(int n) {
+    return 'Quality $n of 5';
   }
 
   @override
@@ -4265,6 +4440,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sourcePhone => 'Phone sensor';
+
+  @override
+  String get sources => 'Sources';
 
   @override
   String get sourcesWithData => 'Sources with your data';
@@ -4480,6 +4658,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String syncUpToDate(String time) {
     return 'Up to date · $time';
   }
+
+  @override
+  String get systolic => 'Upper (systolic)';
 
   @override
   String get takeLevelCheck => 'Take the level check';
@@ -4745,6 +4926,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get viewCalendar => 'Calendar';
 
   @override
+  String get vitals => 'Measurements';
+
+  @override
+  String get vitalsFromDevices =>
+      'Read weight and blood pressure from your phone\'s health app';
+
+  @override
+  String get vitalsNote =>
+      'For your own record. These numbers aren\'t a diagnosis; read more in Health reading.';
+
+  @override
+  String get vitalsSub => 'Weight, waist, heart rate, blood pressure, body fat';
+
+  @override
   String vsLastMonth(String amount) {
     return 'Last month: $amount';
   }
@@ -4898,6 +5093,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get welcomeTitle => 'Organize your life, step by step';
 
   @override
+  String get wentToBed => 'Went to bed';
+
+  @override
   String get whatThisPhoneReads => 'What this phone reads';
 
   @override
@@ -4964,6 +5162,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get woYoga => 'Yoga';
+
+  @override
+  String get wokeUp => 'Woke up';
+
+  @override
+  String get wokeUpOn => 'Woke up on';
 
   @override
   String get womensUnavailable => 'This section is part of women\'s health.';

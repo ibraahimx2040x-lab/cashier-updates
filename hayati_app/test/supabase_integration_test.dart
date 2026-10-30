@@ -436,6 +436,39 @@ void main() {
     expect((c.data.snapshot.periods.length, c.data.snapshot.cycleLogs.length), (2, 2));
   }, skip: skip);
 
+  test('measurements, nights entered by hand and check-ins sync to another device', () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1', sex: Sex.male);
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final now = DateTime.now();
+    a.data.addMetric(kind: MetricKind.weight, value: 82.4, note: 'morning');
+    a.data.addMetric(kind: MetricKind.bp, value: 126, value2: 82);
+    a.data.addMetric(kind: MetricKind.waist, value: 91);
+    a.data.addSleep(start: now.subtract(const Duration(hours: 20)), end: now.subtract(const Duration(hours: 12)), quality: 4);
+    a.data.saveCheckin(WellbeingCheckin(id: '', day: dayKey(now), energy: 4, fatigue: 2, recovery: 3, mood: 5, updatedAt: now));
+    a.data.updateHealth((h) => h.copyWith(bedtimeReminder: () => 22 * 60 + 30));
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    final d = b.data.snapshot;
+    expect(d.bodyMetrics.map((m) => m.kind).toSet(), {MetricKind.weight, MetricKind.bp, MetricKind.waist});
+    final bp = d.bodyMetrics.firstWhere((m) => m.kind == MetricKind.bp);
+    expect((bp.value, bp.value2, d.bodyMetrics.firstWhere((m) => m.kind == MetricKind.weight).note), (126.0, 82.0, 'morning'));
+    expect((d.sleep.single.quality, d.sleep.single.source), (4, ActivitySource.manual));
+    expect((d.checkins.single.mood, d.settings.health.bedtimeReminder), (5, 22 * 60 + 30));
+  }, skip: skip);
+
   test('food, saved foods and water sync to another device', () async {
     final a = Device.create();
     addTearDown(a.dispose);

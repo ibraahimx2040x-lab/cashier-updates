@@ -33,6 +33,7 @@ class FakeHealthReader implements HealthReader {
     this.sleep = const [],
     this.heart = const [],
     this.workouts = const [],
+    this.body = const [],
     this.source = ActivitySource.healthConnect,
   });
   bool grant;
@@ -40,6 +41,7 @@ class FakeHealthReader implements HealthReader {
   List<(DateTime, DateTime)> sleep;
   List<(DateTime, double)> heart;
   List<DeviceWorkout> workouts;
+  List<BodyReading> body;
   Object? failSleep;
   int reads = 0;
   final asked = <Set<HealthKind>>[];
@@ -72,4 +74,6 @@ class FakeHealthReader implements HealthReader {
   Future<List<(DateTime, double)>> readRestingHeart(DateTime from, DateTime to) async => heart;
   @override
   Future<List<DeviceWorkout>> readWorkouts(DateTime from, DateTime to) async => workouts;
+  @override
+  Future<List<BodyReading>> readBody(DateTime from, DateTime to) async => body;
 }

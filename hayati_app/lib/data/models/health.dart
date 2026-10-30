@@ -14,7 +14,7 @@ enum HealthModule { activity, nutrition, sleep, womens, mens }
 enum ActivitySource { healthConnect, healthKit, phone, manual }
 
 /// What the app can read from the phone's health store (screen 40).
-enum HealthKind { steps, sleep, heartRate, workouts }
+enum HealthKind { steps, sleep, heartRate, workouts, body }
 
 /// Preference order when several sources have the same day.
 const activitySourcePriority = [
@@ -46,6 +46,7 @@ class HealthSettings {
     this.hideFromHome = false,
     this.lockEnabled = false,
     this.cycleReminders = false,
+    this.bedtimeReminder,
   });
 
   final Set<HealthModule> modules;
@@ -73,7 +74,7 @@ class HealthSettings {
         HealthKind.steps => preferredSource,
         HealthKind.sleep => sleepSource,
         HealthKind.heartRate => heartSource,
-        HealthKind.workouts => null,
+        HealthKind.workouts || HealthKind.body => null,
       };
 
   /// Optional daily calorie target the user sets; the app never suggests one.
@@ -103,6 +104,9 @@ class HealthSettings {
   /// nothing.
   final bool cycleReminders;
 
+  /// A wind-down reminder at this time (minutes since midnight), if set.
+  final int? bedtimeReminder;
+
   bool has(HealthModule m) => modules.contains(m);
 
   static const minStepGoal = 1000;
@@ -129,6 +133,7 @@ class HealthSettings {
     bool? hideFromHome,
     bool? lockEnabled,
     bool? cycleReminders,
+    int? Function()? bedtimeReminder,
   }) =>
       HealthSettings(
         modules: modules ?? this.modules,
@@ -151,6 +156,7 @@ class HealthSettings {
         hideFromHome: hideFromHome ?? this.hideFromHome,
         lockEnabled: lockEnabled ?? this.lockEnabled,
         cycleReminders: cycleReminders ?? this.cycleReminders,
+        bedtimeReminder: bedtimeReminder != null ? bedtimeReminder() : this.bedtimeReminder,
       );
 
   Map<String, Object?> toJson() => {
@@ -174,6 +180,7 @@ class HealthSettings {
         'hideFromHome': hideFromHome,
         'lockEnabled': lockEnabled,
         'cycleReminders': cycleReminders,
+        'bedtimeReminder': bedtimeReminder,
       };
 
   factory HealthSettings.fromJson(Map<String, Object?>? j) {
@@ -204,6 +211,7 @@ class HealthSettings {
       hideFromHome: (j['hideFromHome'] as bool?) ?? false,
       lockEnabled: (j['lockEnabled'] as bool?) ?? false,
       cycleReminders: (j['cycleReminders'] as bool?) ?? false,
+      bedtimeReminder: j['bedtimeReminder'] as int?,
     );
   }
 }
@@ -425,6 +433,42 @@ class DeviceWorkout {
         kcal: j['kcal'] as int?,
         distanceM: j['distanceM'] as int?,
         steps: j['steps'] as int?,
+        updatedAt: DateTime.parse(j['updatedAt'] as String).toLocal(),
+      );
+}
+
+/// How the user felt on a day (screen 45): each 1–5, all optional.
+class WellbeingCheckin {
+  const WellbeingCheckin({required this.id, required this.day, this.energy, this.fatigue, this.recovery, this.mood, required this.updatedAt});
+
+  final String id;
+  final String day;
+  final int? energy;
+  final int? fatigue;
+  final int? recovery;
+  final int? mood;
+  final DateTime updatedAt;
+
+  bool get isEmpty => energy == null && fatigue == null && recovery == null && mood == null;
+  bool get valid => [energy, fatigue, recovery, mood].every((v) => v == null || (v >= 1 && v <= 5));
+
+  Map<String, Object?> toJson() => {
+        'id': id,
+        'day': day,
+        'energy': energy,
+        'fatigue': fatigue,
+        'recovery': recovery,
+        'mood': mood,
+        'updatedAt': updatedAt.toUtc().toIso8601String(),
+      };
+
+  factory WellbeingCheckin.fromJson(Map<String, Object?> j) => WellbeingCheckin(
+        id: j['id'] as String,
+        day: j['day'] as String,
+        energy: j['energy'] as int?,
+        fatigue: j['fatigue'] as int?,
+        recovery: j['recovery'] as int?,
+        mood: j['mood'] as int?,
         updatedAt: DateTime.parse(j['updatedAt'] as String).toLocal(),
       );
 }

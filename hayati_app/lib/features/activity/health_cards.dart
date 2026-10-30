@@ -32,6 +32,7 @@ class SleepCard extends ConsumerWidget {
     return _MetricCard(
       icon: Icons.bedtime_outlined,
       title: l.hkSleep,
+      route: Routes.sleep,
       empty: !last.hasData,
       emptyText: l.noSleepYet,
       value: last.hasData ? l.durationText(last.minutes) : null,
@@ -61,6 +62,7 @@ class HeartCard extends ConsumerWidget {
     return _MetricCard(
       icon: Icons.favorite_border,
       title: l.restingHeartRate,
+      route: Routes.vitals,
       empty: latest == null,
       emptyText: l.noHeartYet,
       value: latest == null ? null : l.bpmN(latest.value.round()),
@@ -138,6 +140,7 @@ class _MetricCard extends StatelessWidget {
     required this.title,
     required this.empty,
     required this.emptyText,
+    this.route,
     this.value,
     this.lines = const [],
     this.source,
@@ -148,6 +151,9 @@ class _MetricCard extends StatelessWidget {
   final String title;
   final bool empty;
   final String emptyText;
+
+  /// Where tapping goes; the devices screen while empty otherwise.
+  final String? route;
   final String? value;
   final List<String> lines;
   final ActivitySource? source;
@@ -160,7 +166,7 @@ class _MetricCard extends StatelessWidget {
     final t = Theme.of(context).textTheme;
     final top = bars == null || bars!.isEmpty ? 0.0 : bars!.reduce((a, b) => a > b ? a : b);
     return AppCard(
-      onTap: empty ? () => context.push(Routes.devices) : null,
+      onTap: route != null ? () => context.push(route!) : (empty ? () => context.push(Routes.devices) : null),
       child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
         Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
           IconBadge(icon),

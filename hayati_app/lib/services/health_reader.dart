@@ -46,6 +46,18 @@ abstract interface class HealthReader {
 
   /// Workouts, with the store's own id in [DeviceWorkout.id].
   Future<List<DeviceWorkout>> readWorkouts(DateTime from, DateTime to);
+
+  /// Weight (kg) and blood pressure (systolic, diastolic) readings.
+  Future<List<BodyReading>> readBody(DateTime from, DateTime to);
+}
+
+/// One measurement read from the store.
+class BodyReading {
+  const BodyReading(this.at, this.kind, this.value, [this.value2]);
+  final DateTime at;
+  final MetricKind kind;
+  final double value;
+  final double? value2;
 }
 
 class UnsupportedHealthReader implements HealthReader {
@@ -66,6 +78,8 @@ class UnsupportedHealthReader implements HealthReader {
   Future<List<(DateTime, double)>> readRestingHeart(DateTime from, DateTime to) async => const [];
   @override
   Future<List<DeviceWorkout>> readWorkouts(DateTime from, DateTime to) async => const [];
+  @override
+  Future<List<BodyReading>> readBody(DateTime from, DateTime to) async => const [];
 }
 
 class StoreHealthReader implements HealthReader {
@@ -90,11 +104,14 @@ class StoreHealthReader implements HealthReader {
       ? const [HealthDataType.WORKOUT, HealthDataType.DISTANCE_DELTA, HealthDataType.TOTAL_CALORIES_BURNED, HealthDataType.STEPS]
       : const [HealthDataType.WORKOUT];
 
+  static const _bodyTypes = [HealthDataType.WEIGHT, HealthDataType.BLOOD_PRESSURE_SYSTOLIC, HealthDataType.BLOOD_PRESSURE_DIASTOLIC];
+
   List<HealthDataType> _types(HealthKind k) => switch (k) {
         HealthKind.steps => const [HealthDataType.STEPS],
         HealthKind.sleep => _sleepTypes,
         HealthKind.heartRate => const [HealthDataType.RESTING_HEART_RATE],
         HealthKind.workouts => _workoutTypes,
+        HealthKind.body => _bodyTypes,
       };
 
   @override
@@ -179,6 +196,29 @@ class StoreHealthReader implements HealthReader {
             updatedAt: now,
           ),
     ];
+  }
+
+  /// The store keeps blood pressure as two series; readings at the same
+  /// moment are paired.
+  @override
+  Future<List<BodyReading>> readBody(DateTime from, DateTime to) async {
+    final points = await _read(_bodyTypes, from, to);
+    double? num(HealthDataPoint p) => p.value is NumericHealthValue ? (p.value as NumericHealthValue).numericValue.toDouble() : null;
+    final out = <BodyReading>[];
+    final dia = <int, double>{};
+    for (final p in points) {
+      if (p.type == HealthDataType.BLOOD_PRESSURE_DIASTOLIC && num(p) != null) dia[p.dateFrom.millisecondsSinceEpoch] = num(p)!;
+    }
+    for (final p in points) {
+      final v = num(p);
+      if (v == null) continue;
+      if (p.type == HealthDataType.WEIGHT) out.add(BodyReading(p.dateFrom.toLocal(), MetricKind.weight, v));
+      if (p.type == HealthDataType.BLOOD_PRESSURE_SYSTOLIC) {
+        final d = dia[p.dateFrom.millisecondsSinceEpoch];
+        if (d != null) out.add(BodyReading(p.dateFrom.toLocal(), MetricKind.bp, v, d));
+      }
+    }
+    return out;
   }
 }
 

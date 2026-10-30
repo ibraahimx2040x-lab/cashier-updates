@@ -252,6 +252,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addHabit => 'إضافة عادة';
 
   @override
+  String get addMeasurement => 'أضف قياس';
+
+  @override
   String get addMilestone => 'إضافة مرحلة';
 
   @override
@@ -265,6 +268,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addQuestion => 'أضف سؤال';
+
+  @override
+  String get addSleep => 'أضف نوم';
 
   @override
   String get addStepsManually => 'أضف خطوات';
@@ -728,6 +734,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get archivedNotes => 'الملاحظات المؤرشفة';
 
   @override
+  String get articleDisclaimer =>
+      'معلومات عامة، مو تشخيص ولا علاج. راجع الطبيب عن صحتك، واتصل بالطوارئ إذا الوضع عاجل.';
+
+  @override
+  String get articleUnavailable => 'هذا المقال مو ضمن أقسامك الصحية.';
+
+  @override
   String get askAssistantReplan => 'اطلب من المساعد إعادة ترتيب يومي';
 
   @override
@@ -811,6 +824,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get barcodeNumber => 'رقم الباركود';
 
   @override
+  String get bedtimeReminder => 'تذكير بوقت النوم';
+
+  @override
+  String get bedtimeReminderSub => 'تنبيه تبدأ تجهّز نفسك للنوم';
+
+  @override
   String beforeMinutes(String duration) {
     return 'قبل $duration';
   }
@@ -847,6 +866,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get bodyweight => 'وزن الجسم';
+
+  @override
+  String get bpSeeDoctor =>
+      'متوسط آخر ثلاث قراءات للضغط 140/90 أو أعلى. يستاهل تراجع فيه الطبيب.';
+
+  @override
+  String get bpUrgent =>
+      'آخر قراءة 180/120 أو أعلى. إذا معك ألم في الصدر أو ضيق تنفس أو صداع شديد أو تغيّر في النظر، اطلب مساعدة عاجلة الحين. وإلا ارتاح كم دقيقة وقِس مرة ثانية، وكلّم الطبيب اليوم.';
 
   @override
   String bpmN(int n) {
@@ -955,6 +982,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get cefrB2 => 'B2 · فوق المتوسط';
 
   @override
+  String changeIn30Days(String change) {
+    return '$change خلال 30 يوم';
+  }
+
+  @override
   String get changePassword => 'تغيير كلمة المرور';
 
   @override
@@ -975,6 +1007,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get checkFields => 'راجع الحقول';
+
+  @override
+  String get checkinScale => '1 الأقل و5 الأعلى. ينحفظ مع كل ضغطة.';
+
+  @override
+  String checkinWeek(String energy, String recovery) {
+    return 'هذا الأسبوع: الطاقة $energy والتعافي $recovery بالمتوسط';
+  }
 
   @override
   String get clear => 'مسح';
@@ -1002,6 +1042,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get cloudModeNotice =>
       'تُحفظ بياناتك في حسابك، مع نسخة على هذا الجهاز للعمل دون اتصال.';
+
+  @override
+  String cmN(String v) {
+    return '$v سم';
+  }
 
   @override
   String get comingSoon => 'قريبًا';
@@ -1468,6 +1513,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'الربط يصير من تطبيق حياتي على الجوال: يقرأ من Health Connect في الأندرويد أو Apple Health في الآيفون، واللي يجيبه يطلع هنا بعد.';
 
   @override
+  String get diastolic => 'الواطي (الانبساطي)';
+
+  @override
   String get didYouEat => 'هل هي وحدة من هذي؟';
 
   @override
@@ -1909,6 +1957,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get fatG => 'دهون (غ)';
 
   @override
+  String get fatigue => 'التعب';
+
+  @override
   String get featAdvancedReports => 'تقارير وتحليلات أكثر تفصيلًا';
 
   @override
@@ -2291,6 +2342,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get healthDataTitle => 'بياناتك الصحية';
 
   @override
+  String get healthLearn => 'توعية صحية';
+
+  @override
+  String get healthLearnSub => 'مقالات قصيرة من جهات صحية موثوقة';
+
+  @override
   String get healthLock => 'القفل بالبصمة أو رمز الجوال';
 
   @override
@@ -2383,6 +2440,12 @@ class AppLocalizationsAr extends AppLocalizations {
       'اضغط على يوم سابق لتصحيحه. الأيام غير المستحقة محايدة.';
 
   @override
+  String get hkBody => 'الوزن والضغط';
+
+  @override
+  String get hkBodySub => 'قراءات الميزان الذكي أو جهاز الضغط';
+
+  @override
   String get hkHeartRate => 'نبض الراحة';
 
   @override
@@ -2456,6 +2519,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get howMuch => 'كم الكمية؟';
 
   @override
+  String get howRested => 'كيف حاسّ اليوم؟';
+
+  @override
   String get howTo => 'طريقة الأداء';
 
   @override
@@ -2516,6 +2582,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get keepChats => 'الاحتفاظ بالمحادثات';
 
   @override
+  String kgN(String v) {
+    return '$v كغ';
+  }
+
+  @override
   String kgTimesReps(String kg, int reps) {
     return '$kg كغ × $reps';
   }
@@ -2547,12 +2618,19 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get lastTwoWeeks => 'آخر أسبوعين';
+
+  @override
   String get lastWeek => 'الأسبوع الماضي';
 
   @override
   String latestOn(String date) {
     return 'آخر شي: $date';
   }
+
+  @override
+  String get learnIntro =>
+      'قراءات قصيرة وعامة من جهات صحية رسمية. مو نصيحة شخصية لك، والطبيب هو اللي يقول لك وش يناسبك.';
 
   @override
   String get leave => 'خروج';
@@ -2736,6 +2814,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get mealSnack => 'وجبات خفيفة';
 
   @override
+  String measurementsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n قياس',
+      few: '$n قياسات',
+      two: 'قياسين',
+      one: 'قياس',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get memberSince => 'تاريخ إنشاء الحساب';
 
   @override
@@ -2766,6 +2857,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get methodUmmAlQura => 'أم القرى (مكة)';
 
   @override
+  String metricOutOfRange(int min, int max) {
+    return 'اكتب رقم بين $min و$max';
+  }
+
+  @override
   String get milestone => 'مرحلة';
 
   @override
@@ -2777,6 +2873,35 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String milestonesDone(int done, int total) {
     return '$done/$total مراحل';
+  }
+
+  @override
+  String get mkBloodPressure => 'ضغط الدم';
+
+  @override
+  String get mkBodyFat => 'نسبة الدهون';
+
+  @override
+  String get mkBodyFatPct => 'نسبة الدهون (%)';
+
+  @override
+  String get mkHeartBpm => 'نبض الراحة (نبضة/د)';
+
+  @override
+  String get mkWaist => 'محيط الخصر';
+
+  @override
+  String get mkWaistCm => 'محيط الخصر (سم)';
+
+  @override
+  String get mkWeight => 'الوزن';
+
+  @override
+  String get mkWeightKg => 'الوزن (كغ)';
+
+  @override
+  String mmHgN(int sys, int dia) {
+    return '$sys/$dia ملم زئبق';
   }
 
   @override
@@ -3081,6 +3206,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noLinkedTasks => 'لا توجد مهام مرتبطة بهذا الهدف بعد.';
 
   @override
+  String get noMeasurementYet => 'ما فيه للحين — اضغط عشان تضيف';
+
+  @override
   String get noMilestones => 'لا توجد مراحل بعد.';
 
   @override
@@ -3115,6 +3243,10 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noSleepYet => 'ما فيه نوم مسجل';
+
+  @override
+  String get noSleepYetBody =>
+      'أضف ليلة يدويًا، أو اقرأ النوم من تطبيق الصحة في «الأجهزة والمصادر».';
 
   @override
   String get noSourcesYet =>
@@ -3188,6 +3320,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifAppointmentTitle => 'موعد صحي';
+
+  @override
+  String get notifBedtimeBody => 'خفّف الشاشات والإضاءة';
+
+  @override
+  String get notifBedtimeTitle => 'وقت تجهّز للنوم';
 
   @override
   String get notifDue => 'راجع موعدها في المهام.';
@@ -3363,6 +3501,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String perWeek(int n) {
     return '$n أسبوعيًا';
+  }
+
+  @override
+  String percentN(String v) {
+    return '$v%';
   }
 
   @override
@@ -3823,6 +3966,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get readSleepBasics => 'اقرأ: أساسيات النوم';
+
+  @override
   String get readThis => 'اقرأ:';
 
   @override
@@ -3841,10 +3987,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recentFoods => 'الأخيرة';
 
   @override
+  String get recentNights => 'الليالي الأخيرة';
+
+  @override
   String get recentWorkouts => 'آخر التمارين';
 
   @override
   String get recordedPeriods => 'الدورات المسجلة';
+
+  @override
+  String get recovery => 'التعافي';
 
   @override
   String get recoveryWarning =>
@@ -4236,6 +4388,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get skipRest => 'تخطَّ';
 
   @override
+  String get sleepAndRecovery => 'النوم والتعافي';
+
+  @override
+  String get sleepAndRecoverySub => 'لياليك، وكيف ترتاح، وتذكير بوقت النوم';
+
+  @override
+  String get sleepGoldNote => 'الذهبي يعني ليلة 7 ساعات أو أكثر.';
+
+  @override
+  String get sleepInvalid =>
+      'ما ينفع: راجع الأوقات (حتى 24 ساعة، مو في المستقبل، وما يتداخل مع ليلة أضفتها).';
+
+  @override
   String sleepNightsN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4246,6 +4411,14 @@ class AppLocalizationsAr extends AppLocalizations {
       one: 'ليلة',
     );
     return '$_temp0';
+  }
+
+  @override
+  String get sleepQuality => 'كيف كان نومك؟';
+
+  @override
+  String sleepQualityN(int n) {
+    return 'الجودة $n من 5';
   }
 
   @override
@@ -4269,6 +4442,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get sourcePhone => 'حساس الجوال';
+
+  @override
+  String get sources => 'المصادر';
 
   @override
   String get sourcesWithData => 'المصادر اللي فيها بياناتك';
@@ -4493,6 +4669,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String syncUpToDate(String time) {
     return 'محدّثة · $time';
   }
+
+  @override
+  String get systolic => 'العالي (الانقباضي)';
 
   @override
   String get takeLevelCheck => 'أجرِ اختبار المستوى';
@@ -4770,6 +4949,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get viewCalendar => 'التقويم';
 
   @override
+  String get vitals => 'القياسات';
+
+  @override
+  String get vitalsFromDevices => 'اقرأ الوزن والضغط من تطبيق الصحة في جوالك';
+
+  @override
+  String get vitalsNote =>
+      'لمتابعتك الشخصية. هذي الأرقام مو تشخيص، واقرأ أكثر في «توعية صحية».';
+
+  @override
+  String get vitalsSub => 'الوزن والخصر والنبض والضغط والدهون';
+
+  @override
   String vsLastMonth(String amount) {
     return 'الشهر الماضي: $amount';
   }
@@ -4927,6 +5119,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get welcomeTitle => 'رتّب حياتك، خطوة بخطوة';
 
   @override
+  String get wentToBed => 'وقت النوم';
+
+  @override
   String get whatThisPhoneReads => 'وش يقرأ هذا الجوال';
 
   @override
@@ -4993,6 +5188,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get woYoga => 'يوغا';
+
+  @override
+  String get wokeUp => 'وقت الصحيان';
+
+  @override
+  String get wokeUpOn => 'يوم الصحيان';
 
   @override
   String get womensUnavailable => 'هذا القسم ضمن صحة المرأة.';

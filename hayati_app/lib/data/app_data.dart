@@ -40,6 +40,7 @@ class AppData {
     this.periods = const [],
     this.cycleLogs = const [],
     this.appointments = const [],
+    this.checkins = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -89,6 +90,10 @@ class AppData {
   final List<CyclePeriod> periods;
   final List<CycleDayLog> cycleLogs;
   final List<HealthAppointment> appointments;
+
+  /// Daily energy / fatigue / recovery / mood (phase 12).
+  final List<WellbeingCheckin> checkins;
+  WellbeingCheckin? checkin(String day) => checkins.where((x) => x.day == day).firstOrNull;
 
   CycleDayLog? cycleLog(String day) => cycleLogs.where((x) => x.day == day).firstOrNull;
   HealthAppointment? appointment(String? id) => _find(appointments, id, (e) => e.id);
@@ -184,6 +189,7 @@ class AppData {
     List<CyclePeriod>? periods,
     List<CycleDayLog>? cycleLogs,
     List<HealthAppointment>? appointments,
+    List<WellbeingCheckin>? checkins,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -223,6 +229,7 @@ class AppData {
         periods: periods ?? this.periods,
         cycleLogs: cycleLogs ?? this.cycleLogs,
         appointments: appointments ?? this.appointments,
+        checkins: checkins ?? this.checkins,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -264,6 +271,7 @@ class AppData {
         'periods': periods.map((e) => e.toJson()).toList(),
         'cycleLogs': cycleLogs.map((e) => e.toJson()).toList(),
         'appointments': appointments.map((e) => e.toJson()).toList(),
+        'checkins': checkins.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -309,6 +317,7 @@ class AppData {
       periods: list('periods', CyclePeriod.fromJson),
       cycleLogs: list('cycleLogs', CycleDayLog.fromJson),
       appointments: list('appointments', HealthAppointment.fromJson),
+      checkins: list('checkins', WellbeingCheckin.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

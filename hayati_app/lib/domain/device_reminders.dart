@@ -120,6 +120,22 @@ List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizatio
       }
     }
   }
+  // Time to wind down, every night it's set.
+  final bed = h.bedtimeReminder;
+  if (bed != null && h.has(HealthModule.sleep)) {
+    for (var i = 0; i < prayerDays; i++) {
+      final day = today.add(Duration(days: i));
+      final at = atMinutes(day, bed);
+      if (!inWindow(at)) continue;
+      out.add(DeviceReminder(
+        id: stableId('bedtime:${dayKey(day)}:$bed'),
+        at: at,
+        title: l.notifBedtimeTitle,
+        body: l.notifBedtimeBody,
+        route: Routes.sleep,
+      ));
+    }
+  }
   // Health appointments: the time only, never the title, on a lock screen.
   if (h.has(HealthModule.womens) || h.has(HealthModule.mens)) {
     for (final a in d.appointments) {

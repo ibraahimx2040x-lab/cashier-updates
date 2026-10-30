@@ -476,6 +476,12 @@ abstract class AppLocalizations {
   /// **'Add habit'**
   String get addHabit;
 
+  /// No description provided for @addMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Add measurement'**
+  String get addMeasurement;
+
   /// No description provided for @addMilestone.
   ///
   /// In en, this message translates to:
@@ -505,6 +511,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add a question'**
   String get addQuestion;
+
+  /// No description provided for @addSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Add sleep'**
+  String get addSleep;
 
   /// No description provided for @addStepsManually.
   ///
@@ -1214,6 +1226,18 @@ abstract class AppLocalizations {
   /// **'Archived notes'**
   String get archivedNotes;
 
+  /// No description provided for @articleDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'General information, not a diagnosis or treatment. Contact a doctor about your own health, and emergency services if it\'s urgent.'**
+  String get articleDisclaimer;
+
+  /// No description provided for @articleUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This article isn\'t in your health sections.'**
+  String get articleUnavailable;
+
   /// No description provided for @askAssistantReplan.
   ///
   /// In en, this message translates to:
@@ -1364,6 +1388,18 @@ abstract class AppLocalizations {
   /// **'Barcode number'**
   String get barcodeNumber;
 
+  /// No description provided for @bedtimeReminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Bedtime reminder'**
+  String get bedtimeReminder;
+
+  /// No description provided for @bedtimeReminderSub.
+  ///
+  /// In en, this message translates to:
+  /// **'A nudge to start winding down'**
+  String get bedtimeReminderSub;
+
   /// No description provided for @beforeMinutes.
   ///
   /// In en, this message translates to:
@@ -1429,6 +1465,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Body weight'**
   String get bodyweight;
+
+  /// No description provided for @bpSeeDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last three blood pressure readings average 140/90 or higher. That\'s worth checking with a doctor.'**
+  String get bpSeeDoctor;
+
+  /// No description provided for @bpUrgent.
+  ///
+  /// In en, this message translates to:
+  /// **'Your last reading is 180/120 or higher. If you have chest pain, shortness of breath, a severe headache or changes in vision, get urgent help now. Otherwise rest a few minutes, measure again, and contact a doctor today.'**
+  String get bpUrgent;
 
   /// No description provided for @bpmN.
   ///
@@ -1610,6 +1658,12 @@ abstract class AppLocalizations {
   /// **'B2 · Upper intermediate'**
   String get cefrB2;
 
+  /// No description provided for @changeIn30Days.
+  ///
+  /// In en, this message translates to:
+  /// **'{change} in 30 days'**
+  String changeIn30Days(String change);
+
   /// No description provided for @changePassword.
   ///
   /// In en, this message translates to:
@@ -1633,6 +1687,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Check the fields'**
   String get checkFields;
+
+  /// No description provided for @checkinScale.
+  ///
+  /// In en, this message translates to:
+  /// **'1 is the lowest, 5 the highest. Saved as you tap.'**
+  String get checkinScale;
+
+  /// No description provided for @checkinWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week: energy {energy}, recovery {recovery} on average'**
+  String checkinWeek(String energy, String recovery);
 
   /// No description provided for @clear.
   ///
@@ -1681,6 +1747,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your data is saved to your account and kept on this device for offline use.'**
   String get cloudModeNotice;
+
+  /// No description provided for @cmN.
+  ///
+  /// In en, this message translates to:
+  /// **'{v} cm'**
+  String cmN(String v);
 
   /// No description provided for @comingSoon.
   ///
@@ -2437,6 +2509,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.'**
   String get devicesWebBody;
+
+  /// No description provided for @diastolic.
+  ///
+  /// In en, this message translates to:
+  /// **'Lower (diastolic)'**
+  String get diastolic;
 
   /// No description provided for @didYouEat.
   ///
@@ -3200,6 +3278,12 @@ abstract class AppLocalizations {
   /// **'Fat (g)'**
   String get fatG;
 
+  /// No description provided for @fatigue.
+  ///
+  /// In en, this message translates to:
+  /// **'Fatigue'**
+  String get fatigue;
+
   /// No description provided for @featAdvancedReports.
   ///
   /// In en, this message translates to:
@@ -3896,6 +3980,18 @@ abstract class AppLocalizations {
   /// **'Your health data'**
   String get healthDataTitle;
 
+  /// No description provided for @healthLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Health reading'**
+  String get healthLearn;
+
+  /// No description provided for @healthLearnSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Short articles from public health sources'**
+  String get healthLearnSub;
+
   /// No description provided for @healthLock.
   ///
   /// In en, this message translates to:
@@ -4046,6 +4142,18 @@ abstract class AppLocalizations {
   /// **'Tap a past day to correct it. Days the habit isn\'t due are neutral.'**
   String get historyHint;
 
+  /// No description provided for @hkBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight and blood pressure'**
+  String get hkBody;
+
+  /// No description provided for @hkBodySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Readings from a smart scale or blood pressure monitor'**
+  String get hkBodySub;
+
   /// No description provided for @hkHeartRate.
   ///
   /// In en, this message translates to:
@@ -4190,6 +4298,12 @@ abstract class AppLocalizations {
   /// **'How much?'**
   String get howMuch;
 
+  /// No description provided for @howRested.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you feel today?'**
+  String get howRested;
+
   /// No description provided for @howTo.
   ///
   /// In en, this message translates to:
@@ -4292,6 +4406,12 @@ abstract class AppLocalizations {
   /// **'Keep chats for'**
   String get keepChats;
 
+  /// No description provided for @kgN.
+  ///
+  /// In en, this message translates to:
+  /// **'{v} kg'**
+  String kgN(String v);
+
   /// No description provided for @kgTimesReps.
   ///
   /// In en, this message translates to:
@@ -4346,6 +4466,12 @@ abstract class AppLocalizations {
   /// **'Last synced {time}'**
   String lastSyncAt(String time);
 
+  /// No description provided for @lastTwoWeeks.
+  ///
+  /// In en, this message translates to:
+  /// **'Last two weeks'**
+  String get lastTwoWeeks;
+
   /// No description provided for @lastWeek.
   ///
   /// In en, this message translates to:
@@ -4357,6 +4483,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Latest: {date}'**
   String latestOn(String date);
+
+  /// No description provided for @learnIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Short, general reading from public health organisations. It isn\'t advice for you personally; a doctor can tell you what applies to you.'**
+  String get learnIntro;
 
   /// No description provided for @leave.
   ///
@@ -4664,6 +4796,12 @@ abstract class AppLocalizations {
   /// **'Snacks'**
   String get mealSnack;
 
+  /// No description provided for @measurementsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 measurement} other{{n} measurements}}'**
+  String measurementsN(int n);
+
   /// No description provided for @memberSince.
   ///
   /// In en, this message translates to:
@@ -4724,6 +4862,12 @@ abstract class AppLocalizations {
   /// **'Umm al-Qura (Makkah)'**
   String get methodUmmAlQura;
 
+  /// No description provided for @metricOutOfRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a number between {min} and {max}'**
+  String metricOutOfRange(int min, int max);
+
   /// No description provided for @milestone.
   ///
   /// In en, this message translates to:
@@ -4747,6 +4891,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{done}/{total} milestones'**
   String milestonesDone(int done, int total);
+
+  /// No description provided for @mkBloodPressure.
+  ///
+  /// In en, this message translates to:
+  /// **'Blood pressure'**
+  String get mkBloodPressure;
+
+  /// No description provided for @mkBodyFat.
+  ///
+  /// In en, this message translates to:
+  /// **'Body fat'**
+  String get mkBodyFat;
+
+  /// No description provided for @mkBodyFatPct.
+  ///
+  /// In en, this message translates to:
+  /// **'Body fat (%)'**
+  String get mkBodyFatPct;
+
+  /// No description provided for @mkHeartBpm.
+  ///
+  /// In en, this message translates to:
+  /// **'Resting heart rate (bpm)'**
+  String get mkHeartBpm;
+
+  /// No description provided for @mkWaist.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist'**
+  String get mkWaist;
+
+  /// No description provided for @mkWaistCm.
+  ///
+  /// In en, this message translates to:
+  /// **'Waist (cm)'**
+  String get mkWaistCm;
+
+  /// No description provided for @mkWeight.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get mkWeight;
+
+  /// No description provided for @mkWeightKg.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight (kg)'**
+  String get mkWeightKg;
+
+  /// No description provided for @mmHgN.
+  ///
+  /// In en, this message translates to:
+  /// **'{sys}/{dia} mmHg'**
+  String mmHgN(int sys, int dia);
 
   /// No description provided for @modExpenses.
   ///
@@ -5300,6 +5498,12 @@ abstract class AppLocalizations {
   /// **'No tasks linked to this goal yet.'**
   String get noLinkedTasks;
 
+  /// No description provided for @noMeasurementYet.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing yet — tap to add'**
+  String get noMeasurementYet;
+
   /// No description provided for @noMilestones.
   ///
   /// In en, this message translates to:
@@ -5371,6 +5575,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No sleep recorded'**
   String get noSleepYet;
+
+  /// No description provided for @noSleepYetBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a night by hand, or read sleep from your phone\'s health app in Devices and sources.'**
+  String get noSleepYetBody;
 
   /// No description provided for @noSourcesYet.
   ///
@@ -5509,6 +5719,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Health appointment'**
   String get notifAppointmentTitle;
+
+  /// No description provided for @notifBedtimeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Screens down, lights low'**
+  String get notifBedtimeBody;
+
+  /// No description provided for @notifBedtimeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to wind down'**
+  String get notifBedtimeTitle;
 
   /// No description provided for @notifDue.
   ///
@@ -5803,6 +6025,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n} a week'**
   String perWeek(int n);
+
+  /// No description provided for @percentN.
+  ///
+  /// In en, this message translates to:
+  /// **'{v}%'**
+  String percentN(String v);
 
   /// No description provided for @periodCovers.
   ///
@@ -6572,6 +6800,12 @@ abstract class AppLocalizations {
   /// **'Each switch asks {store} for permission the first time. Turning one off stops reading; what came in stays.'**
   String readOnlyNote(String store);
 
+  /// No description provided for @readSleepBasics.
+  ///
+  /// In en, this message translates to:
+  /// **'Read: sleep basics'**
+  String get readSleepBasics;
+
   /// No description provided for @readThis.
   ///
   /// In en, this message translates to:
@@ -6608,6 +6842,12 @@ abstract class AppLocalizations {
   /// **'Recent'**
   String get recentFoods;
 
+  /// No description provided for @recentNights.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent nights'**
+  String get recentNights;
+
   /// No description provided for @recentWorkouts.
   ///
   /// In en, this message translates to:
@@ -6619,6 +6859,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recorded periods'**
   String get recordedPeriods;
+
+  /// No description provided for @recovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Recovery'**
+  String get recovery;
 
   /// No description provided for @recoveryWarning.
   ///
@@ -7292,11 +7538,47 @@ abstract class AppLocalizations {
   /// **'Skip'**
   String get skipRest;
 
+  /// No description provided for @sleepAndRecovery.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep and recovery'**
+  String get sleepAndRecovery;
+
+  /// No description provided for @sleepAndRecoverySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Your nights, how rested you feel, a bedtime reminder'**
+  String get sleepAndRecoverySub;
+
+  /// No description provided for @sleepGoldNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Gold marks nights of 7 hours or more.'**
+  String get sleepGoldNote;
+
+  /// No description provided for @sleepInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t fit: check the times (up to 24 hours, not in the future, not overlapping another night you added).'**
+  String get sleepInvalid;
+
   /// No description provided for @sleepNightsN.
   ///
   /// In en, this message translates to:
   /// **'{n, plural, =1{1 night} other{{n} nights}}'**
   String sleepNightsN(int n);
+
+  /// No description provided for @sleepQuality.
+  ///
+  /// In en, this message translates to:
+  /// **'How did you sleep?'**
+  String get sleepQuality;
+
+  /// No description provided for @sleepQualityN.
+  ///
+  /// In en, this message translates to:
+  /// **'Quality {n} of 5'**
+  String sleepQualityN(int n);
 
   /// No description provided for @sleepWindow.
   ///
@@ -7333,6 +7615,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Phone sensor'**
   String get sourcePhone;
+
+  /// No description provided for @sources.
+  ///
+  /// In en, this message translates to:
+  /// **'Sources'**
+  String get sources;
 
   /// No description provided for @sourcesWithData.
   ///
@@ -7675,6 +7963,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Up to date · {time}'**
   String syncUpToDate(String time);
+
+  /// No description provided for @systolic.
+  ///
+  /// In en, this message translates to:
+  /// **'Upper (systolic)'**
+  String get systolic;
 
   /// No description provided for @takeLevelCheck.
   ///
@@ -8102,6 +8396,30 @@ abstract class AppLocalizations {
   /// **'Calendar'**
   String get viewCalendar;
 
+  /// No description provided for @vitals.
+  ///
+  /// In en, this message translates to:
+  /// **'Measurements'**
+  String get vitals;
+
+  /// No description provided for @vitalsFromDevices.
+  ///
+  /// In en, this message translates to:
+  /// **'Read weight and blood pressure from your phone\'s health app'**
+  String get vitalsFromDevices;
+
+  /// No description provided for @vitalsNote.
+  ///
+  /// In en, this message translates to:
+  /// **'For your own record. These numbers aren\'t a diagnosis; read more in Health reading.'**
+  String get vitalsNote;
+
+  /// No description provided for @vitalsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight, waist, heart rate, blood pressure, body fat'**
+  String get vitalsSub;
+
   /// No description provided for @vsLastMonth.
   ///
   /// In en, this message translates to:
@@ -8342,6 +8660,12 @@ abstract class AppLocalizations {
   /// **'Organize your life, step by step'**
   String get welcomeTitle;
 
+  /// No description provided for @wentToBed.
+  ///
+  /// In en, this message translates to:
+  /// **'Went to bed'**
+  String get wentToBed;
+
   /// No description provided for @whatThisPhoneReads.
   ///
   /// In en, this message translates to:
@@ -8473,6 +8797,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yoga'**
   String get woYoga;
+
+  /// No description provided for @wokeUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Woke up'**
+  String get wokeUp;
+
+  /// No description provided for @wokeUpOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Woke up on'**
+  String get wokeUpOn;
 
   /// No description provided for @womensUnavailable.
   ///

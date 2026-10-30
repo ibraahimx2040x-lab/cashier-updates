@@ -169,11 +169,15 @@ Program? programById(String? id) => id == null ? null : programs.where((p) => p.
 /// Whether [s] may see [p]: shared programs always; women's only for a
 /// woman with the women's section on, men's only for a man with the men's
 /// section on. No sex chosen: shared only.
-bool programVisible(Program p, UserSettings s) => switch (p.audience) {
+/// Women's content for female accounts with that section on, men's for
+/// male accounts likewise; shared content for everyone.
+bool programAudienceVisible(Audience a, UserSettings s) => switch (a) {
       Audience.all => true,
       Audience.female => s.sex == Sex.female && s.health.has(HealthModule.womens),
       Audience.male => s.sex == Sex.male && s.health.has(HealthModule.mens),
     };
+
+bool programVisible(Program p, UserSettings s) => programAudienceVisible(p.audience, s);
 
 List<Program> programsFor(UserSettings s) => [for (final p in programs) if (programVisible(p, s)) p];
 

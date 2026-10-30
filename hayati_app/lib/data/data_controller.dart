@@ -22,6 +22,7 @@ import 'models/task.dart';
 import 'models/womens.dart';
 import 'remote/sync.dart';
 import 'store/local_store.dart';
+import '../services/health_reader.dart' show BodyReading;
 
 /// Injectable clock so planning, reminders and reports are testable.
 final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
@@ -399,6 +400,80 @@ class DataController extends Notifier<AppData> {
     if (!identical(list, state.bodyMetrics)) _set(state.copyWith(bodyMetrics: list));
   }
 
+  /// Weight and blood pressure readings from [source]; one row per reading,
+  /// so re-reading changes nothing. Out-of-range values are dropped.
+  void importBody(ActivitySource source, List<BodyReading> readings) {
+    var list = state.bodyMetrics;
+    for (final r in readings) {
+      final m = BodyMetric(
+        id: const Uuid().v5(Namespace.url.value, 'hayati:metric:$_userId:${r.kind.name}:${source.name}:${r.at.toUtc().toIso8601String()}'),
+        kind: r.kind,
+        value: (r.value * 10).roundToDouble() / 10,
+        value2: r.value2 == null ? null : (r.value2! * 10).roundToDouble() / 10,
+        source: source,
+        measuredAt: r.at,
+      );
+      if (!m.valid || m.measuredAt.isAfter(_now.add(const Duration(minutes: 10)))) continue;
+      final prev = list.where((x) => x.id == m.id).firstOrNull;
+      if (prev != null && prev.value == m.value && prev.value2 == m.value2) continue;
+      list = _upsert(list, m, (x) => x.id);
+    }
+    if (!identical(list, state.bodyMetrics)) _set(state.copyWith(bodyMetrics: list));
+  }
+
+  /// A measurement the user typed in (screen 44).
+  BodyMetric addMetric({required MetricKind kind, required double value, double? value2, DateTime? at, String note = ''}) {
+    final when = at ?? _now;
+    final m = BodyMetric(id: newId(), kind: kind, value: value, value2: value2, source: ActivitySource.manual, measuredAt: when, note: note.trim());
+    if (!m.valid || note.length > 500 || when.isAfter(_now.add(const Duration(minutes: 10)))) throw ArgumentError('metric');
+    _set(state.copyWith(bodyMetrics: [...state.bodyMetrics, m]));
+    return m;
+  }
+
+  void deleteMetric(String id) => _set(state.copyWith(bodyMetrics: state.bodyMetrics.where((m) => m.id != id).toList()));
+
+  /// Sleep the user entered (screen 45): at most 24 hours, not in the
+  /// future, not overlapping another night they entered.
+  SleepSession addSleep({required DateTime start, required DateTime end, int? quality, String? id}) {
+    if (!end.isAfter(start) || end.difference(start) > SleepSession.maxLength) throw ArgumentError('length');
+    if (end.isAfter(_now.add(const Duration(minutes: 10)))) throw ArgumentError('future');
+    if (quality != null && (quality < 1 || quality > 5)) throw ArgumentError('quality');
+    final clash = state.sleep.any((s) => s.id != id && s.source == ActivitySource.manual && s.start.isBefore(end) && start.isBefore(s.end));
+    if (clash) throw ArgumentError('overlap');
+    final s = SleepSession(id: id ?? newId(), source: ActivitySource.manual, start: start, end: end, quality: quality, updatedAt: _now);
+    _set(state.copyWith(sleep: _upsert(state.sleep, s, (x) => x.id)));
+    return s;
+  }
+
+  /// Only entered sleep can be deleted here; imported nights come back from
+  /// the store (remove the source on screen 40 instead).
+  void deleteSleep(String id) =>
+      _set(state.copyWith(sleep: state.sleep.where((s) => s.id != id || s.source != ActivitySource.manual).toList()));
+
+  /// Rates a night's quality (1–5), whatever its source.
+  void rateSleep(String id, int? quality) {
+    if (quality != null && (quality < 1 || quality > 5)) throw ArgumentError('quality');
+    final s = state.sleep.where((x) => x.id == id).firstOrNull;
+    if (s == null) return;
+    _set(state.copyWith(sleep: _upsert(state.sleep, SleepSession(id: s.id, source: s.source, start: s.start, end: s.end, quality: quality, updatedAt: _now), (x) => x.id)));
+  }
+
+  /// One check-in per day; an empty one removes the day.
+  void saveCheckin(WellbeingCheckin c) {
+    if (parseDayKey(c.day).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    if (!c.valid) throw ArgumentError('checkin');
+    final rest = state.checkins.where((x) => x.day != c.day).toList();
+    if (c.isEmpty) {
+      _set(state.copyWith(checkins: rest));
+      return;
+    }
+    final id = state.checkin(c.day)?.id ?? const Uuid().v5(Namespace.url.value, 'hayati:checkin:$_userId:${c.day}');
+    _set(state.copyWith(checkins: [
+      ...rest,
+      WellbeingCheckin(id: id, day: c.day, energy: c.energy, fatigue: c.fatigue, recovery: c.recovery, mood: c.mood, updatedAt: _now),
+    ]));
+  }
+
   /// Workouts [source] has from [from] on; ones it no longer has go.
   void importWorkouts(ActivitySource source, List<DeviceWorkout> workouts, {required DateTime from}) {
     final kept = state.deviceWorkouts.where((w) => w.source != source || w.start.isBefore(from)).toList();
@@ -537,6 +612,7 @@ class DataController extends Notifier<AppData> {
         'periods': [for (final x in state.periods) x.toJson()],
         'cycleLogs': [for (final x in state.cycleLogs) x.toJson()],
         'appointments': [for (final x in state.appointments) x.toJson()],
+        'checkins': [for (final x in state.checkins) x.toJson()],
       });
 
   /// Deletes the health sections' data on every device, keeping the rest
@@ -552,6 +628,7 @@ class DataController extends Notifier<AppData> {
         periods: const [],
         cycleLogs: const [],
         appointments: const [],
+        checkins: const [],
       ));
 
   static bool _sameIds<T>(List<T> a, List<T> b, String Function(T) key) {

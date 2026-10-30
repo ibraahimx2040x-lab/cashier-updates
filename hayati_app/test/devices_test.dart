@@ -152,7 +152,14 @@ void main() {
       await sync.connect(const {HealthKind.steps, HealthKind.heartRate, HealthKind.workouts});
       d = c.read(dataProvider);
       expect((d.activity.single.steps, d.bodyMetrics.single.value, d.deviceWorkouts.length), (4200, 59.0, 1));
+      reader.body = [BodyReading(at(10, 7), MetricKind.weight, 81.36), BodyReading(at(10, 7), MetricKind.bp, 121, 79), BodyReading(at(10, 8), MetricKind.bp, 400, 79)];
+      await sync.connect(const {HealthKind.body});
       expect(c.read(healthSyncProvider).kinds, HealthKind.values.toSet());
+      d = c.read(dataProvider);
+      expect(d.bodyMetrics.where((m) => m.kind == MetricKind.weight).single.value, 81.4);
+      expect(d.bodyMetrics.where((m) => m.kind == MetricKind.bp).single.value2, 79, reason: 'the out-of-range reading is dropped');
+      await sync.sync(force: true);
+      expect(c.read(dataProvider).bodyMetrics, hasLength(3), reason: 're-reading adds nothing');
 
       // One kind failing doesn't stop the others.
       reader

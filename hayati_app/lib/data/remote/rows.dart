@@ -306,6 +306,26 @@ HealthAppointment appointmentFrom(Row r) => HealthAppointment(
       updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
     );
 
+Row checkinRow(WellbeingCheckin x) => {
+      'id': x.id,
+      'day': x.day,
+      'energy': x.energy,
+      'fatigue': x.fatigue,
+      'recovery': x.recovery,
+      'mood': x.mood,
+      'updated_at': x.updatedAt.toUtc().toIso8601String(),
+    };
+
+WellbeingCheckin checkinFrom(Row r) => WellbeingCheckin(
+      id: r['id'] as String,
+      day: r['day'] as String,
+      energy: r['energy'] as int?,
+      fatigue: r['fatigue'] as int?,
+      recovery: r['recovery'] as int?,
+      mood: r['mood'] as int?,
+      updatedAt: DateTime.parse(r['updated_at'] as String).toLocal(),
+    );
+
 Row customFoodRow(CustomFood f) => {
       'id': f.id,
       'name': f.name,
@@ -653,6 +673,7 @@ final syncTables = <SyncTable<Object>>[
   SyncTable('cycle_periods', (d) => [for (final x in d.periods) periodRow(x)], periodFrom, cycle: true),
   SyncTable('cycle_day_logs', (d) => [for (final x in d.cycleLogs) cycleLogRow(x)], cycleLogFrom, cycle: true),
   SyncTable('health_appointments', (d) => [for (final x in d.appointments) appointmentRow(x)], appointmentFrom),
+  SyncTable('wellbeing_checkins', (d) => [for (final x in d.checkins) checkinRow(x)], checkinFrom),
   SyncTable('custom_foods', (d) => [for (final x in d.customFoods) customFoodRow(x)], customFoodFrom),
   SyncTable('food_logs', (d) => [for (final x in d.foodLogs) foodLogRow(x)], foodLogFrom),
   SyncTable('water_intake', (d) => [for (final x in d.water) waterRow(x)], waterFrom),
@@ -691,6 +712,7 @@ AppData mergeRemote(AppData local, UserSettings settings, Map<String, List<Row>>
     periods: localCycle ? local.periods : read('cycle_periods', periodFrom),
     cycleLogs: localCycle ? local.cycleLogs : read('cycle_day_logs', cycleLogFrom),
     appointments: read('health_appointments', appointmentFrom),
+    checkins: read('wellbeing_checkins', checkinFrom),
     customFoods: read('custom_foods', customFoodFrom),
     foodLogs: read('food_logs', foodLogFrom),
     water: read('water_intake', waterFrom),

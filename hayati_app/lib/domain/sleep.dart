@@ -107,15 +107,18 @@ List<DeviceWorkout> recentDeviceWorkouts(AppData d, {int limit = 20}) =>
 
 /// What is stored per source, for the sources screen.
 class SourceSummary {
-  const SourceSummary(this.source, {this.stepDays = 0, this.sleepNights = 0, this.heartDays = 0, this.workouts = 0, this.latest});
+  const SourceSummary(this.source, {this.stepDays = 0, this.sleepNights = 0, this.heartDays = 0, this.workouts = 0, this.measurements = 0, this.latest});
   final ActivitySource source;
   final int stepDays;
   final int sleepNights;
   final int heartDays;
   final int workouts;
+
+  /// Weight, blood pressure and other measurements.
+  final int measurements;
   final DateTime? latest;
 
-  int get total => stepDays + sleepNights + heartDays + workouts;
+  int get total => stepDays + sleepNights + heartDays + workouts + measurements;
 }
 
 List<SourceSummary> sourceSummaries(AppData d) {
@@ -124,12 +127,14 @@ List<SourceSummary> sourceSummaries(AppData d) {
     final steps = d.activity.where((a) => a.source == s).toList();
     final sleep = d.sleep.where((x) => x.source == s).toList();
     final heart = d.bodyMetrics.where((m) => m.source == s && m.kind == MetricKind.restingHr).toList();
+    final other = d.bodyMetrics.where((m) => m.source == s && m.kind != MetricKind.restingHr).toList();
     final workouts = d.deviceWorkouts.where((w) => w.source == s).toList();
     final times = [
       for (final a in steps) a.updatedAt,
       for (final x in sleep) x.end,
       for (final m in heart) m.measuredAt,
       for (final w in workouts) w.end,
+      for (final m in other) m.measuredAt,
     ];
     if (times.isEmpty) continue;
     out.add(SourceSummary(
@@ -138,6 +143,7 @@ List<SourceSummary> sourceSummaries(AppData d) {
       sleepNights: sleep.map(sleepDayOf).toSet().length,
       heartDays: heart.map((m) => dayKey(m.measuredAt)).toSet().length,
       workouts: workouts.length,
+      measurements: other.length,
       latest: times.reduce((a, b) => a.isAfter(b) ? a : b),
     ));
   }
@@ -153,4 +159,8 @@ Set<ActivitySource> sourcesWith(AppData d, HealthKind kind) => switch (kind) {
             if (m.kind == MetricKind.restingHr) m.source,
         },
       HealthKind.workouts => {for (final w in d.deviceWorkouts) w.source},
+      HealthKind.body => {
+          for (final m in d.bodyMetrics)
+            if (m.kind == MetricKind.weight || m.kind == MetricKind.bp) m.source,
+        },
     };
