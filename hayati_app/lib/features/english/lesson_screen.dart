@@ -59,7 +59,7 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             child: Column(crossAxisAlignment: CrossAxisAlignment.stretch, children: [
               Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(en, style: t.titleMedium?.copyWith(fontFamily: 'Inter')),
+                child: Text(en, style: t.titleMedium?.copyWith(fontFamily: 'Readex')),
               ),
               const SizedBox(height: 2),
               Text(ar, style: t.bodyMedium?.copyWith(color: context.status.textSecondary)),
@@ -75,11 +75,11 @@ class _LessonScreenState extends ConsumerState<LessonScreen> {
             ListTile(
               title: Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(w.en, style: t.titleSmall?.copyWith(fontFamily: 'Inter')),
+                child: Text(w.en, style: t.titleSmall?.copyWith(fontFamily: 'Readex')),
               ),
               subtitle: Directionality(
                 textDirection: TextDirection.ltr,
-                child: Text(w.example, style: t.bodySmall?.copyWith(fontFamily: 'Inter')),
+                child: Text(w.example, style: t.bodySmall?.copyWith(fontFamily: 'Readex')),
               ),
               trailing: Text(isolateLatin(w.ar), style: t.bodyMedium?.copyWith(color: scheme.primary)),
             ),

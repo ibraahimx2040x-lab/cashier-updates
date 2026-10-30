@@ -91,12 +91,12 @@ class _EnglishReviewScreenState extends ConsumerState<EnglishReviewScreen> {
             Text(l.questionOf(_i + 1, _due.length), style: t.labelMedium),
             const SizedBox(height: Space.l),
             Center(
-              child: Text(w.en, style: t.displaySmall?.copyWith(fontFamily: 'Inter'), textDirection: TextDirection.ltr),
+              child: Text(w.en, style: t.displaySmall?.copyWith(fontFamily: 'Readex'), textDirection: TextDirection.ltr),
             ),
             if (_chosen != null)
               Center(
                 child: Text(w.example,
-                    style: t.bodyMedium?.copyWith(fontFamily: 'Inter', color: context.status.textSecondary),
+                    style: t.bodyMedium?.copyWith(fontFamily: 'Readex', color: context.status.textSecondary),
                     textDirection: TextDirection.ltr),
               ),
             const SizedBox(height: Space.xl),

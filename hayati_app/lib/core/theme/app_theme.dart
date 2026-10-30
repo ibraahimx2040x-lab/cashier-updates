@@ -77,9 +77,10 @@ extension StatusColorsX on BuildContext {
 }
 
 abstract final class AppTheme {
-  /// Arabic UI uses Tajawal; Latin text and digits fall back to Inter.
-  static String fontFor(Locale locale) =>
-      locale.languageCode == 'ar' ? 'Tajawal' : 'Inter';
+  /// Readex Pro sets Arabic and Latin in one voice; Reem Kufi, a geometric
+  /// Kufi, is the display face for titles and big numbers.
+  static String fontFor(Locale locale) => 'Readex';
+  static const display = 'ReemKufi';
 
   static ThemeData light(Locale locale) => _build(
         locale,
@@ -157,8 +158,8 @@ abstract final class AppTheme {
     // Arabic needs a slightly taller line height (section 9).
     final lh = locale.languageCode == 'ar' ? 1.5 : 1.35;
     final text = TextTheme(
-      headlineSmall: TextStyle(fontSize: 24, fontWeight: FontWeight.w700, height: lh),
-      titleLarge: TextStyle(fontSize: 20, fontWeight: FontWeight.w600, height: lh),
+      headlineSmall: TextStyle(fontFamily: display, fontSize: 25, fontWeight: FontWeight.w700, height: lh),
+      titleLarge: TextStyle(fontFamily: display, fontSize: 21, fontWeight: FontWeight.w600, height: lh),
       titleMedium: TextStyle(fontSize: 16, fontWeight: FontWeight.w600, height: lh),
       titleSmall: TextStyle(fontSize: 14, fontWeight: FontWeight.w600, height: lh),
       bodyLarge: TextStyle(fontSize: 16, fontWeight: FontWeight.w400, height: lh),
@@ -167,9 +168,8 @@ abstract final class AppTheme {
       labelLarge: TextStyle(fontSize: 15, fontWeight: FontWeight.w500, height: 1.2),
       labelMedium: TextStyle(fontSize: 13, fontWeight: FontWeight.w500, height: 1.2),
       labelSmall: TextStyle(fontSize: 12, fontWeight: FontWeight.w500, height: 1.2),
-      displaySmall: TextStyle(fontSize: 30, fontWeight: FontWeight.w700, height: 1.2),
+      displaySmall: TextStyle(fontFamily: display, fontSize: 31, fontWeight: FontWeight.w700, height: 1.2),
     ).apply(
-      fontFamily: font,
       bodyColor: scheme.onSurface,
       displayColor: scheme.onSurface,
     );
@@ -196,7 +196,7 @@ abstract final class AppTheme {
       splashFactory: InkRipple.splashFactory,
       colorScheme: scheme,
       fontFamily: font,
-      fontFamilyFallback: const ['Tajawal', 'Inter'],
+      fontFamilyFallback: const ['Readex'],
       textTheme: text,
       scaffoldBackgroundColor: scaffold,
       extensions: [status],

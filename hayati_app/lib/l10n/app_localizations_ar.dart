@@ -710,7 +710,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get apTest => 'تحليل أو فحص';
 
   @override
-  String get appName => 'حياتي';
+  String get appName => 'سند';
 
   @override
   String get appVersion => 'إصدار التطبيق';
@@ -803,14 +803,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get askAssistantReview => 'اسأل المساعد';
 
   @override
-  String get askHayati => 'اسأل مساعد حياتي';
+  String get askHayati => 'اسأل مساعد سند';
 
   @override
   String get assistantDisabled => 'المساعد معطّل';
 
   @override
   String get assistantDisabledBody =>
-      'بقية أقسام حياتي تعمل كالمعتاد. يمكنك تفعيله من الإعدادات في أي وقت.';
+      'بقية أقسام سند تعمل كالمعتاد. يمكنك تفعيله من الإعدادات في أي وقت.';
 
   @override
   String get assistantHint => 'اطلب تخطيطًا أو إضافة أو مراجعة…';
@@ -829,7 +829,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get assistantSubtitle => 'أساعدك في تنظيم وقتك وأهدافك';
 
   @override
-  String get assistantTitle => 'مساعد حياتي';
+  String get assistantTitle => 'مساعد سند';
 
   @override
   String assistantUsage(int used, int limit) {
@@ -1251,7 +1251,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String connectStepsBody(String store) {
-    return 'حياتي يقرأ مجموع خطواتك اليومي من $store. يقرأ الخطوات فقط ولا يكتب أي شي.';
+    return 'سند يقرأ مجموع خطواتك اليومي من $store. يقرأ الخطوات فقط ولا يكتب أي شي.';
   }
 
   @override
@@ -1347,7 +1347,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get cycleRemindersSub =>
-      'قبل النافذة المتوقعة بيومين. يقول «تذكير من حياتي» بس.';
+      'قبل النافذة المتوقعة بيومين. يقول «تذكير من سند» بس.';
 
   @override
   String get cycleStartBody =>
@@ -1635,7 +1635,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get devNotifDenied =>
-      'الإشعارات محظورة. لتصلك التذكيرات، اسمح بها لتطبيق حياتي من إعدادات جهازك أو متصفحك.';
+      'الإشعارات محظورة. لتصلك التذكيرات، اسمح بها لتطبيق سند من إعدادات جهازك أو متصفحك.';
 
   @override
   String get devNotifEnable => 'تفعيل';
@@ -1653,7 +1653,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get devicesPrivacy =>
-      'حياتي يقرأ فقط وما يكتب شي، ويقرأ اللي تشغّله بس. الأرقام تنحفظ في حسابك عشان تشوفها أجهزتك الثانية.';
+      'سند يقرأ فقط وما يكتب شي، ويقرأ اللي تشغّله بس. الأرقام تنحفظ في حسابك عشان تشوفها أجهزتك الثانية.';
 
   @override
   String devicesStoreBody(String store) {
@@ -1668,7 +1668,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get devicesWebBody =>
-      'الربط يصير من تطبيق حياتي على الجوال: يقرأ من Health Connect في الأندرويد أو Apple Health في الآيفون، واللي يجيبه يطلع هنا بعد.';
+      'الربط يصير من تطبيق سند على الجوال: يقرأ من Health Connect في الأندرويد أو Apple Health في الآيفون، واللي يجيبه يطلع هنا بعد.';
 
   @override
   String get diastolic => 'الواطي (الانبساطي)';
@@ -3371,7 +3371,7 @@ class AppLocalizationsAr extends AppLocalizations {
       'ابدأ بمهمة واحدة وهدف واحد، ثم اطلب من المساعد تخطيط يومك.';
 
   @override
-  String get newUserTitle => 'أهلًا بك في حياتي 👋';
+  String get newUserTitle => 'أهلًا بك في سند 👋';
 
   @override
   String get newWords => 'كلمات جديدة';
@@ -3511,7 +3511,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noSourcesYet =>
-      'ما فيه شي للحين. اربط من تطبيق حياتي على الجوال، أو أضف خطواتك يدويًا.';
+      'ما فيه شي للحين. اربط من تطبيق سند على الجوال، أو أضف خطواتك يدويًا.';
 
   @override
   String get noSymptomsYet => 'ما سجلتي أعراض للحين.';
@@ -3620,7 +3620,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get notifNeutralBody => 'افتح التطبيق عشان تشوفه';
 
   @override
-  String get notifNeutralTitle => 'تذكير من حياتي';
+  String get notifNeutralTitle => 'تذكير من سند';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -3944,7 +3944,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get planLabel => 'الخطة';
 
   @override
-  String get planPro => 'حياتي برو';
+  String get planPro => 'سند برو';
 
   @override
   String get planSaved => 'حُفظت الخطة';
@@ -4127,7 +4127,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get privacyText =>
-      'حياتي — سياسة الخصوصية (مسودة الوضع المحلي)\n\n1. ما نجمعه: ما تدخله فقط — بريدك، وبصمة مملّحة لكلمة المرور، وتفضيلاتك، ومهامك ومواعيدك وأهدافك وعاداتك وملاحظاتك ومصروفاتك ومحادثات المساعد.\n\n2. مكان الحفظ: على هذا الجهاز. لا يُرسل شيء إلى خوادمنا أو إلى مزود ذكاء اصطناعي في هذا الإصدار.\n\n3. المساعد: يعمل على جهازك ويطّلع فقط على الأقسام التي تسمح بها في إعدادات المساعد.\n\n4. تحكمك: يمكنك تصدير كل بياناتك وحذف المحادثات وحذف حسابك في أي وقت.\n\n5. بلاغات الدعم لا تتضمن محادثاتك أو ملاحظاتك أو مصروفاتك، وتُضاف المعلومات التقنية فقط إذا اخترت ذلك.\n\nيجب مراجعة هذه المسودة واستبدالها بالسياسة النهائية قبل الإطلاق العام.';
+      'سند — سياسة الخصوصية (مسودة الوضع المحلي)\n\n1. ما نجمعه: ما تدخله فقط — بريدك، وبصمة مملّحة لكلمة المرور، وتفضيلاتك، ومهامك ومواعيدك وأهدافك وعاداتك وملاحظاتك ومصروفاتك ومحادثات المساعد.\n\n2. مكان الحفظ: على هذا الجهاز. لا يُرسل شيء إلى خوادمنا أو إلى مزود ذكاء اصطناعي في هذا الإصدار.\n\n3. المساعد: يعمل على جهازك ويطّلع فقط على الأقسام التي تسمح بها في إعدادات المساعد.\n\n4. تحكمك: يمكنك تصدير كل بياناتك وحذف المحادثات وحذف حسابك في أي وقت.\n\n5. بلاغات الدعم لا تتضمن محادثاتك أو ملاحظاتك أو مصروفاتك، وتُضاف المعلومات التقنية فقط إذا اخترت ذلك.\n\nيجب مراجعة هذه المسودة واستبدالها بالسياسة النهائية قبل الإطلاق العام.';
 
   @override
   String get privacyTitle => 'الخصوصية وإدارة البيانات';
@@ -4337,7 +4337,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String removeSourceDataBody(String source) {
-    return 'الخطوات والنوم والنبض والتمارين اللي جت من $source تنحذف من حياتي في كل أجهزتك. ما يتغير شي في $source نفسه.';
+    return 'الخطوات والنوم والنبض والتمارين اللي جت من $source تنحذف من سند في كل أجهزتك. ما يتغير شي في $source نفسه.';
   }
 
   @override
@@ -4830,7 +4830,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get spentMoreThanIncome => 'صرفت هالشهر أكثر من اللي دخلك.';
 
   @override
-  String get splashFailed => 'تعذر تشغيل حياتي.';
+  String get splashFailed => 'تعذر تشغيل سند.';
+
+  @override
+  String get splashTagline => 'حياتك كلها في مكان واحد';
 
   @override
   String get startDate => 'تاريخ البداية';
@@ -5107,7 +5110,7 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get termsText =>
-      'حياتي — شروط الاستخدام (مسودة)\n\nيساعدك حياتي في تنظيم وقتك وأهدافك وعاداتك وملاحظاتك ومصروفاتك. الخطط والاقتراحات تقديرية وليست ضمانات. حياتي ليس خدمة مصرفية أو استشارة مالية أو طبية. أنت مسؤول عن البيانات التي تدخلها وعن القرارات التي تتخذها بناءً عليها.\n\nيجب مراجعة هذه المسودة واستبدالها بالشروط النهائية قبل الإطلاق العام.';
+      'سند — شروط الاستخدام (مسودة)\n\nيساعدك سند في تنظيم وقتك وأهدافك وعاداتك وملاحظاتك ومصروفاتك. الخطط والاقتراحات تقديرية وليست ضمانات. سند ليس خدمة مصرفية أو استشارة مالية أو طبية. أنت مسؤول عن البيانات التي تدخلها وعن القرارات التي تتخذها بناءً عليها.\n\nيجب مراجعة هذه المسودة واستبدالها بالشروط النهائية قبل الإطلاق العام.';
 
   @override
   String get testHistory => 'سجل الاختبارات';
@@ -5293,7 +5296,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get unlockFailed => 'ما انفتح';
 
   @override
-  String get unlockReason => 'افتح الأقسام الصحية في حياتي';
+  String get unlockReason => 'افتح الأقسام الصحية في سند';
 
   @override
   String get unpin => 'إلغاء التثبيت';
@@ -5534,7 +5537,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get whatThisPhoneReads => 'وش يقرأ هذا الجوال';
 
   @override
-  String get whatWeStore => 'ما الذي يحفظه حياتي';
+  String get whatWeStore => 'ما الذي يحفظه سند';
 
   @override
   String get whatWeStoreBody =>

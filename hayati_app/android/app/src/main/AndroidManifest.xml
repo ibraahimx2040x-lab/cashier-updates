@@ -20,7 +20,7 @@
          face or passcode prompt. -->
     <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <application
-        android:label="حياتي"
+        android:label="سند"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

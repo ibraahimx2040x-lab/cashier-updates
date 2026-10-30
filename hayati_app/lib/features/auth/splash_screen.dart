@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/theme/app_colors.dart';
+import '../../core/theme/daylight.dart';
+import '../../data/models/prayer.dart';
+import '../../widgets/brand.dart';
+import '../../widgets/hero_surface.dart' show SkyPainter;
 import '../../data/auth.dart';
 import '../../l10n/app_localizations.dart';
 
@@ -39,72 +43,43 @@ class _SplashScreenState extends ConsumerState<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    // Opens on the sky of the moment: the identity starts here.
+    final sky = Skies.of(skyTimeAt(DateTime.now(), const PrayerSettings()), dark: Theme.of(context).brightness == Brightness.dark);
+    final rtl = Directionality.of(context) == TextDirection.rtl;
     return Scaffold(
-      backgroundColor: AppColors.navy,
-      body: Center(
-        child: Column(mainAxisSize: MainAxisSize.min, children: [
-          const HayatiLogo(size: 88),
-          const SizedBox(height: Space.l),
-          Text('حياتي', style: Theme.of(context).textTheme.displaySmall?.copyWith(color: Colors.white, fontFamily: 'Tajawal')),
-          Text('Hayati', style: Theme.of(context).textTheme.titleMedium?.copyWith(color: Colors.white70, fontFamily: 'Inter')),
-          const SizedBox(height: Space.xxl),
-          if (_failed) ...[
-            Text(l.splashFailed, style: const TextStyle(color: Colors.white)),
-            const SizedBox(height: Space.m),
-            OutlinedButton(
-              style: OutlinedButton.styleFrom(foregroundColor: Colors.white, side: const BorderSide(color: Colors.white54)),
-              onPressed: _restore,
-              child: Text(l.retry),
+      body: DecoratedBox(
+        decoration: BoxDecoration(gradient: sky.gradient),
+        child: CustomPaint(
+          painter: SkyPainter(sky: sky, rtl: rtl),
+          child: Center(
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 700),
+              curve: Curves.easeOutExpo,
+              builder: (_, v, child) => Opacity(opacity: v, child: Transform.scale(scale: 0.94 + 0.06 * v, child: child)),
+              child: Column(mainAxisSize: MainAxisSize.min, children: [
+                const SanadMark(size: 96),
+                const SizedBox(height: Space.l),
+                Text(l.appName, style: t.displaySmall?.copyWith(color: Colors.white, fontSize: 40)),
+                const SizedBox(height: Space.xs),
+                Text(l.splashTagline, style: t.titleMedium?.copyWith(color: Colors.white.withValues(alpha: 0.85), fontWeight: FontWeight.w400)),
+                const SizedBox(height: Space.xxl),
+                if (_failed) ...[
+                  Text(l.splashFailed, style: const TextStyle(color: Colors.white)),
+                  const SizedBox(height: Space.m),
+                  OutlinedButton(
+                    style: OutlinedButton.styleFrom(foregroundColor: Colors.white, side: const BorderSide(color: Colors.white54)),
+                    onPressed: _restore,
+                    child: Text(l.retry),
+                  ),
+                ] else
+                  const SizedBox.square(dimension: 22, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white70)),
+              ]),
             ),
-          ] else
-            const SizedBox.square(dimension: 22, child: CircularProgressIndicator(strokeWidth: 2, color: Colors.white70)),
-        ]),
+          ),
+        ),
       ),
     );
   }
-}
-
-/// Compass-like mark: a gold ring and dots with a connected path — simple
-/// on purpose.
-class HayatiLogo extends StatelessWidget {
-  const HayatiLogo({super.key, this.size = 64, this.color = Colors.white, this.accent = AppColors.gold});
-  final double size;
-  final Color color;
-  final Color accent;
-
-  @override
-  Widget build(BuildContext context) => Semantics(
-        label: 'Hayati',
-        child: CustomPaint(size: Size.square(size), painter: _LogoPainter(color, accent)),
-      );
-}
-
-class _LogoPainter extends CustomPainter {
-  _LogoPainter(this.color, this.accent);
-  final Color color;
-  final Color accent;
-
-  @override
-  void paint(Canvas canvas, Size s) {
-    final c = s.center(Offset.zero);
-    final r = s.width / 2;
-    final ring = Paint()
-      ..color = accent
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = s.width * 0.07;
-    canvas.drawCircle(c, r * 0.86, ring);
-    ring.color = color;
-    // A winding S-shaped path between two dots (same as tool/make_brand.py).
-    final path = Path()
-      ..moveTo(c.dx - r * 0.40, c.dy + r * 0.36)
-      ..quadraticBezierTo(c.dx + r * 0.05, c.dy + r * 0.50, c.dx, c.dy)
-      ..quadraticBezierTo(c.dx - r * 0.05, c.dy - r * 0.50, c.dx + r * 0.40, c.dy - r * 0.36);
-    canvas.drawPath(path, ring..strokeCap = StrokeCap.round);
-    final dot = Paint()..color = accent;
-    canvas.drawCircle(Offset(c.dx - r * 0.40, c.dy + r * 0.36), r * 0.11, dot);
-    canvas.drawCircle(Offset(c.dx + r * 0.40, c.dy - r * 0.36), r * 0.11, dot);
-  }
-
-  @override
-  bool shouldRepaint(_LogoPainter old) => old.color != color || old.accent != accent;
 }

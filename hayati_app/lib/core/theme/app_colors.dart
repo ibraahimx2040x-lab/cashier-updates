@@ -1,31 +1,32 @@
 import 'package:flutter/material.dart';
 
-/// Brand palette: deep night navy with warm gold accents.
+/// Sanad palette: sky ink with a saffron accent (v4 identity, "Daylight").
+/// The panel at the top of each screen takes the current sky (daylight.dart);
+/// these are the steady colours around it.
 ///
 /// Text pairs were checked against WCAG AA; gold is for accents and
 /// non-text marks on light surfaces ([goldDeep] when it carries text).
 abstract final class AppColors {
   // Light
-  static const navy = Color(0xFF1E2A5A); // primary
-  static const indigo = Color(0xFF3A4FA0); // interaction / progress
-  static const highlight = Color(0xFFEAEEFB); // highlighted surfaces
-  static const background = Color(0xFFF5F7FB);
+  static const navy = Color(0xFF242C6E); // primary: sky ink
+  static const indigo = Color(0xFF3B47B0); // interaction / progress
+  static const highlight = Color(0xFFECEEFA); // highlighted surfaces
+  static const background = Color(0xFFF4F5F9);
   static const card = Color(0xFFFFFFFF);
-  static const textPrimary = Color(0xFF1A2038);
-  static const textSecondary = Color(0xFF5F6680);
+  static const textPrimary = Color(0xFF171A33);
+  static const textSecondary = Color(0xFF5A5F7E);
   static const danger = Color(0xFFB42318);
 
-  // Gold accents.
-  static const gold = Color(0xFFD4A84B);
-  static const goldDeep = Color(0xFF8C6A1D);
-  static const goldSoft = Color(0xFFFBF3E0);
+  // Saffron accents (named gold for continuity).
+  static const gold = Color(0xFFE09A2F);
+  static const goldDeep = Color(0xFF8A5710);
+  static const goldSoft = Color(0xFFFCF0DC);
 
   /// The hero panels at the top of each screen.
   static const heroGradient = LinearGradient(
     begin: AlignmentDirectional.topStart,
     end: AlignmentDirectional.bottomEnd,
-    colors: [Color(0xFF141C42), Color(0xFF26346F), Color(0xFF34479A)],
-    stops: [0, 0.6, 1],
+    colors: [Color(0xFF0D1230), Color(0xFF1F2766)],
   );
 
   /// Icon badge accents: mid-tone colours that read on light and dark.
@@ -46,14 +47,14 @@ abstract final class AppColors {
   static const inactive = Color(0xFF8A90A6);
 
   // Dark
-  static const darkBackground = Color(0xFF0B1020);
-  static const darkCard = Color(0xFF151B33);
-  static const darkCardHigh = Color(0xFF1D2442);
+  static const darkBackground = Color(0xFF0B0E1F);
+  static const darkCard = Color(0xFF151932);
+  static const darkCardHigh = Color(0xFF1D2240);
   static const darkTextPrimary = Color(0xFFE8EAF4);
   static const darkTextSecondary = Color(0xFFA2A8C3);
-  static const darkPrimary = Color(0xFFAAB8FF);
-  static const darkHighlight = Color(0xFF232C55);
-  static const darkGold = Color(0xFFE6C274);
+  static const darkPrimary = Color(0xFFB3BBFF);
+  static const darkHighlight = Color(0xFF242A55);
+  static const darkGold = Color(0xFFF0B861);
   static const darkDanger = Color(0xFFF97066);
 }
 

@@ -44,21 +44,22 @@ flutter:
   assets:
     - assets/models/food_v1.tflite
   fonts:
-    - family: Tajawal
+    - family: Readex
       fonts:
-        - asset: assets/fonts/Tajawal-Regular.ttf
-        - asset: assets/fonts/Tajawal-Medium.ttf
+        - asset: assets/fonts/ReadexPro-Regular.ttf
+        - asset: assets/fonts/ReadexPro-Medium.ttf
           weight: 500
-        - asset: assets/fonts/Tajawal-Bold.ttf
-          weight: 700
-    - family: Inter
-      fonts:
-        - asset: assets/fonts/Inter-Regular.ttf
-        - asset: assets/fonts/Inter-Medium.ttf
-          weight: 500
-        - asset: assets/fonts/Inter-SemiBold.ttf
+        - asset: assets/fonts/ReadexPro-SemiBold.ttf
           weight: 600
-        - asset: assets/fonts/Inter-Bold.ttf
+        - asset: assets/fonts/ReadexPro-Bold.ttf
+          weight: 700
+    - family: ReemKufi
+      fonts:
+        - asset: assets/fonts/ReemKufi-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/ReemKufi-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/ReemKufi-Bold.ttf
           weight: 700
 
 # Brand assets are drawn by tool/make_brand.py.
@@ -67,18 +68,18 @@ flutter_launcher_icons:
   ios: true
   remove_alpha_ios: true
   image_path: assets/brand/icon.png
-  adaptive_icon_background: "#1E2A5A"
+  adaptive_icon_background: "#1F2766"
   adaptive_icon_foreground: assets/brand/icon_foreground.png
   web:
     generate: true
     image_path: assets/brand/icon.png
-    background_color: "#1E2A5A"
-    theme_color: "#1E2A5A"
+    background_color: "#1F2766"
+    theme_color: "#1F2766"
 
 flutter_native_splash:
-  color: "#1E2A5A"
+  color: "#1F2766"
   image: assets/brand/splash.png
   android_12:
-    color: "#1E2A5A"
+    color: "#1F2766"
     image: assets/brand/splash.png
   web: true
