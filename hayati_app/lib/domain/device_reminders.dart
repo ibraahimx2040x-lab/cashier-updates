@@ -7,6 +7,7 @@ import '../data/models/prayer.dart';
 import '../l10n/app_localizations.dart';
 import 'activity.dart';
 import 'prayer_times.dart';
+import 'womens/cycle.dart';
 
 /// One reminder for the phone's notification system.
 class DeviceReminder {
@@ -115,6 +116,39 @@ List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizatio
           title: l.notifMoveTitle,
           body: l.notifMoveBody,
           route: Routes.activity,
+        ));
+      }
+    }
+  }
+  // Health appointments: the time only, never the title, on a lock screen.
+  if (h.has(HealthModule.womens) || h.has(HealthModule.mens)) {
+    for (final a in d.appointments) {
+      final m = a.reminderMinutes;
+      if (m == null) continue;
+      final at = a.at.subtract(Duration(minutes: m));
+      if (!inWindow(at)) continue;
+      out.add(DeviceReminder(
+        id: stableId('appointment:${a.id}:${encodeInstant(a.at)}:$m'),
+        at: at,
+        title: l.notifAppointmentTitle,
+        body: l.notifEventBody(m),
+        route: Routes.appointments,
+      ));
+    }
+  }
+  // Two days before the estimated window, worded so it gives nothing away.
+  if (h.cycleReminders && d.settings.sex == Sex.female && h.has(HealthModule.womens)) {
+    final st = cycleStatus(d, now);
+    if (st.windowStart != null && !st.inPeriod) {
+      final day = dateOnly(st.windowStart!).subtract(const Duration(days: 2));
+      final at = day.add(const Duration(hours: 9));
+      if (inWindow(at)) {
+        out.add(DeviceReminder(
+          id: stableId('cycle:${dayKey(day)}'),
+          at: at,
+          title: l.notifNeutralTitle,
+          body: l.notifNeutralBody,
+          route: Routes.womens,
         ));
       }
     }

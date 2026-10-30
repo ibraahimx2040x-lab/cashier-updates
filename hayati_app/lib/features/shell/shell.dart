@@ -18,6 +18,7 @@ import '../../domain/device_reminders.dart';
 import '../../domain/reminders.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/device_notifications.dart';
+import '../../services/health_lock.dart';
 import '../../widgets/common.dart';
 import '../auth/splash_screen.dart' show HayatiLogo;
 import '../settings/sex_dialog.dart';
@@ -86,6 +87,9 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
 
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
+    // The health lock closes again once the app is in the background (not
+    // while the unlock prompt itself is showing, which is "inactive").
+    if (state == AppLifecycleState.paused) ref.read(healthUnlockProvider.notifier).lock();
     if (state == AppLifecycleState.resumed) {
       _sync();
       ref.read(healthSyncProvider.notifier).sync();

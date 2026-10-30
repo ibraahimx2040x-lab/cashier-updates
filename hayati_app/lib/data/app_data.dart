@@ -9,6 +9,7 @@ import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
+import 'models/womens.dart';
 
 /// Immutable snapshot of everything one signed-in user owns.
 class AppData {
@@ -36,6 +37,9 @@ class AppData {
     this.sleep = const [],
     this.bodyMetrics = const [],
     this.deviceWorkouts = const [],
+    this.periods = const [],
+    this.cycleLogs = const [],
+    this.appointments = const [],
     this.notes = const [],
     this.expenses = const [],
     this.budgets = const [],
@@ -80,6 +84,14 @@ class AppData {
   final List<SleepSession> sleep;
   final List<BodyMetric> bodyMetrics;
   final List<DeviceWorkout> deviceWorkouts;
+
+  /// Women's health (phase 11) and health appointments.
+  final List<CyclePeriod> periods;
+  final List<CycleDayLog> cycleLogs;
+  final List<HealthAppointment> appointments;
+
+  CycleDayLog? cycleLog(String day) => cycleLogs.where((x) => x.day == day).firstOrNull;
+  HealthAppointment? appointment(String? id) => _find(appointments, id, (e) => e.id);
 
   CustomFood? customFood(String? id) => _find(customFoods, id, (e) => e.id);
   int waterOn(String day) => water.where((w) => w.day == day).firstOrNull?.ml ?? 0;
@@ -169,6 +181,9 @@ class AppData {
     List<SleepSession>? sleep,
     List<BodyMetric>? bodyMetrics,
     List<DeviceWorkout>? deviceWorkouts,
+    List<CyclePeriod>? periods,
+    List<CycleDayLog>? cycleLogs,
+    List<HealthAppointment>? appointments,
     List<Note>? notes,
     List<Expense>? expenses,
     List<Budget>? budgets,
@@ -205,6 +220,9 @@ class AppData {
         sleep: sleep ?? this.sleep,
         bodyMetrics: bodyMetrics ?? this.bodyMetrics,
         deviceWorkouts: deviceWorkouts ?? this.deviceWorkouts,
+        periods: periods ?? this.periods,
+        cycleLogs: cycleLogs ?? this.cycleLogs,
+        appointments: appointments ?? this.appointments,
         notes: notes ?? this.notes,
         expenses: expenses ?? this.expenses,
         budgets: budgets ?? this.budgets,
@@ -243,6 +261,9 @@ class AppData {
         'sleep': sleep.map((e) => e.toJson()).toList(),
         'bodyMetrics': bodyMetrics.map((e) => e.toJson()).toList(),
         'deviceWorkouts': deviceWorkouts.map((e) => e.toJson()).toList(),
+        'periods': periods.map((e) => e.toJson()).toList(),
+        'cycleLogs': cycleLogs.map((e) => e.toJson()).toList(),
+        'appointments': appointments.map((e) => e.toJson()).toList(),
         'notes': notes.map((e) => e.toJson()).toList(),
         'expenses': expenses.map((e) => e.toJson()).toList(),
         'budgets': budgets.map((e) => e.toJson()).toList(),
@@ -285,6 +306,9 @@ class AppData {
       sleep: list('sleep', SleepSession.fromJson),
       bodyMetrics: list('bodyMetrics', BodyMetric.fromJson),
       deviceWorkouts: list('deviceWorkouts', DeviceWorkout.fromJson),
+      periods: list('periods', CyclePeriod.fromJson),
+      cycleLogs: list('cycleLogs', CycleDayLog.fromJson),
+      appointments: list('appointments', HealthAppointment.fromJson),
       notes: list('notes', Note.fromJson),
       expenses: list('expenses', Expense.fromJson),
       budgets: list('budgets', Budget.fromJson),

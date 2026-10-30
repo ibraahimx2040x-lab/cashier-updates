@@ -28,6 +28,10 @@ abstract final class Routes {
   static const activity = '/activity';
   static const healthSetup = '/health';
   static const devices = '/health/devices';
+  static const healthPrivacy = '/health/privacy';
+  static const appointments = '/health/appointments';
+  static const womens = '/womens';
+  static const womensInsights = '/womens/insights';
   static const nutrition = '/nutrition';
   static const nutritionWeek = '/nutrition/week';
   static String _q(Map<String, String?> m) {
@@ -51,6 +55,8 @@ abstract final class Routes {
   static String review(String id) => '/assistant/review/$id';
   static String timeTab(String tab) => '/time?tab=$tab';
   static String exercise(String id) => '/fitness/exercise/$id';
+  static String womensDay(String day) => '/womens/day?day=$day';
+  static String appointment(String id) => '/health/appointments/$id';
   static String program(String id) => '/fitness/program/$id';
   static String programSession(String id) => '/fitness/session?program=$id';
   static const fitnessProgress = '/fitness/progress';

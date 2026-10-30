@@ -18,6 +18,11 @@ import '../../features/accountability/rule_editor_screen.dart';
 import '../../features/activity/activity_screen.dart';
 import '../../features/activity/devices_screen.dart';
 import '../../features/activity/health_setup_screen.dart';
+import '../../features/womens/appointments_screen.dart';
+import '../../features/womens/cycle_screen.dart';
+import '../../features/womens/day_log_screen.dart';
+import '../../features/womens/health_privacy_screen.dart';
+import '../../features/womens/insights_screen.dart';
 import '../../data/models/nutrition.dart';
 import '../../features/nutrition/add_food_screen.dart';
 import '../../features/nutrition/custom_food_screen.dart';
@@ -165,6 +170,12 @@ final routerProvider = Provider<GoRouter>((ref) {
       page(Routes.activity, (_) => const ActivityScreen()),
       page(Routes.healthSetup, (_) => const HealthSetupScreen()),
       page(Routes.devices, (_) => const DevicesScreen()),
+      page(Routes.healthPrivacy, (_) => const HealthPrivacyScreen()),
+      page(Routes.appointments, (_) => const AppointmentsScreen()),
+      page('/health/appointments/:id', (s) => AppointmentEditScreen(id: s.pathParameters['id']!)),
+      page(Routes.womens, (_) => const CycleScreen()),
+      page(Routes.womensInsights, (_) => const CycleInsightsScreen()),
+      page('/womens/day', (s) => DayLogScreen(day: _day(s))),
       page(Routes.nutrition, (_) => const NutritionScreen()),
       page(Routes.nutritionWeek, (_) => const NutritionWeekScreen()),
       page('/nutrition/add', (s) => AddFoodScreen(day: _day(s), meal: _meal(s), query: s.uri.queryParameters['q'] ?? '')),

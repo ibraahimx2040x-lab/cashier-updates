@@ -40,6 +40,12 @@ class HealthSettings {
     this.waterGoalMl = 2000,
     this.pregnancyCleared = false,
     this.postpartumCleared = false,
+    this.cycleLength,
+    this.periodLength,
+    this.cycleLocalOnly = false,
+    this.hideFromHome = false,
+    this.lockEnabled = false,
+    this.cycleReminders = false,
   });
 
   final Set<HealthModule> modules;
@@ -78,6 +84,25 @@ class HealthSettings {
   final bool pregnancyCleared;
   final bool postpartumCleared;
 
+  /// The user's usual cycle and period length, used until enough periods
+  /// are recorded to work them out.
+  final int? cycleLength;
+  final int? periodLength;
+
+  /// Cycle data stays on the device: never sent to the server.
+  final bool cycleLocalOnly;
+
+  /// Keeps women's health off the home screen.
+  final bool hideFromHome;
+
+  /// Health sections open only after the phone's own unlock (fingerprint,
+  /// face or passcode), where the phone has one.
+  final bool lockEnabled;
+
+  /// A reminder before the next expected period, worded so it reveals
+  /// nothing.
+  final bool cycleReminders;
+
   bool has(HealthModule m) => modules.contains(m);
 
   static const minStepGoal = 1000;
@@ -98,6 +123,12 @@ class HealthSettings {
     int? waterGoalMl,
     bool? pregnancyCleared,
     bool? postpartumCleared,
+    int? Function()? cycleLength,
+    int? Function()? periodLength,
+    bool? cycleLocalOnly,
+    bool? hideFromHome,
+    bool? lockEnabled,
+    bool? cycleReminders,
   }) =>
       HealthSettings(
         modules: modules ?? this.modules,
@@ -114,6 +145,12 @@ class HealthSettings {
         waterGoalMl: waterGoalMl ?? this.waterGoalMl,
         pregnancyCleared: pregnancyCleared ?? this.pregnancyCleared,
         postpartumCleared: postpartumCleared ?? this.postpartumCleared,
+        cycleLength: cycleLength != null ? cycleLength() : this.cycleLength,
+        periodLength: periodLength != null ? periodLength() : this.periodLength,
+        cycleLocalOnly: cycleLocalOnly ?? this.cycleLocalOnly,
+        hideFromHome: hideFromHome ?? this.hideFromHome,
+        lockEnabled: lockEnabled ?? this.lockEnabled,
+        cycleReminders: cycleReminders ?? this.cycleReminders,
       );
 
   Map<String, Object?> toJson() => {
@@ -131,6 +168,12 @@ class HealthSettings {
         'waterGoalMl': waterGoalMl,
         'pregnancyCleared': pregnancyCleared,
         'postpartumCleared': postpartumCleared,
+        'cycleLength': cycleLength,
+        'periodLength': periodLength,
+        'cycleLocalOnly': cycleLocalOnly,
+        'hideFromHome': hideFromHome,
+        'lockEnabled': lockEnabled,
+        'cycleReminders': cycleReminders,
       };
 
   factory HealthSettings.fromJson(Map<String, Object?>? j) {
@@ -155,6 +198,12 @@ class HealthSettings {
       waterGoalMl: (j['waterGoalMl'] as int?) ?? d.waterGoalMl,
       pregnancyCleared: (j['pregnancyCleared'] as bool?) ?? false,
       postpartumCleared: (j['postpartumCleared'] as bool?) ?? false,
+      cycleLength: j['cycleLength'] as int?,
+      periodLength: j['periodLength'] as int?,
+      cycleLocalOnly: (j['cycleLocalOnly'] as bool?) ?? false,
+      hideFromHome: (j['hideFromHome'] as bool?) ?? false,
+      lockEnabled: (j['lockEnabled'] as bool?) ?? false,
+      cycleReminders: (j['cycleReminders'] as bool?) ?? false,
     );
   }
 }

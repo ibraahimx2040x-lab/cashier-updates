@@ -17,6 +17,7 @@ import '../../data/models/goal.dart';
 import '../../data/models/health.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../data/models/womens.dart';
 import '../../domain/activity.dart';
 import '../../domain/day_timeline.dart';
 import '../../domain/fitness/today.dart';
@@ -26,12 +27,14 @@ import '../../domain/metrics.dart';
 import '../../domain/nutrition/summary.dart';
 import '../../domain/planner.dart';
 import '../../domain/prayer_times.dart';
+import '../../domain/womens/cycle.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import '../shell/quick_add.dart';
+import '../womens/womens_gate.dart';
 
 /// Tasks relevant "today": due today, overdue, or planned for today.
 List<Task> todaysTasks(AppData d, DateTime now) {
@@ -258,6 +261,9 @@ class _TodayView extends ConsumerWidget {
       _PrayerStrip(d: d, now: now, fmt: fmt),
       if (d.settings.health.has(HealthModule.activity)) _StepsStrip(day: activityDay(d, dayKey(now)), goal: d.settings.health.stepGoal, fmt: fmt),
       if (d.settings.health.has(HealthModule.nutrition)) _FoodStrip(day: nutritionDay(d, dayKey(now)), fmt: fmt),
+      if (womensVisible(d.settings) && !d.settings.health.hideFromHome) _CycleStrip(d: d, now: now),
+      if (appointmentsVisible(d.settings))
+        if (nextAppointment(d, now) case final a? when a.at.difference(now).inDays < 7) _AppointmentStrip(a: a, fmt: fmt),
       if (d.learningPath != null)
         _EnglishStrip(lesson: nextLesson(d), done: lessonDoneToday(d, now), due: dueReviews(d, now).length),
       if (todaysWorkout(d, now) case (final plan, final day))
@@ -461,6 +467,72 @@ class _PrayerStrip extends ConsumerWidget {
 }
 
 /// Today's steps against the goal.
+/// Where the cycle is, in a line. With the lock on it says nothing more
+/// than the section's name.
+class _CycleStrip extends StatelessWidget {
+  const _CycleStrip({required this.d, required this.now});
+  final AppData d;
+  final DateTime now;
+
+  @override
+  Widget build(BuildContext context) {
+    final l = AppLocalizations.of(context);
+    final t = Theme.of(context).textTheme;
+    final locked = d.settings.health.lockEnabled;
+    final st = cycleStatus(d, now);
+    final String text;
+    if (locked) {
+      text = l.navWomens;
+    } else if (st.last == null) {
+      text = l.cycleStartTitle;
+    } else if (st.inPeriod) {
+      text = l.periodDayN(st.periodDay!);
+    } else if (!st.canPredict) {
+      text = l.cycleDayN(st.dayOfCycle!);
+    } else if (st.daysLate > 0) {
+      text = l.periodLateBy(st.daysLate);
+    } else {
+      final days = st.nextStart!.difference(dateOnly(now)).inDays;
+      text = days <= 0 ? l.periodDueAbout : l.nextPeriodIn(days);
+    }
+    return AppCard(
+      onTap: () => context.push(Routes.womens),
+      child: Row(children: [
+        IconBadge(locked ? Icons.lock_outline : Icons.water_drop_outlined, circle: true),
+        const SizedBox(width: Space.m),
+        Expanded(child: Text(text, style: t.titleSmall)),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
+/// A health appointment in the coming week.
+class _AppointmentStrip extends StatelessWidget {
+  const _AppointmentStrip({required this.a, required this.fmt});
+  final HealthAppointment a;
+  final Fmt fmt;
+
+  @override
+  Widget build(BuildContext context) {
+    final t = Theme.of(context).textTheme;
+    return AppCard(
+      onTap: () => context.push(Routes.appointment(a.id)),
+      child: Row(children: [
+        const IconBadge(Icons.event_note, circle: true),
+        const SizedBox(width: Space.m),
+        Expanded(
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Text(a.title, style: t.titleSmall, maxLines: 1, overflow: TextOverflow.ellipsis),
+            Text(fmt.dateTime(a.at), style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+          ]),
+        ),
+        const Icon(Icons.chevron_right),
+      ]),
+    );
+  }
+}
+
 class _StepsStrip extends StatelessWidget {
   const _StepsStrip({required this.day, required this.goal, required this.fmt});
   final ActivityDay day;
@@ -897,6 +969,8 @@ class _MoreMenu extends ConsumerWidget {
         _item(Routes.english, Icons.translate, l.navEnglish),
         if (settings.health.has(HealthModule.activity)) _item(Routes.activity, Icons.directions_walk, l.navActivity),
         if (settings.health.has(HealthModule.nutrition)) _item(Routes.nutrition, Icons.restaurant_outlined, l.navNutrition),
+        if (womensVisible(settings)) _item(Routes.womens, Icons.water_drop_outlined, l.navWomens),
+        if (appointmentsVisible(settings)) _item(Routes.appointments, Icons.event_note, l.appointments),
         _item(Routes.accountability, Icons.handshake_outlined, l.navAccountability),
         if (settings.has(AppModule.habits)) _item(Routes.habits, Icons.repeat, l.navHabits),
         if (settings.has(AppModule.notes)) _item(Routes.notes, Icons.sticky_note_2_outlined, l.navNotes),

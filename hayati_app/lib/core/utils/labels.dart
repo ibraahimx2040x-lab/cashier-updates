@@ -8,6 +8,7 @@ import '../../data/models/nutrition.dart';
 import '../../data/models/prayer.dart';
 import '../../data/models/settings.dart';
 import '../../data/models/task.dart';
+import '../../data/models/womens.dart';
 import '../../domain/fitness/exercises.dart';
 import '../../domain/nutrition/foods.dart';
 import '../../domain/planner.dart';
@@ -177,6 +178,43 @@ extension Labels on AppLocalizations {
         'BASKETBALL' => woBasketball,
         'TENNIS' => woTennis,
         _ => woOther,
+      };
+
+  String flowLevel(FlowLevel f) => switch (f) {
+        FlowLevel.none => flowNone,
+        FlowLevel.light => flowLight,
+        FlowLevel.medium => flowMedium,
+        FlowLevel.heavy => flowHeavy,
+      };
+
+  String symptom(Symptom s) => switch (s) {
+        Symptom.cramps => syCramps,
+        Symptom.headache => syHeadache,
+        Symptom.backPain => syBackPain,
+        Symptom.bloating => syBloating,
+        Symptom.breastTenderness => syBreastTenderness,
+        Symptom.acne => syAcne,
+        Symptom.fatigue => syFatigue,
+        Symptom.nausea => syNausea,
+        Symptom.cravings => syCravings,
+        Symptom.insomnia => syInsomnia,
+        Symptom.moodSwings => syMoodSwings,
+        Symptom.spotting => sySpotting,
+      };
+
+  String cycleMood(CycleMood m) => switch (m) {
+        CycleMood.calm => moodCalm,
+        CycleMood.happy => moodHappy,
+        CycleMood.low => moodLow,
+        CycleMood.irritable => moodIrritable,
+        CycleMood.anxious => moodAnxious,
+      };
+
+  String appointmentKind(AppointmentKind k) => switch (k) {
+        AppointmentKind.checkup => apCheckup,
+        AppointmentKind.test => apTest,
+        AppointmentKind.followup => apFollowup,
+        AppointmentKind.other => apOther,
       };
 
   String mealType(MealType m) => switch (m) {

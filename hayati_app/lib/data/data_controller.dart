@@ -5,6 +5,7 @@ import 'package:uuid/uuid.dart';
 
 import '../core/utils/dates.dart';
 import '../domain/sleep.dart';
+import '../domain/womens/cycle.dart';
 import 'app_data.dart';
 import 'auth.dart';
 import 'models/accountability.dart';
@@ -18,6 +19,7 @@ import 'models/nutrition.dart';
 import 'models/prayer.dart';
 import 'models/settings.dart';
 import 'models/task.dart';
+import 'models/womens.dart';
 import 'remote/sync.dart';
 import 'store/local_store.dart';
 
@@ -432,6 +434,124 @@ class DataController extends Notifier<AppData> {
         sleep: state.sleep.where((s) => s.source != source).toList(),
         bodyMetrics: state.bodyMetrics.where((m) => m.source != source).toList(),
         deviceWorkouts: state.deviceWorkouts.where((w) => w.source != source).toList(),
+      ));
+
+  // ----------------------------------------------------------- women's health
+
+  bool _overlaps(String start, String? end, {String? except}) {
+    final s = parseDayKey(start);
+    final e = end == null ? s.add(const Duration(days: CyclePeriod.maxDays - 1)) : parseDayKey(end);
+    for (final p in state.periods) {
+      if (p.id == except) continue;
+      final ps = parseDayKey(p.start);
+      final pe = p.end == null ? ps.add(const Duration(days: CyclePeriod.maxDays - 1)) : parseDayKey(p.end!);
+      if (!s.isAfter(pe) && !ps.isAfter(e)) return true;
+    }
+    return false;
+  }
+
+  /// Saves a period after checking it isn't in the future, lasts at most
+  /// [CyclePeriod.maxDays] and doesn't overlap another.
+  void savePeriod(CyclePeriod p) {
+    final today = dateOnly(_now);
+    final s = parseDayKey(p.start);
+    if (s.isAfter(today)) throw ArgumentError('future');
+    if (p.end != null) {
+      final e = parseDayKey(p.end!);
+      if (e.isBefore(s) || e.isAfter(today) || e.difference(s).inDays >= CyclePeriod.maxDays) throw ArgumentError('end');
+    }
+    if (_overlaps(p.start, p.end, except: p.id)) throw ArgumentError('overlap');
+    _set(state.copyWith(periods: _upsert(state.periods, p.copyWith(updatedAt: _now), (x) => x.id)));
+  }
+
+  /// "Started today" (or on [day]). An open period that has run past its
+  /// limit is closed first at its last likely day.
+  CyclePeriod startPeriod(String day) {
+    final open = state.periods.where((p) => p.end == null).firstOrNull;
+    if (open != null) {
+      final s = parseDayKey(open.start);
+      if (!parseDayKey(day).isAfter(s.add(const Duration(days: openPeriodLimit - 1)))) throw ArgumentError('open');
+      final est = estimateCycle(state)?.periodLength ?? 5;
+      savePeriod(open.copyWith(end: () => dayKey(s.add(Duration(days: est - 1)))));
+    }
+    final p = CyclePeriod(id: newId(), start: day, updatedAt: _now);
+    savePeriod(p);
+    return p;
+  }
+
+  /// "Ended today" (or on [day]) for the open period.
+  void endPeriod(String day) {
+    final open = state.periods.where((p) => p.end == null).firstOrNull;
+    if (open == null) throw ArgumentError('none');
+    savePeriod(open.copyWith(end: () => day));
+  }
+
+  void deletePeriod(String id) => _set(state.copyWith(periods: state.periods.where((p) => p.id != id).toList()));
+
+  /// One log per day; an empty one removes the day.
+  void saveCycleLog(CycleDayLog log) {
+    if (parseDayKey(log.day).isAfter(dateOnly(_now))) throw ArgumentError('future');
+    if (!log.valid) throw ArgumentError('log');
+    final rest = state.cycleLogs.where((x) => x.day != log.day).toList();
+    if (log.isEmpty) {
+      _set(state.copyWith(cycleLogs: rest));
+      return;
+    }
+    final id = state.cycleLog(log.day)?.id ?? const Uuid().v5(Namespace.url.value, 'hayati:cycle-log:$_userId:${log.day}');
+    _set(state.copyWith(cycleLogs: [
+      ...rest,
+      CycleDayLog(
+        id: id,
+        day: log.day,
+        flow: log.flow,
+        pain: log.pain,
+        symptoms: log.symptoms,
+        otherSymptoms: log.otherSymptoms.trim(),
+        mood: log.mood,
+        energy: log.energy,
+        note: log.note.trim(),
+        updatedAt: _now,
+      ),
+    ]));
+  }
+
+  void saveAppointment(HealthAppointment a) {
+    if (!a.valid) throw ArgumentError('appointment');
+    _set(state.copyWith(appointments: _upsert(state.appointments, a.copyWith(updatedAt: _now), (x) => x.id)));
+  }
+
+  void deleteAppointment(String id) =>
+      _set(state.copyWith(appointments: state.appointments.where((a) => a.id != id).toList()));
+
+  /// The health sections only (screen 48), as JSON.
+  String exportHealthJson() => const JsonEncoder.withIndent('  ').convert({
+        'health': state.settings.health.toJson(),
+        'sex': state.settings.sex?.name,
+        'activity': [for (final x in state.activity) x.toJson()],
+        'sleep': [for (final x in state.sleep) x.toJson()],
+        'bodyMetrics': [for (final x in state.bodyMetrics) x.toJson()],
+        'deviceWorkouts': [for (final x in state.deviceWorkouts) x.toJson()],
+        'foodLogs': [for (final x in state.foodLogs) x.toJson()],
+        'customFoods': [for (final x in state.customFoods) x.toJson()],
+        'water': [for (final x in state.water) x.toJson()],
+        'periods': [for (final x in state.periods) x.toJson()],
+        'cycleLogs': [for (final x in state.cycleLogs) x.toJson()],
+        'appointments': [for (final x in state.appointments) x.toJson()],
+      });
+
+  /// Deletes the health sections' data on every device, keeping the rest
+  /// of the account and the settings.
+  void deleteHealthData() => _set(state.copyWith(
+        activity: const [],
+        sleep: const [],
+        bodyMetrics: const [],
+        deviceWorkouts: const [],
+        foodLogs: const [],
+        customFoods: const [],
+        water: const [],
+        periods: const [],
+        cycleLogs: const [],
+        appointments: const [],
       ));
 
   static bool _sameIds<T>(List<T> a, List<T> b, String Function(T) key) {

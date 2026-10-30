@@ -21,6 +21,7 @@ import 'package:hayati/data/models/assistant.dart';
 import 'package:hayati/data/models/fitness.dart';
 import 'package:hayati/data/models/goal.dart';
 import 'package:hayati/data/models/health.dart';
+import 'package:hayati/data/models/womens.dart';
 import 'package:hayati/data/models/learning.dart';
 import 'package:hayati/data/models/misc.dart';
 import 'package:hayati/data/models/nutrition.dart';
@@ -381,6 +382,58 @@ void main() {
     await a.settle();
     expect(a.data.snapshot.sleep.length + a.data.snapshot.bodyMetrics.length + a.data.snapshot.deviceWorkouts.length, 0,
         reason: 'removing a source on one device removes it everywhere');
+  }, skip: skip);
+
+  test("cycle data and appointments sync, and 'this phone only' takes cycle data off the server", () async {
+    final a = Device.create();
+    addTearDown(a.dispose);
+    await a.open();
+    final address = email();
+    await a.auth.signUp(address, 'password1', sex: Sex.female);
+    a.c.read(dataProvider);
+    await a.settle();
+    a.data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    final today = DateTime.now();
+    String back(int n) => dayKey(today.subtract(Duration(days: n)));
+    a.data.savePeriod(CyclePeriod(id: newId(), start: back(33), end: back(29), updatedAt: today));
+    a.data.startPeriod(back(3));
+    a.data.saveCycleLog(CycleDayLog(id: '', day: back(1), pain: 6, symptoms: const {Symptom.backPain, Symptom.cramps}, mood: CycleMood.low, updatedAt: today));
+    a.data.saveAppointment(HealthAppointment(id: newId(), title: 'Checkup', at: today.add(const Duration(days: 4)), questions: const ['Q1', 'Q2'], reminderMinutes: 60, updatedAt: today));
+    await a.settle();
+    expect(a.sync.rejected, 0);
+
+    final b = Device.create();
+    addTearDown(b.dispose);
+    await b.open();
+    await b.auth.signIn(address, 'password1');
+    b.c.read(dataProvider);
+    await b.settle();
+    var d = b.data.snapshot;
+    expect((d.periods.length, d.periods.where((p) => p.end == null).length), (2, 1));
+    expect((d.cycleLogs.single.pain, d.cycleLogs.single.symptoms.length), (6, 2));
+    expect(d.appointments.single.questions, hasLength(2));
+
+    // On this phone only: the server copy goes; device A keeps its own.
+    a.data.updateHealth((h) => h.copyWith(cycleLocalOnly: true));
+    a.data.saveCycleLog(CycleDayLog(id: '', day: back(0), energy: 2, updatedAt: today));
+    await a.settle();
+    expect(a.sync.rejected, 0);
+    expect((a.data.snapshot.periods.length, a.data.snapshot.cycleLogs.length), (2, 2));
+    final c = Device.create();
+    addTearDown(c.dispose);
+    await c.open();
+    await c.auth.signIn(address, 'password1');
+    c.c.read(dataProvider);
+    await c.settle();
+    d = c.data.snapshot;
+    expect((d.periods.length, d.cycleLogs.length, d.appointments.length, d.settings.health.cycleLocalOnly), (0, 0, 1, true));
+
+    // Back to the account: what device A holds is uploaded again.
+    a.data.updateHealth((h) => h.copyWith(cycleLocalOnly: false));
+    await a.settle();
+    await c.c.read(syncProvider.notifier).sync();
+    await c.settle();
+    expect((c.data.snapshot.periods.length, c.data.snapshot.cycleLogs.length), (2, 2));
   }, skip: skip);
 
   test('food, saved foods and water sync to another device', () async {

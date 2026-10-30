@@ -422,6 +422,12 @@ abstract class AppLocalizations {
   /// **'In the browser steps can only be added by hand. Automatic counting works in the phone app.'**
   String get activityWebNote;
 
+  /// No description provided for @addAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add appointment'**
+  String get addAppointment;
+
   /// No description provided for @addCup.
   ///
   /// In en, this message translates to:
@@ -487,6 +493,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Add note'**
   String get addNote;
+
+  /// No description provided for @addPastPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a past period'**
+  String get addPastPeriod;
+
+  /// No description provided for @addQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a question'**
+  String get addQuestion;
 
   /// No description provided for @addStepsManually.
   ///
@@ -1040,6 +1058,30 @@ abstract class AppLocalizations {
   /// **'Any'**
   String get any;
 
+  /// No description provided for @apCheckup.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkup'**
+  String get apCheckup;
+
+  /// No description provided for @apFollowup.
+  ///
+  /// In en, this message translates to:
+  /// **'Follow-up'**
+  String get apFollowup;
+
+  /// No description provided for @apOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get apOther;
+
+  /// No description provided for @apTest.
+  ///
+  /// In en, this message translates to:
+  /// **'Test'**
+  String get apTest;
+
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
@@ -1069,6 +1111,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n, plural, =1{1 task will get a planned time:} other{{n} tasks will get planned times:}}'**
   String applyPlanBody(int n);
+
+  /// No description provided for @appointmentReminderNote.
+  ///
+  /// In en, this message translates to:
+  /// **'The reminder says “Health appointment” and the time only, not the title.'**
+  String get appointmentReminderNote;
+
+  /// No description provided for @appointmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What is it for?'**
+  String get appointmentTitle;
+
+  /// No description provided for @appointments.
+  ///
+  /// In en, this message translates to:
+  /// **'Health appointments'**
+  String get appointments;
+
+  /// No description provided for @appointmentsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Checkups, tests and questions for the doctor'**
+  String get appointmentsSub;
 
   /// No description provided for @approvals.
   ///
@@ -1249,6 +1315,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Automatic'**
   String get automatic;
+
+  /// No description provided for @averageCycle.
+  ///
+  /// In en, this message translates to:
+  /// **'Average cycle'**
+  String get averageCycle;
+
+  /// No description provided for @averagePeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Average period'**
+  String get averagePeriod;
 
   /// No description provided for @avgKcalPerDay.
   ///
@@ -1550,6 +1628,12 @@ abstract class AppLocalizations {
   /// **'Check'**
   String get checkAnswer;
 
+  /// No description provided for @checkFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Check the fields'**
+  String get checkFields;
+
   /// No description provided for @clear.
   ///
   /// In en, this message translates to:
@@ -1603,6 +1687,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Coming soon'**
   String get comingSoon;
+
+  /// No description provided for @commonSymptoms.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms you log most'**
+  String get commonSymptoms;
 
   /// No description provided for @completedAndArchived.
   ///
@@ -1826,6 +1916,108 @@ abstract class AppLocalizations {
   /// **'Current streak'**
   String get currentStreak;
 
+  /// No description provided for @cycleDayN.
+  ///
+  /// In en, this message translates to:
+  /// **'Day {n} of your cycle'**
+  String cycleDayN(int n);
+
+  /// No description provided for @cycleDisclaimer.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimates from what you recorded, not medical advice and not a way to prevent or plan pregnancy.'**
+  String get cycleDisclaimer;
+
+  /// No description provided for @cycleInsights.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle insights'**
+  String get cycleInsights;
+
+  /// No description provided for @cycleLengthOverTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle length over time'**
+  String get cycleLengthOverTime;
+
+  /// No description provided for @cycleLocalOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep cycle data on this phone only'**
+  String get cycleLocalOnly;
+
+  /// No description provided for @cycleLocalOnlyBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your periods and day logs are removed from your account and stay on this phone. If you delete the app or change phones, they are gone.'**
+  String get cycleLocalOnlyBody;
+
+  /// No description provided for @cycleLocalOnlyOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off: saved to your account, so it appears on your phone, iPhone and the web.'**
+  String get cycleLocalOnlyOff;
+
+  /// No description provided for @cycleLocalOnlyOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On: it isn\'t saved to your account and doesn\'t appear on your other devices.'**
+  String get cycleLocalOnlyOn;
+
+  /// No description provided for @cycleLocalOnlyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep it on this phone only?'**
+  String get cycleLocalOnlyTitle;
+
+  /// No description provided for @cycleRange.
+  ///
+  /// In en, this message translates to:
+  /// **'Range'**
+  String get cycleRange;
+
+  /// No description provided for @cycleReminders.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder before the next period'**
+  String get cycleReminders;
+
+  /// No description provided for @cycleRemindersSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Two days before the estimated window. It only says “Hayati reminder”.'**
+  String get cycleRemindersSub;
+
+  /// No description provided for @cycleStartBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap “It started today” on the first day of your period, or add past ones below.'**
+  String get cycleStartBody;
+
+  /// No description provided for @cycleStartTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Track your cycle'**
+  String get cycleStartTitle;
+
+  /// No description provided for @cycleSyncBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What this phone holds is uploaded to your account and appears on your other devices.'**
+  String get cycleSyncBody;
+
+  /// No description provided for @cycleSyncTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Save it to your account?'**
+  String get cycleSyncTitle;
+
+  /// No description provided for @cyclesCounted.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycles counted'**
+  String get cyclesCounted;
+
   /// No description provided for @dailyAverage.
   ///
   /// In en, this message translates to:
@@ -1898,6 +2090,12 @@ abstract class AppLocalizations {
   /// **'{n, plural, =1{1 day} other{{n} days}}'**
   String daysN(int n);
 
+  /// No description provided for @daysRange.
+  ///
+  /// In en, this message translates to:
+  /// **'{min}–{max} days'**
+  String daysRange(int min, int max);
+
   /// No description provided for @deadlineDate.
   ///
   /// In en, this message translates to:
@@ -1963,6 +2161,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'All conversations and pending suggestions will be deleted. Applied changes stay.'**
   String get deleteAllChatsBody;
+
+  /// No description provided for @deleteAppointmentBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its notes and questions go too.'**
+  String get deleteAppointmentBody;
+
+  /// No description provided for @deleteAppointmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this appointment?'**
+  String get deleteAppointmentTitle;
 
   /// No description provided for @deleteChatBody.
   ///
@@ -2060,6 +2270,30 @@ abstract class AppLocalizations {
   /// **'Delete habit?'**
   String get deleteHabitTitle;
 
+  /// No description provided for @deleteHealthData.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete health data'**
+  String get deleteHealthData;
+
+  /// No description provided for @deleteHealthDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps, sleep, heart rate, workouts from your watch, food, water, cycle and appointments are removed from all your devices. This can\'t be undone.'**
+  String get deleteHealthDataBody;
+
+  /// No description provided for @deleteHealthDataSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Only the health sections; the rest of your account stays'**
+  String get deleteHealthDataSub;
+
+  /// No description provided for @deleteHealthDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all health data?'**
+  String get deleteHealthDataTitle;
+
   /// No description provided for @deleteNoteBody.
   ///
   /// In en, this message translates to:
@@ -2071,6 +2305,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Delete note?'**
   String get deleteNoteTitle;
+
+  /// No description provided for @deletePeriodBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimates will be worked out again without it.'**
+  String get deletePeriodBody;
+
+  /// No description provided for @deletePeriodTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this period?'**
+  String get deletePeriodTitle;
 
   /// No description provided for @deleteTaskBody.
   ///
@@ -2348,6 +2594,12 @@ abstract class AppLocalizations {
   /// **'Edit'**
   String get edit;
 
+  /// No description provided for @editAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit appointment'**
+  String get editAppointment;
+
   /// No description provided for @editEvent.
   ///
   /// In en, this message translates to:
@@ -2485,6 +2737,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Ends'**
   String get endTime;
+
+  /// No description provided for @energy.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy'**
+  String get energy;
+
+  /// No description provided for @energyN.
+  ///
+  /// In en, this message translates to:
+  /// **'Energy {n}/5'**
+  String energyN(int n);
 
   /// No description provided for @energySplit.
   ///
@@ -2702,6 +2966,12 @@ abstract class AppLocalizations {
   /// **'Estimated length'**
   String get estimatedPill;
 
+  /// No description provided for @estimatedWindow.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated window: {from} – {to}'**
+  String estimatedWindow(String from, String to);
+
   /// No description provided for @eventTitle.
   ///
   /// In en, this message translates to:
@@ -2827,6 +3097,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Copies all your data as JSON to the clipboard'**
   String get exportDataSub;
+
+  /// No description provided for @exportHealthData.
+  ///
+  /// In en, this message translates to:
+  /// **'Export health data'**
+  String get exportHealthData;
+
+  /// No description provided for @exportHealthDataSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps, sleep, food, cycle and appointments, copied as JSON'**
+  String get exportHealthDataSub;
 
   /// No description provided for @extraLesson.
   ///
@@ -3182,6 +3464,36 @@ abstract class AppLocalizations {
   /// **'Intermediate'**
   String get flIntermediate;
 
+  /// No description provided for @flow.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow'**
+  String get flow;
+
+  /// No description provided for @flowHeavy.
+  ///
+  /// In en, this message translates to:
+  /// **'Heavy'**
+  String get flowHeavy;
+
+  /// No description provided for @flowLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get flowLight;
+
+  /// No description provided for @flowMedium.
+  ///
+  /// In en, this message translates to:
+  /// **'Medium'**
+  String get flowMedium;
+
+  /// No description provided for @flowNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get flowNone;
+
   /// No description provided for @focusConditioning.
   ///
   /// In en, this message translates to:
@@ -3361,6 +3673,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick {n} days'**
   String fsWhichDays(int n);
+
+  /// No description provided for @futureDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet'**
+  String get futureDay;
+
+  /// No description provided for @futureDayBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Days can be logged once they come.'**
+  String get futureDayBody;
 
   /// No description provided for @getStarted.
   ///
@@ -3560,11 +3884,71 @@ abstract class AppLocalizations {
   /// **'I have an account'**
   String get haveAccount;
 
+  /// No description provided for @healthDataDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Health data deleted'**
+  String get healthDataDeleted;
+
+  /// No description provided for @healthDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your health data'**
+  String get healthDataTitle;
+
+  /// No description provided for @healthLock.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock with fingerprint or passcode'**
+  String get healthLock;
+
+  /// No description provided for @healthLockSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Health sections open only after your phone\'s unlock. Locks again when you leave the app.'**
+  String get healthLockSub;
+
+  /// No description provided for @healthLockUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available here: set up a screen lock on your phone first. On the web your account password protects it.'**
+  String get healthLockUnavailable;
+
+  /// No description provided for @healthLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Locked'**
+  String get healthLocked;
+
+  /// No description provided for @healthLockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock with your fingerprint, face or phone passcode.'**
+  String get healthLockedBody;
+
   /// No description provided for @healthPermissionDenied.
   ///
   /// In en, this message translates to:
   /// **'Permission wasn\'t given. You can allow it from the health app\'s settings.'**
   String get healthPermissionDenied;
+
+  /// No description provided for @healthPrivacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Health privacy'**
+  String get healthPrivacy;
+
+  /// No description provided for @healthPrivacyNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Cycle data is never shared with the assistant, and its reminders never say what they\'re about. Women\'s health shows only on accounts registered as female.'**
+  String get healthPrivacyNote;
+
+  /// No description provided for @healthPrivacySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Lock, home screen, reminders, export and delete'**
+  String get healthPrivacySub;
 
   /// No description provided for @healthSections.
   ///
@@ -3625,6 +4009,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Help & support'**
   String get helpTitle;
+
+  /// No description provided for @hideFromHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Hide from the home screen'**
+  String get hideFromHome;
+
+  /// No description provided for @hideFromHomeSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Women\'s health won\'t appear on “My day”.'**
+  String get hideFromHomeSub;
 
   /// No description provided for @hidePassword.
   ///
@@ -3776,6 +4172,18 @@ abstract class AppLocalizations {
   /// **'How did it feel? (optional)'**
   String get howDidItFeel;
 
+  /// No description provided for @howIsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'How\'s today?'**
+  String get howIsToday;
+
+  /// No description provided for @howIsTodaySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Flow, pain, symptoms, mood, energy'**
+  String get howIsTodaySub;
+
   /// No description provided for @howMuch.
   ///
   /// In en, this message translates to:
@@ -3835,6 +4243,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pick any — you can change this later. Sections you don\'t pick are hidden, not deleted.'**
   String get interestsHint;
+
+  /// No description provided for @irregularNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recorded cycles vary a lot, or some are unusually short or long. This alone doesn\'t mean anything is wrong, but it\'s worth mentioning to a doctor.'**
+  String get irregularNote;
 
   /// No description provided for @itemGone.
   ///
@@ -3967,6 +4381,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave without saving'**
   String get leaveWithoutSaving;
+
+  /// No description provided for @legendEstimated.
+  ///
+  /// In en, this message translates to:
+  /// **'Estimated'**
+  String get legendEstimated;
+
+  /// No description provided for @legendLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Day logged'**
+  String get legendLogged;
+
+  /// No description provided for @legendPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Period'**
+  String get legendPeriod;
 
   /// No description provided for @less.
   ///
@@ -4364,6 +4796,42 @@ abstract class AppLocalizations {
   /// **'Monthly budget'**
   String get monthlyBudget;
 
+  /// No description provided for @mood.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood'**
+  String get mood;
+
+  /// No description provided for @moodAnxious.
+  ///
+  /// In en, this message translates to:
+  /// **'Anxious'**
+  String get moodAnxious;
+
+  /// No description provided for @moodCalm.
+  ///
+  /// In en, this message translates to:
+  /// **'Calm'**
+  String get moodCalm;
+
+  /// No description provided for @moodHappy.
+  ///
+  /// In en, this message translates to:
+  /// **'Happy'**
+  String get moodHappy;
+
+  /// No description provided for @moodIrritable.
+  ///
+  /// In en, this message translates to:
+  /// **'Irritable'**
+  String get moodIrritable;
+
+  /// No description provided for @moodLow.
+  ///
+  /// In en, this message translates to:
+  /// **'Low'**
+  String get moodLow;
+
   /// No description provided for @more.
   ///
   /// In en, this message translates to:
@@ -4634,6 +5102,18 @@ abstract class AppLocalizations {
   /// **'My time'**
   String get navTime;
 
+  /// No description provided for @navWomens.
+  ///
+  /// In en, this message translates to:
+  /// **'Women\'s health'**
+  String get navWomens;
+
+  /// No description provided for @needMoreData.
+  ///
+  /// In en, this message translates to:
+  /// **'Two recorded periods are needed to estimate the next one. You can also set your usual cycle length.'**
+  String get needMoreData;
+
   /// No description provided for @neededTime.
   ///
   /// In en, this message translates to:
@@ -4718,6 +5198,12 @@ abstract class AppLocalizations {
   /// **'Next'**
   String get nextPeriod;
 
+  /// No description provided for @nextPeriodIn.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{Next period in about a day} other{Next period in about {n} days}}'**
+  String nextPeriodIn(int n);
+
   /// No description provided for @nextPrayerIs.
   ///
   /// In en, this message translates to:
@@ -4741,6 +5227,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No active goals right now.'**
   String get noActiveGoals;
+
+  /// No description provided for @noAppointments.
+  ///
+  /// In en, this message translates to:
+  /// **'No appointments'**
+  String get noAppointments;
+
+  /// No description provided for @noAppointmentsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Add checkups and tests, with what you want to ask.'**
+  String get noAppointmentsBody;
 
   /// No description provided for @noConversations.
   ///
@@ -4820,6 +5318,12 @@ abstract class AppLocalizations {
   /// **'No notifications'**
   String get noNotifications;
 
+  /// No description provided for @noPeriodsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'None recorded yet.'**
+  String get noPeriodsYet;
+
   /// No description provided for @noProgressYet.
   ///
   /// In en, this message translates to:
@@ -4873,6 +5377,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Nothing yet. Connect from the Hayati phone app, or add steps by hand.'**
   String get noSourcesYet;
+
+  /// No description provided for @noSymptomsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No symptoms logged yet.'**
+  String get noSymptomsYet;
 
   /// No description provided for @noTasksToday.
   ///
@@ -4994,6 +5504,12 @@ abstract class AppLocalizations {
   /// **'No blame — tell us what happened and pick what\'s next.'**
   String get notifAccountabilityBody;
 
+  /// No description provided for @notifAppointmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Health appointment'**
+  String get notifAppointmentTitle;
+
   /// No description provided for @notifDue.
   ///
   /// In en, this message translates to:
@@ -5029,6 +5545,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Time to move'**
   String get notifMoveTitle;
+
+  /// No description provided for @notifNeutralBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Open the app to see it'**
+  String get notifNeutralBody;
+
+  /// No description provided for @notifNeutralTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Hayati reminder'**
+  String get notifNeutralTitle;
 
   /// No description provided for @notifPrayerSoon.
   ///
@@ -5168,6 +5696,12 @@ abstract class AppLocalizations {
   /// **'Organize'**
   String get organizeGroup;
 
+  /// No description provided for @otherSymptoms.
+  ///
+  /// In en, this message translates to:
+  /// **'Something else'**
+  String get otherSymptoms;
+
   /// No description provided for @overBudget.
   ///
   /// In en, this message translates to:
@@ -5198,6 +5732,18 @@ abstract class AppLocalizations {
   /// **'Overdue'**
   String get overdueTasks;
 
+  /// No description provided for @pain.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain'**
+  String get pain;
+
+  /// No description provided for @painN.
+  ///
+  /// In en, this message translates to:
+  /// **'Pain {n}/10'**
+  String painN(int n);
+
   /// No description provided for @password.
   ///
   /// In en, this message translates to:
@@ -5215,6 +5761,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'At least 8 characters, with a letter and a number'**
   String get passwordRule;
+
+  /// No description provided for @past.
+  ///
+  /// In en, this message translates to:
+  /// **'Past'**
+  String get past;
 
   /// No description provided for @pastDay.
   ///
@@ -5257,6 +5809,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Covers {from} – {to}'**
   String periodCovers(String from, String to);
+
+  /// No description provided for @periodDayN.
+  ///
+  /// In en, this message translates to:
+  /// **'Period, day {n}'**
+  String periodDayN(int n);
+
+  /// No description provided for @periodDueAbout.
+  ///
+  /// In en, this message translates to:
+  /// **'Your period may start about now'**
+  String get periodDueAbout;
+
+  /// No description provided for @periodEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved: period ended'**
+  String get periodEnded;
+
+  /// No description provided for @periodEndedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'It ended today'**
+  String get periodEndedToday;
+
+  /// No description provided for @periodInvalid.
+  ///
+  /// In en, this message translates to:
+  /// **'That doesn\'t fit: check the dates (no future days, no overlap, 15 days at most).'**
+  String get periodInvalid;
+
+  /// No description provided for @periodLateBy.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{A day past the estimated window} other{{n} days past the estimated window}}'**
+  String periodLateBy(int n);
+
+  /// No description provided for @periodSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Period saved'**
+  String get periodSaved;
+
+  /// No description provided for @periodSinceDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Since {date} (going on)'**
+  String periodSinceDate(String date);
+
+  /// No description provided for @periodStarted.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved: period started'**
+  String get periodStarted;
+
+  /// No description provided for @periodStartedToday.
+  ///
+  /// In en, this message translates to:
+  /// **'It started today'**
+  String get periodStartedToday;
 
   /// No description provided for @permAddNotes.
   ///
@@ -5936,6 +6548,18 @@ abstract class AppLocalizations {
   /// **'{current} of {total}'**
   String questionOf(int current, int total);
 
+  /// No description provided for @questionsForDoctor.
+  ///
+  /// In en, this message translates to:
+  /// **'Questions for the doctor'**
+  String get questionsForDoctor;
+
+  /// No description provided for @questionsN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n, plural, =1{1 question} other{{n} questions}}'**
+  String questionsN(int n);
+
   /// No description provided for @quickAdd.
   ///
   /// In en, this message translates to:
@@ -5990,6 +6614,12 @@ abstract class AppLocalizations {
   /// **'Recent workouts'**
   String get recentWorkouts;
 
+  /// No description provided for @recordedPeriods.
+  ///
+  /// In en, this message translates to:
+  /// **'Recorded periods'**
+  String get recordedPeriods;
+
   /// No description provided for @recoveryWarning.
   ///
   /// In en, this message translates to:
@@ -6007,6 +6637,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Reject'**
   String get reject;
+
+  /// No description provided for @remind3HoursBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'3 hours before'**
+  String get remind3HoursBefore;
+
+  /// No description provided for @remindBeforeN.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} min before'**
+  String remindBeforeN(int n);
+
+  /// No description provided for @remindDayBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'A day before'**
+  String get remindDayBefore;
+
+  /// No description provided for @remindHourBefore.
+  ///
+  /// In en, this message translates to:
+  /// **'An hour before'**
+  String get remindHourBefore;
 
   /// No description provided for @reminder.
   ///
@@ -6896,6 +7550,84 @@ abstract class AppLocalizations {
   /// **'New here? Create an account'**
   String get switchToSignUp;
 
+  /// No description provided for @syAcne.
+  ///
+  /// In en, this message translates to:
+  /// **'Acne'**
+  String get syAcne;
+
+  /// No description provided for @syBackPain.
+  ///
+  /// In en, this message translates to:
+  /// **'Back pain'**
+  String get syBackPain;
+
+  /// No description provided for @syBloating.
+  ///
+  /// In en, this message translates to:
+  /// **'Bloating'**
+  String get syBloating;
+
+  /// No description provided for @syBreastTenderness.
+  ///
+  /// In en, this message translates to:
+  /// **'Breast tenderness'**
+  String get syBreastTenderness;
+
+  /// No description provided for @syCramps.
+  ///
+  /// In en, this message translates to:
+  /// **'Cramps'**
+  String get syCramps;
+
+  /// No description provided for @syCravings.
+  ///
+  /// In en, this message translates to:
+  /// **'Cravings'**
+  String get syCravings;
+
+  /// No description provided for @syFatigue.
+  ///
+  /// In en, this message translates to:
+  /// **'Tiredness'**
+  String get syFatigue;
+
+  /// No description provided for @syHeadache.
+  ///
+  /// In en, this message translates to:
+  /// **'Headache'**
+  String get syHeadache;
+
+  /// No description provided for @syInsomnia.
+  ///
+  /// In en, this message translates to:
+  /// **'Poor sleep'**
+  String get syInsomnia;
+
+  /// No description provided for @syMoodSwings.
+  ///
+  /// In en, this message translates to:
+  /// **'Mood swings'**
+  String get syMoodSwings;
+
+  /// No description provided for @syNausea.
+  ///
+  /// In en, this message translates to:
+  /// **'Nausea'**
+  String get syNausea;
+
+  /// No description provided for @sySpotting.
+  ///
+  /// In en, this message translates to:
+  /// **'Spotting'**
+  String get sySpotting;
+
+  /// No description provided for @symptoms.
+  ///
+  /// In en, this message translates to:
+  /// **'Symptoms'**
+  String get symptoms;
+
   /// No description provided for @syncFailedShort.
   ///
   /// In en, this message translates to:
@@ -7118,6 +7850,12 @@ abstract class AppLocalizations {
   /// **'Today: {source}'**
   String todayFrom(String source);
 
+  /// No description provided for @todayLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Today, logged'**
+  String get todayLogged;
+
   /// No description provided for @todayPlan.
   ///
   /// In en, this message translates to:
@@ -7256,6 +7994,24 @@ abstract class AppLocalizations {
   /// **'{n, plural, =1{1 min} other{{n} min}}'**
   String unitMinutes(int n);
 
+  /// No description provided for @unlock.
+  ///
+  /// In en, this message translates to:
+  /// **'Unlock'**
+  String get unlock;
+
+  /// No description provided for @unlockFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not unlocked'**
+  String get unlockFailed;
+
+  /// No description provided for @unlockReason.
+  ///
+  /// In en, this message translates to:
+  /// **'Open your health sections in Hayati'**
+  String get unlockReason;
+
   /// No description provided for @unpin.
   ///
   /// In en, this message translates to:
@@ -7315,6 +8071,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Use my location'**
   String get useMyLocation;
+
+  /// No description provided for @usuallyOnDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Usually on day {n} of the cycle'**
+  String usuallyOnDay(int n);
 
   /// No description provided for @verificationLocal.
   ///
@@ -7711,6 +8473,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Yoga'**
   String get woYoga;
+
+  /// No description provided for @womensUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'This section is part of women\'s health.'**
+  String get womensUnavailable;
 
   /// No description provided for @wordsAddedToReview.
   ///

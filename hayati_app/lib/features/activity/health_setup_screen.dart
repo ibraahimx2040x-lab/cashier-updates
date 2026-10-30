@@ -13,6 +13,7 @@ import '../../data/models/health.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../womens/womens_gate.dart';
 
 IconData _icon(HealthModule m) => switch (m) {
       HealthModule.activity => Icons.directions_walk,
@@ -57,7 +58,7 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
       if (s.sex != Sex.male) HealthModule.womens,
       if (s.sex != Sex.female) HealthModule.mens,
     ];
-    const ready = {HealthModule.activity, HealthModule.nutrition, HealthModule.sleep};
+    const ready = {HealthModule.activity, HealthModule.nutrition, HealthModule.sleep, HealthModule.womens};
     final heightVal = int.tryParse(_height.text);
     final heightError = _height.text.isNotEmpty && (heightVal == null || heightVal < 80 || heightVal > 250);
 
@@ -88,6 +89,27 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
           const SizedBox(height: Space.xs),
           Text(l.healthSectionsNote, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
           const SizedBox(height: Space.l),
+          for (final (route, icon, title, sub) in [
+            (Routes.healthPrivacy, Icons.shield_outlined, l.healthPrivacy, l.healthPrivacySub),
+            if (appointmentsVisible(s)) (Routes.appointments, Icons.event_note, l.appointments, l.appointmentsSub),
+          ])
+            Padding(
+              padding: const EdgeInsets.only(bottom: Space.s),
+              child: AppCard(
+                onTap: () => context.push(route),
+                child: Row(children: [
+                  IconBadge(icon),
+                  const SizedBox(width: Space.m),
+                  Expanded(
+                    child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                      Text(title, style: t.titleSmall),
+                      Text(sub, style: t.bodySmall?.copyWith(color: context.status.textSecondary)),
+                    ]),
+                  ),
+                  const Icon(Icons.chevron_right),
+                ]),
+              ),
+            ),
           AppCard(
             onTap: () => context.push(Routes.devices),
             child: Row(children: [

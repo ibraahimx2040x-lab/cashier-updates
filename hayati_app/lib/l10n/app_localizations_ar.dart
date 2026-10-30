@@ -225,6 +225,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'في المتصفح تقدر تضيف الخطوات يدويًا فقط. العد التلقائي يشتغل في تطبيق الجوال.';
 
   @override
+  String get addAppointment => 'أضف موعد';
+
+  @override
   String get addCup => 'أضف كوب (250 مل)';
 
   @override
@@ -256,6 +259,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get addNote => 'إضافة ملاحظة';
+
+  @override
+  String get addPastPeriod => 'أضيفي دورة سابقة';
+
+  @override
+  String get addQuestion => 'أضف سؤال';
 
   @override
   String get addStepsManually => 'أضف خطوات';
@@ -627,6 +636,18 @@ class AppLocalizationsAr extends AppLocalizations {
   String get any => 'الكل';
 
   @override
+  String get apCheckup => 'كشف';
+
+  @override
+  String get apFollowup => 'متابعة';
+
+  @override
+  String get apOther => 'غير ذلك';
+
+  @override
+  String get apTest => 'تحليل أو فحص';
+
+  @override
   String get appName => 'حياتي';
 
   @override
@@ -650,6 +671,19 @@ class AppLocalizationsAr extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get appointmentReminderNote =>
+      'التذكير يقول «موعد صحي» والوقت فقط، بدون العنوان.';
+
+  @override
+  String get appointmentTitle => 'الموعد لأيش؟';
+
+  @override
+  String get appointments => 'المواعيد الصحية';
+
+  @override
+  String get appointmentsSub => 'الفحوصات والتحاليل والأسئلة للطبيب';
 
   @override
   String get approvals => 'اطلب الموافقة قبل';
@@ -747,6 +781,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get automatic => 'تلقائي';
+
+  @override
+  String get averageCycle => 'متوسط الدورة';
+
+  @override
+  String get averagePeriod => 'متوسط أيام الدورة';
 
   @override
   String avgKcalPerDay(String kcal) {
@@ -934,6 +974,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get checkAnswer => 'تحقق';
 
   @override
+  String get checkFields => 'راجع الحقول';
+
+  @override
   String get clear => 'مسح';
 
   @override
@@ -962,6 +1005,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get comingSoon => 'قريبًا';
+
+  @override
+  String get commonSymptoms => 'الأعراض الأكثر تسجيلًا';
 
   @override
   String get completedAndArchived => 'المكتملة والمؤرشفة';
@@ -1095,6 +1141,66 @@ class AppLocalizationsAr extends AppLocalizations {
   String get currentStreak => 'السلسلة الحالية';
 
   @override
+  String cycleDayN(int n) {
+    return 'اليوم $n من دورتك';
+  }
+
+  @override
+  String get cycleDisclaimer =>
+      'تقديرات من اللي سجلتيه، مو نصيحة طبية ولا وسيلة لمنع الحمل أو التخطيط له.';
+
+  @override
+  String get cycleInsights => 'تحليلات الدورة';
+
+  @override
+  String get cycleLengthOverTime => 'طول الدورة مع الوقت';
+
+  @override
+  String get cycleLocalOnly => 'خلّي بيانات الدورة على هذا الجوال فقط';
+
+  @override
+  String get cycleLocalOnlyBody =>
+      'دوراتك وتسجيلات أيامك تنحذف من حسابك وتبقى على هذا الجوال. لو حذفتي التطبيق أو غيرتي الجوال تروح.';
+
+  @override
+  String get cycleLocalOnlyOff =>
+      'مطفي: تنحفظ في حسابك وتطلع في الأندرويد والآيفون والموقع.';
+
+  @override
+  String get cycleLocalOnlyOn =>
+      'مفعّل: ما تنحفظ في حسابك وما تطلع في أجهزتك الثانية.';
+
+  @override
+  String get cycleLocalOnlyTitle => 'تخلينها على هذا الجوال فقط؟';
+
+  @override
+  String get cycleRange => 'المدى';
+
+  @override
+  String get cycleReminders => 'تذكير قبل الدورة الجاية';
+
+  @override
+  String get cycleRemindersSub =>
+      'قبل النافذة المتوقعة بيومين. يقول «تذكير من حياتي» بس.';
+
+  @override
+  String get cycleStartBody =>
+      'اضغطي «بدأت اليوم» في أول يوم من الدورة، أو أضيفي الدورات السابقة من تحت.';
+
+  @override
+  String get cycleStartTitle => 'تابعي دورتك';
+
+  @override
+  String get cycleSyncBody =>
+      'اللي في هذا الجوال ينرفع لحسابك ويطلع في أجهزتك الثانية.';
+
+  @override
+  String get cycleSyncTitle => 'تحفظينها في حسابك؟';
+
+  @override
+  String get cyclesCounted => 'عدد الدورات';
+
+  @override
   String get dailyAverage => 'المتوسط اليومي';
 
   @override
@@ -1164,6 +1270,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String daysRange(int min, int max) {
+    return '$min–$max يوم';
+  }
+
+  @override
   String get deadlineDate => 'الموعد النهائي';
 
   @override
@@ -1199,6 +1310,12 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get deleteAllChatsBody =>
       'ستُحذف كل المحادثات والاقتراحات المعلقة. التغييرات المطبقة تبقى.';
+
+  @override
+  String get deleteAppointmentBody => 'ملاحظاته وأسئلته بتنحذف معه.';
+
+  @override
+  String get deleteAppointmentTitle => 'تحذف هذا الموعد؟';
 
   @override
   String get deleteChatBody =>
@@ -1254,11 +1371,30 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteHabitTitle => 'حذف العادة؟';
 
   @override
+  String get deleteHealthData => 'حذف البيانات الصحية';
+
+  @override
+  String get deleteHealthDataBody =>
+      'الخطوات والنوم والنبض وتمارين الساعة والأكل والماء والدورة والمواعيد تنحذف من كل أجهزتك. وما تقدر ترجعها.';
+
+  @override
+  String get deleteHealthDataSub => 'الأقسام الصحية بس، وباقي حسابك يبقى';
+
+  @override
+  String get deleteHealthDataTitle => 'تحذف كل البيانات الصحية؟';
+
+  @override
   String get deleteNoteBody =>
       'ستُحذف الملاحظة نهائيًا. يمكنك أرشفتها بدلًا من ذلك.';
 
   @override
   String get deleteNoteTitle => 'حذف الملاحظة؟';
+
+  @override
+  String get deletePeriodBody => 'التقديرات بتنحسب من جديد بدونها.';
+
+  @override
+  String get deletePeriodTitle => 'تحذفين هذي الدورة؟';
 
   @override
   String deleteTaskBody(String title) {
@@ -1416,6 +1552,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get edit => 'تعديل';
 
   @override
+  String get editAppointment => 'تعديل الموعد';
+
+  @override
   String get editEvent => 'تعديل الموعد';
 
   @override
@@ -1493,6 +1632,14 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get endTime => 'النهاية';
+
+  @override
+  String get energy => 'الطاقة';
+
+  @override
+  String energyN(int n) {
+    return 'طاقة $n/5';
+  }
 
   @override
   String get energySplit => 'مصدر الطاقة (متوسط يومي)';
@@ -1611,6 +1758,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get estimatedPill => 'مدة تقديرية';
 
   @override
+  String estimatedWindow(String from, String to) {
+    return 'النافذة المتوقعة: $from – $to';
+  }
+
+  @override
   String get eventTitle => 'عنوان الموعد';
 
   @override
@@ -1697,6 +1849,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get exportDataSub => 'ينسخ كل بياناتك بصيغة JSON إلى الحافظة';
+
+  @override
+  String get exportHealthData => 'تصدير البيانات الصحية';
+
+  @override
+  String get exportHealthDataSub =>
+      'الخطوات والنوم والأكل والدورة والمواعيد، تنسخ كملف JSON';
 
   @override
   String get extraLesson => 'درس إضافي';
@@ -1891,6 +2050,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get flIntermediate => 'متوسط';
 
   @override
+  String get flow => 'الغزارة';
+
+  @override
+  String get flowHeavy => 'غزيرة';
+
+  @override
+  String get flowLight => 'خفيفة';
+
+  @override
+  String get flowMedium => 'متوسطة';
+
+  @override
+  String get flowNone => 'ما فيه';
+
+  @override
   String get focusConditioning => 'لياقة هوائية';
 
   @override
@@ -1996,6 +2170,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String fsWhichDays(int n) {
     return 'اختر $n أيام';
   }
+
+  @override
+  String get futureDay => 'للحين ما جا';
+
+  @override
+  String get futureDayBody => 'تقدرين تسجلين اليوم لما يجي.';
 
   @override
   String get getStarted => 'ابدأ الآن';
@@ -2105,8 +2285,42 @@ class AppLocalizationsAr extends AppLocalizations {
   String get haveAccount => 'لدي حساب';
 
   @override
+  String get healthDataDeleted => 'انحذفت البيانات الصحية';
+
+  @override
+  String get healthDataTitle => 'بياناتك الصحية';
+
+  @override
+  String get healthLock => 'القفل بالبصمة أو رمز الجوال';
+
+  @override
+  String get healthLockSub =>
+      'الأقسام الصحية ما تنفتح إلا بقفل جوالك، وتنقفل من جديد لما تطلع من التطبيق.';
+
+  @override
+  String get healthLockUnavailable =>
+      'غير متاح هنا: فعّل قفل الشاشة في جوالك أول. وفي الموقع كلمة مرور حسابك تحميه.';
+
+  @override
+  String get healthLocked => 'مقفول';
+
+  @override
+  String get healthLockedBody => 'افتحه ببصمتك أو وجهك أو رمز جوالك.';
+
+  @override
   String get healthPermissionDenied =>
       'ما انعطى الإذن. تقدر تسمح فيه من إعدادات تطبيق الصحة.';
+
+  @override
+  String get healthPrivacy => 'خصوصية الصحة';
+
+  @override
+  String get healthPrivacyNote =>
+      'بيانات الدورة ما تنشارك مع المساعد أبد، وتذكيراتها ما تقول عن أيش. وصحة المرأة تطلع فقط للحسابات المسجلة أنثى.';
+
+  @override
+  String get healthPrivacySub =>
+      'القفل والشاشة الرئيسية والتذكيرات والتصدير والحذف';
 
   @override
   String get healthSections => 'الأقسام الصحية';
@@ -2148,6 +2362,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get helpTitle => 'المساعدة والدعم';
+
+  @override
+  String get hideFromHome => 'إخفاء من الشاشة الرئيسية';
+
+  @override
+  String get hideFromHomeSub => 'صحة المرأة ما تطلع في «يومي».';
 
   @override
   String get hidePassword => 'إخفاء كلمة المرور';
@@ -2227,6 +2447,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get howDidItFeel => 'كيف كان التمرين؟ (اختياري)';
 
   @override
+  String get howIsToday => 'كيف يومك؟';
+
+  @override
+  String get howIsTodaySub => 'الغزارة والألم والأعراض والمزاج والطاقة';
+
+  @override
   String get howMuch => 'كم الكمية؟';
 
   @override
@@ -2259,6 +2485,10 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get interestsHint =>
       'اختر ما يناسبك، ويمكنك التغيير لاحقًا. الأقسام غير المختارة تُخفى ولا تُحذف.';
+
+  @override
+  String get irregularNote =>
+      'دوراتك المسجلة تختلف كثير، أو بعضها قصير أو طويل بشكل غير معتاد. هذا لحاله ما يعني إن فيه مشكلة، بس يستاهل تذكرينه للطبيبة.';
 
   @override
   String get itemGone => 'هذا العنصر لم يعد موجودًا.';
@@ -2335,6 +2565,15 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get leaveWithoutSaving => 'الخروج دون حفظ';
+
+  @override
+  String get legendEstimated => 'متوقعة';
+
+  @override
+  String get legendLogged => 'يوم مسجّل';
+
+  @override
+  String get legendPeriod => 'الدورة';
 
   @override
   String get less => 'أقل';
@@ -2565,6 +2804,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String get monthlyBudget => 'الميزانية الشهرية';
 
   @override
+  String get mood => 'المزاج';
+
+  @override
+  String get moodAnxious => 'قلقانة';
+
+  @override
+  String get moodCalm => 'هادئة';
+
+  @override
+  String get moodHappy => 'مبسوطة';
+
+  @override
+  String get moodIrritable => 'معصّبة';
+
+  @override
+  String get moodLow => 'متضايقة';
+
+  @override
   String get more => 'المزيد';
 
   @override
@@ -2705,6 +2962,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get navTime => 'وقتي';
 
   @override
+  String get navWomens => 'صحة المرأة';
+
+  @override
+  String get needMoreData =>
+      'نحتاج دورتين مسجلتين على الأقل عشان نقدّر الجاية. وتقدرين تحددين طول دورتك المعتاد.';
+
+  @override
   String get neededTime => 'تحتاج المهام';
 
   @override
@@ -2751,6 +3015,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get nextPeriod => 'التالي';
 
   @override
+  String nextPeriodIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'الدورة الجاية بعد $n يوم تقريبًا',
+      few: 'الدورة الجاية بعد $n أيام تقريبًا',
+      two: 'الدورة الجاية بعد يومين تقريبًا',
+      one: 'الدورة الجاية بعد يوم تقريبًا',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String nextPrayerIs(String name) {
     return 'الصلاة القادمة: $name';
   }
@@ -2763,6 +3040,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noActiveGoals => 'لا توجد أهداف نشطة حاليًا.';
+
+  @override
+  String get noAppointments => 'ما فيه مواعيد';
+
+  @override
+  String get noAppointmentsBody =>
+      'أضف الكشوفات والتحاليل، ومعها اللي تبي تسأل عنه.';
 
   @override
   String get noConversations => 'لا توجد محادثات سابقة.';
@@ -2806,6 +3090,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get noNotifications => 'لا توجد إشعارات';
 
   @override
+  String get noPeriodsYet => 'ما فيه دورات مسجلة للحين.';
+
+  @override
   String get noProgressYet => 'ما فيه مجموعات مسجلة للحين';
 
   @override
@@ -2832,6 +3119,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get noSourcesYet =>
       'ما فيه شي للحين. اربط من تطبيق حياتي على الجوال، أو أضف خطواتك يدويًا.';
+
+  @override
+  String get noSymptomsYet => 'ما سجلتي أعراض للحين.';
 
   @override
   String get noTasksToday => 'لا توجد مهام لليوم.';
@@ -2897,6 +3187,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'بدون لوم، قل لنا وش صار واختر الخطوة الجاية.';
 
   @override
+  String get notifAppointmentTitle => 'موعد صحي';
+
+  @override
   String get notifDue => 'راجع موعدها في المهام.';
 
   @override
@@ -2919,6 +3212,12 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get notifMoveTitle => 'وقت الحركة';
+
+  @override
+  String get notifNeutralBody => 'افتح التطبيق عشان تشوفه';
+
+  @override
+  String get notifNeutralTitle => 'تذكير من حياتي';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -3006,6 +3305,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get organizeGroup => 'التنظيم';
 
   @override
+  String get otherSymptoms => 'شي ثاني';
+
+  @override
   String get overBudget => 'تجاوز الميزانية';
 
   @override
@@ -3022,6 +3324,14 @@ class AppLocalizationsAr extends AppLocalizations {
   String get overdueTasks => 'المتأخرة';
 
   @override
+  String get pain => 'الألم';
+
+  @override
+  String painN(int n) {
+    return 'ألم $n/10';
+  }
+
+  @override
   String get password => 'كلمة المرور';
 
   @override
@@ -3029,6 +3339,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get passwordRule => '8 أحرف على الأقل، تحتوي على حرف ورقم';
+
+  @override
+  String get past => 'السابقة';
 
   @override
   String get pastDay => 'هذا اليوم انقضى.';
@@ -3056,6 +3369,51 @@ class AppLocalizationsAr extends AppLocalizations {
   String periodCovers(String from, String to) {
     return 'الفترة من $from إلى $to';
   }
+
+  @override
+  String periodDayN(int n) {
+    return 'الدورة، اليوم $n';
+  }
+
+  @override
+  String get periodDueAbout => 'ممكن تبدأ الدورة في هالأيام';
+
+  @override
+  String get periodEnded => 'انحفظ: انتهت الدورة';
+
+  @override
+  String get periodEndedToday => 'انتهت اليوم';
+
+  @override
+  String get periodInvalid =>
+      'ما ينفع: راجعي التواريخ (بدون أيام جاية، بدون تداخل، وبحد أقصى 15 يوم).';
+
+  @override
+  String periodLateBy(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'متأخرة $n يوم عن النافذة المتوقعة',
+      few: 'متأخرة $n أيام عن النافذة المتوقعة',
+      two: 'متأخرة يومين عن النافذة المتوقعة',
+      one: 'متأخرة يوم عن النافذة المتوقعة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get periodSaved => 'انحفظت الدورة';
+
+  @override
+  String periodSinceDate(String date) {
+    return 'من $date (مستمرة)';
+  }
+
+  @override
+  String get periodStarted => 'انحفظ: بدأت الدورة';
+
+  @override
+  String get periodStartedToday => 'بدأت اليوم';
 
   @override
   String get permAddNotes => 'إضافة الملاحظات';
@@ -3441,6 +3799,22 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get questionsForDoctor => 'أسئلة للطبيب';
+
+  @override
+  String questionsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n سؤال',
+      few: '$n أسئلة',
+      two: 'سؤالين',
+      one: 'سؤال',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get quickAdd => 'إضافة سريعة';
 
   @override
@@ -3470,6 +3844,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get recentWorkouts => 'آخر التمارين';
 
   @override
+  String get recordedPeriods => 'الدورات المسجلة';
+
+  @override
   String get recoveryWarning =>
       'حصتان شاقتان في يومين متتاليين. يُفضّل يوم راحة بينهما.';
 
@@ -3478,6 +3855,20 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reject => 'رفض';
+
+  @override
+  String get remind3HoursBefore => 'قبلها بـ3 ساعات';
+
+  @override
+  String remindBeforeN(int n) {
+    return 'قبلها بـ$n دقيقة';
+  }
+
+  @override
+  String get remindDayBefore => 'قبلها بيوم';
+
+  @override
+  String get remindHourBefore => 'قبلها بساعة';
 
   @override
   String get reminder => 'التذكير';
@@ -4017,6 +4408,45 @@ class AppLocalizationsAr extends AppLocalizations {
   String get switchToSignUp => 'جديد هنا؟ أنشئ حسابًا';
 
   @override
+  String get syAcne => 'حبوب';
+
+  @override
+  String get syBackPain => 'ألم الظهر';
+
+  @override
+  String get syBloating => 'انتفاخ';
+
+  @override
+  String get syBreastTenderness => 'ألم الصدر';
+
+  @override
+  String get syCramps => 'تقلصات';
+
+  @override
+  String get syCravings => 'اشتهاء أكل';
+
+  @override
+  String get syFatigue => 'تعب';
+
+  @override
+  String get syHeadache => 'صداع';
+
+  @override
+  String get syInsomnia => 'قلة نوم';
+
+  @override
+  String get syMoodSwings => 'تقلب المزاج';
+
+  @override
+  String get syNausea => 'غثيان';
+
+  @override
+  String get sySpotting => 'تبقيع';
+
+  @override
+  String get symptoms => 'الأعراض';
+
+  @override
   String get syncFailedShort => 'ما قدرنا نقرأ الخطوات — جرّب مرة ثانية';
 
   @override
@@ -4181,6 +4611,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get todayLogged => 'اليوم مسجّل';
+
+  @override
   String get todayPlan => 'خطة اليوم';
 
   @override
@@ -4279,6 +4712,15 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get unlock => 'افتح';
+
+  @override
+  String get unlockFailed => 'ما انفتح';
+
+  @override
+  String get unlockReason => 'افتح الأقسام الصحية في حياتي';
+
+  @override
   String get unpin => 'إلغاء التثبيت';
 
   @override
@@ -4309,6 +4751,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get useMyLocation => 'استخدم موقعي';
+
+  @override
+  String usuallyOnDay(int n) {
+    return 'عادة في اليوم $n من الدورة';
+  }
 
   @override
   String get verificationLocal => 'غير مطلوب في الوضع المحلي';
@@ -4546,6 +4993,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get woYoga => 'يوغا';
+
+  @override
+  String get womensUnavailable => 'هذا القسم ضمن صحة المرأة.';
 
   @override
   String get wordsAddedToReview =>

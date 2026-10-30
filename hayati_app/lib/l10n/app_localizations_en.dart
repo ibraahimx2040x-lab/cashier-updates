@@ -222,6 +222,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'In the browser steps can only be added by hand. Automatic counting works in the phone app.';
 
   @override
+  String get addAppointment => 'Add appointment';
+
+  @override
   String get addCup => 'Add a glass (250 ml)';
 
   @override
@@ -253,6 +256,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get addNote => 'Add note';
+
+  @override
+  String get addPastPeriod => 'Add a past period';
+
+  @override
+  String get addQuestion => 'Add a question';
 
   @override
   String get addStepsManually => 'Add steps';
@@ -625,6 +634,18 @@ class AppLocalizationsEn extends AppLocalizations {
   String get any => 'Any';
 
   @override
+  String get apCheckup => 'Checkup';
+
+  @override
+  String get apFollowup => 'Follow-up';
+
+  @override
+  String get apOther => 'Other';
+
+  @override
+  String get apTest => 'Test';
+
+  @override
   String get appName => 'Hayati';
 
   @override
@@ -646,6 +667,19 @@ class AppLocalizationsEn extends AppLocalizations {
     );
     return '$_temp0';
   }
+
+  @override
+  String get appointmentReminderNote =>
+      'The reminder says “Health appointment” and the time only, not the title.';
+
+  @override
+  String get appointmentTitle => 'What is it for?';
+
+  @override
+  String get appointments => 'Health appointments';
+
+  @override
+  String get appointmentsSub => 'Checkups, tests and questions for the doctor';
 
   @override
   String get approvals => 'Always ask before';
@@ -744,6 +778,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get automatic => 'Automatic';
+
+  @override
+  String get averageCycle => 'Average cycle';
+
+  @override
+  String get averagePeriod => 'Average period';
 
   @override
   String avgKcalPerDay(String kcal) {
@@ -930,6 +970,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get checkAnswer => 'Check';
 
   @override
+  String get checkFields => 'Check the fields';
+
+  @override
   String get clear => 'Clear';
 
   @override
@@ -958,6 +1001,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get comingSoon => 'Coming soon';
+
+  @override
+  String get commonSymptoms => 'Symptoms you log most';
 
   @override
   String get completedAndArchived => 'Completed & archived';
@@ -1094,6 +1140,66 @@ class AppLocalizationsEn extends AppLocalizations {
   String get currentStreak => 'Current streak';
 
   @override
+  String cycleDayN(int n) {
+    return 'Day $n of your cycle';
+  }
+
+  @override
+  String get cycleDisclaimer =>
+      'Estimates from what you recorded, not medical advice and not a way to prevent or plan pregnancy.';
+
+  @override
+  String get cycleInsights => 'Cycle insights';
+
+  @override
+  String get cycleLengthOverTime => 'Cycle length over time';
+
+  @override
+  String get cycleLocalOnly => 'Keep cycle data on this phone only';
+
+  @override
+  String get cycleLocalOnlyBody =>
+      'Your periods and day logs are removed from your account and stay on this phone. If you delete the app or change phones, they are gone.';
+
+  @override
+  String get cycleLocalOnlyOff =>
+      'Off: saved to your account, so it appears on your phone, iPhone and the web.';
+
+  @override
+  String get cycleLocalOnlyOn =>
+      'On: it isn\'t saved to your account and doesn\'t appear on your other devices.';
+
+  @override
+  String get cycleLocalOnlyTitle => 'Keep it on this phone only?';
+
+  @override
+  String get cycleRange => 'Range';
+
+  @override
+  String get cycleReminders => 'Reminder before the next period';
+
+  @override
+  String get cycleRemindersSub =>
+      'Two days before the estimated window. It only says “Hayati reminder”.';
+
+  @override
+  String get cycleStartBody =>
+      'Tap “It started today” on the first day of your period, or add past ones below.';
+
+  @override
+  String get cycleStartTitle => 'Track your cycle';
+
+  @override
+  String get cycleSyncBody =>
+      'What this phone holds is uploaded to your account and appears on your other devices.';
+
+  @override
+  String get cycleSyncTitle => 'Save it to your account?';
+
+  @override
+  String get cyclesCounted => 'Cycles counted';
+
+  @override
   String get dailyAverage => 'Daily average';
 
   @override
@@ -1155,6 +1261,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String daysRange(int min, int max) {
+    return '$min–$max days';
+  }
+
+  @override
   String get deadlineDate => 'Deadline';
 
   @override
@@ -1190,6 +1301,12 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get deleteAllChatsBody =>
       'All conversations and pending suggestions will be deleted. Applied changes stay.';
+
+  @override
+  String get deleteAppointmentBody => 'Its notes and questions go too.';
+
+  @override
+  String get deleteAppointmentTitle => 'Delete this appointment?';
 
   @override
   String get deleteChatBody =>
@@ -1245,11 +1362,32 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteHabitTitle => 'Delete habit?';
 
   @override
+  String get deleteHealthData => 'Delete health data';
+
+  @override
+  String get deleteHealthDataBody =>
+      'Steps, sleep, heart rate, workouts from your watch, food, water, cycle and appointments are removed from all your devices. This can\'t be undone.';
+
+  @override
+  String get deleteHealthDataSub =>
+      'Only the health sections; the rest of your account stays';
+
+  @override
+  String get deleteHealthDataTitle => 'Delete all health data?';
+
+  @override
   String get deleteNoteBody =>
       'This note will be permanently deleted. You can archive it instead.';
 
   @override
   String get deleteNoteTitle => 'Delete note?';
+
+  @override
+  String get deletePeriodBody =>
+      'Estimates will be worked out again without it.';
+
+  @override
+  String get deletePeriodTitle => 'Delete this period?';
 
   @override
   String deleteTaskBody(String title) {
@@ -1408,6 +1546,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get edit => 'Edit';
 
   @override
+  String get editAppointment => 'Edit appointment';
+
+  @override
   String get editEvent => 'Edit event';
 
   @override
@@ -1485,6 +1626,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get endTime => 'Ends';
+
+  @override
+  String get energy => 'Energy';
+
+  @override
+  String energyN(int n) {
+    return 'Energy $n/5';
+  }
 
   @override
   String get energySplit => 'Where the energy came from (daily average)';
@@ -1603,6 +1752,11 @@ class AppLocalizationsEn extends AppLocalizations {
   String get estimatedPill => 'Estimated length';
 
   @override
+  String estimatedWindow(String from, String to) {
+    return 'Estimated window: $from – $to';
+  }
+
+  @override
   String get eventTitle => 'Event title';
 
   @override
@@ -1685,6 +1839,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get exportDataSub => 'Copies all your data as JSON to the clipboard';
+
+  @override
+  String get exportHealthData => 'Export health data';
+
+  @override
+  String get exportHealthDataSub =>
+      'Steps, sleep, food, cycle and appointments, copied as JSON';
 
   @override
   String get extraLesson => 'Extra lesson';
@@ -1881,6 +2042,21 @@ class AppLocalizationsEn extends AppLocalizations {
   String get flIntermediate => 'Intermediate';
 
   @override
+  String get flow => 'Flow';
+
+  @override
+  String get flowHeavy => 'Heavy';
+
+  @override
+  String get flowLight => 'Light';
+
+  @override
+  String get flowMedium => 'Medium';
+
+  @override
+  String get flowNone => 'None';
+
+  @override
   String get focusConditioning => 'Conditioning';
 
   @override
@@ -1984,6 +2160,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String fsWhichDays(int n) {
     return 'Pick $n days';
   }
+
+  @override
+  String get futureDay => 'Not yet';
+
+  @override
+  String get futureDayBody => 'Days can be logged once they come.';
 
   @override
   String get getStarted => 'Get started';
@@ -2095,8 +2277,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get haveAccount => 'I have an account';
 
   @override
+  String get healthDataDeleted => 'Health data deleted';
+
+  @override
+  String get healthDataTitle => 'Your health data';
+
+  @override
+  String get healthLock => 'Lock with fingerprint or passcode';
+
+  @override
+  String get healthLockSub =>
+      'Health sections open only after your phone\'s unlock. Locks again when you leave the app.';
+
+  @override
+  String get healthLockUnavailable =>
+      'Not available here: set up a screen lock on your phone first. On the web your account password protects it.';
+
+  @override
+  String get healthLocked => 'Locked';
+
+  @override
+  String get healthLockedBody =>
+      'Unlock with your fingerprint, face or phone passcode.';
+
+  @override
   String get healthPermissionDenied =>
       'Permission wasn\'t given. You can allow it from the health app\'s settings.';
+
+  @override
+  String get healthPrivacy => 'Health privacy';
+
+  @override
+  String get healthPrivacyNote =>
+      'Cycle data is never shared with the assistant, and its reminders never say what they\'re about. Women\'s health shows only on accounts registered as female.';
+
+  @override
+  String get healthPrivacySub =>
+      'Lock, home screen, reminders, export and delete';
 
   @override
   String get healthSections => 'Health sections';
@@ -2137,6 +2354,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get helpTitle => 'Help & support';
+
+  @override
+  String get hideFromHome => 'Hide from the home screen';
+
+  @override
+  String get hideFromHomeSub => 'Women\'s health won\'t appear on “My day”.';
 
   @override
   String get hidePassword => 'Hide password';
@@ -2217,6 +2440,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get howDidItFeel => 'How did it feel? (optional)';
 
   @override
+  String get howIsToday => 'How\'s today?';
+
+  @override
+  String get howIsTodaySub => 'Flow, pain, symptoms, mood, energy';
+
+  @override
   String get howMuch => 'How much?';
 
   @override
@@ -2249,6 +2478,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get interestsHint =>
       'Pick any — you can change this later. Sections you don\'t pick are hidden, not deleted.';
+
+  @override
+  String get irregularNote =>
+      'Your recorded cycles vary a lot, or some are unusually short or long. This alone doesn\'t mean anything is wrong, but it\'s worth mentioning to a doctor.';
 
   @override
   String get itemGone => 'This item no longer exists.';
@@ -2326,6 +2559,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get leaveWithoutSaving => 'Leave without saving';
+
+  @override
+  String get legendEstimated => 'Estimated';
+
+  @override
+  String get legendLogged => 'Day logged';
+
+  @override
+  String get legendPeriod => 'Period';
 
   @override
   String get less => 'Less';
@@ -2557,6 +2799,24 @@ class AppLocalizationsEn extends AppLocalizations {
   String get monthlyBudget => 'Monthly budget';
 
   @override
+  String get mood => 'Mood';
+
+  @override
+  String get moodAnxious => 'Anxious';
+
+  @override
+  String get moodCalm => 'Calm';
+
+  @override
+  String get moodHappy => 'Happy';
+
+  @override
+  String get moodIrritable => 'Irritable';
+
+  @override
+  String get moodLow => 'Low';
+
+  @override
   String get more => 'More';
 
   @override
@@ -2697,6 +2957,13 @@ class AppLocalizationsEn extends AppLocalizations {
   String get navTime => 'My time';
 
   @override
+  String get navWomens => 'Women\'s health';
+
+  @override
+  String get needMoreData =>
+      'Two recorded periods are needed to estimate the next one. You can also set your usual cycle length.';
+
+  @override
   String get neededTime => 'Tasks need';
 
   @override
@@ -2743,6 +3010,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get nextPeriod => 'Next';
 
   @override
+  String nextPeriodIn(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: 'Next period in about $n days',
+      one: 'Next period in about a day',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String nextPrayerIs(String name) {
     return 'Next: $name';
   }
@@ -2755,6 +3033,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noActiveGoals => 'No active goals right now.';
+
+  @override
+  String get noAppointments => 'No appointments';
+
+  @override
+  String get noAppointmentsBody =>
+      'Add checkups and tests, with what you want to ask.';
 
   @override
   String get noConversations => 'No previous chats.';
@@ -2799,6 +3084,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noNotifications => 'No notifications';
 
   @override
+  String get noPeriodsYet => 'None recorded yet.';
+
+  @override
   String get noProgressYet => 'No logged sets yet';
 
   @override
@@ -2826,6 +3114,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get noSourcesYet =>
       'Nothing yet. Connect from the Hayati phone app, or add steps by hand.';
+
+  @override
+  String get noSymptomsYet => 'No symptoms logged yet.';
 
   @override
   String get noTasksToday => 'No tasks for today.';
@@ -2891,6 +3182,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'No blame — tell us what happened and pick what\'s next.';
 
   @override
+  String get notifAppointmentTitle => 'Health appointment';
+
+  @override
   String get notifDue => 'Check its deadline in your tasks.';
 
   @override
@@ -2913,6 +3207,12 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get notifMoveTitle => 'Time to move';
+
+  @override
+  String get notifNeutralBody => 'Open the app to see it';
+
+  @override
+  String get notifNeutralTitle => 'Hayati reminder';
 
   @override
   String notifPrayerSoon(String name, int minutes) {
@@ -3003,6 +3303,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get organizeGroup => 'Organize';
 
   @override
+  String get otherSymptoms => 'Something else';
+
+  @override
   String get overBudget => 'Over budget';
 
   @override
@@ -3019,6 +3322,14 @@ class AppLocalizationsEn extends AppLocalizations {
   String get overdueTasks => 'Overdue';
 
   @override
+  String get pain => 'Pain';
+
+  @override
+  String painN(int n) {
+    return 'Pain $n/10';
+  }
+
+  @override
   String get password => 'Password';
 
   @override
@@ -3027,6 +3338,9 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get passwordRule =>
       'At least 8 characters, with a letter and a number';
+
+  @override
+  String get past => 'Past';
 
   @override
   String get pastDay => 'This day has passed.';
@@ -3054,6 +3368,49 @@ class AppLocalizationsEn extends AppLocalizations {
   String periodCovers(String from, String to) {
     return 'Covers $from – $to';
   }
+
+  @override
+  String periodDayN(int n) {
+    return 'Period, day $n';
+  }
+
+  @override
+  String get periodDueAbout => 'Your period may start about now';
+
+  @override
+  String get periodEnded => 'Saved: period ended';
+
+  @override
+  String get periodEndedToday => 'It ended today';
+
+  @override
+  String get periodInvalid =>
+      'That doesn\'t fit: check the dates (no future days, no overlap, 15 days at most).';
+
+  @override
+  String periodLateBy(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n days past the estimated window',
+      one: 'A day past the estimated window',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get periodSaved => 'Period saved';
+
+  @override
+  String periodSinceDate(String date) {
+    return 'Since $date (going on)';
+  }
+
+  @override
+  String get periodStarted => 'Saved: period started';
+
+  @override
+  String get periodStartedToday => 'It started today';
 
   @override
   String get permAddNotes => 'Add notes';
@@ -3443,6 +3800,20 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get questionsForDoctor => 'Questions for the doctor';
+
+  @override
+  String questionsN(int n) {
+    String _temp0 = intl.Intl.pluralLogic(
+      n,
+      locale: localeName,
+      other: '$n questions',
+      one: '1 question',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get quickAdd => 'Quick add';
 
   @override
@@ -3472,6 +3843,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get recentWorkouts => 'Recent workouts';
 
   @override
+  String get recordedPeriods => 'Recorded periods';
+
+  @override
   String get recoveryWarning =>
       'Two demanding sessions fall on back-to-back days. Consider a rest day between them.';
 
@@ -3480,6 +3854,20 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reject => 'Reject';
+
+  @override
+  String get remind3HoursBefore => '3 hours before';
+
+  @override
+  String remindBeforeN(int n) {
+    return '$n min before';
+  }
+
+  @override
+  String get remindDayBefore => 'A day before';
+
+  @override
+  String get remindHourBefore => 'An hour before';
 
   @override
   String get reminder => 'Reminder';
@@ -4011,6 +4399,45 @@ class AppLocalizationsEn extends AppLocalizations {
   String get switchToSignUp => 'New here? Create an account';
 
   @override
+  String get syAcne => 'Acne';
+
+  @override
+  String get syBackPain => 'Back pain';
+
+  @override
+  String get syBloating => 'Bloating';
+
+  @override
+  String get syBreastTenderness => 'Breast tenderness';
+
+  @override
+  String get syCramps => 'Cramps';
+
+  @override
+  String get syCravings => 'Cravings';
+
+  @override
+  String get syFatigue => 'Tiredness';
+
+  @override
+  String get syHeadache => 'Headache';
+
+  @override
+  String get syInsomnia => 'Poor sleep';
+
+  @override
+  String get syMoodSwings => 'Mood swings';
+
+  @override
+  String get syNausea => 'Nausea';
+
+  @override
+  String get sySpotting => 'Spotting';
+
+  @override
+  String get symptoms => 'Symptoms';
+
+  @override
   String get syncFailedShort => 'Couldn\'t read steps — try again';
 
   @override
@@ -4166,6 +4593,9 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get todayLogged => 'Today, logged';
+
+  @override
   String get todayPlan => 'Today\'s plan';
 
   @override
@@ -4257,6 +4687,15 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String get unlock => 'Unlock';
+
+  @override
+  String get unlockFailed => 'Not unlocked';
+
+  @override
+  String get unlockReason => 'Open your health sections in Hayati';
+
+  @override
   String get unpin => 'Unpin';
 
   @override
@@ -4287,6 +4726,11 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get useMyLocation => 'Use my location';
+
+  @override
+  String usuallyOnDay(int n) {
+    return 'Usually on day $n of the cycle';
+  }
 
   @override
   String get verificationLocal => 'Not required in local mode';
@@ -4520,6 +4964,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get woYoga => 'Yoga';
+
+  @override
+  String get womensUnavailable => 'This section is part of women\'s health.';
 
   @override
   String get wordsAddedToReview =>

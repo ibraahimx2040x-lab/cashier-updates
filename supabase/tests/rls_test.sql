@@ -460,5 +460,77 @@ exception when insufficient_privilege then raise notice 'ok: no sleep for anothe
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Women's health and appointments (phase 11).
+insert into cycle_periods (id, start_date, end_date) values ('c1c10000-0000-0000-0000-000000000001', current_date - 40, current_date - 36);
+insert into cycle_periods (id, start_date) values ('c1c10000-0000-0000-0000-000000000002', current_date - 10);
+do $$ begin
+  insert into cycle_periods (id, start_date, end_date) values (gen_random_uuid(), current_date - 38, current_date - 37);
+  raise exception 'FAILED: overlapping periods';
+exception when exclusion_violation then raise notice 'ok: periods do not overlap';
+end $$;
+do $$ begin
+  insert into cycle_periods (id, start_date) values (gen_random_uuid(), current_date - 3);
+  raise exception 'FAILED: second open period inside the first';
+exception when exclusion_violation then raise notice 'ok: an open period blocks its first 15 days';
+end $$;
+do $$ begin
+  insert into cycle_periods (id, start_date) values (gen_random_uuid(), current_date + 3);
+  raise exception 'FAILED: future period';
+exception when check_violation then raise notice 'ok: no future periods';
+end $$;
+do $$ begin
+  insert into cycle_periods (id, start_date, end_date) values (gen_random_uuid(), current_date - 80, current_date - 60);
+  raise exception 'FAILED: 21-day period';
+exception when check_violation then raise notice 'ok: a period lasts at most 15 days';
+end $$;
+update cycle_periods set end_date = current_date - 6 where id = 'c1c10000-0000-0000-0000-000000000002';
+select pg_temp.check((select end_date = current_date - 6 from cycle_periods where id = 'c1c10000-0000-0000-0000-000000000002'), 'a period can be ended');
+insert into cycle_day_logs (id, day, flow, pain, symptoms, mood, energy) values
+  ('c1d00000-0000-0000-0000-000000000001', current_date - 9, 'medium', 4, '{cramps,back_pain}', 'low', 2);
+do $$ begin
+  insert into cycle_day_logs (id, day, symptoms) values (gen_random_uuid(), current_date - 8, '{cramps,unknown}');
+  raise exception 'FAILED: unknown symptom';
+exception when check_violation then raise notice 'ok: symptoms from the fixed list';
+end $$;
+do $$ begin
+  insert into cycle_day_logs (id, day, pain) values (gen_random_uuid(), current_date - 8, 11);
+  raise exception 'FAILED: pain 11';
+exception when check_violation then raise notice 'ok: pain 0-10';
+end $$;
+do $$ begin
+  insert into cycle_day_logs (id, day) values (gen_random_uuid(), current_date - 9);
+  raise exception 'FAILED: two logs for one day';
+exception when unique_violation then raise notice 'ok: one log per day';
+end $$;
+do $$ begin
+  insert into cycle_day_logs (id, day) values (gen_random_uuid(), current_date + 2);
+  raise exception 'FAILED: future log';
+exception when check_violation then raise notice 'ok: no future logs';
+end $$;
+insert into health_appointments (id, title, kind, at, questions, reminder_minutes)
+  values ('a9900000-0000-0000-0000-0000000000a1', 'Checkup', 'checkup', now() + interval '3 days', '{"Is this normal?"}', 60);
+do $$ begin
+  insert into health_appointments (id, title, at) values (gen_random_uuid(), '  ', now());
+  raise exception 'FAILED: blank appointment title';
+exception when check_violation then raise notice 'ok: appointment needs a title';
+end $$;
+do $$ begin
+  insert into health_appointments (id, title, kind, at) values (gen_random_uuid(), 'x', 'surgery', now());
+  raise exception 'FAILED: unknown appointment kind';
+exception when check_violation then raise notice 'ok: known appointment kinds';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check(
+  (select count(*) from cycle_periods) + (select count(*) from cycle_day_logs) + (select count(*) from health_appointments) = 0,
+  'B cannot read A''s cycle data or appointments');
+-- B's periods don't clash with A's.
+insert into cycle_periods (id, start_date) values ('c1c10000-0000-0000-0000-0000000000b1', current_date - 10);
+do $$ begin
+  insert into cycle_day_logs (id, user_id, day) values (gen_random_uuid(), '11111111-1111-1111-1111-111111111111', current_date);
+  raise exception 'FAILED: wrote a cycle log for another user';
+exception when insufficient_privilege then raise notice 'ok: no cycle logs for another user';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED
