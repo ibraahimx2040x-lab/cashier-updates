@@ -150,6 +150,7 @@ extension Labels on AppLocalizations {
         HealthKind.sleep => hkSleep,
         HealthKind.heartRate => hkHeartRate,
         HealthKind.workouts => hkWorkouts,
+        HealthKind.body => hkBody,
       };
 
   /// What reading [k] brings in, for the permission switches.
@@ -158,6 +159,7 @@ extension Labels on AppLocalizations {
         HealthKind.sleep => hkSleepSub,
         HealthKind.heartRate => hkHeartRateSub,
         HealthKind.workouts => hkWorkoutsSub,
+        HealthKind.body => hkBodySub,
       };
 
   /// A health store workout code (e.g. RUNNING_TREADMILL) as a word.
@@ -208,6 +210,23 @@ extension Labels on AppLocalizations {
         CycleMood.low => moodLow,
         CycleMood.irritable => moodIrritable,
         CycleMood.anxious => moodAnxious,
+      };
+
+  String metricKind(MetricKind k) => switch (k) {
+        MetricKind.weight => mkWeight,
+        MetricKind.waist => mkWaist,
+        MetricKind.restingHr => restingHeartRate,
+        MetricKind.bp => mkBloodPressure,
+        MetricKind.bodyFat => mkBodyFat,
+      };
+
+  /// The field label for typing one in, with its unit.
+  String metricUnitLabel(MetricKind k) => switch (k) {
+        MetricKind.weight => mkWeightKg,
+        MetricKind.waist => mkWaistCm,
+        MetricKind.restingHr => mkHeartBpm,
+        MetricKind.bp => mkBloodPressure,
+        MetricKind.bodyFat => mkBodyFatPct,
       };
 
   String appointmentKind(AppointmentKind k) => switch (k) {

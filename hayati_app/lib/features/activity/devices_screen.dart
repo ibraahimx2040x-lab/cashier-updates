@@ -19,6 +19,7 @@ IconData kindIcon(HealthKind k) => switch (k) {
       HealthKind.sleep => Icons.bedtime_outlined,
       HealthKind.heartRate => Icons.favorite_border,
       HealthKind.workouts => Icons.sports_gymnastics,
+      HealthKind.body => Icons.monitor_weight_outlined,
     };
 
 IconData sourceIcon(ActivitySource s) => switch (s) {
@@ -147,6 +148,7 @@ class DevicesScreen extends ConsumerWidget {
                           if (s.sleepNights > 0) l.sleepNightsN(s.sleepNights),
                           if (s.heartDays > 0) l.heartDaysN(s.heartDays),
                           if (s.workouts > 0) l.workoutsN(s.workouts),
+                          if (s.measurements > 0) l.measurementsN(s.measurements),
                         ].join(' · '),
                         style: t.bodySmall?.copyWith(color: context.status.textSecondary),
                       ),

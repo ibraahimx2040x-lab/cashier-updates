@@ -30,6 +30,9 @@ abstract final class Routes {
   static const devices = '/health/devices';
   static const healthPrivacy = '/health/privacy';
   static const appointments = '/health/appointments';
+  static const vitals = '/health/vitals';
+  static const sleep = '/health/sleep';
+  static const learn = '/health/learn';
   static const womens = '/womens';
   static const womensInsights = '/womens/insights';
   static const nutrition = '/nutrition';
@@ -57,6 +60,7 @@ abstract final class Routes {
   static String exercise(String id) => '/fitness/exercise/$id';
   static String womensDay(String day) => '/womens/day?day=$day';
   static String appointment(String id) => '/health/appointments/$id';
+  static String article(String id) => '/health/learn/$id';
   static String program(String id) => '/fitness/program/$id';
   static String programSession(String id) => '/fitness/session?program=$id';
   static const fitnessProgress = '/fitness/progress';

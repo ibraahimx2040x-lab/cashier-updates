@@ -105,6 +105,7 @@ class HealthSyncController extends Notifier<HealthSyncState> {
     final h = ref.read(settingsProvider).health;
     return switch (k) {
       HealthKind.sleep => h.has(HealthModule.sleep),
+      HealthKind.body => true,
       _ => h.has(HealthModule.activity),
     };
   }
@@ -144,6 +145,7 @@ class HealthSyncController extends Notifier<HealthSyncState> {
     });
     await run(HealthKind.heartRate, () async => c.importRestingHeart(source, await _reader.readRestingHeart(from, now)));
     await run(HealthKind.workouts, () async => c.importWorkouts(source, await _reader.readWorkouts(from, now), from: from));
+    await run(HealthKind.body, () async => c.importBody(source, await _reader.readBody(from, now)));
     state = state.copyWith(busy: false, failed: failed, lastSync: now);
   }
 }

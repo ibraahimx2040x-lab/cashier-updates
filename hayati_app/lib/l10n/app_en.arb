@@ -124,11 +124,13 @@
   "addFood": "Add food",
   "addGoal": "Add goal",
   "addHabit": "Add habit",
+  "addMeasurement": "Add measurement",
   "addMilestone": "Add milestone",
   "addMyOwnFood": "Add my own food",
   "addNote": "Add note",
   "addPastPeriod": "Add a past period",
   "addQuestion": "Add a question",
+  "addSleep": "Add sleep",
   "addStepsManually": "Add steps",
   "addTask": "Add task",
   "addTo": "Add to {meal}",
@@ -531,6 +533,8 @@
   "archiveGoal": "Archive",
   "archived": "Archived",
   "archivedNotes": "Archived notes",
+  "articleDisclaimer": "General information, not a diagnosis or treatment. Contact a doctor about your own health, and emergency services if it's urgent.",
+  "articleUnavailable": "This article isn't in your health sections.",
   "askAssistantReplan": "Ask the assistant to rearrange my day",
   "askAssistantReview": "Ask the assistant",
   "askHayati": "Ask Hayati",
@@ -580,6 +584,8 @@
     }
   },
   "barcodeNumber": "Barcode number",
+  "bedtimeReminder": "Bedtime reminder",
+  "bedtimeReminderSub": "A nudge to start winding down",
   "beforeMinutes": "{duration} before",
   "@beforeMinutes": {
     "placeholders": {
@@ -598,6 +604,8 @@
   "bestLabel": "Best",
   "billingNote": "Paid features are only enabled after your purchase is verified by our server through the app store.",
   "bodyweight": "Body weight",
+  "bpSeeDoctor": "Your last three blood pressure readings average 140/90 or higher. That's worth checking with a doctor.",
+  "bpUrgent": "Your last reading is 180/120 or higher. If you have chest pain, shortness of breath, a severe headache or changes in vision, get urgent help now. Otherwise rest a few minutes, measure again, and contact a doctor today.",
   "bpmN": "{n} bpm",
   "@bpmN": {
     "placeholders": {
@@ -652,6 +660,14 @@
   "cefrA2": "A2 · Elementary",
   "cefrB1": "B1 · Intermediate",
   "cefrB2": "B2 · Upper intermediate",
+  "changeIn30Days": "{change} in 30 days",
+  "@changeIn30Days": {
+    "placeholders": {
+      "change": {
+        "type": "String"
+      }
+    }
+  },
   "changePassword": "Change password",
   "changesCount": "{n, plural, =1{1 change} other{{n} changes}}",
   "@changesCount": {
@@ -663,6 +679,18 @@
   },
   "checkAnswer": "Check",
   "checkFields": "Check the fields",
+  "checkinScale": "1 is the lowest, 5 the highest. Saved as you tap.",
+  "checkinWeek": "This week: energy {energy}, recovery {recovery} on average",
+  "@checkinWeek": {
+    "placeholders": {
+      "energy": {
+        "type": "String"
+      },
+      "recovery": {
+        "type": "String"
+      }
+    }
+  },
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
@@ -671,6 +699,14 @@
   "clearancePregnancy": "Exercise in pregnancy is usually safe and helpful, but some pregnancies need limits. Please confirm your doctor has said it's fine for you.",
   "clearanceTitle": "Your doctor's go-ahead first",
   "cloudModeNotice": "Your data is saved to your account and kept on this device for offline use.",
+  "cmN": "{v} cm",
+  "@cmN": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
   "comingSoon": "Coming soon",
   "commonSymptoms": "Symptoms you log most",
   "completedAndArchived": "Completed & archived",
@@ -922,6 +958,7 @@
   "devicesSub": "Watch, sleep, heart rate and where each number comes from",
   "devicesTitle": "Devices and sources",
   "devicesWebBody": "Connecting happens in the Hayati phone app: it reads from Health Connect on Android or Apple Health on iPhone. What it brings in shows here too.",
+  "diastolic": "Lower (diastolic)",
   "didYouEat": "Is it one of these?",
   "diffEasy": "Easy",
   "diffHard": "Hard",
@@ -1129,6 +1166,7 @@
   "faq5q": "Where is my data stored?",
   "fat": "Fat",
   "fatG": "Fat (g)",
+  "fatigue": "Fatigue",
   "featAdvancedReports": "Detailed reports and insights",
   "featAssistantLimited": "Assistant: up to {limit} requests a day",
   "@featAssistantLimited": {
@@ -1307,6 +1345,8 @@
   "haveAccount": "I have an account",
   "healthDataDeleted": "Health data deleted",
   "healthDataTitle": "Your health data",
+  "healthLearn": "Health reading",
+  "healthLearnSub": "Short articles from public health sources",
   "healthLock": "Lock with fingerprint or passcode",
   "healthLockSub": "Health sections open only after your phone's unlock. Locks again when you leave the app.",
   "healthLockUnavailable": "Not available here: set up a screen lock on your phone first. On the web your account password protects it.",
@@ -1339,6 +1379,8 @@
   "highlights": "Highlights",
   "history": "History",
   "historyHint": "Tap a past day to correct it. Days the habit isn't due are neutral.",
+  "hkBody": "Weight and blood pressure",
+  "hkBodySub": "Readings from a smart scale or blood pressure monitor",
   "hkHeartRate": "Resting heart rate",
   "hkHeartRateSub": "One value a day, as your watch measures it",
   "hkSleep": "Sleep",
@@ -1363,6 +1405,7 @@
   "howIsToday": "How's today?",
   "howIsTodaySub": "Flow, pain, symptoms, mood, energy",
   "howMuch": "How much?",
+  "howRested": "How do you feel today?",
   "howTo": "How to do it",
   "inDuration": "in {duration}",
   "@inDuration": {
@@ -1404,6 +1447,14 @@
   },
   "keepAnyway": "Keep anyway",
   "keepChats": "Keep chats for",
+  "kgN": "{v} kg",
+  "@kgN": {
+    "placeholders": {
+      "v": {
+        "type": "String"
+      }
+    }
+  },
   "kgTimesReps": "{kg} kg × {reps}",
   "@kgTimesReps": {
     "placeholders": {
@@ -1430,6 +1481,7 @@
       }
     }
   },
+  "lastTwoWeeks": "Last two weeks",
   "lastWeek": "Last week",
   "latestOn": "Latest: {date}",
   "@latestOn": {
@@ -1439,6 +1491,7 @@
       }
     }
   },
+  "learnIntro": "Short, general reading from public health organisations. It isn't advice for you personally; a doctor can tell you what applies to you.",
   "leave": "Leave",
   "leaveTestBody": "Your answers so far will be lost.",
   "leaveTestTitle": "Leave the test?",
@@ -1569,6 +1622,14 @@
   "mealLunch": "Lunch",
   "mealPhoto": "Meal photo",
   "mealSnack": "Snacks",
+  "measurementsN": "{n, plural, =1{1 measurement} other{{n} measurements}}",
+  "@measurementsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
   "memberSince": "Member since",
   "menu": "Menu",
   "methodEgyptian": "Egyptian General Authority",
@@ -1579,6 +1640,17 @@
   "methodMwl": "Muslim World League",
   "methodQatar": "Qatar",
   "methodUmmAlQura": "Umm al-Qura (Makkah)",
+  "metricOutOfRange": "Enter a number between {min} and {max}",
+  "@metricOutOfRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
   "milestone": "Milestone",
   "milestoneHint": "e.g. Understand Dart basics",
   "milestones": "Milestones",
@@ -1589,6 +1661,25 @@
         "type": "int"
       },
       "total": {
+        "type": "int"
+      }
+    }
+  },
+  "mkBloodPressure": "Blood pressure",
+  "mkBodyFat": "Body fat",
+  "mkBodyFatPct": "Body fat (%)",
+  "mkHeartBpm": "Resting heart rate (bpm)",
+  "mkWaist": "Waist",
+  "mkWaistCm": "Waist (cm)",
+  "mkWeight": "Weight",
+  "mkWeightKg": "Weight (kg)",
+  "mmHgN": "{sys}/{dia} mmHg",
+  "@mmHgN": {
+    "placeholders": {
+      "sys": {
+        "type": "int"
+      },
+      "dia": {
         "type": "int"
       }
     }
@@ -1730,6 +1821,7 @@
     }
   },
   "noLinkedTasks": "No tasks linked to this goal yet.",
+  "noMeasurementYet": "Nothing yet — tap to add",
   "noMilestones": "No milestones yet.",
   "noNotesYet": "No notes yet",
   "noNotifications": "No notifications",
@@ -1742,6 +1834,7 @@
   "noSetsBody": "Nothing will be saved. Leave the workout?",
   "noSetsTitle": "No sets ticked",
   "noSleepYet": "No sleep recorded",
+  "noSleepYetBody": "Add a night by hand, or read sleep from your phone's health app in Devices and sources.",
   "noSourcesYet": "Nothing yet. Connect from the Hayati phone app, or add steps by hand.",
   "noSymptomsYet": "No symptoms logged yet.",
   "noTasksToday": "No tasks for today.",
@@ -1772,6 +1865,8 @@
   },
   "notifAccountabilityBody": "No blame — tell us what happened and pick what's next.",
   "notifAppointmentTitle": "Health appointment",
+  "notifBedtimeBody": "Screens down, lights low",
+  "notifBedtimeTitle": "Time to wind down",
   "notifDue": "Check its deadline in your tasks.",
   "notifEventBody": "Starts in {minutes} min",
   "@notifEventBody": {
@@ -1905,6 +2000,14 @@
     "placeholders": {
       "n": {
         "type": "int"
+      }
+    }
+  },
+  "percentN": "{v}%",
+  "@percentN": {
+    "placeholders": {
+      "v": {
+        "type": "String"
       }
     }
   },
@@ -2146,14 +2249,17 @@
       }
     }
   },
+  "readSleepBasics": "Read: sleep basics",
   "readThis": "Read:",
   "reason": "Why",
   "reasonDeadline": "Would finish after its deadline time",
   "reasonNoSlot": "No free slot is long enough",
   "reasonNoTime": "Not enough free time left today",
   "recentFoods": "Recent",
+  "recentNights": "Recent nights",
   "recentWorkouts": "Recent workouts",
   "recordedPeriods": "Recorded periods",
+  "recovery": "Recovery",
   "recoveryWarning": "Two demanding sessions fall on back-to-back days. Consider a rest day between them.",
   "regional": "Region & time",
   "reject": "Reject",
@@ -2373,8 +2479,21 @@
   "skillsMeasuredNote": "The app measures vocabulary, grammar and reading. Listening and speaking need audio tools and aren't assessed yet.",
   "skip": "Skip",
   "skipRest": "Skip",
+  "sleepAndRecovery": "Sleep and recovery",
+  "sleepAndRecoverySub": "Your nights, how rested you feel, a bedtime reminder",
+  "sleepGoldNote": "Gold marks nights of 7 hours or more.",
+  "sleepInvalid": "That doesn't fit: check the times (up to 24 hours, not in the future, not overlapping another night you added).",
   "sleepNightsN": "{n, plural, =1{1 night} other{{n} nights}}",
   "@sleepNightsN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "sleepQuality": "How did you sleep?",
+  "sleepQualityN": "Quality {n} of 5",
+  "@sleepQualityN": {
     "placeholders": {
       "n": {
         "type": "int"
@@ -2404,6 +2523,7 @@
   "sourceHealthKit": "Apple Health",
   "sourceManual": "Added by hand",
   "sourcePhone": "Phone sensor",
+  "sources": "Sources",
   "sourcesWithData": "Sources with your data",
   "spending": "Spending",
   "splashFailed": "We couldn't start Hayati.",
@@ -2523,6 +2643,7 @@
       }
     }
   },
+  "systolic": "Upper (systolic)",
   "takeLevelCheck": "Take the level check",
   "takePhoto": "Take photo",
   "takePlacement": "Take the placement test",
@@ -2684,6 +2805,10 @@
   "viewAll": "View all",
   "viewAllGoals": "View all goals",
   "viewCalendar": "Calendar",
+  "vitals": "Measurements",
+  "vitalsFromDevices": "Read weight and blood pressure from your phone's health app",
+  "vitalsNote": "For your own record. These numbers aren't a diagnosis; read more in Health reading.",
+  "vitalsSub": "Weight, waist, heart rate, blood pressure, body fat",
   "vsLastMonth": "Last month: {amount}",
   "@vsLastMonth": {
     "placeholders": {
@@ -2796,6 +2921,7 @@
   "weightKg": "kg",
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
   "welcomeTitle": "Organize your life, step by step",
+  "wentToBed": "Went to bed",
   "whatThisPhoneReads": "What this phone reads",
   "whatWeStore": "What Hayati stores",
   "whatWeStoreBody": "Your account (email and a salted password hash), preferences, tasks, events, goals, milestones, habits and their logs, notes, expenses and budgets, assistant chats (per your retention setting) and an action log without message content. In local mode all of this stays on this device.",
@@ -2818,6 +2944,8 @@
   "woTennis": "Tennis",
   "woWalking": "Walking",
   "woYoga": "Yoga",
+  "wokeUp": "Woke up",
+  "wokeUpOn": "Woke up on",
   "womensUnavailable": "This section is part of women's health.",
   "wordsAddedToReview": "This lesson's words are added to your reviews, starting tomorrow.",
   "workBlock": "Work / study",

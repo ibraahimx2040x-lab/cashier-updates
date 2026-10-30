@@ -532,5 +532,28 @@ exception when insufficient_privilege then raise notice 'ok: no cycle logs for a
 end $$;
 select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
+-- Sleep and recovery check-ins (phase 12).
+insert into wellbeing_checkins (id, day, energy, fatigue, recovery, mood) values ('3e110000-0000-0000-0000-000000000001', current_date, 4, 2, 3, 5);
+do $$ begin
+  insert into wellbeing_checkins (id, day, energy) values (gen_random_uuid(), current_date, 3);
+  raise exception 'FAILED: two check-ins for one day';
+exception when unique_violation then raise notice 'ok: one check-in per day';
+end $$;
+do $$ begin
+  insert into wellbeing_checkins (id, day, mood) values (gen_random_uuid(), current_date - 1, 6);
+  raise exception 'FAILED: mood 6';
+exception when check_violation then raise notice 'ok: check-ins 1-5';
+end $$;
+do $$ begin
+  insert into wellbeing_checkins (id, day, energy) values (gen_random_uuid(), current_date + 1, 3);
+  raise exception 'FAILED: future check-in';
+exception when check_violation then raise notice 'ok: no future check-ins';
+end $$;
+insert into sleep_sessions (id, source, start_at, end_at, quality)
+  values ('5eeb0000-0000-0000-0000-0000000000a2', 'manual', now() - interval '33 hours', now() - interval '25 hours', 4);
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check((select count(*) = 0 from wellbeing_checkins), 'B cannot read A''s check-ins');
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
+
 reset role;
 \echo ALL RLS TESTS PASSED

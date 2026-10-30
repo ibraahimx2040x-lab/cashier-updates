@@ -188,6 +188,12 @@ void seed(ProviderContainer c) {
   d.saveCustomFood(CustomFood(id: 'cf1', name: 'My laban', portion: 'bottle', per: const Nutrients(kcal: 120, protein: 8), barcode: '6281000000001', createdAt: now));
   d.addWater(today, 1250);
   d.setSex(Sex.male);
+  for (var i = 0; i < 6; i++) {
+    d.addMetric(kind: MetricKind.weight, value: 84.0 - i * 0.4, at: now.subtract(Duration(days: 30 - i * 5)));
+    d.addMetric(kind: MetricKind.bp, value: 124.0 + i, value2: 80, at: now.subtract(Duration(days: 30 - i * 5, hours: 1)));
+  }
+  d.addSleep(start: now.subtract(const Duration(days: 9, hours: 8)), end: now.subtract(const Duration(days: 9)), quality: 4);
+  d.saveCheckin(WellbeingCheckin(id: '', day: today, energy: 4, fatigue: 2, recovery: 3, mood: 4, updatedAt: now));
   d.saveAppointment(HealthAppointment(
       id: 'ap1', title: 'Annual checkup', kind: AppointmentKind.checkup, at: now.add(const Duration(days: 2)), place: 'Clinic',
       questions: const ['Blood test?', 'Vitamin D?'], reminderMinutes: 60, updatedAt: now));
@@ -337,6 +343,11 @@ void main() {
           Routes.appointment('ap1'),
           Routes.appointment('new'),
           Routes.healthPrivacy,
+          Routes.vitals,
+          Routes.sleep,
+          Routes.learn,
+          Routes.article('prostate_urinary'),
+          Routes.article('blood_pressure'),
         ];
         for (final r in routes) {
           router.go(r);
@@ -422,6 +433,8 @@ void main() {
           Routes.appointment('ap1'),
           Routes.healthPrivacy,
           Routes.healthSetup,
+          Routes.learn,
+          Routes.article('exercise_pregnancy'),
         ]) {
           router.go(r);
           await tester.pumpAndSettle();
@@ -523,6 +536,45 @@ void main() {
     await tester.tap(find.text(l.continueLabel));
     await tester.pumpAndSettle();
     expect(c.read(dataProvider).settings.health.cycleLocalOnly, isTrue);
+  });
+
+  testWidgets('measurements and sleep: add a weight, rate today, men never see women\'s reading (en)', (tester) async {
+    final c = await pumpApp(tester, locale: 'en', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('en'));
+    await signUp(tester, c);
+    final data = c.read(dataProvider.notifier);
+    data.updateSettings((s) => s.copyWith(onboardingDone: true));
+    data.setSex(Sex.male);
+    await tester.pumpAndSettle();
+    final router = c.read(routerProvider);
+    router.go(Routes.vitals);
+    await tester.pumpAndSettle();
+    await tester.tap(find.text(l.addMeasurement).last);
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField).first, '500');
+    await tester.tap(find.text(l.save));
+    await tester.pumpAndSettle();
+    expect(find.text(l.metricOutOfRange(20, 400)), findsOneWidget);
+    await tester.enterText(find.byType(TextField).first, '78,5');
+    await tester.tap(find.text(l.save));
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).bodyMetrics.single.value, 78.5);
+    expect(find.text(l.kgN('78.5')), findsOneWidget);
+
+    router.go(Routes.sleep);
+    await tester.pumpAndSettle();
+    await tapIn(tester, find.widgetWithText(ChoiceChip, '4').first);
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).checkin(dayKey(DateTime.now()))!.energy, 4);
+
+    router.go(Routes.learn);
+    await tester.pumpAndSettle();
+    await tester.scrollUntilVisible(find.text('Checking your testicles'), 150, scrollable: find.byType(Scrollable).first);
+    expect(find.text('Checking your testicles'), findsOneWidget);
+    expect(find.text('Exercise in pregnancy and after birth'), findsNothing);
+    router.go(Routes.article('exercise_pregnancy'));
+    await tester.pumpAndSettle();
+    expect(find.text(l.articleUnavailable), findsOneWidget);
   });
 
   testWidgets('accountability: agree to a rule, then answer a late task (en)', (tester) async {

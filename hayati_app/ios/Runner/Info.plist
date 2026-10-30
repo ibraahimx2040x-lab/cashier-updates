@@ -9,7 +9,7 @@
 		<key>NSFaceIDUsageDescription</key>
 		<string>لفتح الأقسام الصحية المقفولة في حياتي، إذا شغّلت القفل.</string>
 		<key>NSHealthShareUsageDescription</key>
-		<string>يقرأ حياتي من تطبيق الصحة ما تختاره فقط: الخطوات والنوم ونبض الراحة والتمارين، ليعرض نشاطك وأهدافك. لا يكتب فيه شيئًا.</string>
+		<string>يقرأ حياتي من تطبيق الصحة ما تختاره فقط: الخطوات والنوم ونبض الراحة والتمارين والوزن والضغط، ليعرض نشاطك وأهدافك. لا يكتب فيه شيئًا.</string>
 		<key>NSHealthUpdateUsageDescription</key>
 		<string>حياتي لا يكتب في تطبيق الصحة.</string>
 		<key>NSLocationWhenInUseUsageDescription</key>

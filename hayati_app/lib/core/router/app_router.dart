@@ -18,6 +18,9 @@ import '../../features/accountability/rule_editor_screen.dart';
 import '../../features/activity/activity_screen.dart';
 import '../../features/activity/devices_screen.dart';
 import '../../features/activity/health_setup_screen.dart';
+import '../../features/health/learn_screen.dart';
+import '../../features/health/sleep_screen.dart';
+import '../../features/health/vitals_screen.dart';
 import '../../features/womens/appointments_screen.dart';
 import '../../features/womens/cycle_screen.dart';
 import '../../features/womens/day_log_screen.dart';
@@ -171,6 +174,10 @@ final routerProvider = Provider<GoRouter>((ref) {
       page(Routes.healthSetup, (_) => const HealthSetupScreen()),
       page(Routes.devices, (_) => const DevicesScreen()),
       page(Routes.healthPrivacy, (_) => const HealthPrivacyScreen()),
+      page(Routes.vitals, (_) => const VitalsScreen()),
+      page(Routes.sleep, (_) => const SleepScreen()),
+      page(Routes.learn, (_) => const LearnScreen()),
+      page('/health/learn/:id', (s) => ArticleScreen(id: s.pathParameters['id']!)),
       page(Routes.appointments, (_) => const AppointmentsScreen()),
       page('/health/appointments/:id', (s) => AppointmentEditScreen(id: s.pathParameters['id']!)),
       page(Routes.womens, (_) => const CycleScreen()),

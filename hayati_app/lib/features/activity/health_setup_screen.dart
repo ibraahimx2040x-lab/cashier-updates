@@ -91,6 +91,9 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
           const SizedBox(height: Space.l),
           for (final (route, icon, title, sub) in [
             (Routes.healthPrivacy, Icons.shield_outlined, l.healthPrivacy, l.healthPrivacySub),
+            (Routes.vitals, Icons.monitor_heart_outlined, l.vitals, l.vitalsSub),
+            if (h.has(HealthModule.sleep)) (Routes.sleep, Icons.bedtime_outlined, l.sleepAndRecovery, l.sleepAndRecoverySub),
+            (Routes.learn, Icons.menu_book_outlined, l.healthLearn, l.healthLearnSub),
             if (appointmentsVisible(s)) (Routes.appointments, Icons.event_note, l.appointments, l.appointmentsSub),
           ])
             Padding(
