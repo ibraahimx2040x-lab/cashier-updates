@@ -17,6 +17,7 @@ import '../../domain/fitness/plan_generator.dart';
 import '../../domain/fitness/programs.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 class _Entry {
   _Entry(this.target);
@@ -161,7 +162,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
     final t = Theme.of(context).textTheme;
     final lang = l.localeName;
     if (_day == null) {
-      return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.event_busy, title: l.noWorkoutThatDay));
+      return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.event_busy, title: l.noWorkoutThatDay));
     }
     final total = _entries.fold<int>(0, (s, e) => s + e.length);
     final done = _entries.fold<int>(0, (s, e) => s + e.where((x) => x.done).length);
@@ -174,7 +175,7 @@ class _WorkoutSessionScreenState extends ConsumerState<WorkoutSessionScreen> {
         if (await confirmDiscard(context) && context.mounted) context.pop();
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(_program?.name(lang) ?? l.todaysWorkout(l.dayFocus(_day!.focus)))),
+        appBar: AppBar(title: Text(_program?.name(lang) ?? l.todaysWorkout(l.dayFocus(_day!.focus))), actions: const [HomeLogoButton()]),
         body: ResponsiveContainer(
           maxWidth: 760,
           child: ListView(

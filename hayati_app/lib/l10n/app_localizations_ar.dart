@@ -866,6 +866,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get back => 'السابق';
 
   @override
+  String get backHome => 'رجوع لـ«يومي»';
+
+  @override
   String get backToPath => 'العودة إلى المسار';
 
   @override
@@ -1266,6 +1269,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get contactSupport => 'التواصل مع الدعم';
+
+  @override
+  String get continueAsGuest => 'الدخول كزائر';
 
   @override
   String get continueLabel => 'متابعة';
@@ -2479,6 +2485,17 @@ class AppLocalizationsAr extends AppLocalizations {
   String get gramsOptional => 'الوزن بالغرام (اختياري)';
 
   @override
+  String get guestAvailable => 'متاح للزوار';
+
+  @override
+  String get guestBanner =>
+      'أنت تستخدم سند كزائر. سوّ حساب عشان تحفظ بياناتك وتفتح كل الأقسام.';
+
+  @override
+  String get guestNote =>
+      'المهام والتقويم والعادات، على هذا الجوال بس. وإذا سويت حساب بعدين تنتقل معك.';
+
+  @override
   String get habitAdherence => 'الالتزام بالعادات';
 
   @override
@@ -2806,6 +2823,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get keepChats => 'الاحتفاظ بالمحادثات';
 
   @override
+  String get keepEditing => 'أكمل التعديل';
+
+  @override
   String kgN(String v) {
     return '$v كغ';
   }
@@ -2860,10 +2880,19 @@ class AppLocalizationsAr extends AppLocalizations {
   String get leave => 'خروج';
 
   @override
+  String get leaveGuest => 'الخروج من وضع الزائر';
+
+  @override
   String get leaveTestBody => 'ستضيع إجاباتك حتى الآن.';
 
   @override
   String get leaveTestTitle => 'الخروج من الاختبار؟';
+
+  @override
+  String get leaveUnsavedBody => 'اللي كتبته في هذي الصفحة بيضيع.';
+
+  @override
+  String get leaveUnsavedTitle => 'تطلع بدون حفظ؟';
 
   @override
   String get leaveWithoutSaving => 'الخروج دون حفظ';
@@ -2974,6 +3003,16 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get locationPrivacy =>
       'يُستخدم موقعك لحساب المواقيت فقط، ويُحفظ كإحداثيات في إعداداتك.';
+
+  @override
+  String get lockedBody =>
+      'كزائر تقدر تستخدم المهام والتقويم والعادات. الحساب المجاني يفتح لك باقي الأقسام: الصلاة والصحة والمال والتعلّم والمساعد، ويزامنها بين أجهزتك. واللي أضفته للحين ينتقل معك.';
+
+  @override
+  String get lockedTitle => 'هذا القسم يحتاج حساب';
+
+  @override
+  String get logoHome => 'سند: الذهاب إلى «يومي»';
 
   @override
   String get lookUp => 'ابحث';
@@ -4722,6 +4761,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get signUpTitle => 'إنشاء حساب';
 
   @override
+  String get signedInAs => 'تم تسجيل الدخول. أهلًا بك في سند.';
+
+  @override
   String get sixMonths => 'آخر 6 أشهر';
 
   @override
@@ -5522,6 +5564,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get weightKg => 'كجم';
+
+  @override
+  String get welcomeBack => 'أهلًا بعودتك';
 
   @override
   String get welcomeBody =>

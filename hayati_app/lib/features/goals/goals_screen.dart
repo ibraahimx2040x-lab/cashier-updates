@@ -12,6 +12,7 @@ import '../../domain/metrics.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 10 — goals grouped active → paused → completed/archived.
 class GoalsScreen extends ConsumerStatefulWidget {
@@ -55,8 +56,7 @@ class _GoalsScreenState extends ConsumerState<GoalsScreen> {
       appBar: AppBar(
         title: Text(l.myGoals),
         actions: [
-          IconButton(tooltip: l.addGoal, onPressed: () => context.push(Routes.goal('new')), icon: const Icon(Icons.add)),
-        ],
+          IconButton(tooltip: l.addGoal, onPressed: () => context.push(Routes.goal('new')), icon: const Icon(Icons.add)), const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         child: Column(children: [

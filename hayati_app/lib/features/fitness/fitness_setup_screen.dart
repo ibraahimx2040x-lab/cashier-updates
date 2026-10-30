@@ -13,6 +13,7 @@ import '../../domain/fitness/plan_generator.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 13 — answers that shape the plan, then a preview before saving.
 /// Saving creates a new plan version; earlier ones are kept.
@@ -104,7 +105,7 @@ class _FitnessSetupScreenState extends ConsumerState<FitnessSetupScreen> {
     final week = [for (var i = 0; i < 7; i++) (_weekStart - 1 + i) % 7 + 1];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.fitnessSetupTitle)),
+      appBar: AppBar(title: Text(l.fitnessSetupTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(

@@ -129,7 +129,7 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
   void _maybeAskSex() {
     final s = ref.read(settingsProvider);
     final sync = ref.read(syncProvider);
-    if (_askingSex || s.sex != null || !sync.ready || sync.phase == SyncPhase.syncing) return;
+    if (_askingSex || s.sex != null || !sync.ready || sync.phase == SyncPhase.syncing || (ref.read(authProvider).user?.guest ?? false)) return;
     final fromSignUp = ref.read(authProvider).user?.sex;
     if (fromSignUp != null) {
       _askingSex = true;

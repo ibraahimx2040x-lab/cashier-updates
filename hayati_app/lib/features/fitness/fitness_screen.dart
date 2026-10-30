@@ -20,6 +20,7 @@ import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import '../activity/health_cards.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 12 — the fitness hub: today's workout, the week's plan, recent
 /// sessions and the plan version being followed.
@@ -36,7 +37,7 @@ class FitnessScreen extends ConsumerWidget {
 
     if (profile == null) {
       return Scaffold(
-        appBar: AppBar(title: Text(l.navFitness)),
+        appBar: AppBar(title: Text(l.navFitness), actions: const [HomeLogoButton()]),
         body: ResponsiveContainer(
           maxWidth: 720,
           child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [
@@ -209,7 +210,7 @@ class FitnessScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navFitness)),
+      appBar: AppBar(title: Text(l.navFitness), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView.separated(

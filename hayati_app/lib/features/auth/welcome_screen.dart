@@ -6,6 +6,7 @@ import '../../app.dart';
 import '../../core/router/app_router.dart';
 import '../../core/theme/app_colors.dart';
 import '../../core/theme/app_theme.dart';
+import '../../data/auth.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/brand.dart';
 import '../../widgets/common.dart';
@@ -61,6 +62,12 @@ class WelcomeScreen extends ConsumerWidget {
             PrimaryButton(label: l.getStarted, onPressed: () => context.push('${Routes.auth}?mode=signup')),
             const SizedBox(height: Space.m),
             SecondaryButton(label: l.haveAccount, onPressed: () => context.push(Routes.auth)),
+            const SizedBox(height: Space.s),
+            TextButton(
+              onPressed: () => ref.read(authProvider.notifier).continueAsGuest(),
+              child: Text(l.continueAsGuest),
+            ),
+            Text(l.guestNote, style: t.bodySmall?.copyWith(color: context.status.textSecondary), textAlign: TextAlign.center),
             const SizedBox(height: Space.l),
             Wrap(alignment: WrapAlignment.center, children: [
               TextButton(onPressed: () => showLegal(context, privacy: true), child: Text(l.privacyPolicy)),

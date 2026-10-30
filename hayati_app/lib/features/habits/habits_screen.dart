@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 12 — habits and their history.
 class HabitsScreen extends ConsumerWidget {
@@ -35,7 +36,7 @@ class HabitsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(l.navHabits),
-        actions: [IconButton(tooltip: l.addHabit, icon: const Icon(Icons.add), onPressed: () => showHabitEditor(context, ref))],
+        actions: [IconButton(tooltip: l.addHabit, icon: const Icon(Icons.add), onPressed: () => showHabitEditor(context, ref)), const HomeLogoButton()],
       ),
       body: d.habits.isEmpty
           ? EmptyState(

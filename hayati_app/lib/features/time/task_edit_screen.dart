@@ -13,6 +13,7 @@ import '../../domain/day_schedule.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 import '../../widgets/device_notifications_card.dart';
 import 'day_overview.dart';
 
@@ -44,7 +45,12 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
   late String? _goalId = _orig?.goalId ?? widget.goalId;
   late String? _milestoneId = _orig?.milestoneId;
   late int? _reminderBefore = _initialReminder();
-  bool _dirty = false;
+  bool _isDirty = false;
+  bool get _dirty => _isDirty;
+  set _dirty(bool v) {
+    _isDirty = v;
+    UnsavedGuard.mark(this, v);
+  }
   bool _saving = false;
 
   int? _initialReminder() {
@@ -57,6 +63,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
 
   @override
   void dispose() {
+    UnsavedGuard.mark(this, false);
     _title.dispose();
     _desc.dispose();
     _minutes.dispose();
@@ -156,8 +163,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                     if (context.mounted) context.pop();
                   }
                 },
-              ),
-          ],
+              ), const HomeLogoButton()],
         ),
         body: Form(
           key: _form,

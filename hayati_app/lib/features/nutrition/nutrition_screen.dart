@@ -17,6 +17,7 @@ import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'portion_sheet.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 36 — a day's food and water: totals, meals, and ways to add.
 class NutritionScreen extends ConsumerStatefulWidget {
@@ -132,8 +133,7 @@ class _NutritionScreenState extends ConsumerState<NutritionScreen> {
 
     return Scaffold(
       appBar: AppBar(title: Text(l.navNutrition), actions: [
-        IconButton(tooltip: l.healthSetup, icon: const Icon(Icons.tune), onPressed: () => context.push(Routes.healthSetup)),
-      ]),
+        IconButton(tooltip: l.healthSetup, icon: const Icon(Icons.tune), onPressed: () => context.push(Routes.healthSetup)), const HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView.separated(

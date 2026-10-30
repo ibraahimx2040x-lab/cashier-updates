@@ -13,7 +13,11 @@ import 'remote/supabase_auth.dart';
 import 'store/local_store.dart';
 
 class AuthUser {
-  const AuthUser({required this.id, required this.email, required this.createdAt, this.emailConfirmed = true, this.sex});
+  const AuthUser({required this.id, required this.email, required this.createdAt, this.emailConfirmed = true, this.sex, this.guest = false});
+
+  /// Trying the app without an account: on this device only, with tasks,
+  /// the calendar and habits (see [guestRoutes]).
+  static final guestUser = AuthUser(id: 'guest', email: '', createdAt: DateTime(2026), guest: true);
   final String id;
   final String email;
   final DateTime createdAt;
@@ -22,7 +26,14 @@ class AuthUser {
   /// Chosen at sign-up and kept with the account, so it survives email
   /// confirmation and reaches every device.
   final Sex? sex;
+  final bool guest;
 }
+
+/// What a guest may open. Everything else asks them to create an account.
+bool guestAllowed(String path) =>
+    const {'/home', '/time', '/habits', '/settings', '/settings/help', '/settings/privacy', '/notifications', '/locked'}.contains(path) ||
+    path.startsWith('/task/') ||
+    path.startsWith('/event/');
 
 enum AuthErrorCode {
   invalidEmail,
@@ -103,19 +114,46 @@ class AuthController extends Notifier<AuthState> {
 
   bool get remote => _backend.remote;
 
-  Future<void> restore() async => state = AuthState(user: await _backend.restore(), restored: true);
+  /// The guest session survives restarts until they sign up or sign in.
+  static const guestKey = 'hayati.guest';
+
+  /// Set when a guest creates an account: their tasks, events and habits
+  /// move into it on the account's first load ([DataController]).
+  static const adoptKey = 'hayati.guest.adopt';
+
+  LocalStore get _store => ref.read(localStoreProvider);
+
+  Future<void> restore() async {
+    final u = await _backend.restore();
+    state = AuthState(user: u ?? (_store.readString(guestKey) == '1' ? AuthUser.guestUser : null), restored: true);
+  }
+
+  Future<void> continueAsGuest() async {
+    await _store.writeString(guestKey, '1');
+    state = AuthState(user: AuthUser.guestUser, restored: true);
+  }
 
   Future<void> signUp(String email, String password, {Sex? sex}) async {
     email = email.trim().toLowerCase();
     if (!isValidEmail(email)) throw const AuthException(AuthErrorCode.invalidEmail);
     if (!isStrongPassword(password)) throw const AuthException(AuthErrorCode.weakPassword);
-    state = AuthState(user: await _backend.signUp(email, password, sex: sex), restored: true);
+    final wasGuest = state.user?.guest ?? false;
+    if (wasGuest) await _store.writeString(adoptKey, '1');
+    try {
+      state = AuthState(user: await _backend.signUp(email, password, sex: sex), restored: true);
+      await _store.remove(guestKey);
+    } on AuthException catch (e) {
+      // Confirming the email first: the data moves on the first sign-in.
+      if (wasGuest && e.code != AuthErrorCode.confirmEmail) await _store.remove(adoptKey);
+      rethrow;
+    }
   }
 
   Future<void> signIn(String email, String password) async {
     email = email.trim().toLowerCase();
     if (!isValidEmail(email)) throw const AuthException(AuthErrorCode.invalidEmail);
     state = AuthState(user: await _backend.signIn(email, password), restored: true);
+    await _store.remove(guestKey);
   }
 
   /// Re-authentication for sensitive operations (screen 21).
@@ -138,7 +176,11 @@ class AuthController extends Notifier<AuthState> {
   }
 
   Future<void> signOut() async {
-    await _backend.signOut();
+    if (state.user?.guest ?? false) {
+      await _store.remove(guestKey);
+    } else {
+      await _backend.signOut();
+    }
     state = const AuthState(restored: true);
   }
 

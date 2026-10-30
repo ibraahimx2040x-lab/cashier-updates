@@ -11,6 +11,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/barcode_lookup.dart';
 import '../../widgets/common.dart';
 import 'portion_sheet.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 37 — a food of the user's own: typed in, or a scanned product to
 /// check before saving. Saving can also log it straight away.
@@ -108,8 +109,7 @@ class _CustomFoodScreenState extends ConsumerState<CustomFoodScreen> {
                   context.pop();
                 }
               },
-            ),
-        ],
+            ), const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         maxWidth: 640,

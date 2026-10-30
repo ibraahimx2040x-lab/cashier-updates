@@ -4,6 +4,7 @@ import '../../l10n/app_localizations.dart';
 import 'calendar_view.dart';
 import 'planner_view.dart';
 import 'tasks_view.dart';
+import '../../widgets/home_logo.dart';
 
 /// "My time" destination: Tasks (screen 6), Calendar (8) and Planner (9).
 class TimeScreen extends StatefulWidget {
@@ -38,7 +39,7 @@ class _TimeScreenState extends State<TimeScreen> with SingleTickerProviderStateM
     return Scaffold(
       appBar: AppBar(
         title: Text(l.navTime),
-        bottom: TabBar(controller: _c, tabs: [Tab(text: l.navTasks), Tab(text: l.calendar), Tab(text: l.planner)]),
+        bottom: TabBar(controller: _c, tabs: [Tab(text: l.navTasks), Tab(text: l.calendar), Tab(text: l.planner)]), actions: const [HomeLogoButton()],
       ),
       body: TabBarView(controller: _c, children: const [TasksView(), CalendarView(), PlannerView()]),
     );

@@ -14,6 +14,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/barcode_lookup.dart';
 import '../../widgets/common.dart';
 import 'portion_sheet.dart';
+import '../../widgets/home_logo.dart';
 
 /// Whether to show the camera scanner (phones only). Overridden in tests.
 final scanCameraProvider = Provider<bool>(
@@ -84,7 +85,7 @@ class _ScanScreenState extends ConsumerState<ScanScreen> {
     final l = AppLocalizations.of(context);
     final t = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(title: Text(l.scanBarcode)),
+      appBar: AppBar(title: Text(l.scanBarcode), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 640,
         child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [

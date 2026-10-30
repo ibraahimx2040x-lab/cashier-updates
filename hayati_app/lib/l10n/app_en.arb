@@ -635,6 +635,7 @@
     }
   },
   "back": "Back",
+  "backHome": "Back to My day",
   "backToPath": "Back to the path",
   "barcodeInvalid": "A barcode is 6 to 14 digits",
   "barcodeN": "Barcode {code}",
@@ -920,6 +921,7 @@
     }
   },
   "contactSupport": "Contact support",
+  "continueAsGuest": "Continue as a guest",
   "continueLabel": "Continue",
   "couldNotFit": "Couldn't fit",
   "courseComplete": "You've completed the B2 course!",
@@ -1475,6 +1477,9 @@
     }
   },
   "gramsOptional": "Grams (optional)",
+  "guestAvailable": "Open to guests",
+  "guestBanner": "You're using Sanad as a guest. Create an account to keep your data safe and open every section.",
+  "guestNote": "Tasks, calendar and habits, on this phone only. Create an account any time and they come with you.",
   "habitAdherence": "Habit check-ins",
   "habitAdherenceDef": "{done} of {total} due days (non-due days excluded)",
   "@habitAdherenceDef": {
@@ -1624,6 +1629,7 @@
   },
   "keepAnyway": "Keep anyway",
   "keepChats": "Keep chats for",
+  "keepEditing": "Keep editing",
   "kgN": "{v} kg",
   "@kgN": {
     "placeholders": {
@@ -1670,8 +1676,11 @@
   },
   "learnIntro": "Short, general reading from public health organisations. It isn't advice for you personally; a doctor can tell you what applies to you.",
   "leave": "Leave",
+  "leaveGuest": "Leave guest mode",
   "leaveTestBody": "Your answers so far will be lost.",
   "leaveTestTitle": "Leave the test?",
+  "leaveUnsavedBody": "What you've typed on this page will be lost.",
+  "leaveUnsavedTitle": "Leave without saving?",
   "leaveWithoutSaving": "Leave without saving",
   "legendEstimated": "Estimated",
   "legendLogged": "Day logged",
@@ -1751,6 +1760,9 @@
   "locationOff": "Location services are off on this device.",
   "locationOptional": "Location (optional)",
   "locationPrivacy": "Your location is used on this device to calculate times and saved only as coordinates in your settings.",
+  "lockedBody": "As a guest you can use tasks, the calendar and habits. A free account opens everything else: prayer, health, money, learning and the assistant, synced on all your devices. What you've added so far comes with you.",
+  "lockedTitle": "This section needs an account",
+  "logoHome": "Sanad: go to My day",
   "lookUp": "Look up",
   "lookupNetwork": "Couldn't reach the product database. Check the connection and try again.",
   "macroLine": "{kcal} kcal · P {p} · C {c} · F {f}",
@@ -2742,6 +2754,7 @@
   "signOutBody": "Your data stays saved for when you sign in again.",
   "signUpSubtitle": "It takes less than a minute.",
   "signUpTitle": "Create your account",
+  "signedInAs": "Signed in. Welcome to Sanad.",
   "sixMonths": "Last 6 months",
   "skillGrammar": "Grammar",
   "skillReading": "Reading",
@@ -3223,6 +3236,7 @@
   },
   "weeklyPlan": "Weekly plan",
   "weightKg": "kg",
+  "welcomeBack": "Welcome back",
   "welcomeBody": "Your time, goals, habits, notes and spending — in one place that plans with you.",
   "welcomeTitle": "Organize your life, step by step",
   "wentToBed": "Went to bed",

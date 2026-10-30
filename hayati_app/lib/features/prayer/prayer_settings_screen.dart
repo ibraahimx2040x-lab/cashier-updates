@@ -12,6 +12,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/location.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 11 — where and how prayer times are calculated, and reminders.
 class PrayerSettingsScreen extends ConsumerStatefulWidget {
@@ -74,7 +75,7 @@ class _PrayerSettingsScreenState extends ConsumerState<PrayerSettingsScreen> {
     final preview = prayerDay(ps.copyWith(enabled: true), now);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.prayerSettingsTitle)),
+      appBar: AppBar(title: Text(l.prayerSettingsTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(

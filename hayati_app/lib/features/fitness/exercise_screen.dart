@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 IconData muscleIcon(Muscle m) => switch (m) {
       Muscle.chest || Muscle.shoulders || Muscle.arms => Icons.sports_gymnastics,
@@ -36,7 +37,7 @@ class ExerciseScreen extends ConsumerWidget {
     final l = AppLocalizations.of(context);
     final e = exerciseById(exerciseId);
     if (e == null) {
-      return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
+      return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.search_off, title: l.itemGone));
     }
     final lang = l.localeName;
     final t = Theme.of(context).textTheme;
@@ -45,7 +46,7 @@ class ExerciseScreen extends ConsumerWidget {
     final steps = e.steps(lang);
 
     return Scaffold(
-      appBar: AppBar(title: Text(e.name(lang))),
+      appBar: AppBar(title: Text(e.name(lang)), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(

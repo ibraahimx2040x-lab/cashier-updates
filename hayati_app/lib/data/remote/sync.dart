@@ -100,7 +100,8 @@ class SyncController extends Notifier<SyncState> {
   @override
   SyncState build() {
     _client = ref.watch(supabaseClientProvider);
-    _userId = ref.watch(authProvider.select((s) => s.user?.id));
+    // A guest's data stays on this device.
+    _userId = ref.watch(authProvider.select((s) => s.user?.guest ?? true ? null : s.user!.id));
     _retry?.cancel();
     ref.onDispose(() => _retry?.cancel());
     _queue = [];

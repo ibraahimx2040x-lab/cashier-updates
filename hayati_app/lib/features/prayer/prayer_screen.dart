@@ -17,6 +17,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 10 — prayer times for a day, the next prayer, and an optional
 /// log the user fills in themselves.
@@ -63,7 +64,7 @@ class _PrayerScreenState extends ConsumerState<PrayerScreen> {
 
     if (!ps.active) {
       return Scaffold(
-        appBar: AppBar(title: Text(l.navPrayer), actions: [settingsButton]),
+        appBar: AppBar(title: Text(l.navPrayer), actions: [settingsButton, const HomeLogoButton()]),
         body: EmptyState(
           icon: Icons.mosque_outlined,
           title: l.prayerSetupTitle,
@@ -87,7 +88,7 @@ class _PrayerScreenState extends ConsumerState<PrayerScreen> {
     final logged = d.prayerLogs.where((x) => weekDays.contains(x.day)).length;
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navPrayer), actions: [settingsButton]),
+      appBar: AppBar(title: Text(l.navPrayer), actions: [settingsButton, const HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(

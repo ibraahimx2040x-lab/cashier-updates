@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import 'womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 IconData appointmentIcon(AppointmentKind k) => switch (k) {
       AppointmentKind.checkup => Icons.medical_services_outlined,
@@ -60,7 +61,7 @@ class AppointmentsScreen extends ConsumerWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.appointments)),
+      appBar: AppBar(title: Text(l.appointments), actions: const [HomeLogoButton()]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => context.push(Routes.appointment('new')),
         icon: const Icon(Icons.add),
@@ -170,8 +171,7 @@ class _AppointmentEditScreenState extends ConsumerState<AppointmentEditScreen> {
                 if (context.mounted) context.pop();
               }
             },
-          ),
-      ]),
+          ), const HomeLogoButton()]),
       body: HealthLockGate(
         child: ResponsiveContainer(
           maxWidth: 640,

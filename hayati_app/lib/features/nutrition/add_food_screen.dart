@@ -14,6 +14,7 @@ import '../../domain/nutrition/summary.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'portion_sheet.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 36b — find something to add: recent, saved, or the built-in list.
 class AddFoodScreen extends ConsumerStatefulWidget {
@@ -72,7 +73,7 @@ class _AddFoodScreenState extends ConsumerState<AddFoodScreen> {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.addTo(l.mealType(widget.meal)))),
+      appBar: AppBar(title: Text(l.addTo(l.mealType(widget.meal))), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl), children: [

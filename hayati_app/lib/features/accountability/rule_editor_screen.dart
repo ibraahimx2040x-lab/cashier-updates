@@ -11,6 +11,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/accountability.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Agreeing to a rule in advance: which task, how late is "late", and a
 /// harmless consequence the user chooses.
@@ -108,8 +109,7 @@ class _RuleEditorScreenState extends ConsumerState<RuleEditorScreen> {
                   context.pop();
                 }
               },
-            ),
-        ],
+            ), const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         maxWidth: 720,

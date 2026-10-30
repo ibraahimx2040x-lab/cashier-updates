@@ -15,6 +15,7 @@ import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
 import 'quiz.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 17 — the placement test, and the end-of-level check (same screen,
 /// different questions and outcome).
@@ -63,7 +64,7 @@ class _EnglishTestScreenState extends ConsumerState<EnglishTestScreen> {
         }
       },
       child: Scaffold(
-        appBar: AppBar(title: Text(widget.levelCheck ? l.levelCheckTitle(l.cefr(_level ?? Cefr.a1)) : l.placementTitle)),
+        appBar: AppBar(title: Text(widget.levelCheck ? l.levelCheckTitle(l.cefr(_level ?? Cefr.a1)) : l.placementTitle), actions: const [HomeLogoButton()]),
         body: ResponsiveContainer(
           maxWidth: 720,
           child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl), children: [

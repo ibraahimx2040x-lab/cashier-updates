@@ -7,6 +7,7 @@ import '../../data/data_controller.dart';
 import '../../domain/assistant/assistant_service.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 22 — plans and entitlement. Paid features are never unlocked
 /// from a client-side value: in local mode the plan is always Free, and
@@ -28,7 +29,7 @@ class SubscriptionScreen extends ConsumerWidget {
           ]),
         );
     return Scaffold(
-      appBar: AppBar(title: Text(l.subscriptionTitle)),
+      appBar: AppBar(title: Text(l.subscriptionTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [

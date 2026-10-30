@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 22 — commitments: the rules the user agreed to, late tasks that
 /// need their answer, and what happened before.
@@ -133,7 +134,7 @@ class AccountabilityScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navAccountability)),
+      appBar: AppBar(title: Text(l.navAccountability), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView.separated(

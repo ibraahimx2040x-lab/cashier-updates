@@ -14,6 +14,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../womens/womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 IconData _icon(HealthModule m) => switch (m) {
       HealthModule.activity => Icons.directions_walk,
@@ -63,7 +64,7 @@ class _HealthSetupScreenState extends ConsumerState<HealthSetupScreen> {
     final heightError = _height.text.isNotEmpty && (heightVal == null || heightVal < 80 || heightVal > 250);
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.healthSetup)),
+      appBar: AppBar(title: Text(l.healthSetup), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, Space.xxl), children: [

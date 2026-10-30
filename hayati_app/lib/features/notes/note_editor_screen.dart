@@ -10,6 +10,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/misc.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 enum _SaveState { idle, pending, saved, error }
 
@@ -119,8 +120,7 @@ class _NoteEditorScreenState extends ConsumerState<NoteEditorScreen> {
                 }
               },
             ),
-          ],
-        ],
+          ], const HomeLogoButton()],
       ),
       body: ResponsiveContainer(
         maxWidth: 760,

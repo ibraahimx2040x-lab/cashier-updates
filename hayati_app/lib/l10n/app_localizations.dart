@@ -1454,6 +1454,12 @@ abstract class AppLocalizations {
   /// **'Back'**
   String get back;
 
+  /// No description provided for @backHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to My day'**
+  String get backHome;
+
   /// No description provided for @backToPath.
   ///
   /// In en, this message translates to:
@@ -2107,6 +2113,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Contact support'**
   String get contactSupport;
+
+  /// No description provided for @continueAsGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as a guest'**
+  String get continueAsGuest;
 
   /// No description provided for @continueLabel.
   ///
@@ -4208,6 +4220,24 @@ abstract class AppLocalizations {
   /// **'Grams (optional)'**
   String get gramsOptional;
 
+  /// No description provided for @guestAvailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Open to guests'**
+  String get guestAvailable;
+
+  /// No description provided for @guestBanner.
+  ///
+  /// In en, this message translates to:
+  /// **'You\'re using Sanad as a guest. Create an account to keep your data safe and open every section.'**
+  String get guestBanner;
+
+  /// No description provided for @guestNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks, calendar and habits, on this phone only. Create an account any time and they come with you.'**
+  String get guestNote;
+
   /// No description provided for @habitAdherence.
   ///
   /// In en, this message translates to:
@@ -4796,6 +4826,12 @@ abstract class AppLocalizations {
   /// **'Keep chats for'**
   String get keepChats;
 
+  /// No description provided for @keepEditing.
+  ///
+  /// In en, this message translates to:
+  /// **'Keep editing'**
+  String get keepEditing;
+
   /// No description provided for @kgN.
   ///
   /// In en, this message translates to:
@@ -4886,6 +4922,12 @@ abstract class AppLocalizations {
   /// **'Leave'**
   String get leave;
 
+  /// No description provided for @leaveGuest.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave guest mode'**
+  String get leaveGuest;
+
   /// No description provided for @leaveTestBody.
   ///
   /// In en, this message translates to:
@@ -4897,6 +4939,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Leave the test?'**
   String get leaveTestTitle;
+
+  /// No description provided for @leaveUnsavedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'What you\'ve typed on this page will be lost.'**
+  String get leaveUnsavedBody;
+
+  /// No description provided for @leaveUnsavedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Leave without saving?'**
+  String get leaveUnsavedTitle;
 
   /// No description provided for @leaveWithoutSaving.
   ///
@@ -5077,6 +5131,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your location is used on this device to calculate times and saved only as coordinates in your settings.'**
   String get locationPrivacy;
+
+  /// No description provided for @lockedBody.
+  ///
+  /// In en, this message translates to:
+  /// **'As a guest you can use tasks, the calendar and habits. A free account opens everything else: prayer, health, money, learning and the assistant, synced on all your devices. What you\'ve added so far comes with you.'**
+  String get lockedBody;
+
+  /// No description provided for @lockedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'This section needs an account'**
+  String get lockedTitle;
+
+  /// No description provided for @logoHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Sanad: go to My day'**
+  String get logoHome;
 
   /// No description provided for @lookUp.
   ///
@@ -8120,6 +8192,12 @@ abstract class AppLocalizations {
   /// **'Create your account'**
   String get signUpTitle;
 
+  /// No description provided for @signedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in. Welcome to Sanad.'**
+  String get signedInAs;
+
   /// No description provided for @sixMonths.
   ///
   /// In en, this message translates to:
@@ -9373,6 +9451,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'kg'**
   String get weightKg;
+
+  /// No description provided for @welcomeBack.
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back'**
+  String get welcomeBack;
 
   /// No description provided for @welcomeBody.
   ///

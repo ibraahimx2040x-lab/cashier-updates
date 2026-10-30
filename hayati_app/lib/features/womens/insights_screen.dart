@@ -14,6 +14,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'cycle_screen.dart' show periodColor;
 import 'womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 43 — how cycle length changed over the months, and the symptoms
 /// logged most often with the cycle day they usually come on. Descriptive
@@ -112,7 +113,7 @@ class CycleInsightsScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.cycleInsights)),
+      appBar: AppBar(title: Text(l.cycleInsights), actions: const [HomeLogoButton()]),
       body: HealthLockGate(
         child: ResponsiveContainer(
           maxWidth: 720,

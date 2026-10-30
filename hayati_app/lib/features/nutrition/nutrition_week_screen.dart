@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import '../../widgets/motion.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 39 — the last seven days, described rather than judged.
 class NutritionWeekScreen extends ConsumerWidget {
@@ -123,7 +124,7 @@ class NutritionWeekScreen extends ConsumerWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.weekReport)),
+      appBar: AppBar(title: Text(l.weekReport), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView.separated(

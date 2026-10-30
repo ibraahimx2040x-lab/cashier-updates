@@ -15,6 +15,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import 'womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 const periodColor = Color(0xFFC2185B);
 
@@ -63,8 +64,7 @@ class _CycleScreenState extends ConsumerState<CycleScreen> {
     return Scaffold(
       appBar: AppBar(title: Text(l.navWomens), actions: [
         IconButton(tooltip: l.cycleInsights, icon: const Icon(Icons.insights_outlined), onPressed: () => context.push(Routes.womensInsights)),
-        IconButton(tooltip: l.healthPrivacy, icon: const Icon(Icons.shield_outlined), onPressed: () => context.push(Routes.healthPrivacy)),
-      ]),
+        IconButton(tooltip: l.healthPrivacy, icon: const Icon(Icons.shield_outlined), onPressed: () => context.push(Routes.healthPrivacy)), const HomeLogoButton()]),
       body: HealthLockGate(child: _body(context)),
     );
   }

@@ -14,6 +14,7 @@ import '../../domain/health_report.dart';
 import '../../domain/metrics.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 enum Period { thisWeek, lastWeek, thisMonth }
 
@@ -67,7 +68,7 @@ class _ProgressScreenState extends ConsumerState<ProgressScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navProgress)),
+      appBar: AppBar(title: Text(l.navProgress), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, 0, Space.gutter, Space.xxl), children: [
           SegmentedButton<Period>(

@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'assistant_screen.dart';
 import 'describe.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 14 — review what the assistant wants to change before it runs.
 /// One generic preview for every action type.
@@ -48,7 +49,7 @@ class ReviewScreen extends ConsumerWidget {
     final p = d.proposal(proposalId);
     final t = Theme.of(context).textTheme;
     if (p == null) {
-      return Scaffold(appBar: AppBar(), body: ErrorState(message: l.proposalNotFound));
+      return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: ErrorState(message: l.proposalNotFound));
     }
     final fmt = Fmt.of(context, use24h: d.settings.use24h);
     final pending = p.status == ProposalStatus.pending;
@@ -56,7 +57,7 @@ class ReviewScreen extends ConsumerWidget {
     final editable = {Tools.createTask, Tools.createGoal, Tools.addNote};
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.reviewChanges)),
+      appBar: AppBar(title: Text(l.reviewChanges), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [

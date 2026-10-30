@@ -9,6 +9,7 @@ import '../../data/models/settings.dart';
 import '../../l10n/app_localizations.dart';
 import '../../services/health_lock.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 /// Women's health is shown to female accounts with the section on, and to
 /// no one else (owner's decision).
@@ -73,6 +74,6 @@ class WomensUnavailable extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final l = AppLocalizations.of(context);
-    return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.womensUnavailable));
+    return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.womensUnavailable));
   }
 }

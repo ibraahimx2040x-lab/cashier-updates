@@ -8,6 +8,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/misc.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
+import '../../widgets/home_logo.dart';
 
 const appVersion = '0.1.0';
 
@@ -27,7 +28,7 @@ class HelpScreen extends ConsumerWidget {
       (l.faq5q, ref.watch(authProvider.notifier).remote ? l.faq5aRemote : l.faq5a),
     ];
     return Scaffold(
-      appBar: AppBar(title: Text(l.helpTitle)),
+      appBar: AppBar(title: Text(l.helpTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.symmetric(vertical: Space.m), children: [

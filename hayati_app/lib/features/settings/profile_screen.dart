@@ -9,6 +9,7 @@ import '../../data/models/health.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import 'sex_dialog.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 21 — profile and account. Sensitive operations re-verify the
 /// password; deletion explains consequences first.
@@ -148,7 +149,7 @@ class ProfileScreen extends ConsumerWidget {
     final fmt = Fmt.of(context);
     if (user == null) return const Scaffold();
     return Scaffold(
-      appBar: AppBar(title: Text(l.profileTitle)),
+      appBar: AppBar(title: Text(l.profileTitle), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 680,
         child: ListView(padding: const EdgeInsets.symmetric(vertical: Space.l), children: [

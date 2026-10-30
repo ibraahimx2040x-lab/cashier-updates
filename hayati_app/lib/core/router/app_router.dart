@@ -11,6 +11,7 @@ import '../../features/assistant/review_screen.dart';
 import '../../features/auth/auth_screen.dart';
 import '../../features/auth/onboarding_screen.dart';
 import '../../features/auth/splash_screen.dart';
+import '../../features/auth/guest_locked_screen.dart';
 import '../../features/auth/welcome_screen.dart';
 import '../../features/accountability/accountability_event_screen.dart';
 import '../../features/accountability/accountability_screen.dart';
@@ -105,18 +106,25 @@ final routerProvider = Provider<GoRouter>((ref) {
       if (!ref.read(syncProvider).ready) {
         return loc == Routes.splash ? null : '${Routes.splash}?from=${Uri.encodeComponent(state.uri.toString())}';
       }
-      final onboarded = ref.read(settingsProvider).onboardingDone;
+      final guest = auth.user!.guest;
+      // A guest starts right away; the questions come with an account.
+      final onboarded = guest || ref.read(settingsProvider).onboardingDone;
       if (!onboarded) return loc == Routes.onboarding ? null : Routes.onboarding;
       if (loc == Routes.splash) {
         final from = state.uri.queryParameters['from'];
         return from != null && from.startsWith('/') && !from.startsWith(Routes.splash) ? from : Routes.home;
       }
-      if (_publicRoutes.contains(loc) || loc == Routes.onboarding) return Routes.home;
+      if (_publicRoutes.contains(loc) || loc == Routes.onboarding) {
+        // A guest may still open sign-up and sign-in to create an account.
+        return guest && loc == Routes.auth ? null : Routes.home;
+      }
+      if (guest && !guestAllowed(loc)) return '${Routes.locked}?to=${Uri.encodeComponent(state.uri.toString())}';
       return null;
     },
     routes: [
       GoRoute(path: Routes.splash, builder: (_, _) => const SplashScreen()),
       GoRoute(path: Routes.welcome, builder: (_, _) => const WelcomeScreen()),
+      page(Routes.locked, (_) => const GuestLockedScreen()),
       GoRoute(
         path: Routes.auth,
         builder: (_, s) => AuthScreen(signUp: s.uri.queryParameters['mode'] == 'signup'),

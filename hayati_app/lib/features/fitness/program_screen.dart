@@ -13,6 +13,7 @@ import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../../widgets/hero_surface.dart';
 import 'exercise_screen.dart' show muscleIcon;
+import '../../widgets/home_logo.dart';
 
 /// Screen 19b — one program: what it's for, its exercises, safety notes,
 /// and (for pregnancy and after birth) the doctor's go-ahead first.
@@ -36,7 +37,7 @@ class _ProgramScreenState extends ConsumerState<ProgramScreen> {
     final p = programById(widget.programId);
     // Women's and men's programs open only for that audience.
     if (p == null || !programVisible(p, s)) {
-      return Scaffold(appBar: AppBar(), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.programUnavailableBody));
+      return Scaffold(appBar: AppBar(actions: const [HomeLogoButton()]), body: EmptyState(icon: Icons.lock_outline, title: l.programUnavailable, message: l.programUnavailableBody));
     }
     final cleared = clearedFor(p, s.health);
     final variants = p.group == null ? const <Program>[] : programs.where((x) => x.group == p.group).toList();
@@ -47,7 +48,7 @@ class _ProgramScreenState extends ConsumerState<ProgramScreen> {
     };
 
     return Scaffold(
-      appBar: AppBar(title: Text(p.name(lang))),
+      appBar: AppBar(title: Text(p.name(lang)), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 720,
         child: ListView(padding: const EdgeInsets.fromLTRB(Space.gutter, Space.s, Space.gutter, 120), children: [

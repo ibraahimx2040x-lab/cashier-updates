@@ -865,6 +865,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get back => 'Back';
 
   @override
+  String get backHome => 'Back to My day';
+
+  @override
   String get backToPath => 'Back to the path';
 
   @override
@@ -1267,6 +1270,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get contactSupport => 'Contact support';
+
+  @override
+  String get continueAsGuest => 'Continue as a guest';
 
   @override
   String get continueLabel => 'Continue';
@@ -2475,6 +2481,17 @@ class AppLocalizationsEn extends AppLocalizations {
   String get gramsOptional => 'Grams (optional)';
 
   @override
+  String get guestAvailable => 'Open to guests';
+
+  @override
+  String get guestBanner =>
+      'You\'re using Sanad as a guest. Create an account to keep your data safe and open every section.';
+
+  @override
+  String get guestNote =>
+      'Tasks, calendar and habits, on this phone only. Create an account any time and they come with you.';
+
+  @override
   String get habitAdherence => 'Habit check-ins';
 
   @override
@@ -2806,6 +2823,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get keepChats => 'Keep chats for';
 
   @override
+  String get keepEditing => 'Keep editing';
+
+  @override
   String kgN(String v) {
     return '$v kg';
   }
@@ -2860,10 +2880,20 @@ class AppLocalizationsEn extends AppLocalizations {
   String get leave => 'Leave';
 
   @override
+  String get leaveGuest => 'Leave guest mode';
+
+  @override
   String get leaveTestBody => 'Your answers so far will be lost.';
 
   @override
   String get leaveTestTitle => 'Leave the test?';
+
+  @override
+  String get leaveUnsavedBody =>
+      'What you\'ve typed on this page will be lost.';
+
+  @override
+  String get leaveUnsavedTitle => 'Leave without saving?';
 
   @override
   String get leaveWithoutSaving => 'Leave without saving';
@@ -2975,6 +3005,16 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get locationPrivacy =>
       'Your location is used on this device to calculate times and saved only as coordinates in your settings.';
+
+  @override
+  String get lockedBody =>
+      'As a guest you can use tasks, the calendar and habits. A free account opens everything else: prayer, health, money, learning and the assistant, synced on all your devices. What you\'ve added so far comes with you.';
+
+  @override
+  String get lockedTitle => 'This section needs an account';
+
+  @override
+  String get logoHome => 'Sanad: go to My day';
 
   @override
   String get lookUp => 'Look up';
@@ -4724,6 +4764,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get signUpTitle => 'Create your account';
 
   @override
+  String get signedInAs => 'Signed in. Welcome to Sanad.';
+
+  @override
   String get sixMonths => 'Last 6 months';
 
   @override
@@ -5500,6 +5543,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get weightKg => 'kg';
+
+  @override
+  String get welcomeBack => 'Welcome back';
 
   @override
   String get welcomeBody =>

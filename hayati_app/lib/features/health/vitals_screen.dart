@@ -16,6 +16,7 @@ import '../../domain/vitals.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/common.dart';
 import '../womens/womens_gate.dart';
+import '../../widgets/home_logo.dart';
 
 IconData metricIcon(MetricKind k) => switch (k) {
       MetricKind.weight => Icons.monitor_weight_outlined,
@@ -77,8 +78,7 @@ class VitalsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(title: Text(l.vitals), actions: [
-        IconButton(tooltip: l.healthLearn, icon: const Icon(Icons.menu_book_outlined), onPressed: () => context.push(Routes.learn)),
-      ]),
+        IconButton(tooltip: l.healthLearn, icon: const Icon(Icons.menu_book_outlined), onPressed: () => context.push(Routes.learn)), const HomeLogoButton()]),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () => addMetricDialog(context, ref),
         icon: const Icon(Icons.add),

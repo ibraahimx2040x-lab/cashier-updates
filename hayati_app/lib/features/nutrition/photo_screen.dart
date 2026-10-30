@@ -15,6 +15,7 @@ import '../../l10n/app_localizations.dart';
 import '../../services/food_recognizer.dart';
 import '../../widgets/common.dart';
 import 'portion_sheet.dart';
+import '../../widgets/home_logo.dart';
 
 /// Screen 37b — a meal photo, read on the phone: the model suggests what
 /// it shows, the user picks the matching food (or searches), and the
@@ -79,7 +80,7 @@ class _PhotoScreenState extends ConsumerState<PhotoScreen> {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.mealPhoto)),
+      appBar: AppBar(title: Text(l.mealPhoto), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 640,
         child: ListView(padding: const EdgeInsets.all(Space.gutter), children: [

@@ -16,6 +16,8 @@ import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
 import '../auth/onboarding_screen.dart' show currencies;
+import '../../widgets/home_logo.dart';
+import '../auth/guest_locked_screen.dart' show GuestCard;
 
 /// Screen 19 — general settings. Changes apply immediately; none of them
 /// alter stored records (language, currency and time zone are display-only).
@@ -45,15 +47,19 @@ class SettingsScreen extends ConsumerWidget {
         );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l.navSettings)),
+      appBar: AppBar(title: Text(l.navSettings), actions: const [HomeLogoButton()]),
       body: ResponsiveContainer(
         maxWidth: 760,
         child: ListView(padding: const EdgeInsets.only(bottom: Space.xxl), children: [
           header(l.account),
-          nav(Icons.person_outline, l.profileTitle, Routes.profile),
-          nav(Icons.auto_awesome_outlined, l.assistantSettings, Routes.assistantSettings),
-          nav(Icons.mosque_outlined, l.prayerSettingsTitle, Routes.prayerSettings),
-          nav(Icons.workspace_premium_outlined, l.subscriptionTitle, Routes.subscription),
+          if (ref.watch(authProvider).user?.guest ?? false)
+            const Padding(padding: EdgeInsets.symmetric(horizontal: Space.gutter), child: GuestCard(showLeave: true))
+          else ...[
+            nav(Icons.person_outline, l.profileTitle, Routes.profile),
+            nav(Icons.auto_awesome_outlined, l.assistantSettings, Routes.assistantSettings),
+            nav(Icons.mosque_outlined, l.prayerSettingsTitle, Routes.prayerSettings),
+            nav(Icons.workspace_premium_outlined, l.subscriptionTitle, Routes.subscription),
+          ],
           if (ref.watch(authProvider.notifier).remote)
             Builder(builder: (context) {
               final sync = ref.watch(syncProvider);

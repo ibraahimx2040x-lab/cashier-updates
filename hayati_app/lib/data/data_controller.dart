@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -62,10 +63,33 @@ class DataController extends Notifier<AppData> {
     final user = _userId;
     Future.microtask(() {
       if (_userId != user) return;
+      _adoptGuestData();
       ref.read(syncProvider.notifier).start(hasCache: raw != null, apply: _applyRemote);
       runRecurringDue();
     });
     return _applyRetention(data);
+  }
+
+  /// A guest who just created an account brings their tasks, calendar and
+  /// habits along (the only sections a guest can use).
+  void _adoptGuestData() {
+    if (_userId == 'guest' || _store.readString(AuthController.adoptKey) != '1') return;
+    final raw = _store.readJson('hayati.data.guest');
+    unawaited(_store.remove(AuthController.adoptKey));
+    if (raw == null) return;
+    final g = AppData.fromJson(raw);
+    List<T> merge<T>(List<T> mine, List<T> theirs, String Function(T) id) {
+      final have = {for (final x in mine) id(x)};
+      return [...mine, ...theirs.where((x) => !have.contains(id(x)))];
+    }
+
+    _set(state.copyWith(
+      tasks: merge(state.tasks, [for (final t in g.tasks) t.copyWith(goalId: () => null, milestoneId: () => null)], (x) => x.id),
+      events: merge(state.events, g.events, (x) => x.id),
+      habits: merge(state.habits, g.habits, (x) => x.id),
+      habitLogs: merge(state.habitLogs, g.habitLogs, (x) => x.id),
+    ));
+    unawaited(_store.remove('hayati.data.guest'));
   }
 
   /// Applies a server snapshot without queueing it back to the server.

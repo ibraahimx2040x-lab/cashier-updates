@@ -6,7 +6,9 @@ import '../../core/theme/app_colors.dart';
 import '../../data/auth.dart';
 import '../../data/models/health.dart';
 import '../../l10n/app_localizations.dart';
+import '../../widgets/brand.dart';
 import '../../widgets/common.dart';
+import '../../widgets/hero_surface.dart';
 import '../settings/privacy_screen.dart';
 
 /// Screen 3 — sign up / sign in in one screen with two modes.
@@ -76,6 +78,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
         await auth.signIn(_email.text, _password.text);
       }
       TextInput.finishAutofillContext();
+      if (mounted && !_signUp) showSnack(context, l.signedInAs);
       // Router redirect navigates once the session is confirmed.
     } on AuthException catch (e) {
       setState(() {
@@ -140,7 +143,7 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
     final l = AppLocalizations.of(context);
     final t = Theme.of(context).textTheme;
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(scrolledUnderElevation: 0),
       body: SafeArea(
         child: ResponsiveContainer(
           maxWidth: 480,
@@ -148,10 +151,32 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
             key: _form,
             child: AutofillGroup(
               child: ListView(padding: const EdgeInsets.all(Space.xl), children: [
-                Text(_signUp ? l.signUpTitle : l.signInTitle, style: t.headlineSmall),
-                const SizedBox(height: Space.s),
-                Text(_signUp ? l.signUpSubtitle : l.signInSubtitle,
-                    style: t.bodyMedium?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant)),
+                // The sky of the moment, the mark, and what this screen is for.
+                HeroSurface(
+                  padding: const EdgeInsets.fromLTRB(Space.xl, Space.xl, Space.xl, Space.l),
+                  child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                    const SanadMark(size: 44),
+                    const SizedBox(height: Space.m),
+                    Text(_signUp ? l.signUpTitle : l.signInTitle, style: t.headlineSmall?.copyWith(color: Colors.white)),
+                    const SizedBox(height: Space.xs),
+                    Text(_signUp ? l.signUpSubtitle : l.signInSubtitle, style: t.bodyMedium?.copyWith(color: Colors.white.withValues(alpha: 0.85))),
+                  ]),
+                ),
+                const SizedBox(height: Space.xl),
+                SegmentedButton<bool>(
+                  showSelectedIcon: false,
+                  segments: [
+                    ButtonSegment(value: false, label: Text(l.signIn)),
+                    ButtonSegment(value: true, label: Text(l.createAccount)),
+                  ],
+                  selected: {_signUp},
+                  onSelectionChanged: _loading
+                      ? null
+                      : (v) => setState(() {
+                            _signUp = v.single;
+                            _error = null;
+                          }),
+                ),
                 const SizedBox(height: Space.xl),
                 AppTextField(
                   label: l.email,
@@ -246,16 +271,14 @@ class _AuthScreenState extends ConsumerState<AuthScreen> {
                 ],
                 const SizedBox(height: Space.xl),
                 PrimaryButton(label: _signUp ? l.createAccount : l.signIn, loading: _loading, onPressed: _submit),
-                const SizedBox(height: Space.m),
-                TextButton(
-                  onPressed: _loading
-                      ? null
-                      : () => setState(() {
-                            _signUp = !_signUp;
-                            _error = null;
-                          }),
-                  child: Text(_signUp ? l.switchToSignIn : l.switchToSignUp),
-                ),
+                if (!(ref.watch(authProvider).user?.guest ?? false)) ...[
+                  const SizedBox(height: Space.s),
+                  TextButton.icon(
+                    icon: const Icon(Icons.person_outline),
+                    label: Text(l.continueAsGuest),
+                    onPressed: _loading ? null : () => ref.read(authProvider.notifier).continueAsGuest(),
+                  ),
+                ],
                 const SizedBox(height: Space.l),
                 Text(ref.read(authProvider.notifier).remote ? l.cloudModeNotice : l.localModeNotice, style: t.bodySmall?.copyWith(color: Theme.of(context).colorScheme.onSurfaceVariant), textAlign: TextAlign.center),
               ]),
