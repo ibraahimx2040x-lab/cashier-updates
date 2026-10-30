@@ -116,6 +116,7 @@
   "activitySaved": "Steps saved",
   "activityWebNote": "In the browser steps can only be added by hand. Automatic counting works in the phone app.",
   "addAppointment": "Add appointment",
+  "addBreak": "Add a break",
   "addCup": "Add a glass (250 ml)",
   "addEvent": "Add event",
   "addExpense": "Add expense",
@@ -645,6 +646,8 @@
     }
   },
   "barcodeNumber": "Barcode number",
+  "bedTime": "I go to sleep at",
+  "bedTimeHint": "A bedtime after midnight counts as the same night. Outside these hours nothing counts as free time.",
   "bedtimeReminder": "Bedtime reminder",
   "bedtimeReminderSub": "A nudge to start winding down",
   "beforeMinutes": "{duration} before",
@@ -677,6 +680,7 @@
   },
   "breakEnd": "Until",
   "breakStart": "Break from",
+  "breaksTitle": "Breaks",
   "budget": "Budget",
   "budgetUsed": "{spent} of {cap}",
   "@budgetUsed": {
@@ -690,6 +694,7 @@
     }
   },
   "builtinNote": "Values are typical estimates for one portion; home recipes and sizes vary. Change the amount, or save your own version.",
+  "busyTime": "Taken",
   "byCategory": "By category",
   "byMilestones": "By milestones",
   "byMilestonesHint": "Progress = completed milestones ÷ all milestones. A milestone completes when you check it or when all its tasks are done.",
@@ -780,6 +785,30 @@
       }
     }
   },
+  "clashItem": "“{a}” and “{b}” at {time}",
+  "@clashItem": {
+    "placeholders": {
+      "a": {
+        "type": "String"
+      },
+      "b": {
+        "type": "String"
+      },
+      "time": {
+        "type": "String"
+      }
+    }
+  },
+  "clashSave": "This time clashes with {what}. Save anyway?",
+  "@clashSave": {
+    "placeholders": {
+      "what": {
+        "type": "String"
+      }
+    }
+  },
+  "clashSleep": "your sleep time",
+  "clashesTitle": "Clashes",
   "clear": "Clear",
   "clearLog": "Clear log",
   "clearRead": "Clear read notifications",
@@ -934,6 +963,15 @@
   "date": "Date",
   "day": "Day",
   "dayEnd": "Day ends",
+  "dayFits": "Tasks due fit in the free time.",
+  "dayFreeLeft": "{free} free",
+  "@dayFreeLeft": {
+    "placeholders": {
+      "free": {
+        "type": "String"
+      }
+    }
+  },
   "dayOfMonth": "Day of the month",
   "dayOfMonthLabel": "Day {day} of each month",
   "@dayOfMonthLabel": {
@@ -943,6 +981,7 @@
       }
     }
   },
+  "dayOverview": "Your day in hours",
   "daySchedule": "Today's schedule",
   "dayScheduleDone": "Today's schedule is done",
   "dayStart": "Day starts",
@@ -1104,6 +1143,17 @@
   "drPostponed": "I put it off on purpose",
   "dragHint": "Long-press and drag a task onto an hour to plan it.",
   "due": "Due",
+  "dueNeeds": "Tasks due need {need}; only {free} is free.",
+  "@dueNeeds": {
+    "placeholders": {
+      "need": {
+        "type": "String"
+      },
+      "free": {
+        "type": "String"
+      }
+    }
+  },
   "dueShort": "due",
   "edit": "Edit",
   "editAppointment": "Edit appointment",
@@ -1367,6 +1417,7 @@
   "forgotPassword": "Forgot password?",
   "forgotRemoteBody": "Enter your email and we'll send you a link to set a new password.",
   "forgotTitle": "Recover access",
+  "freeSlotsTitle": "Free times",
   "freeTime": "Free time",
   "freeTimeNow": "Free time",
   "from": "From",
@@ -1941,6 +1992,7 @@
   "noExpensesPeriod": "No expenses in this period",
   "noFoodFound": "No match",
   "noFoodFoundBody": "Add it once as your own food and it's kept for next time.",
+  "noFreeSlots": "No free time left on this day.",
   "noGoalsYet": "No goals yet",
   "noHabitsDueToday": "No habits are due today.",
   "noHabitsYet": "No habits yet",
@@ -2581,6 +2633,7 @@
   "sampleGoal4": "Read 12 books this year",
   "save": "Save",
   "saveAndAdd": "Save and add",
+  "saveAnyway": "Save anyway",
   "saveEvent": "Save event",
   "saveGoal": "Save goal",
   "saveOnly": "Save only",
@@ -2728,6 +2781,12 @@
       }
     }
   },
+  "slotEvent": "Appointments",
+  "slotFree": "Free",
+  "slotPast": "Passed",
+  "slotPrayer": "Prayer",
+  "slotSleep": "Sleep",
+  "slotTask": "Tasks at a time",
   "sourceDataRemoved": "Removed data from {source}",
   "@sourceDataRemoved": {
     "placeholders": {
@@ -3052,6 +3111,7 @@
       }
     }
   },
+  "wakeTime": "I wake up at",
   "walkItem": "A {minutes}-minute walk",
   "@walkItem": {
     "placeholders": {

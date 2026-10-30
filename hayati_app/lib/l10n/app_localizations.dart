@@ -428,6 +428,12 @@ abstract class AppLocalizations {
   /// **'Add appointment'**
   String get addAppointment;
 
+  /// No description provided for @addBreak.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a break'**
+  String get addBreak;
+
   /// No description provided for @addCup.
   ///
   /// In en, this message translates to:
@@ -1472,6 +1478,18 @@ abstract class AppLocalizations {
   /// **'Barcode number'**
   String get barcodeNumber;
 
+  /// No description provided for @bedTime.
+  ///
+  /// In en, this message translates to:
+  /// **'I go to sleep at'**
+  String get bedTime;
+
+  /// No description provided for @bedTimeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'A bedtime after midnight counts as the same night. Outside these hours nothing counts as free time.'**
+  String get bedTimeHint;
+
   /// No description provided for @bedtimeReminder.
   ///
   /// In en, this message translates to:
@@ -1580,6 +1598,12 @@ abstract class AppLocalizations {
   /// **'Break from'**
   String get breakStart;
 
+  /// No description provided for @breaksTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Breaks'**
+  String get breaksTitle;
+
   /// No description provided for @budget.
   ///
   /// In en, this message translates to:
@@ -1597,6 +1621,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Values are typical estimates for one portion; home recipes and sizes vary. Change the amount, or save your own version.'**
   String get builtinNote;
+
+  /// No description provided for @busyTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Taken'**
+  String get busyTime;
 
   /// No description provided for @byCategory.
   ///
@@ -1825,6 +1855,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This week: energy {energy}, recovery {recovery} on average'**
   String checkinWeek(String energy, String recovery);
+
+  /// No description provided for @clashItem.
+  ///
+  /// In en, this message translates to:
+  /// **'“{a}” and “{b}” at {time}'**
+  String clashItem(String a, String b, String time);
+
+  /// No description provided for @clashSave.
+  ///
+  /// In en, this message translates to:
+  /// **'This time clashes with {what}. Save anyway?'**
+  String clashSave(String what);
+
+  /// No description provided for @clashSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'your sleep time'**
+  String get clashSleep;
+
+  /// No description provided for @clashesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Clashes'**
+  String get clashesTitle;
 
   /// No description provided for @clear.
   ///
@@ -2270,6 +2324,18 @@ abstract class AppLocalizations {
   /// **'Day ends'**
   String get dayEnd;
 
+  /// No description provided for @dayFits.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks due fit in the free time.'**
+  String get dayFits;
+
+  /// No description provided for @dayFreeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{free} free'**
+  String dayFreeLeft(String free);
+
   /// No description provided for @dayOfMonth.
   ///
   /// In en, this message translates to:
@@ -2281,6 +2347,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Day {day} of each month'**
   String dayOfMonthLabel(int day);
+
+  /// No description provided for @dayOverview.
+  ///
+  /// In en, this message translates to:
+  /// **'Your day in hours'**
+  String get dayOverview;
 
   /// No description provided for @daySchedule.
   ///
@@ -2851,6 +2923,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Due'**
   String get due;
+
+  /// No description provided for @dueNeeds.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks due need {need}; only {free} is free.'**
+  String dueNeeds(String need, String free);
 
   /// No description provided for @dueShort.
   ///
@@ -3907,6 +3985,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recover access'**
   String get forgotTitle;
+
+  /// No description provided for @freeSlotsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Free times'**
+  String get freeSlotsTitle;
 
   /// No description provided for @freeTime.
   ///
@@ -5810,6 +5894,12 @@ abstract class AppLocalizations {
   /// **'Add it once as your own food and it\'s kept for next time.'**
   String get noFoodFoundBody;
 
+  /// No description provided for @noFreeSlots.
+  ///
+  /// In en, this message translates to:
+  /// **'No free time left on this day.'**
+  String get noFreeSlots;
+
   /// No description provided for @noGoalsYet.
   ///
   /// In en, this message translates to:
@@ -7664,6 +7754,12 @@ abstract class AppLocalizations {
   /// **'Save and add'**
   String get saveAndAdd;
 
+  /// No description provided for @saveAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Save anyway'**
+  String get saveAnyway;
+
   /// No description provided for @saveEvent.
   ///
   /// In en, this message translates to:
@@ -8113,6 +8209,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{from} – {to}'**
   String sleepWindow(String from, String to);
+
+  /// No description provided for @slotEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Appointments'**
+  String get slotEvent;
+
+  /// No description provided for @slotFree.
+  ///
+  /// In en, this message translates to:
+  /// **'Free'**
+  String get slotFree;
+
+  /// No description provided for @slotPast.
+  ///
+  /// In en, this message translates to:
+  /// **'Passed'**
+  String get slotPast;
+
+  /// No description provided for @slotPrayer.
+  ///
+  /// In en, this message translates to:
+  /// **'Prayer'**
+  String get slotPrayer;
+
+  /// No description provided for @slotSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep'**
+  String get slotSleep;
+
+  /// No description provided for @slotTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Tasks at a time'**
+  String get slotTask;
 
   /// No description provided for @sourceDataRemoved.
   ///
@@ -9001,6 +9133,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last month: {amount}'**
   String vsLastMonth(String amount);
+
+  /// No description provided for @wakeTime.
+  ///
+  /// In en, this message translates to:
+  /// **'I wake up at'**
+  String get wakeTime;
 
   /// No description provided for @walkItem.
   ///

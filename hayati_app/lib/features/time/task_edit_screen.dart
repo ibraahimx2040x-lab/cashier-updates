@@ -9,10 +9,12 @@ import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/task.dart';
+import '../../domain/day_schedule.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
+import 'day_overview.dart';
 
 /// Screen 7 — create or edit a task.
 class TaskEditScreen extends ConsumerStatefulWidget {
@@ -68,13 +70,24 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
 
   DateTime? get _anchor => _plannedStart ?? (_due == null ? null : atMinutes(_due!, _dueTime ?? 9 * 60));
 
-  void _save() {
+  List<DaySlot> get _clashes => _plannedStart == null
+      ? const []
+      : clashesFor(ref.read(dataProvider), _plannedStart!, _plannedStart!.add(Duration(minutes: int.tryParse(_minutes.text) ?? 30)),
+          DateTime.now(), exceptId: _orig?.id);
+
+  Future<void> _save() async {
     final l = AppLocalizations.of(context);
     if (!_form.currentState!.validate()) return;
     if (_reminderBefore != null && _anchor == null) {
       showSnack(context, l.reminderNeedsTime);
       return;
     }
+    final clash = _clashes.firstOrNull;
+    if (clash != null &&
+        !await confirmDialog(context, title: l.conflict, message: l.clashSave(slotLabel(l, clash)), confirmLabel: l.saveAnyway, danger: false)) {
+      return;
+    }
+    if (!mounted) return;
     setState(() => _saving = true);
     final data = ref.read(dataProvider.notifier);
     final minutes = int.tryParse(_minutes.text.trim());
@@ -110,10 +123,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
     final d = ref.watch(dataProvider);
     final fmt = Fmt.of(context, use24h: d.settings.use24h);
     final milestones = _goalId == null ? const [] : d.milestonesOf(_goalId!);
-    final plannedConflicts = _plannedStart == null
-        ? const []
-        : ref.read(dataProvider.notifier).conflicts(
-            _plannedStart!, _plannedStart!.add(Duration(minutes: int.tryParse(_minutes.text) ?? 30)));
+    final plannedConflicts = _clashes;
 
     Widget group(String title, List<Widget> children) => Padding(
           padding: const EdgeInsets.only(bottom: Space.xl),
@@ -217,7 +227,7 @@ class _TaskEditScreenState extends ConsumerState<TaskEditScreen> {
                   }))),
                 ]),
                 if (plannedConflicts.isNotEmpty)
-                  Pill(label: l.conflictWith(plannedConflicts.first.title), color: context.status.warning, icon: Icons.warning_amber),
+                  Pill(label: l.conflictWith(slotLabel(l, plannedConflicts.first)), color: context.status.warning, icon: Icons.warning_amber),
                 AppTextField(
                   label: l.estimatedMinutes,
                   controller: _minutes,

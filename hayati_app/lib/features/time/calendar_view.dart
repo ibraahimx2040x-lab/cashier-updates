@@ -10,9 +10,11 @@ import '../../core/utils/format.dart';
 import '../../data/app_data.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/task.dart';
+import '../../domain/day_schedule.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
+import 'day_overview.dart';
 
 enum CalMode { day, week, month }
 
@@ -121,10 +123,10 @@ class _DayTimeline extends ConsumerWidget {
     final c = ref.read(dataProvider.notifier);
     final start = DateTime(day.year, day.month, day.day, hour);
     final end = start.add(Duration(minutes: t.estimatedMinutes ?? 30));
-    final clash = c.conflicts(start, end);
+    final clash = clashesFor(ref.read(dataProvider), start, end, DateTime.now(), exceptId: t.id);
     if (clash.isNotEmpty &&
         !await confirmDialog(context,
-            title: l.conflict, message: l.conflictKeep(clash.first.title), confirmLabel: l.keepAnyway, danger: false)) {
+            title: l.conflict, message: l.conflictKeep(slotLabel(l, clash.first)), confirmLabel: l.keepAnyway, danger: false)) {
       return;
     }
     final before = ref.read(dataProvider).task(t.id)!;
@@ -145,7 +147,7 @@ class _DayTimeline extends ConsumerWidget {
     final s = data.settings;
     final firstHour = [s.dayStart ~/ 60, ...events.map((e) => isSameDay(e.start, day) ? e.start.hour : 0), ...timed.map((t) => t.$2.hour)]
         .reduce((a, b) => a < b ? a : b);
-    final lastHour = [((s.dayEnd - 1) ~/ 60), ...events.map((e) => isSameDay(e.end, day) ? e.end.hour : 23), ...timed.map((t) => t.$2.hour)]
+    final lastHour = [((s.dayEnd - 1) ~/ 60).clamp(0, 23), ...events.map((e) => isSameDay(e.end, day) ? e.end.hour : 23), ...timed.map((t) => t.$2.hour)]
         .reduce((a, b) => a > b ? a : b);
     final scheme = Theme.of(context).colorScheme;
 

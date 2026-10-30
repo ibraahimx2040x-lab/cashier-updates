@@ -228,6 +228,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get addAppointment => 'أضف موعد';
 
   @override
+  String get addBreak => 'إضافة وقت راحة';
+
+  @override
   String get addCup => 'أضف كوب (250 مل)';
 
   @override
@@ -877,6 +880,13 @@ class AppLocalizationsAr extends AppLocalizations {
   String get barcodeNumber => 'رقم الباركود';
 
   @override
+  String get bedTime => 'أنام الساعة';
+
+  @override
+  String get bedTimeHint =>
+      'إذا نومك بعد نص الليل ينحسب من نفس الليلة. اللي برا هالساعات ما ينحسب وقت متاح.';
+
+  @override
   String get bedtimeReminder => 'تذكير بوقت النوم';
 
   @override
@@ -940,6 +950,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get breakStart => 'الاستراحة من';
 
   @override
+  String get breaksTitle => 'أوقات الراحة';
+
+  @override
   String get budget => 'الميزانية';
 
   @override
@@ -950,6 +963,9 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get builtinNote =>
       'القيم تقديرية لحصة واحدة، والوصفات والأحجام تختلف. غيّر الكمية، أو احفظ نسختك الخاصة.';
+
+  @override
+  String get busyTime => 'مشغول';
 
   @override
   String get byCategory => 'حسب الفئة';
@@ -1095,6 +1111,22 @@ class AppLocalizationsAr extends AppLocalizations {
   String checkinWeek(String energy, String recovery) {
     return 'هذا الأسبوع: الطاقة $energy والتعافي $recovery بالمتوسط';
   }
+
+  @override
+  String clashItem(String a, String b, String time) {
+    return '«$a» و«$b» الساعة $time';
+  }
+
+  @override
+  String clashSave(String what) {
+    return 'هذا الوقت يتعارض مع $what. تحفظه على كل حال؟';
+  }
+
+  @override
+  String get clashSleep => 'وقت نومك';
+
+  @override
+  String get clashesTitle => 'تعارضات';
 
   @override
   String get clear => 'مسح';
@@ -1353,12 +1385,23 @@ class AppLocalizationsAr extends AppLocalizations {
   String get dayEnd => 'نهاية اليوم';
 
   @override
+  String get dayFits => 'المهام المستحقة تكفيها الأوقات المتاحة.';
+
+  @override
+  String dayFreeLeft(String free) {
+    return 'متاح $free';
+  }
+
+  @override
   String get dayOfMonth => 'يوم الشهر';
 
   @override
   String dayOfMonthLabel(int day) {
     return 'يوم $day من كل شهر';
   }
+
+  @override
+  String get dayOverview => 'يومك بالساعات';
 
   @override
   String get daySchedule => 'جدول اليوم';
@@ -1707,6 +1750,11 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get due => 'الاستحقاق';
+
+  @override
+  String dueNeeds(String need, String free) {
+    return 'المهام المستحقة تحتاج $need، والمتاح بس $free.';
+  }
 
   @override
   String get dueShort => 'تستحق';
@@ -2302,6 +2350,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get forgotTitle => 'استعادة الوصول';
+
+  @override
+  String get freeSlotsTitle => 'الأوقات المتاحة';
 
   @override
   String get freeTime => 'الوقت المتاح';
@@ -3379,6 +3430,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noFoodFoundBody => 'أضفها مرة كأكلة من عندك وتنحفظ للمرة الجاية.';
+
+  @override
+  String get noFreeSlots => 'ما بقى وقت متاح في هذا اليوم.';
 
   @override
   String get noGoalsYet => 'لا توجد أهداف بعد';
@@ -4462,6 +4516,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get saveAndAdd => 'احفظ وأضف';
 
   @override
+  String get saveAnyway => 'احفظ على كل حال';
+
+  @override
   String get saveEvent => 'حفظ الموعد';
 
   @override
@@ -4724,6 +4781,24 @@ class AppLocalizationsAr extends AppLocalizations {
   String sleepWindow(String from, String to) {
     return '$from – $to';
   }
+
+  @override
+  String get slotEvent => 'مواعيد';
+
+  @override
+  String get slotFree => 'متاح';
+
+  @override
+  String get slotPast => 'مضى';
+
+  @override
+  String get slotPrayer => 'صلاة';
+
+  @override
+  String get slotSleep => 'نوم';
+
+  @override
+  String get slotTask => 'مهام بوقت';
 
   @override
   String sourceDataRemoved(String source) {
@@ -5291,6 +5366,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String vsLastMonth(String amount) {
     return 'الشهر الماضي: $amount';
   }
+
+  @override
+  String get wakeTime => 'أصحى الساعة';
 
   @override
   String walkItem(int minutes) {

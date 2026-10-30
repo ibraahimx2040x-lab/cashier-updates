@@ -9,10 +9,12 @@ import '../../core/utils/format.dart';
 import '../../core/utils/labels.dart';
 import '../../data/data_controller.dart';
 import '../../data/models/task.dart';
+import '../../domain/day_schedule.dart';
 import '../../l10n/app_localizations.dart';
 import '../../widgets/cards.dart';
 import '../../widgets/common.dart';
 import '../../widgets/device_notifications_card.dart';
+import 'day_overview.dart';
 
 /// Event (fixed appointment) editor — part of the calendar (screen 8).
 /// Overlaps are allowed but always flagged.
@@ -55,13 +57,23 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
   DateTime get _startAt => atMinutes(_day, _start);
   DateTime get _endAt => atMinutes(_day, _end);
 
-  void _save() {
+  List<DaySlot> get _clashes =>
+      _end > _start ? clashesFor(ref.read(dataProvider), _startAt, _endAt, DateTime.now(), exceptId: _orig?.id) : const [];
+
+  Future<void> _save() async {
     final l = AppLocalizations.of(context);
     if (!_form.currentState!.validate()) return;
     if (_end <= _start) {
       showSnack(context, l.errEndBeforeStart);
       return;
     }
+    // Two things can't happen at once: ask before keeping a clash.
+    final clash = _clashes.firstOrNull;
+    if (clash != null &&
+        !await confirmDialog(context, title: l.conflict, message: l.clashSave(slotLabel(l, clash)), confirmLabel: l.saveAnyway, danger: false)) {
+      return;
+    }
+    if (!mounted) return;
     final e = CalendarEvent(
       id: _orig?.id ?? newId(),
       title: _title.text.trim(),
@@ -84,9 +96,8 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
     final l = AppLocalizations.of(context);
     final s = ref.watch(settingsProvider);
     final fmt = Fmt.of(context, use24h: s.use24h);
-    final clashes = _end > _start
-        ? ref.read(dataProvider.notifier).conflicts(_startAt, _endAt, exceptId: _orig?.id)
-        : const <CalendarEvent>[];
+    ref.watch(dataProvider);
+    final clashes = _clashes;
     return PopScope(
       canPop: false,
       onPopInvokedWithResult: (didPop, _) async {
@@ -149,7 +160,7 @@ class _EventEditScreenState extends ConsumerState<EventEditScreen> {
               ],
               if (clashes.isNotEmpty) ...[
                 const SizedBox(height: Space.s),
-                Pill(label: l.conflictWith(clashes.first.title), color: context.status.warning, icon: Icons.warning_amber),
+                Pill(label: l.conflictWith(slotLabel(l, clashes.first)), color: context.status.warning, icon: Icons.warning_amber),
               ],
               const SizedBox(height: Space.l),
               AppTextField(label: l.locationOptional, controller: _location),
