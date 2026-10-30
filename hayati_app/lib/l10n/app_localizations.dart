@@ -422,6 +422,12 @@ abstract class AppLocalizations {
   /// **'In the browser steps can only be added by hand. Automatic counting works in the phone app.'**
   String get activityWebNote;
 
+  /// No description provided for @addAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Add an alarm'**
+  String get addAlarm;
+
   /// No description provided for @addAppointment.
   ///
   /// In en, this message translates to:
@@ -1081,6 +1087,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Logging {ml} ml of water for today.'**
   String aiWaterLogged(int ml);
+
+  /// No description provided for @alarmBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze or stop'**
+  String get alarmBody;
+
+  /// No description provided for @alarmDefaultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarm'**
+  String get alarmDefaultTitle;
+
+  /// No description provided for @alarmEveryDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Every day'**
+  String get alarmEveryDay;
+
+  /// No description provided for @alarmExactNeeded.
+  ///
+  /// In en, this message translates to:
+  /// **'To ring on the minute, allow \"Alarms & reminders\" for Sanad in Android settings.'**
+  String get alarmExactNeeded;
+
+  /// No description provided for @alarmFor.
+  ///
+  /// In en, this message translates to:
+  /// **'For a task or appointment (optional)'**
+  String get alarmFor;
+
+  /// No description provided for @alarmLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Label (optional)'**
+  String get alarmLabel;
+
+  /// No description provided for @alarmNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing'**
+  String get alarmNone;
+
+  /// No description provided for @alarmOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'Once'**
+  String get alarmOnce;
+
+  /// No description provided for @alarmRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get alarmRepeat;
+
+  /// No description provided for @alarmSnooze.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze'**
+  String get alarmSnooze;
+
+  /// No description provided for @alarmSnoozeFor.
+  ///
+  /// In en, this message translates to:
+  /// **'Snooze length'**
+  String get alarmSnoozeFor;
+
+  /// No description provided for @alarmSnoozed.
+  ///
+  /// In en, this message translates to:
+  /// **'Snoozed until {time}'**
+  String alarmSnoozed(String time);
+
+  /// No description provided for @alarmStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get alarmStop;
+
+  /// No description provided for @alarmTone.
+  ///
+  /// In en, this message translates to:
+  /// **'Tone'**
+  String get alarmTone;
+
+  /// No description provided for @alarmVibrate.
+  ///
+  /// In en, this message translates to:
+  /// **'Vibrate'**
+  String get alarmVibrate;
+
+  /// No description provided for @alarmsIosNote.
+  ///
+  /// In en, this message translates to:
+  /// **'On iPhone an alarm plays the system sound once, for up to 30 seconds.'**
+  String get alarmsIosNote;
+
+  /// No description provided for @alarmsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms'**
+  String get alarmsTitle;
+
+  /// No description provided for @alarmsWebNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Alarms ring on the phone app. A browser can\'t ring when the page is closed.'**
+  String get alarmsWebNote;
 
   /// No description provided for @allCategories.
   ///
@@ -2468,6 +2582,12 @@ abstract class AppLocalizations {
   /// **'Permanently remove your account and data'**
   String get deleteAccountSub;
 
+  /// No description provided for @deleteAlarmTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this alarm?'**
+  String get deleteAlarmTitle;
+
   /// No description provided for @deleteAllChats.
   ///
   /// In en, this message translates to:
@@ -2965,6 +3085,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Edit'**
   String get edit;
+
+  /// No description provided for @editAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit alarm'**
+  String get editAlarm;
 
   /// No description provided for @editAppointment.
   ///
@@ -5408,6 +5534,12 @@ abstract class AppLocalizations {
   /// **'{done}/{total} milestones'**
   String milestonesDone(int done, int total);
 
+  /// No description provided for @minutesShort.
+  ///
+  /// In en, this message translates to:
+  /// **'{n} min'**
+  String minutesShort(int n);
+
   /// No description provided for @mkBloodPressure.
   ///
   /// In en, this message translates to:
@@ -5983,6 +6115,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No active goals right now.'**
   String get noActiveGoals;
+
+  /// No description provided for @noAlarms.
+  ///
+  /// In en, this message translates to:
+  /// **'No alarms yet'**
+  String get noAlarms;
+
+  /// No description provided for @noAlarmsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'An alarm rings with sound until you stop or snooze it, unlike a quiet notification.'**
+  String get noAlarmsBody;
 
   /// No description provided for @noAppointments.
   ///
@@ -9187,6 +9331,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tomorrow'**
   String get tomorrow;
+
+  /// No description provided for @toneBells.
+  ///
+  /// In en, this message translates to:
+  /// **'Bells'**
+  String get toneBells;
+
+  /// No description provided for @toneChime.
+  ///
+  /// In en, this message translates to:
+  /// **'Chime'**
+  String get toneChime;
+
+  /// No description provided for @toneDawn.
+  ///
+  /// In en, this message translates to:
+  /// **'Dawn'**
+  String get toneDawn;
+
+  /// No description provided for @tonePulse.
+  ///
+  /// In en, this message translates to:
+  /// **'Pulse'**
+  String get tonePulse;
 
   /// No description provided for @toolAddAppointment.
   ///

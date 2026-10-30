@@ -973,6 +973,7 @@ class _MoreMenu extends ConsumerWidget {
       onSelected: (r) => r == 'add' ? showQuickAdd(context, ref) : context.push(r),
       itemBuilder: (_) => [
         _item(Routes.prayer, Icons.mosque_outlined, l.navPrayer),
+        _item(Routes.alarms, Icons.alarm, l.alarmsTitle),
         _item(Routes.fitness, Icons.fitness_center, l.navFitness),
         _item(Routes.english, Icons.translate, l.navEnglish),
         if (settings.health.has(HealthModule.activity)) _item(Routes.activity, Icons.directions_walk, l.navActivity),

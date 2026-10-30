@@ -5,6 +5,7 @@ import '../core/utils/labels.dart';
 import '../data/models/health.dart';
 import '../data/models/prayer.dart';
 import '../l10n/app_localizations.dart';
+import '../data/models/alarm.dart';
 import '../data/models/goal.dart';
 import '../data/models/money.dart';
 import '../data/models/settings.dart';
@@ -18,7 +19,7 @@ import 'womens/cycle.dart';
 
 /// One reminder for the phone's notification system.
 class DeviceReminder {
-  const DeviceReminder({required this.id, required this.at, required this.title, this.body = '', required this.route});
+  const DeviceReminder({required this.id, required this.at, required this.title, this.body = '', required this.route, this.alarm});
 
   /// Stable across reschedules (derived from the reminder's dedupe key), so
   /// re-planning replaces rather than duplicates.
@@ -29,6 +30,9 @@ class DeviceReminder {
 
   /// Where tapping the notification opens.
   final String route;
+
+  /// Set for a sounding alarm (not a quiet notification).
+  final Alarm? alarm;
 }
 
 /// iOS keeps at most 64 pending notifications per app; stay below it.
@@ -179,8 +183,24 @@ List<DeviceReminder> planDeviceReminders(AppData d, DateTime now, AppLocalizatio
   }
   out.addAll(_sectionReminders(d, now, l, today, prayerDays, inWindow));
   out.sort((a, b) => a.at.compareTo(b.at));
-  return out.take(maxScheduled).toList();
+  // Alarms always get their place, whatever else is scheduled.
+  final alarms = planAlarms(d, now, l);
+  return [...alarms, ...out.take(maxScheduled - alarms.length)]..sort((a, b) => a.at.compareTo(b.at));
 }
+
+/// Every ring of every alarm in the next week (and a pending snooze).
+List<DeviceReminder> planAlarms(AppData d, DateTime now, AppLocalizations l) => [
+      for (final a in d.alarms)
+        for (final at in a.nextRings(now))
+          DeviceReminder(
+            id: stableId('alarm:${a.id}:${encodeInstant(at)}'),
+            at: at,
+            title: a.label.isNotEmpty ? a.label : l.alarmDefaultTitle,
+            body: l.alarmBody,
+            route: a.taskId != null ? Routes.task(a.taskId!) : (a.eventId != null ? Routes.event(a.eventId!) : Routes.alarms),
+            alarm: a,
+          ),
+    ].take(20).toList();
 
 /// The daily reminders of sections that have no time of their own (v4
 /// change 14): goals near their date, workout days, water, the day's

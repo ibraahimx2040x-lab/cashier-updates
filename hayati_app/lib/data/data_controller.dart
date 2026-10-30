@@ -11,6 +11,7 @@ import '../domain/womens/cycle.dart';
 import 'app_data.dart';
 import 'auth.dart';
 import 'models/accountability.dart';
+import 'models/alarm.dart';
 import 'models/assistant.dart';
 import 'models/fitness.dart';
 import 'models/goal.dart';
@@ -245,6 +246,8 @@ class DataController extends Notifier<AppData> {
     _set(state.copyWith(
       tasks: state.tasks.where((t) => t.id != id).toList(),
       notifications: state.notifications.where((n) => n.refId != id).toList(),
+      // Same as the server's `on delete set null`.
+      alarms: [for (final a in state.alarms) a.taskId == id ? a.copyWith(taskId: () => null) : a],
     ));
   }
 
@@ -268,6 +271,7 @@ class DataController extends Notifier<AppData> {
   void deleteEvent(String id) => _set(state.copyWith(
         events: state.events.where((e) => e.id != id).toList(),
         notifications: state.notifications.where((n) => n.refId != id).toList(),
+        alarms: [for (final a in state.alarms) a.eventId == id ? a.copyWith(eventId: () => null) : a],
       ));
 
   /// Events overlapping [start, end) other than [exceptId].
@@ -1051,6 +1055,33 @@ class DataController extends Notifier<AppData> {
       expenses: [...state.expenses, ...r.expenses],
       incomes: [...state.incomes, ...r.incomes],
     ));
+  }
+
+  // ------------------------------------------------------------------ alarms
+
+  void saveAlarm(Alarm a) {
+    if (a.minutes < 0 || a.minutes >= 24 * 60) throw ArgumentError('minutes');
+    if (!a.repeats && a.onDate == null) throw ArgumentError('onDate');
+    if (a.weekdays.any((d) => d < 1 || d > 7)) throw ArgumentError('weekdays');
+    if (a.snoozeMinutes < 1 || a.snoozeMinutes > 60) throw ArgumentError('snooze');
+    if (a.label.length > 80) throw ArgumentError('label');
+    _set(state.copyWith(alarms: _upsert(state.alarms, a.copyWith(updatedAt: _now), (x) => x.id)));
+  }
+
+  void deleteAlarm(String id) => _set(state.copyWith(alarms: state.alarms.where((a) => a.id != id).toList()));
+
+  /// Rings again after the alarm's snooze length.
+  void snoozeAlarm(String id) {
+    final a = state.alarms.where((x) => x.id == id).firstOrNull;
+    if (a == null) return;
+    saveAlarm(a.copyWith(snoozedUntil: () => _now.add(Duration(minutes: a.snoozeMinutes))));
+  }
+
+  /// Stops a ringing alarm: clears a snooze; a one-time alarm turns off.
+  void stopAlarm(String id) {
+    final a = state.alarms.where((x) => x.id == id).firstOrNull;
+    if (a == null) return;
+    saveAlarm(a.copyWith(snoozedUntil: () => null, enabled: a.repeats ? a.enabled : false));
   }
 
   // ----------------------------------------------------------- notifications

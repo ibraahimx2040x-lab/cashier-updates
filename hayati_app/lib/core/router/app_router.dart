@@ -57,6 +57,7 @@ import '../../features/notifications/notifications_screen.dart';
 import '../../features/prayer/prayer_screen.dart';
 import '../../features/prayer/prayer_settings_screen.dart';
 import '../../features/progress/progress_screen.dart';
+import '../../features/alarms/alarms_screen.dart';
 import '../../features/settings/notification_settings_screen.dart';
 import '../../features/settings/assistant_settings_screen.dart';
 import '../../features/settings/help_screen.dart';
@@ -215,6 +216,7 @@ final routerProvider = Provider<GoRouter>((ref) {
       page(Routes.settings, (_) => const SettingsScreen()),
       page(Routes.assistantSettings, (_) => const AssistantSettingsScreen()),
       page(Routes.notificationSettings, (_) => const NotificationSettingsScreen()),
+      page(Routes.alarms, (_) => const AlarmsScreen()),
       page(Routes.profile, (_) => const ProfileScreen()),
       page(Routes.subscription, (_) => const SubscriptionScreen()),
       page(Routes.help, (_) => const HelpScreen()),

@@ -545,7 +545,7 @@ do $$ begin
 exception when check_violation then raise notice 'ok: check-ins 1-5';
 end $$;
 do $$ begin
-  insert into wellbeing_checkins (id, day, energy) values (gen_random_uuid(), current_date + 1, 3);
+  insert into wellbeing_checkins (id, day, energy) values (gen_random_uuid(), current_date + 2, 3);
   raise exception 'FAILED: future check-in';
 exception when check_violation then raise notice 'ok: no future check-ins';
 end $$;
@@ -608,6 +608,33 @@ do $$ begin
 exception when check_violation then raise notice 'ok: a day is at most 24 hours';
 end $$;
 update profiles set day_start = 420, day_end = 1380;
+
+-- Alarms (v4 phase 17).
+insert into alarms (id, label, minutes, weekdays, tone) values ('a1a10000-0000-0000-0000-000000000001', 'Fajr', 285, '{1,2,3,4,5}', 'dawn');
+insert into alarms (id, minutes, on_date, task_id) values ('a1a10000-0000-0000-0000-000000000002', 600, current_date + 1, 'aaaaaaaa-0000-0000-0000-0000000000b1');
+do $$ begin
+  insert into alarms (id, minutes) values (gen_random_uuid(), 600);
+  raise exception 'FAILED: alarm with no day';
+exception when check_violation then raise notice 'ok: an alarm repeats or has a date';
+end $$;
+do $$ begin
+  insert into alarms (id, minutes, weekdays) values (gen_random_uuid(), 600, '{8}');
+  raise exception 'FAILED: weekday 8';
+exception when check_violation then raise notice 'ok: weekdays 1-7';
+end $$;
+do $$ begin
+  insert into alarms (id, minutes, weekdays, tone) values (gen_random_uuid(), 600, '{1}', 'siren');
+  raise exception 'FAILED: unknown tone';
+exception when check_violation then raise notice 'ok: known tones only';
+end $$;
+select pg_temp.as_user('22222222-2222-2222-2222-222222222222');
+select pg_temp.check((select count(*) = 0 from alarms), 'B cannot read A''s alarms');
+do $$ begin
+  insert into alarms (id, minutes, weekdays, task_id) values (gen_random_uuid(), 600, '{1}', 'aaaaaaaa-0000-0000-0000-0000000000b1');
+  raise exception 'FAILED: B linked an alarm to A''s task';
+exception when foreign_key_violation then raise notice 'ok: B cannot link an alarm to A''s task';
+end $$;
+select pg_temp.as_user('11111111-1111-1111-1111-111111111111');
 
 reset role;
 \echo ALL RLS TESTS PASSED

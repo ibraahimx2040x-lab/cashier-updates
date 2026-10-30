@@ -77,6 +77,7 @@ class SettingsScreen extends ConsumerWidget {
           header(l.navNotifications),
           const Padding(padding: EdgeInsets.symmetric(horizontal: Space.gutter), child: DeviceNotificationsCard()),
           nav(Icons.tune, l.notifSettingsTitle, Routes.notificationSettings, sub: l.notifSettingsSub),
+          nav(Icons.alarm, l.alarmsTitle, Routes.alarms, sub: l.noAlarmsBody),
           header(l.appearance),
           ListTile(
             leading: IconBadge(Icons.translate),

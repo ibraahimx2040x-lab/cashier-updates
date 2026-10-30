@@ -5,6 +5,7 @@ abstract final class Routes {
   static const auth = '/auth';
   static const onboarding = '/onboarding';
   static const locked = '/locked';
+  static const alarms = '/alarms';
   static const home = '/home';
   static const time = '/time';
   static const goals = '/goals';

@@ -49,7 +49,7 @@ class FakeDeviceNotifications implements DeviceNotifications {
   @override
   bool get canSchedule => true;
   @override
-  Future<void> init({required void Function(String route) onOpen}) async {}
+  Future<void> init({required void Function(String route) onOpen, void Function(String alarmId, String action)? onAlarm}) async {}
   @override
   Future<DevicePermission> permission() async => state;
   @override
@@ -895,6 +895,29 @@ void main() {
     await tester.tap(find.text(l.discard));
     await tester.pumpAndSettle();
     expect(router.routeInformationProvider.value.uri.path, Routes.home);
+  });
+
+  testWidgets('alarms: add one with repeat days, turn it off (ar)', (tester) async {
+    final c = await pumpApp(tester, locale: 'ar', size: const Size(390, 844));
+    final l = lookupAppLocalizations(const Locale('ar'));
+    await signUp(tester, c);
+    c.read(dataProvider.notifier).updateSettings((s) => s.copyWith(onboardingDone: true));
+    await tester.pumpAndSettle();
+    c.read(routerProvider).push(Routes.alarms);
+    await tester.pumpAndSettle();
+    expect(find.text(l.noAlarms), findsOneWidget);
+    await tester.tap(find.byTooltip(l.addAlarm));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextFormField).first, 'الفجر');
+    await tapIn(tester, find.text(l.weekdayShort(1)));
+    await tapIn(tester, find.text(l.toneBells));
+    await tapIn(tester, find.widgetWithText(PrimaryButton, l.save));
+    await tester.pumpAndSettle();
+    final a = c.read(dataProvider).alarms.single;
+    expect((a.label, a.weekdays.single, a.tone.name, a.enabled), ('الفجر', 1, 'bells', true));
+    await tester.tap(find.byType(Switch).first);
+    await tester.pumpAndSettle();
+    expect(c.read(dataProvider).alarms.single.enabled, isFalse);
   });
 
   testWidgets('steps: add by hand, change the goal (en)', (tester) async {

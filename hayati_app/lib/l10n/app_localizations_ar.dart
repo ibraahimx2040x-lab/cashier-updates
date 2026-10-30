@@ -225,6 +225,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'في المتصفح تقدر تضيف الخطوات يدويًا فقط. العد التلقائي يشتغل في تطبيق الجوال.';
 
   @override
+  String get addAlarm => 'إضافة منبه';
+
+  @override
   String get addAppointment => 'أضف موعد';
 
   @override
@@ -652,6 +655,65 @@ class AppLocalizationsAr extends AppLocalizations {
   String aiWaterLogged(int ml) {
     return 'بسجّل $ml مل ماء لليوم.';
   }
+
+  @override
+  String get alarmBody => 'غفوة أو إيقاف';
+
+  @override
+  String get alarmDefaultTitle => 'منبه';
+
+  @override
+  String get alarmEveryDay => 'كل يوم';
+
+  @override
+  String get alarmExactNeeded =>
+      'عشان يرن بالدقيقة، فعّل «المنبهات والتذكيرات» لسند من إعدادات الأندرويد.';
+
+  @override
+  String get alarmFor => 'مرتبط بمهمة أو موعد (اختياري)';
+
+  @override
+  String get alarmLabel => 'الاسم (اختياري)';
+
+  @override
+  String get alarmNone => 'بدون';
+
+  @override
+  String get alarmOnce => 'مرة وحدة';
+
+  @override
+  String get alarmRepeat => 'التكرار';
+
+  @override
+  String get alarmSnooze => 'غفوة';
+
+  @override
+  String get alarmSnoozeFor => 'مدة الغفوة';
+
+  @override
+  String alarmSnoozed(String time) {
+    return 'مؤجل لين $time';
+  }
+
+  @override
+  String get alarmStop => 'إيقاف';
+
+  @override
+  String get alarmTone => 'النغمة';
+
+  @override
+  String get alarmVibrate => 'اهتزاز';
+
+  @override
+  String get alarmsIosNote =>
+      'في الآيفون المنبه يشغّل صوت النظام مرة وحدة، حتى 30 ثانية.';
+
+  @override
+  String get alarmsTitle => 'المنبهات';
+
+  @override
+  String get alarmsWebNote =>
+      'المنبهات ترن في تطبيق الجوال. المتصفح ما يقدر يرن والصفحة مسكّرة.';
 
   @override
   String get allCategories => 'كل الفئات';
@@ -1499,6 +1561,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get deleteAccountSub => 'إزالة حسابك وبياناتك نهائيًا';
 
   @override
+  String get deleteAlarmTitle => 'تحذف هذا المنبه؟';
+
+  @override
   String get deleteAllChats => 'حذف كل المحادثات';
 
   @override
@@ -1773,6 +1838,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get edit => 'تعديل';
+
+  @override
+  String get editAlarm => 'تعديل المنبه';
 
   @override
   String get editAppointment => 'تعديل الموعد';
@@ -3166,6 +3234,11 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String minutesShort(int n) {
+    return '$n د';
+  }
+
+  @override
   String get mkBloodPressure => 'ضغط الدم';
 
   @override
@@ -3477,6 +3550,13 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get noActiveGoals => 'لا توجد أهداف نشطة حاليًا.';
+
+  @override
+  String get noAlarms => 'ما فيه منبهات للحين';
+
+  @override
+  String get noAlarmsBody =>
+      'المنبه يرن بصوت لين توقفه أو تأجله، بعكس الإشعار الهادئ.';
 
   @override
   String get noAppointments => 'ما فيه مواعيد';
@@ -5370,6 +5450,18 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get tomorrow => 'غدًا';
+
+  @override
+  String get toneBells => 'أجراس';
+
+  @override
+  String get toneChime => 'جرس هادئ';
+
+  @override
+  String get toneDawn => 'فجر';
+
+  @override
+  String get tonePulse => 'نبض';
 
   @override
   String get toolAddAppointment => 'إضافة موعد صحي';

@@ -222,6 +222,9 @@ class AppLocalizationsEn extends AppLocalizations {
       'In the browser steps can only be added by hand. Automatic counting works in the phone app.';
 
   @override
+  String get addAlarm => 'Add an alarm';
+
+  @override
   String get addAppointment => 'Add appointment';
 
   @override
@@ -651,6 +654,65 @@ class AppLocalizationsEn extends AppLocalizations {
   String aiWaterLogged(int ml) {
     return 'Logging $ml ml of water for today.';
   }
+
+  @override
+  String get alarmBody => 'Snooze or stop';
+
+  @override
+  String get alarmDefaultTitle => 'Alarm';
+
+  @override
+  String get alarmEveryDay => 'Every day';
+
+  @override
+  String get alarmExactNeeded =>
+      'To ring on the minute, allow \"Alarms & reminders\" for Sanad in Android settings.';
+
+  @override
+  String get alarmFor => 'For a task or appointment (optional)';
+
+  @override
+  String get alarmLabel => 'Label (optional)';
+
+  @override
+  String get alarmNone => 'Nothing';
+
+  @override
+  String get alarmOnce => 'Once';
+
+  @override
+  String get alarmRepeat => 'Repeat';
+
+  @override
+  String get alarmSnooze => 'Snooze';
+
+  @override
+  String get alarmSnoozeFor => 'Snooze length';
+
+  @override
+  String alarmSnoozed(String time) {
+    return 'Snoozed until $time';
+  }
+
+  @override
+  String get alarmStop => 'Stop';
+
+  @override
+  String get alarmTone => 'Tone';
+
+  @override
+  String get alarmVibrate => 'Vibrate';
+
+  @override
+  String get alarmsIosNote =>
+      'On iPhone an alarm plays the system sound once, for up to 30 seconds.';
+
+  @override
+  String get alarmsTitle => 'Alarms';
+
+  @override
+  String get alarmsWebNote =>
+      'Alarms ring on the phone app. A browser can\'t ring when the page is closed.';
 
   @override
   String get allCategories => 'All categories';
@@ -1493,6 +1555,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deleteAccountSub => 'Permanently remove your account and data';
 
   @override
+  String get deleteAlarmTitle => 'Delete this alarm?';
+
+  @override
   String get deleteAllChats => 'Delete all chats';
 
   @override
@@ -1772,6 +1837,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get edit => 'Edit';
+
+  @override
+  String get editAlarm => 'Edit alarm';
 
   @override
   String get editAppointment => 'Edit appointment';
@@ -3166,6 +3234,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
+  String minutesShort(int n) {
+    return '$n min';
+  }
+
+  @override
   String get mkBloodPressure => 'Blood pressure';
 
   @override
@@ -3475,6 +3548,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get noActiveGoals => 'No active goals right now.';
+
+  @override
+  String get noAlarms => 'No alarms yet';
+
+  @override
+  String get noAlarmsBody =>
+      'An alarm rings with sound until you stop or snooze it, unlike a quiet notification.';
 
   @override
   String get noAppointments => 'No appointments';
@@ -5360,6 +5440,18 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get tomorrow => 'Tomorrow';
+
+  @override
+  String get toneBells => 'Bells';
+
+  @override
+  String get toneChime => 'Chime';
+
+  @override
+  String get toneDawn => 'Dawn';
+
+  @override
+  String get tonePulse => 'Pulse';
 
   @override
   String get toolAddAppointment => 'Add health appointment';

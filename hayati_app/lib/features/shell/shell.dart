@@ -50,9 +50,25 @@ class _AppShellState extends ConsumerState<AppShell> with WidgetsBindingObserver
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       _sync();
       ref.read(healthSyncProvider.notifier).sync();
-      await _device.init(onOpen: (route) {
-        if (mounted) ref.read(routerProvider).push(route);
-      });
+      if (_device case final PluginDeviceNotifications p when mounted) {
+        final l = AppLocalizations.of(context);
+        p
+          ..snoozeLabel = l.alarmSnooze
+          ..stopLabel = l.alarmStop;
+      }
+      await _device.init(
+        onOpen: (route) {
+          if (mounted) ref.read(routerProvider).push(route);
+        },
+        // An alarm answered from its notification: snooze or stop it here,
+        // so the next plan reflects it.
+        onAlarm: (id, action) {
+          if (!mounted) return;
+          final data = ref.read(dataProvider.notifier);
+          if (action == 'snooze') data.snoozeAlarm(id);
+          if (action == 'stop') data.stopAlarm(id);
+        },
+      );
       _schedule();
     });
     _timer = Timer.periodic(const Duration(minutes: 1), (_) => _sync());
@@ -260,6 +276,7 @@ class _Sidebar extends ConsumerWidget {
                 () => context.push(Routes.notifications),
                 badge: unread,
               ),
+              item(Icons.alarm, l.alarmsTitle, () => context.push(Routes.alarms)),
               item(Icons.settings_outlined, l.navSettings, () => context.push(Routes.settings)),
             ],
           ),
