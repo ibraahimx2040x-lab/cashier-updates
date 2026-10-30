@@ -306,6 +306,21 @@ class AppLocalizationsAr extends AppLocalizations {
   String get agreePrefix => 'أوافق على ';
 
   @override
+  String get aiAppointmentNoTime => 'ما ذكرت وقت: حطيته 9:00 وتقدر تغيره بعدين';
+
+  @override
+  String aiAppointmentReady(String title) {
+    return '«$title» جاهز ينضاف لمواعيدك الصحية.';
+  }
+
+  @override
+  String get aiAppointmentTitle => 'موعد طبيب';
+
+  @override
+  String get aiAppointmentWhen =>
+      'متى الموعد؟ مثلًا: «عندي موعد طبيب الخميس الساعة 10».';
+
+  @override
   String aiAskAmPm(int hour) {
     return 'هل تقصد الساعة $hour صباحًا أم مساءً؟';
   }
@@ -369,6 +384,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get aiFailed =>
       'حدث خطأ ولم أستطع الرد. رسالتك محفوظة، حاول مرة أخرى.';
+
+  @override
+  String aiFoodToday(int kcal, int water) {
+    return 'اليوم: تقريبًا $kcal سعرة و$water مل ماء.';
+  }
 
   @override
   String aiFreeTime(int minutes) {
@@ -476,6 +496,9 @@ class AppLocalizationsAr extends AppLocalizations {
       'لا يوجد وقت فارغ متبقٍ اليوم، ولا بأس بالغد؛ المسار ينتظرك.';
 
   @override
+  String get aiNoStepsYet => 'ما فيه خطوات مسجلة اليوم للحين.';
+
+  @override
   String get aiNoteEmpty => 'ماذا تريد أن تكتب في الملاحظة؟';
 
   @override
@@ -507,6 +530,9 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String get aiReasonAppointment => 'ذكرت موعد';
+
+  @override
   String get aiReasonGoal => 'طلبت هدف تعلم مع ممارسة منتظمة.';
 
   @override
@@ -532,6 +558,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get aiReasonTask => 'طلبت إضافة مهمة.';
+
+  @override
+  String get aiReasonWater => 'طلبت تسجيل ماء';
 
   @override
   String get aiRefused =>
@@ -582,6 +611,16 @@ class AppLocalizationsAr extends AppLocalizations {
   }
 
   @override
+  String aiStepsGoalMet(int steps, int goal) {
+    return 'مشيت اليوم $steps خطوة، وحققت هدفك $goal.';
+  }
+
+  @override
+  String aiStepsToday(int steps, int goal, int left) {
+    return 'مشيت اليوم $steps خطوة، باقي $left على هدفك $goal.';
+  }
+
+  @override
   String get aiTaskNoTitle =>
       'ما هي المهمة؟ مثال: «أضف مهمة مراجعة الإنجليزية غدًا الساعة 8 مساءً».';
 
@@ -596,6 +635,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String get aiUnsupported =>
       'لا أستطيع تنفيذ ذلك بعد. يمكنني تخطيط يومك، وترتيب المهام المتأخرة، وإضافة مهام أو ملاحظات، وتسجيل العادات، وتقسيم هدف إلى مراحل، ومراجعة أسبوعك.';
+
+  @override
+  String aiWaterLogged(int ml) {
+    return 'بسجّل $ml مل ماء لليوم.';
+  }
 
   @override
   String get allCategories => 'كل الفئات';
@@ -2390,6 +2434,16 @@ class AppLocalizationsAr extends AppLocalizations {
   String get healthSetup => 'إعداد الصحة';
 
   @override
+  String get healthSharing => 'الصحة';
+
+  @override
+  String get healthSharingSub =>
+      'ملخصات فقط. القياسات والدورة مطفية لين تشغّلها.';
+
+  @override
+  String get healthThisPeriod => 'الصحة';
+
+  @override
   String heartDaysN(int n) {
     String _temp0 = intl.Intl.pluralLogic(
       n,
@@ -4067,6 +4121,11 @@ class AppLocalizationsAr extends AppLocalizations {
   String get repeatDays => 'أيام التكرار';
 
   @override
+  String reportFood(int days, String kcal) {
+    return 'سجلت أكلك $days أيام، تقريبًا $kcal سعرة باليوم';
+  }
+
+  @override
   String get reportNoData => 'لا توجد بيانات كافية لهذه الفترة.';
 
   @override
@@ -4081,6 +4140,16 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get reportSaved => 'حُفظ البلاغ، وسيُرسل عند ربط خدمة الدعم.';
+
+  @override
+  String reportSleep(String avg, int nights) {
+    return 'نمت $avg بالمتوسط ($nights ليالٍ مسجلة)';
+  }
+
+  @override
+  String reportStepGoal(int days, int total) {
+    return 'حققت هدف الخطوات $days أيام من $total';
+  }
 
   @override
   String get repsLabel => 'التكرارات';
@@ -4321,10 +4390,25 @@ class AppLocalizationsAr extends AppLocalizations {
       'يُستخدم لتخصيص الأقسام الصحية فقط، وتقدر تغيّره من حسابك.';
 
   @override
+  String get shareActivitySub => 'الخطوات ودقائق النشاط لآخر 7 أيام';
+
+  @override
+  String get shareCycleSub => 'المساعد ما يستخدمها حاليًا، وتبقى خاصة';
+
+  @override
   String get shareNotesSub => 'معطّل افتراضيًا';
 
   @override
+  String get shareNutritionSub => 'مجاميع الأكل اليومية والماء، بدون صور';
+
+  @override
+  String get shareSleepSub => 'مدة النوم وكيف كانت طاقتك';
+
+  @override
   String get shareSub => 'يُستخدم للتخطيط والتلخيص';
+
+  @override
+  String get shareVitalsSub => 'الوزن والضغط وباقي القياسات';
 
   @override
   String get showActive => 'عرض النشطة';
@@ -4810,6 +4894,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get tomorrow => 'غدًا';
 
   @override
+  String get toolAddAppointment => 'إضافة موعد صحي';
+
+  @override
   String get toolAddMilestones => 'إضافة مراحل';
 
   @override
@@ -4826,6 +4913,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get toolLogHabit => 'تسجيل عادة';
+
+  @override
+  String get toolLogWater => 'تسجيل ماء';
 
   @override
   String get toolMoveTask => 'تغيير الموعد النهائي';
@@ -4964,6 +5054,11 @@ class AppLocalizationsAr extends AppLocalizations {
   @override
   String vsLastMonth(String amount) {
     return 'الشهر الماضي: $amount';
+  }
+
+  @override
+  String walkItem(int minutes) {
+    return 'مشي $minutes دقائق';
   }
 
   @override

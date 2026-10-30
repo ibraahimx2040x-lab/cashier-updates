@@ -152,6 +152,17 @@
     }
   },
   "agreePrefix": "I agree to the ",
+  "aiAppointmentNoTime": "No time given: set for 9:00, change it after",
+  "aiAppointmentReady": "“{title}” is ready to add to your health appointments.",
+  "@aiAppointmentReady": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "aiAppointmentTitle": "Doctor appointment",
+  "aiAppointmentWhen": "When is it? For example: “doctor appointment on Thursday at 10”.",
   "aiAskAmPm": "Do you mean {hour} in the morning or in the evening?",
   "@aiAskAmPm": {
     "placeholders": {
@@ -185,6 +196,17 @@
   "aiExample3": "Plan my day",
   "aiExecFailed": "I couldn't apply that. Nothing was changed.",
   "aiFailed": "Something went wrong and I couldn't answer. Your message is kept — try again.",
+  "aiFoodToday": "Today: about {kcal} kcal and {water} ml of water.",
+  "@aiFoodToday": {
+    "placeholders": {
+      "kcal": {
+        "type": "int"
+      },
+      "water": {
+        "type": "int"
+      }
+    }
+  },
   "aiFreeTime": "You have {minutes} min. These tasks fit:",
   "@aiFreeTime": {
     "placeholders": {
@@ -312,6 +334,7 @@
   "aiNoGymToday": "Today isn't a gym day in your plan, so there's nothing to replace.",
   "aiNoOverdue": "You have no overdue tasks. 🎉",
   "aiNoSlotToday": "There's no free slot left today; tomorrow is fine — the path waits for you.",
+  "aiNoStepsYet": "No steps recorded today yet.",
   "aiNoteEmpty": "What should the note say?",
   "aiNoteReady": "I'll save this note.",
   "aiOverdueSummary": "You have {total} overdue tasks. I can fit {today} today; {tomorrow} would move to tomorrow.",
@@ -353,6 +376,7 @@
       }
     }
   },
+  "aiReasonAppointment": "You mentioned an appointment",
   "aiReasonGoal": "You asked for a learning goal with regular practice.",
   "aiReasonHabit": "You said you completed “{name}”.",
   "@aiReasonHabit": {
@@ -374,6 +398,7 @@
     }
   },
   "aiReasonTask": "You asked to add a task.",
+  "aiReasonWater": "You asked to log water",
   "aiRefused": "I can't help with that request. Try asking in a different way.",
   "aiReviewFirst": "Start with a quick review of {n} words — it helps more than skipping ahead.",
   "@aiReviewFirst": {
@@ -452,6 +477,31 @@
       }
     }
   },
+  "aiStepsGoalMet": "{steps} steps today: your goal of {goal} is reached.",
+  "@aiStepsGoalMet": {
+    "placeholders": {
+      "steps": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      }
+    }
+  },
+  "aiStepsToday": "{steps} steps today, {left} to your goal of {goal}.",
+  "@aiStepsToday": {
+    "placeholders": {
+      "steps": {
+        "type": "int"
+      },
+      "goal": {
+        "type": "int"
+      },
+      "left": {
+        "type": "int"
+      }
+    }
+  },
   "aiTaskNoTitle": "What's the task? For example: “Add task review English tomorrow at 8 pm”.",
   "aiTaskReady": "I'll create the task “{title}”.",
   "@aiTaskReady": {
@@ -463,6 +513,14 @@
   },
   "aiTimeInPast": "That time has already passed.",
   "aiUnsupported": "I can't do that yet. I can plan your day, sort overdue tasks, add tasks or notes, log habits, break a goal into milestones, or review your week.",
+  "aiWaterLogged": "Logging {ml} ml of water for today.",
+  "@aiWaterLogged": {
+    "placeholders": {
+      "ml": {
+        "type": "int"
+      }
+    }
+  },
   "allCategories": "All categories",
   "allDoneToday": "You've finished everything planned for today.",
   "allMilestonesDone": "All milestones are done. Mark the goal as completed?",
@@ -1359,6 +1417,9 @@
   "healthSections": "Health sections",
   "healthSectionsNote": "Sections marked “coming soon” are saved now and appear when they're ready.",
   "healthSetup": "Health setup",
+  "healthSharing": "Health",
+  "healthSharingSub": "Summaries only. Measurements and the cycle are off until you turn them on.",
+  "healthThisPeriod": "Health",
   "heartDaysN": "{n, plural, =1{heart rate on 1 day} other{heart rate on {n} days}}",
   "@heartDaysN": {
     "placeholders": {
@@ -2301,11 +2362,44 @@
   "reorder": "Reorder",
   "reorderHint": "Drag to change the order; times are recalculated.",
   "repeatDays": "Days",
+  "reportFood": "Food logged on {days} days, about {kcal} kcal a day",
+  "@reportFood": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "kcal": {
+        "type": "String"
+      }
+    }
+  },
   "reportNoData": "Not enough data for this period yet.",
   "reportPrivacy": "Your chats, notes and expenses are never included in reports.",
   "reportProblem": "Report a problem",
   "reportProblemSub": "Describe what happened",
   "reportSaved": "Report saved. It will be sent when the support service is connected.",
+  "reportSleep": "Slept {avg} on average ({nights} nights recorded)",
+  "@reportSleep": {
+    "placeholders": {
+      "avg": {
+        "type": "String"
+      },
+      "nights": {
+        "type": "int"
+      }
+    }
+  },
+  "reportStepGoal": "Step goal reached {days} of {total} days",
+  "@reportStepGoal": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
   "repsLabel": "Reps",
   "repsN": "{n} reps",
   "@repsN": {
@@ -2457,8 +2551,13 @@
   "sexLabel": "Sex",
   "sexMale": "Male",
   "sexWhy": "Used only to tailor the health sections. You can change it from your profile.",
+  "shareActivitySub": "Steps and active minutes of the last 7 days",
+  "shareCycleSub": "Not used by the assistant yet; stays private",
   "shareNotesSub": "Off by default",
+  "shareNutritionSub": "Daily food totals and water, no photos",
+  "shareSleepSub": "Sleep length and how rested you felt",
   "shareSub": "Used to plan and summarize",
+  "shareVitalsSub": "Weight, blood pressure and other measurements",
   "showActive": "Show active",
   "showArchived": "Show archived",
   "showCompleted": "Show completed & archived",
@@ -2724,12 +2823,14 @@
     }
   },
   "tomorrow": "Tomorrow",
+  "toolAddAppointment": "Add health appointment",
   "toolAddMilestones": "Add milestones",
   "toolAddNote": "Add note",
   "toolCreateGoal": "Create goal",
   "toolCreateTask": "Create task",
   "toolDeleteTask": "Delete task",
   "toolLogHabit": "Log habit",
+  "toolLogWater": "Log water",
   "toolMoveTask": "Change deadline",
   "toolPlanTask": "Set planned time",
   "topPriorities": "Top priorities",
@@ -2814,6 +2915,14 @@
     "placeholders": {
       "amount": {
         "type": "String"
+      }
+    }
+  },
+  "walkItem": "A {minutes}-minute walk",
+  "@walkItem": {
+    "placeholders": {
+      "minutes": {
+        "type": "int"
       }
     }
   },

@@ -52,6 +52,10 @@ CallDescription describeCall(ToolCall c, AppData d, AppLocalizations l, Fmt fmt)
       ]);
     case Tools.deleteTask:
       return CallDescription(l.toolName(c.tool), task?.title ?? '?', const []);
+    case Tools.logWater:
+      return CallDescription(l.toolName(c.tool), l.waterMl('${a['ml']}'), [ChangeLine(l.date, day(a['day'] as String?))]);
+    case Tools.addAppointment:
+      return CallDescription(l.toolName(c.tool), a['title'] as String, [ChangeLine(l.date, dt(a['at'] as String?))]);
     case Tools.addMilestones:
       return CallDescription(l.toolName(c.tool), d.goal(a['goalId'] as String?)?.title ?? '?', [
         for (final t in (a['titles'] as List).cast<String>()) ChangeLine(l.milestone, t),

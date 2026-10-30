@@ -560,6 +560,30 @@ abstract class AppLocalizations {
   /// **'I agree to the '**
   String get agreePrefix;
 
+  /// No description provided for @aiAppointmentNoTime.
+  ///
+  /// In en, this message translates to:
+  /// **'No time given: set for 9:00, change it after'**
+  String get aiAppointmentNoTime;
+
+  /// No description provided for @aiAppointmentReady.
+  ///
+  /// In en, this message translates to:
+  /// **'“{title}” is ready to add to your health appointments.'**
+  String aiAppointmentReady(String title);
+
+  /// No description provided for @aiAppointmentTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Doctor appointment'**
+  String get aiAppointmentTitle;
+
+  /// No description provided for @aiAppointmentWhen.
+  ///
+  /// In en, this message translates to:
+  /// **'When is it? For example: “doctor appointment on Thursday at 10”.'**
+  String get aiAppointmentWhen;
+
   /// No description provided for @aiAskAmPm.
   ///
   /// In en, this message translates to:
@@ -673,6 +697,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Something went wrong and I couldn\'t answer. Your message is kept — try again.'**
   String get aiFailed;
+
+  /// No description provided for @aiFoodToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Today: about {kcal} kcal and {water} ml of water.'**
+  String aiFoodToday(int kcal, int water);
 
   /// No description provided for @aiFreeTime.
   ///
@@ -818,6 +848,12 @@ abstract class AppLocalizations {
   /// **'There\'s no free slot left today; tomorrow is fine — the path waits for you.'**
   String get aiNoSlotToday;
 
+  /// No description provided for @aiNoStepsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No steps recorded today yet.'**
+  String get aiNoStepsYet;
+
   /// No description provided for @aiNoteEmpty.
   ///
   /// In en, this message translates to:
@@ -866,6 +902,12 @@ abstract class AppLocalizations {
   /// **'{n} tasks don\'t fit today — consider moving them or shortening them.'**
   String aiPlanUnscheduled(int n);
 
+  /// No description provided for @aiReasonAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'You mentioned an appointment'**
+  String get aiReasonAppointment;
+
   /// No description provided for @aiReasonGoal.
   ///
   /// In en, this message translates to:
@@ -907,6 +949,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You asked to add a task.'**
   String get aiReasonTask;
+
+  /// No description provided for @aiReasonWater.
+  ///
+  /// In en, this message translates to:
+  /// **'You asked to log water'**
+  String get aiReasonWater;
 
   /// No description provided for @aiRefused.
   ///
@@ -968,6 +1016,18 @@ abstract class AppLocalizations {
   /// **'Here\'s a suggested breakdown for “{title}”.'**
   String aiSplitReady(String title);
 
+  /// No description provided for @aiStepsGoalMet.
+  ///
+  /// In en, this message translates to:
+  /// **'{steps} steps today: your goal of {goal} is reached.'**
+  String aiStepsGoalMet(int steps, int goal);
+
+  /// No description provided for @aiStepsToday.
+  ///
+  /// In en, this message translates to:
+  /// **'{steps} steps today, {left} to your goal of {goal}.'**
+  String aiStepsToday(int steps, int goal, int left);
+
   /// No description provided for @aiTaskNoTitle.
   ///
   /// In en, this message translates to:
@@ -991,6 +1051,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'I can\'t do that yet. I can plan your day, sort overdue tasks, add tasks or notes, log habits, break a goal into milestones, or review your week.'**
   String get aiUnsupported;
+
+  /// No description provided for @aiWaterLogged.
+  ///
+  /// In en, this message translates to:
+  /// **'Logging {ml} ml of water for today.'**
+  String aiWaterLogged(int ml);
 
   /// No description provided for @allCategories.
   ///
@@ -4064,6 +4130,24 @@ abstract class AppLocalizations {
   /// **'Health setup'**
   String get healthSetup;
 
+  /// No description provided for @healthSharing.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get healthSharing;
+
+  /// No description provided for @healthSharingSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Summaries only. Measurements and the cycle are off until you turn them on.'**
+  String get healthSharingSub;
+
+  /// No description provided for @healthThisPeriod.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get healthThisPeriod;
+
   /// No description provided for @heartDaysN.
   ///
   /// In en, this message translates to:
@@ -6986,6 +7070,12 @@ abstract class AppLocalizations {
   /// **'Days'**
   String get repeatDays;
 
+  /// No description provided for @reportFood.
+  ///
+  /// In en, this message translates to:
+  /// **'Food logged on {days} days, about {kcal} kcal a day'**
+  String reportFood(int days, String kcal);
+
   /// No description provided for @reportNoData.
   ///
   /// In en, this message translates to:
@@ -7015,6 +7105,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Report saved. It will be sent when the support service is connected.'**
   String get reportSaved;
+
+  /// No description provided for @reportSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Slept {avg} on average ({nights} nights recorded)'**
+  String reportSleep(String avg, int nights);
+
+  /// No description provided for @reportStepGoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Step goal reached {days} of {total} days'**
+  String reportStepGoal(int days, int total);
 
   /// No description provided for @repsLabel.
   ///
@@ -7406,17 +7508,47 @@ abstract class AppLocalizations {
   /// **'Used only to tailor the health sections. You can change it from your profile.'**
   String get sexWhy;
 
+  /// No description provided for @shareActivitySub.
+  ///
+  /// In en, this message translates to:
+  /// **'Steps and active minutes of the last 7 days'**
+  String get shareActivitySub;
+
+  /// No description provided for @shareCycleSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Not used by the assistant yet; stays private'**
+  String get shareCycleSub;
+
   /// No description provided for @shareNotesSub.
   ///
   /// In en, this message translates to:
   /// **'Off by default'**
   String get shareNotesSub;
 
+  /// No description provided for @shareNutritionSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Daily food totals and water, no photos'**
+  String get shareNutritionSub;
+
+  /// No description provided for @shareSleepSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Sleep length and how rested you felt'**
+  String get shareSleepSub;
+
   /// No description provided for @shareSub.
   ///
   /// In en, this message translates to:
   /// **'Used to plan and summarize'**
   String get shareSub;
+
+  /// No description provided for @shareVitalsSub.
+  ///
+  /// In en, this message translates to:
+  /// **'Weight, blood pressure and other measurements'**
+  String get shareVitalsSub;
 
   /// No description provided for @showActive.
   ///
@@ -8180,6 +8312,12 @@ abstract class AppLocalizations {
   /// **'Tomorrow'**
   String get tomorrow;
 
+  /// No description provided for @toolAddAppointment.
+  ///
+  /// In en, this message translates to:
+  /// **'Add health appointment'**
+  String get toolAddAppointment;
+
   /// No description provided for @toolAddMilestones.
   ///
   /// In en, this message translates to:
@@ -8215,6 +8353,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Log habit'**
   String get toolLogHabit;
+
+  /// No description provided for @toolLogWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Log water'**
+  String get toolLogWater;
 
   /// No description provided for @toolMoveTask.
   ///
@@ -8425,6 +8569,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Last month: {amount}'**
   String vsLastMonth(String amount);
+
+  /// No description provided for @walkItem.
+  ///
+  /// In en, this message translates to:
+  /// **'A {minutes}-minute walk'**
+  String walkItem(int minutes);
 
   /// No description provided for @warnBleeding.
   ///

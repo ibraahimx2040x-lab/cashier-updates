@@ -16,6 +16,8 @@ abstract final class Tools {
   static const createGoal = 'create_goal';
   static const addMilestones = 'add_milestones';
   static const deleteTask = 'delete_task';
+  static const logWater = 'log_water';
+  static const addAppointment = 'add_appointment';
 
   static const all = {
     createTask,
@@ -26,6 +28,8 @@ abstract final class Tools {
     createGoal,
     addMilestones,
     deleteTask,
+    logWater,
+    addAppointment,
   };
 }
 
@@ -47,6 +51,10 @@ class ToolPolicy {
         return perms.autoAddNotes ? Tier.autoAllowed : Tier.approvalRequired;
       case Tools.logHabit:
         return perms.autoLogHabits ? Tier.autoAllowed : Tier.approvalRequired;
+      // The user asked for exactly this; it's a glass of water and can be
+      // taken back with one tap.
+      case Tools.logWater:
+        return Tier.autoAllowed;
       case Tools.planTask:
       case Tools.moveTask:
         return perms.approveReschedule ? Tier.approvalRequired : Tier.autoAllowed;
@@ -123,6 +131,15 @@ String? validateCall(ToolCall c, AppData data) {
       final ms = a['titles'];
       if (ms is! List || ms.isEmpty || ms.any((e) => e is! String)) return 'titles';
       return null;
+    case Tools.logWater:
+      if (!isDay('day') || !isInt('ml', min: 50, max: 1000) || a['ml'] == null) return 'ml';
+      if (a['day'] != null && (a['day'] as String).compareTo(dayKey(DateTime.now())) > 0) return 'day';
+      return null;
+    case Tools.addAppointment:
+      if (!isStr('title') || (a['title'] as String).length > 120) return 'title';
+      final at = DateTime.tryParse('${a['at']}');
+      if (at == null) return 'at';
+      return null;
     case Tools.deleteTask:
       if (!ownsTask('taskId')) return 'taskId';
       return null;
@@ -139,6 +156,8 @@ const _allowedArgs = <String, Set<String>>{
   Tools.createGoal: {'title', 'category', 'targetDate', 'milestones', 'tasks', 'why'},
   Tools.addMilestones: {'goalId', 'titles'},
   Tools.deleteTask: {'taskId'},
+  Tools.logWater: {'day', 'ml'},
+  Tools.addAppointment: {'title', 'at'},
 };
 
 /// Record ids a call depends on, for staleness checks.

@@ -33,6 +33,11 @@ class AssistantPermissions {
     this.shareExpenses = false,
     this.shareFitness = true,
     this.shareLearning = true,
+    this.shareActivity = true,
+    this.shareNutrition = true,
+    this.shareSleep = true,
+    this.shareVitals = false,
+    this.shareCycle = false,
     this.retentionDays = 90,
   });
 
@@ -56,6 +61,14 @@ class AssistantPermissions {
   final bool shareFitness;
   final bool shareLearning;
 
+  // Health (spec 6): activity, food totals and sleep are shared by default;
+  // measurements and the cycle only when the user turns them on.
+  final bool shareActivity;
+  final bool shareNutrition;
+  final bool shareSleep;
+  final bool shareVitals;
+  final bool shareCycle;
+
   /// Conversation retention; 0 = keep until deleted.
   final int retentionDays;
 
@@ -74,6 +87,11 @@ class AssistantPermissions {
     bool? shareExpenses,
     bool? shareFitness,
     bool? shareLearning,
+    bool? shareActivity,
+    bool? shareNutrition,
+    bool? shareSleep,
+    bool? shareVitals,
+    bool? shareCycle,
     int? retentionDays,
   }) =>
       AssistantPermissions(
@@ -91,6 +109,11 @@ class AssistantPermissions {
         shareExpenses: shareExpenses ?? this.shareExpenses,
         shareFitness: shareFitness ?? this.shareFitness,
         shareLearning: shareLearning ?? this.shareLearning,
+        shareActivity: shareActivity ?? this.shareActivity,
+        shareNutrition: shareNutrition ?? this.shareNutrition,
+        shareSleep: shareSleep ?? this.shareSleep,
+        shareVitals: shareVitals ?? this.shareVitals,
+        shareCycle: shareCycle ?? this.shareCycle,
         retentionDays: retentionDays ?? this.retentionDays,
       );
 
@@ -109,6 +132,11 @@ class AssistantPermissions {
         'shareExpenses': shareExpenses,
         'shareFitness': shareFitness,
         'shareLearning': shareLearning,
+        'shareActivity': shareActivity,
+        'shareNutrition': shareNutrition,
+        'shareSleep': shareSleep,
+        'shareVitals': shareVitals,
+        'shareCycle': shareCycle,
         'retentionDays': retentionDays,
       };
 
@@ -130,6 +158,11 @@ class AssistantPermissions {
       shareExpenses: b('shareExpenses', d.shareExpenses),
       shareFitness: b('shareFitness', d.shareFitness),
       shareLearning: b('shareLearning', d.shareLearning),
+      shareActivity: b('shareActivity', d.shareActivity),
+      shareNutrition: b('shareNutrition', d.shareNutrition),
+      shareSleep: b('shareSleep', d.shareSleep),
+      shareVitals: b('shareVitals', d.shareVitals),
+      shareCycle: b('shareCycle', d.shareCycle),
       retentionDays: (j['retentionDays'] as int?) ?? d.retentionDays,
     );
   }
