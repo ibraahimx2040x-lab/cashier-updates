@@ -362,6 +362,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get aiChipSplitGoal => 'Help me break down my goal';
 
   @override
+  String get aiCloudOffline =>
+      'The smart assistant can\'t be reached right now, so only simple requests work (add a task, a note, water, plan the day). Try again in a moment.';
+
+  @override
   String aiConflictWith(String title) {
     return 'This overlaps with “$title”.';
   }
@@ -541,6 +545,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String aiPlanUnscheduled(int n) {
     return '$n tasks don\'t fit today — consider moving them or shortening them.';
   }
+
+  @override
+  String get aiProposalReady => 'Here\'s what I\'ll do. Review it and approve.';
 
   @override
   String get aiReasonAppointment => 'You mentioned an appointment';
@@ -738,6 +745,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get amount => 'Amount';
+
+  @override
+  String get amountLabel => 'Amount';
 
   @override
   String get and => 'and';
@@ -2358,6 +2368,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get fgVegetables => 'Vegetables';
+
+  @override
+  String get fieldTitle => 'Title';
 
   @override
   String get filterAll => 'All';
@@ -4244,6 +4257,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get placeHome => 'Home';
 
   @override
+  String get placeLabel => 'Place';
+
+  @override
   String get placementExplain =>
       'Your start level is the middle of your three skill levels. You can retake the test any time.';
 
@@ -4707,6 +4723,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get repeatMonthlySub => 'Recorded on this day each month';
+
+  @override
+  String get repeatsOn => 'Repeats';
 
   @override
   String reportFood(int days, String kcal) {
@@ -5325,6 +5344,12 @@ class AppLocalizationsEn extends AppLocalizations {
   String get switchToVariableTitle => 'Switch to variable income?';
 
   @override
+  String get switchedOff => 'Off';
+
+  @override
+  String get switchedOn => 'On';
+
+  @override
   String get syAcne => 'Acne';
 
   @override
@@ -5614,16 +5639,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toolAddAppointment => 'Add health appointment';
 
   @override
+  String get toolAddExpense => 'Add expense';
+
+  @override
+  String get toolAddIncome => 'Add income';
+
+  @override
+  String get toolAddMeasurement => 'Record measurement';
+
+  @override
   String get toolAddMilestones => 'Add milestones';
 
   @override
   String get toolAddNote => 'Add note';
 
   @override
+  String get toolAddRecurring => 'Monthly item';
+
+  @override
+  String get toolCreateAlarm => 'Set alarm';
+
+  @override
+  String get toolCreateEvent => 'Add to calendar';
+
+  @override
   String get toolCreateGoal => 'Create goal';
 
   @override
+  String get toolCreateHabit => 'New habit';
+
+  @override
   String get toolCreateTask => 'Create task';
+
+  @override
+  String get toolDeleteAlarm => 'Delete alarm';
+
+  @override
+  String get toolDeleteEvent => 'Delete event';
 
   @override
   String get toolDeleteTask => 'Delete task';
@@ -5632,13 +5684,37 @@ class AppLocalizationsEn extends AppLocalizations {
   String get toolLogHabit => 'Log habit';
 
   @override
+  String get toolLogSleep => 'Log sleep';
+
+  @override
   String get toolLogWater => 'Log water';
 
   @override
   String get toolMoveTask => 'Change deadline';
 
   @override
+  String get toolOpenScreen => 'Open screen';
+
+  @override
   String get toolPlanTask => 'Set planned time';
+
+  @override
+  String get toolSetBudget => 'Set budget';
+
+  @override
+  String get toolSetGoalStatus => 'Change goal status';
+
+  @override
+  String get toolSetNotifications => 'Notifications';
+
+  @override
+  String get toolSetWeeklyLessons => 'Weekly lessons';
+
+  @override
+  String get toolSetWorkoutPlan => 'Workout plan';
+
+  @override
+  String get toolUpdateTask => 'Edit task';
 
   @override
   String get topPriorities => 'Top priorities';

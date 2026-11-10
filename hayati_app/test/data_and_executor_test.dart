@@ -158,10 +158,14 @@ void main() {
       final c = await signedInContainer();
       final d = c.read(dataProvider.notifier);
       d.saveHabit(Habit(id: 'h', name: 'Read', weekdays: {1, 2, 3, 4, 5, 6, 7}, startDate: '2026-03-01'));
-      final r = AssistantExecutor(d, () => fixedNow).run(const [
-        ToolCall(Tools.createTask, {'title': 'A'}),
-        // Valid by schema, but the data layer refuses future habit logs.
-        ToolCall(Tools.logHabit, {'habitId': 'h', 'day': '2027-01-01'}),
+      final r = AssistantExecutor(d, () => fixedNow).run([
+        const ToolCall(Tools.createTask, {'title': 'A'}),
+        ToolCall(Tools.logHabit, {'habitId': 'h', 'day': dayKey(fixedNow)}),
+        // Valid by schema, but the data layer refuses sleep that ends in the future.
+        ToolCall(Tools.logSleep, {
+          'start': encodeInstant(fixedNow.add(const Duration(hours: 1))),
+          'end': encodeInstant(fixedNow.add(const Duration(hours: 9))),
+        }),
       ]);
       expect(r.outcome, ExecOutcome.failed);
       expect(c.read(dataProvider).tasks, isEmpty);

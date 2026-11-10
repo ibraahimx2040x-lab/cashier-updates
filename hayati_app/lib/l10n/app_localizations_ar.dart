@@ -366,6 +366,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get aiChipSplitGoal => 'ساعدني في تقسيم هدفي';
 
   @override
+  String get aiCloudOffline =>
+      'المساعد الذكي مو متصل الحين، فأقدر أسوي الطلبات البسيطة بس (مهمة، ملاحظة، ماء، تخطيط اليوم). جرّب بعد شوي.';
+
+  @override
   String aiConflictWith(String title) {
     return 'هذا يتعارض مع «$title».';
   }
@@ -543,6 +547,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String aiPlanUnscheduled(int n) {
     return '$n مهام لا تتسع اليوم، فكّر في نقلها أو تقليل مدتها.';
   }
+
+  @override
+  String get aiProposalReady => 'هذا اللي بسويه. راجعه ووافق.';
 
   @override
   String get aiReasonAppointment => 'ذكرت موعد';
@@ -739,6 +746,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get amount => 'المبلغ';
+
+  @override
+  String get amountLabel => 'المبلغ';
 
   @override
   String get and => 'و';
@@ -2361,6 +2371,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get fgVegetables => 'الخضار';
+
+  @override
+  String get fieldTitle => 'العنوان';
 
   @override
   String get filterAll => 'الكل';
@@ -4239,6 +4252,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get placeHome => 'المنزل';
 
   @override
+  String get placeLabel => 'المكان';
+
+  @override
   String get placementExplain =>
       'مستوى البداية هو الأوسط بين مستويات مهاراتك الثلاث. يمكنك إعادة الاختبار في أي وقت.';
 
@@ -4702,6 +4718,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get repeatMonthlySub => 'ينسجل بنفس اليوم كل شهر';
+
+  @override
+  String get repeatsOn => 'يتكرر';
 
   @override
   String reportFood(int days, String kcal) {
@@ -5326,6 +5345,12 @@ class AppLocalizationsAr extends AppLocalizations {
   String get switchToVariableTitle => 'تحوّل للدخل المتغير؟';
 
   @override
+  String get switchedOff => 'إيقاف';
+
+  @override
+  String get switchedOn => 'تشغيل';
+
+  @override
   String get syAcne => 'حبوب';
 
   @override
@@ -5624,16 +5649,43 @@ class AppLocalizationsAr extends AppLocalizations {
   String get toolAddAppointment => 'إضافة موعد صحي';
 
   @override
+  String get toolAddExpense => 'إضافة مصروف';
+
+  @override
+  String get toolAddIncome => 'إضافة دخل';
+
+  @override
+  String get toolAddMeasurement => 'تسجيل قياس';
+
+  @override
   String get toolAddMilestones => 'إضافة مراحل';
 
   @override
   String get toolAddNote => 'إضافة ملاحظة';
 
   @override
+  String get toolAddRecurring => 'بند شهري';
+
+  @override
+  String get toolCreateAlarm => 'ضبط منبه';
+
+  @override
+  String get toolCreateEvent => 'إضافة موعد للتقويم';
+
+  @override
   String get toolCreateGoal => 'إنشاء هدف';
 
   @override
+  String get toolCreateHabit => 'عادة جديدة';
+
+  @override
   String get toolCreateTask => 'إنشاء مهمة';
+
+  @override
+  String get toolDeleteAlarm => 'حذف منبه';
+
+  @override
+  String get toolDeleteEvent => 'حذف موعد';
 
   @override
   String get toolDeleteTask => 'حذف مهمة';
@@ -5642,13 +5694,37 @@ class AppLocalizationsAr extends AppLocalizations {
   String get toolLogHabit => 'تسجيل عادة';
 
   @override
+  String get toolLogSleep => 'تسجيل نوم';
+
+  @override
   String get toolLogWater => 'تسجيل ماء';
 
   @override
   String get toolMoveTask => 'تغيير الموعد النهائي';
 
   @override
+  String get toolOpenScreen => 'فتح صفحة';
+
+  @override
   String get toolPlanTask => 'تحديد وقت العمل';
+
+  @override
+  String get toolSetBudget => 'تحديد ميزانية';
+
+  @override
+  String get toolSetGoalStatus => 'تغيير حالة هدف';
+
+  @override
+  String get toolSetNotifications => 'الإشعارات';
+
+  @override
+  String get toolSetWeeklyLessons => 'الدروس الأسبوعية';
+
+  @override
+  String get toolSetWorkoutPlan => 'جدول التمارين';
+
+  @override
+  String get toolUpdateTask => 'تعديل مهمة';
 
   @override
   String get topPriorities => 'الأولويات الثلاث';

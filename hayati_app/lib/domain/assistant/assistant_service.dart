@@ -11,6 +11,7 @@ import '../../data/data_controller.dart';
 import '../../data/models/assistant.dart';
 import '../../data/remote/sync.dart';
 import '../../l10n/app_localizations.dart';
+import 'catalog.dart';
 import 'engine.dart';
 import 'executor.dart';
 import 'tools.dart';
@@ -20,12 +21,15 @@ import 'tools.dart';
 const freeAssistantDailyLimit = 30;
 
 class AssistantUiState {
-  const AssistantUiState({this.busy = false, this.suggestions = const [], this.failedDraft});
+  const AssistantUiState({this.busy = false, this.suggestions = const [], this.failedDraft, this.openRoute});
   final bool busy;
   final List<String> suggestions;
 
   /// The user's text when sending failed, so it can be retried.
   final String? failedDraft;
+
+  /// A screen the assistant was asked to open; the chat screen pushes it.
+  final ({String route, int nonce})? openRoute;
 }
 
 class AssistantService extends Notifier<AssistantUiState> {
@@ -68,9 +72,11 @@ class AssistantService extends Notifier<AssistantUiState> {
     // the server enforces limits and executes. If it can't be reached the
     // on-device assistant answers instead.
     final client = ref.read(supabaseClientProvider);
+    var cloudFailed = false;
     if (client != null && client.auth.currentSession != null && settings.assistant.enabled) {
       final done = await _sendRemote(client, convId, trimmed, l, gen);
       if (done || gen != _generation) return convId;
+      cloudFailed = true;
     }
 
     // Keeps the "thinking" state visible and the UI responsive.
@@ -79,7 +85,9 @@ class AssistantService extends Notifier<AssistantUiState> {
 
     try {
       final now = _clock();
-      final reply = LocalAssistantEngine(l).respond(trimmed, AssistantContext(ref.read(dataProvider), perms), now);
+      var reply = LocalAssistantEngine(l).respond(trimmed, AssistantContext(ref.read(dataProvider), perms), now);
+      // Say why the answer is limited instead of a flat "can't".
+      if (cloudFailed && reply.text == l.aiUnsupported) reply = EngineReply(l.aiCloudOffline, kind: MessageKind.info);
       _handle(convId, reply, l);
       state = AssistantUiState(suggestions: reply.suggestions);
     } catch (_) {
@@ -89,10 +97,34 @@ class AssistantService extends Notifier<AssistantUiState> {
     return convId;
   }
 
+  int _nonce = 0;
+
   void _handle(String convId, EngineReply reply, AppLocalizations l) {
     final perms = ref.read(dataProvider).settings.assistant;
+    // Opening a screen needs no approval; it happens after the reply.
+    final open = reply.calls.where((c) => c.tool == Tools.openScreen).lastOrNull;
+    if (open != null) {
+      final route = assistantScreens[open.args['screen']];
+      if (route != null) state = AssistantUiState(suggestions: state.suggestions, openRoute: (route: route, nonce: ++_nonce));
+      reply = EngineReply(reply.text,
+          kind: reply.kind,
+          calls: [for (final c in reply.calls) if (c.tool != Tools.openScreen) c],
+          reason: reply.reason,
+          warnings: reply.warnings,
+          suggestions: reply.suggestions);
+    }
     if (reply.calls.isEmpty) {
       _data.addMessage(convId, MessageRole.assistant, reply.text, kind: reply.kind);
+      return;
+    }
+    // A call the device can't apply means the model misread the data:
+    // say so rather than show a proposal that would fail.
+    final d0 = ref.read(dataProvider);
+    final bad = [for (final c in reply.calls) if (validateCall(c, d0) case final e?) '${c.tool}:$e'];
+    if (bad.isNotEmpty) {
+      debugPrint('assistant proposal rejected: $bad');
+      _data.addMessage(convId, MessageRole.assistant, reply.text.isEmpty ? l.aiExecFailed : '${reply.text}\n${l.aiExecFailed}',
+          kind: MessageKind.error);
       return;
     }
     if (reply.kind == MessageKind.plan && !perms.autoDraftPlans) {
@@ -151,6 +183,8 @@ class AssistantService extends Notifier<AssistantUiState> {
         'now': encodeInstant(_clock()),
         'timeZone': ?await _timeZone(),
         'locale': l.localeName,
+        'context': assistantContext(ref.read(dataProvider), l.localeName, _clock()),
+        'tools': toolDeclarations,
       }).timeout(const Duration(seconds: 90));
       r = (res.data as Map).cast<String, Object?>();
     } on FunctionException catch (e) {
@@ -180,6 +214,20 @@ class AssistantService extends Notifier<AssistantUiState> {
         .map((c) => ToolCall.fromJson((c as Map).cast<String, Object?>()))
         .toList();
     final actionId = r['actionId'] as String?;
+
+    // Cloud model (v4): it only proposes; the device validates and applies.
+    if (r['executor'] == 'device' && kind != 'error') {
+      if (reply.isEmpty && calls.isEmpty) return false;
+      final hasPlan = calls.where((c) => c.tool == Tools.planTask || c.tool == Tools.moveTask).length > 1;
+      _handle(
+        convId,
+        EngineReply(reply.isEmpty ? l.aiProposalReady : reply,
+            kind: hasPlan ? MessageKind.plan : MessageKind.text, calls: [for (final c in calls) compactCall(c)], reason: reply),
+        l,
+      );
+      if (state.busy) state = AssistantUiState(openRoute: state.openRoute);
+      return true;
+    }
 
     if (kind == 'error' || (actionId == null && reply.isEmpty)) {
       final msg = r['error'] == 'refusal' ? l.aiRefused : l.aiFailed;

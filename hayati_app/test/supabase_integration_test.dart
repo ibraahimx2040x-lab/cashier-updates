@@ -5,7 +5,7 @@
 //     flutter test test/supabase_integration_test.dart
 //
 // The cloud assistant test also needs the Edge Function served against a
-// fake Messages API (see supabase/README.md) and ASSISTANT_TEST=1.
+// fake Gemini API (see supabase/README.md) and ASSISTANT_TEST=1.
 import 'dart:io';
 import 'dart:math';
 
@@ -652,7 +652,7 @@ void main() {
     expect(client.auth.currentSession, isNull);
   }, skip: skip);
 
-  test('cloud assistant: proposals run on the server only after approval', () async {
+  test('cloud assistant: the model proposes, the device applies after approval and syncs', () async {
     final a = Device.create();
     addTearDown(a.dispose);
     await a.open();
@@ -662,28 +662,30 @@ void main() {
     final l = lookupAppLocalizations(const Locale('ar'));
     final svc = a.c.read(assistantProvider.notifier);
 
-    // The fake model answers "أضف" with a create_task call.
+    // The fake model answers "أضف" with create_task and an unknown tool
+    // (filtered by the server), and "خطط" with plan_task on that task.
+    a.data.updateSettings((s) => s.copyWith(assistant: const AssistantPermissions(autoCreateTasks: false)));
     final conv = await svc.send(null, 'أضف مهمة مراجعة', l);
     final p = a.data.snapshot.proposals.single;
-    expect(p.remote, isTrue);
+    expect(p.remote, isFalse);
     expect(p.status, ProposalStatus.pending);
     expect(p.calls.single.tool, 'create_task');
     expect(a.data.snapshot.tasks, isEmpty, reason: 'nothing changes before approval');
 
     final r = await svc.approve(p.id);
     expect(r.outcome, ExecOutcome.executed);
-    expect(r.count, 1);
-    await a.settle();
     expect(a.data.snapshot.tasks.single.title, 'مراجعة');
     expect((await svc.approve(p.id)).outcome, ExecOutcome.alreadyExecuted);
+    await a.c.read(syncProvider.notifier).sync();
+    final rows = await a.client.from('tasks').select('title');
+    expect(rows.single['title'], 'مراجعة', reason: 'the approved change syncs like any edit');
 
-    // "plan" → plan_task on the task the server knows about; rejected.
-    await svc.send(conv, 'plan it', l);
+    // The model saw the task in the context the app sent, and plans it.
+    await svc.send(conv, 'خطط لها', l);
     final plan = a.data.snapshot.proposals.firstWhere((x) => x.id != p.id);
     expect(plan.calls.single.args['taskId'], a.data.snapshot.tasks.single.id);
     await svc.reject(plan.id);
     expect(a.data.snapshot.proposal(plan.id)!.status, ProposalStatus.rejected);
-    final row = await a.client.from('assistant_actions').select('status').eq('id', plan.remoteId!).single();
-    expect(row['status'], 'rejected');
+    expect(a.data.snapshot.tasks.single.plannedStart, isNull);
   }, skip: skip ?? (Platform.environment['ASSISTANT_TEST'] == '1' ? null : 'set ASSISTANT_TEST=1 with the function served'));
 }

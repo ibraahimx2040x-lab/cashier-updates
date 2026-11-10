@@ -668,6 +668,12 @@ abstract class AppLocalizations {
   /// **'Help me break down my goal'**
   String get aiChipSplitGoal;
 
+  /// No description provided for @aiCloudOffline.
+  ///
+  /// In en, this message translates to:
+  /// **'The smart assistant can\'t be reached right now, so only simple requests work (add a task, a note, water, plan the day). Try again in a moment.'**
+  String get aiCloudOffline;
+
   /// No description provided for @aiConflictWith.
   ///
   /// In en, this message translates to:
@@ -931,6 +937,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{n} tasks don\'t fit today — consider moving them or shortening them.'**
   String aiPlanUnscheduled(int n);
+
+  /// No description provided for @aiProposalReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s what I\'ll do. Review it and approve.'**
+  String get aiProposalReady;
 
   /// No description provided for @aiReasonAppointment.
   ///
@@ -1243,6 +1255,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Amount'**
   String get amount;
+
+  /// No description provided for @amountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Amount'**
+  String get amountLabel;
 
   /// No description provided for @and.
   ///
@@ -3985,6 +4003,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Vegetables'**
   String get fgVegetables;
+
+  /// No description provided for @fieldTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Title'**
+  String get fieldTitle;
 
   /// No description provided for @filterAll.
   ///
@@ -7316,6 +7340,12 @@ abstract class AppLocalizations {
   /// **'Home'**
   String get placeHome;
 
+  /// No description provided for @placeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Place'**
+  String get placeLabel;
+
   /// No description provided for @placementExplain.
   ///
   /// In en, this message translates to:
@@ -8125,6 +8155,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recorded on this day each month'**
   String get repeatMonthlySub;
+
+  /// No description provided for @repeatsOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeats'**
+  String get repeatsOn;
 
   /// No description provided for @reportFood.
   ///
@@ -9164,6 +9200,18 @@ abstract class AppLocalizations {
   /// **'Switch to variable income?'**
   String get switchToVariableTitle;
 
+  /// No description provided for @switchedOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Off'**
+  String get switchedOff;
+
+  /// No description provided for @switchedOn.
+  ///
+  /// In en, this message translates to:
+  /// **'On'**
+  String get switchedOn;
+
   /// No description provided for @syAcne.
   ///
   /// In en, this message translates to:
@@ -9650,6 +9698,24 @@ abstract class AppLocalizations {
   /// **'Add health appointment'**
   String get toolAddAppointment;
 
+  /// No description provided for @toolAddExpense.
+  ///
+  /// In en, this message translates to:
+  /// **'Add expense'**
+  String get toolAddExpense;
+
+  /// No description provided for @toolAddIncome.
+  ///
+  /// In en, this message translates to:
+  /// **'Add income'**
+  String get toolAddIncome;
+
+  /// No description provided for @toolAddMeasurement.
+  ///
+  /// In en, this message translates to:
+  /// **'Record measurement'**
+  String get toolAddMeasurement;
+
   /// No description provided for @toolAddMilestones.
   ///
   /// In en, this message translates to:
@@ -9662,17 +9728,53 @@ abstract class AppLocalizations {
   /// **'Add note'**
   String get toolAddNote;
 
+  /// No description provided for @toolAddRecurring.
+  ///
+  /// In en, this message translates to:
+  /// **'Monthly item'**
+  String get toolAddRecurring;
+
+  /// No description provided for @toolCreateAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Set alarm'**
+  String get toolCreateAlarm;
+
+  /// No description provided for @toolCreateEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to calendar'**
+  String get toolCreateEvent;
+
   /// No description provided for @toolCreateGoal.
   ///
   /// In en, this message translates to:
   /// **'Create goal'**
   String get toolCreateGoal;
 
+  /// No description provided for @toolCreateHabit.
+  ///
+  /// In en, this message translates to:
+  /// **'New habit'**
+  String get toolCreateHabit;
+
   /// No description provided for @toolCreateTask.
   ///
   /// In en, this message translates to:
   /// **'Create task'**
   String get toolCreateTask;
+
+  /// No description provided for @toolDeleteAlarm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete alarm'**
+  String get toolDeleteAlarm;
+
+  /// No description provided for @toolDeleteEvent.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete event'**
+  String get toolDeleteEvent;
 
   /// No description provided for @toolDeleteTask.
   ///
@@ -9686,6 +9788,12 @@ abstract class AppLocalizations {
   /// **'Log habit'**
   String get toolLogHabit;
 
+  /// No description provided for @toolLogSleep.
+  ///
+  /// In en, this message translates to:
+  /// **'Log sleep'**
+  String get toolLogSleep;
+
   /// No description provided for @toolLogWater.
   ///
   /// In en, this message translates to:
@@ -9698,11 +9806,53 @@ abstract class AppLocalizations {
   /// **'Change deadline'**
   String get toolMoveTask;
 
+  /// No description provided for @toolOpenScreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Open screen'**
+  String get toolOpenScreen;
+
   /// No description provided for @toolPlanTask.
   ///
   /// In en, this message translates to:
   /// **'Set planned time'**
   String get toolPlanTask;
+
+  /// No description provided for @toolSetBudget.
+  ///
+  /// In en, this message translates to:
+  /// **'Set budget'**
+  String get toolSetBudget;
+
+  /// No description provided for @toolSetGoalStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Change goal status'**
+  String get toolSetGoalStatus;
+
+  /// No description provided for @toolSetNotifications.
+  ///
+  /// In en, this message translates to:
+  /// **'Notifications'**
+  String get toolSetNotifications;
+
+  /// No description provided for @toolSetWeeklyLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekly lessons'**
+  String get toolSetWeeklyLessons;
+
+  /// No description provided for @toolSetWorkoutPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Workout plan'**
+  String get toolSetWorkoutPlan;
+
+  /// No description provided for @toolUpdateTask.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit task'**
+  String get toolUpdateTask;
 
   /// No description provided for @topPriorities.
   ///
