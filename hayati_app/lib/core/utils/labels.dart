@@ -246,6 +246,17 @@ extension Labels on AppLocalizations {
         CycleMood.anxious => moodAnxious,
       };
 
+  String notifySection(NotifySection x) => switch (x) {
+        NotifySection.tasks => notifSectionTasks,
+        NotifySection.events => notifSectionEvents,
+        NotifySection.habits => notifSectionHabits,
+        NotifySection.goals => notifSectionGoals,
+        NotifySection.fitness => notifSectionFitness,
+        NotifySection.water => notifSectionWater,
+        NotifySection.learning => notifSectionLearning,
+        NotifySection.money => notifSectionMoney,
+      };
+
   String metricKind(MetricKind k) => switch (k) {
         MetricKind.weight => mkWeight,
         MetricKind.waist => mkWaist,
@@ -378,6 +389,23 @@ extension Labels on AppLocalizations {
         'delete_task' => toolDeleteTask,
         'log_water' => toolLogWater,
         'add_appointment' => toolAddAppointment,
+        'update_task' => toolUpdateTask,
+        'create_event' => toolCreateEvent,
+        'delete_event' => toolDeleteEvent,
+        'create_alarm' => toolCreateAlarm,
+        'delete_alarm' => toolDeleteAlarm,
+        'set_goal_status' => toolSetGoalStatus,
+        'create_habit' => toolCreateHabit,
+        'add_expense' => toolAddExpense,
+        'add_income' => toolAddIncome,
+        'add_recurring' => toolAddRecurring,
+        'set_budget' => toolSetBudget,
+        'add_measurement' => toolAddMeasurement,
+        'log_sleep' => toolLogSleep,
+        'set_workout_plan' => toolSetWorkoutPlan,
+        'set_weekly_lessons' => toolSetWeeklyLessons,
+        'set_notifications' => toolSetNotifications,
+        'open_screen' => toolOpenScreen,
         _ => tool,
       };
 

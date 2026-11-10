@@ -114,6 +114,10 @@ class _AssistantScreenState extends ConsumerState<AssistantScreen> {
     final l = AppLocalizations.of(context);
     final d = ref.watch(dataProvider);
     final ui = ref.watch(assistantProvider);
+    ref.listen(assistantProvider, (prev, next) {
+      final r = next.openRoute;
+      if (r != null && r != prev?.openRoute) context.push(r.route);
+    });
     final perms = d.settings.assistant;
     if (_conversationId != null && !d.conversations.any((c) => c.id == _conversationId)) _conversationId = null;
     final messages = d.messages.where((m) => m.conversationId == _conversationId).toList().reversed.toList();

@@ -25,14 +25,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install PostgreSQL 16
+      # The distribution's own PostgreSQL (16 on Ubuntu 24.04, newer on
+      # 26.04): the version-pinned package disappears when the runner image
+      # moves on.
+      - name: Install PostgreSQL
         run: |
           sudo apt-get update
-          sudo apt-get install -y postgresql-16
+          sudo apt-get install -y postgresql
       - name: Migration + RLS tests
         run: |
           sudo cp -r supabase /tmp/supabase && sudo chown -R postgres /tmp/supabase
-          sudo -u postgres PG_BIN=/usr/lib/postgresql/16/bin /tmp/supabase/tests/run.sh
+          bin=$(ls -d /usr/lib/postgresql/*/bin | sort -V | tail -1)
+          sudo -u postgres PG_BIN="$bin" /tmp/supabase/tests/run.sh
 
   integration:
     # Starts a real local Supabase (auth + REST + Postgres) and runs the
