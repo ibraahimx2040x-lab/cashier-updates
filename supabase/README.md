@@ -1,7 +1,7 @@
 # Hayati backend (Supabase)
 
 - `migrations/` — PostgreSQL schema, constraints, indexes, Row Level Security, and the assistant functions (`apply_assistant_action`, `consume_assistant_request`, …).
-- `functions/assistant/` — Edge Function that sends the user's message, the *shared* data the app passes in, and the app's tool list to Gemini (`gemini-2.5-flash`, override with `GEMINI_MODEL`), and returns the reply and the proposed tool calls. It applies nothing: the app validates each call against the user's own records, asks for approval (unless the user allowed that kind of change), applies it on the device and syncs it under RLS.
+- `functions/assistant/` — Edge Function that sends the user's message, the *shared* data the app passes in, and the app's tool list to Gemini (the newest stable Flash model the key can use, picked from Google's model list; pin one with `GEMINI_MODEL`), and returns the reply and the proposed tool calls. It applies nothing: the app validates each call against the user's own records, asks for approval (unless the user allowed that kind of change), applies it on the device and syncs it under RLS.
 - `tests/` — runs the migration on a throwaway PostgreSQL with a stub `auth` schema and checks RLS isolation between two users, ownership-safe links, atomic rollback, run-once execution, stale-proposal refusal and the daily limit.
 
 ```bash
