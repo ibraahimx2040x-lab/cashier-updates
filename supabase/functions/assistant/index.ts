@@ -17,9 +17,11 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-// GEMINI_MODEL pins a model; otherwise the newest stable Flash model the key
-// can use is picked from Google's list (named models get retired).
-let model: string | null = Deno.env.get("GEMINI_MODEL") ?? null;
+// Models to try, best first: GEMINI_MODEL if set, then the stable Flash
+// models the key can use, newest first, then their Lite versions. Named
+// models get retired and the free tier is sometimes overloaded, so a
+// request moves down the list on 404/429/5xx.
+let models: string[] | null = null;
 // Overridable only for local tests against a fake server.
 const GEMINI_URL = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com";
 const DAILY_LIMIT = { free: 30, pro: 300 } as const;
@@ -157,21 +159,20 @@ async function chat(db: SupabaseClient, body: Body) {
     toolConfig: { functionCallingConfig: { mode: "AUTO" } },
     generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
   });
-  const call = async () =>
-    fetch(`${GEMINI_URL}/v1beta/models/${await pickModel(key)}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: request,
-      signal: AbortSignal.timeout(80_000),
-    });
-  let res: Response;
+  let res!: Response;
   try {
-    res = await call();
-    // The model was retired: pick again from the current list, once.
-    if (res.status === 404 && !Deno.env.get("GEMINI_MODEL")) {
-      console.error("gemini model gone", model, (await res.text()).slice(0, 300));
-      model = null;
-      res = await call();
+    const candidates = await pickModels(key);
+    for (const [i, m] of candidates.slice(0, 4).entries()) {
+      res = await fetch(`${GEMINI_URL}/v1beta/models/${m}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: request,
+        signal: AbortSignal.timeout(60_000),
+      });
+      if (res.ok || !(res.status === 404 || res.status === 429 || res.status >= 500) || i === Math.min(candidates.length, 4) - 1) break;
+      console.error("gemini", m, res.status, (await res.text()).slice(0, 200));
+      if (res.status === 404) models = models?.filter((x) => x !== m) ?? null;
+      await new Promise((r) => setTimeout(r, 400));
     }
   } catch (e) {
     console.error("gemini fetch failed", String(e));
@@ -209,29 +210,32 @@ async function chat(db: SupabaseClient, body: Body) {
   return json({ conversationId, kind: "text", reply, calls, executor: "device" });
 }
 
-/** Newest stable "gemini-<version>-flash" that supports generateContent. */
-async function pickModel(key: string): Promise<string> {
-  if (model) return model;
+/** Stable Flash models that support generateContent, newest first, then Lite. */
+async function pickModels(key: string): Promise<string[]> {
+  const pinned = Deno.env.get("GEMINI_MODEL");
+  if (models && models.length > 0) return models;
+  let found: string[] = [];
   try {
     const res = await fetch(`${GEMINI_URL}/v1beta/models?pageSize=1000`, {
       headers: { "x-goog-api-key": key },
       signal: AbortSignal.timeout(10_000),
     });
     const list = (await res.json()).models as { name: string; supportedGenerationMethods?: string[] }[] | undefined;
-    let best: [number, string] | null = null;
+    const ranked: [number, number, string][] = [];
     for (const m of list ?? []) {
       const id = m.name.replace(/^models\//, "");
-      const v = /^gemini-(\d+(?:\.\d+)?)-flash$/.exec(id);
+      const v = /^gemini-(\d+(?:\.\d+)?)-flash(-lite)?$/.exec(id);
       if (!v || !m.supportedGenerationMethods?.includes("generateContent")) continue;
-      if (!best || Number(v[1]) > best[0]) best = [Number(v[1]), id];
+      ranked.push([v[2] ? 1 : 0, -Number(v[1]), id]);
     }
-    model = best?.[1] ?? "gemini-flash-latest";
+    ranked.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    found = ranked.map((r) => r[2]);
   } catch (e) {
     console.error("gemini model list failed", String(e));
-    return "gemini-flash-latest";
   }
-  console.log("gemini model", model);
-  return model;
+  models = [...new Set([...(pinned ? [pinned] : []), ...found, "gemini-flash-latest"])];
+  console.log("gemini models", models.join(","));
+  return models;
 }
 
 /** The app's tool list: names and JSON shapes only, size-capped. */
