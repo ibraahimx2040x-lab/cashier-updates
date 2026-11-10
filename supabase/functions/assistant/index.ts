@@ -17,7 +17,11 @@
 
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 
-const MODEL = Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash";
+// Models to try, best first: GEMINI_MODEL if set, then the stable Flash
+// models the key can use, newest first, then their Lite versions. Named
+// models get retired and the free tier is sometimes overloaded, so a
+// request moves down the list on 404/429/5xx.
+let models: string[] | null = null;
 // Overridable only for local tests against a fake server.
 const GEMINI_URL = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com";
 const DAILY_LIMIT = { free: 30, pro: 300 } as const;
@@ -148,20 +152,28 @@ async function chat(db: SupabaseClient, body: Body) {
     ],
   });
 
-  let res: Response;
+  const request = JSON.stringify({
+    systemInstruction: { parts: [{ text: SYSTEM }] },
+    contents,
+    tools: [{ functionDeclarations: tools }],
+    toolConfig: { functionCallingConfig: { mode: "AUTO" } },
+    generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
+  });
+  let res!: Response;
   try {
-    res = await fetch(`${GEMINI_URL}/v1beta/models/${MODEL}:generateContent`, {
-      method: "POST",
-      headers: { "Content-Type": "application/json", "x-goog-api-key": key },
-      body: JSON.stringify({
-        systemInstruction: { parts: [{ text: SYSTEM }] },
-        contents,
-        tools: [{ functionDeclarations: tools }],
-        toolConfig: { functionCallingConfig: { mode: "AUTO" } },
-        generationConfig: { temperature: 0.3, maxOutputTokens: 8192 },
-      }),
-      signal: AbortSignal.timeout(80_000),
-    });
+    const candidates = await pickModels(key);
+    for (const [i, m] of candidates.slice(0, 4).entries()) {
+      res = await fetch(`${GEMINI_URL}/v1beta/models/${m}:generateContent`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "x-goog-api-key": key },
+        body: request,
+        signal: AbortSignal.timeout(60_000),
+      });
+      if (res.ok || !(res.status === 404 || res.status === 429 || res.status >= 500) || i === Math.min(candidates.length, 4) - 1) break;
+      console.error("gemini", m, res.status, (await res.text()).slice(0, 200));
+      if (res.status === 404) models = models?.filter((x) => x !== m) ?? null;
+      await new Promise((r) => setTimeout(r, 400));
+    }
   } catch (e) {
     console.error("gemini fetch failed", String(e));
     await saveReply(db, conversationId!, "error", "provider_error");
@@ -196,6 +208,34 @@ async function chat(db: SupabaseClient, body: Body) {
 
   await saveReply(db, conversationId!, calls.length ? "proposal" : "text", reply || (calls.length ? "…" : ""));
   return json({ conversationId, kind: "text", reply, calls, executor: "device" });
+}
+
+/** Stable Flash models that support generateContent, newest first, then Lite. */
+async function pickModels(key: string): Promise<string[]> {
+  const pinned = Deno.env.get("GEMINI_MODEL");
+  if (models && models.length > 0) return models;
+  let found: string[] = [];
+  try {
+    const res = await fetch(`${GEMINI_URL}/v1beta/models?pageSize=1000`, {
+      headers: { "x-goog-api-key": key },
+      signal: AbortSignal.timeout(10_000),
+    });
+    const list = (await res.json()).models as { name: string; supportedGenerationMethods?: string[] }[] | undefined;
+    const ranked: [number, number, string][] = [];
+    for (const m of list ?? []) {
+      const id = m.name.replace(/^models\//, "");
+      const v = /^gemini-(\d+(?:\.\d+)?)-flash(-lite)?$/.exec(id);
+      if (!v || !m.supportedGenerationMethods?.includes("generateContent")) continue;
+      ranked.push([v[2] ? 1 : 0, -Number(v[1]), id]);
+    }
+    ranked.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+    found = ranked.map((r) => r[2]);
+  } catch (e) {
+    console.error("gemini model list failed", String(e));
+  }
+  models = [...new Set([...(pinned ? [pinned] : []), ...found, "gemini-flash-latest"])];
+  console.log("gemini models", models.join(","));
+  return models;
 }
 
 /** The app's tool list: names and JSON shapes only, size-capped. */
