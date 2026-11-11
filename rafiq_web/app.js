@@ -38,7 +38,7 @@
     ar: {
       brand: "رفيق", discover: "اكتشف", chats: "المحادثات", create: "اصنع", me: "حسابي",
       search: "ابحث عن شخصية…", featured: "شخصية مميزة", startChat: "ابدأ المحادثة", continueChat: "كمّل المحادثة",
-      famous: "شخصيات أنمي مشهورة", originals: "شخصيات رفيق الأصلية", fanNote: "شخصيات من أعمال مشهورة، كتبها المعجبون للتسلية. الحقوق لأصحابها.",
+      famous: "شخصيات أنمي وكرتون مشهورة", originals: "شخصيات رفيق الأصلية", fanNote: "شخصيات من أعمال مشهورة، كتبها المعجبون للتسلية. الحقوق لأصحابها.",
       forYou: "شخصيات لك", mine: "شخصياتي", noResults: "ما لقينا شخصية بهذا الاسم", yours: "لك",
       firstMessage: "أول رسالة", edit: "تعديل", close: "إغلاق",
       typeMessage: "اكتب رسالة…", send: "إرسال", action: "أضف حركة بين نجمتين", regenerate: "رد ثاني", copy: "نسخ", copied: "تم النسخ",
@@ -68,7 +68,7 @@
       hairStyle: "الشعر", expression: "التعبير", outfitStyle: "اللبس", accessory: "إكسسوار",
       hairColor: "لون الشعر", eyeColor: "لون العيون", skinColor: "لون البشرة", outfitColor: "لون اللبس", background: "الخلفية",
       look: {
-        bald: "أصلع", strawhat: "قبعة قش", ninjaband: "عصابة نينجا", blindfold: "عصابة عين", scarf: "وشاح",
+        bald: "أصلع", cap: "كاب", strawhat: "قبعة قش", ninjaband: "عصابة نينجا", blindfold: "عصابة عين", scarf: "وشاح",
         short: "قصير", spiky: "منفوش", long: "طويل", bob: "بوب", ponytail: "ذيل حصان", hijab: "حجاب",
         smile: "مبتسم", grin: "ضحكة", calm: "هادي", stern: "جاد", shy: "خجول", happy: "فرحان", cat: "شقي",
         shirt: "قميص", hoodie: "هودي", coat: "معطف", kimono: "كيمونو", dress: "فستان", jacket: "جاكيت",
@@ -78,7 +78,7 @@
     en: {
       brand: "Rafiq", discover: "Discover", chats: "Chats", create: "Create", me: "Me",
       search: "Search characters…", featured: "Featured", startChat: "Start chat", continueChat: "Continue chat",
-      famous: "Famous anime characters", originals: "Rafiq originals", fanNote: "Fan-made role-play of characters from well-known works. All rights belong to their creators.",
+      famous: "Famous anime & cartoon characters", originals: "Rafiq originals", fanNote: "Fan-made role-play of characters from well-known works. All rights belong to their creators.",
       forYou: "For you", mine: "My characters", noResults: "No characters match that", yours: "Yours",
       firstMessage: "First message", edit: "Edit", close: "Close",
       typeMessage: "Type a message…", send: "Send", action: "Add an *action*", regenerate: "Regenerate", copy: "Copy", copied: "Copied",
@@ -108,7 +108,7 @@
       hairStyle: "Hair", expression: "Expression", outfitStyle: "Outfit", accessory: "Accessory",
       hairColor: "Hair colour", eyeColor: "Eye colour", skinColor: "Skin tone", outfitColor: "Outfit colour", background: "Background",
       look: {
-        bald: "Bald", strawhat: "Straw hat", ninjaband: "Ninja headband", blindfold: "Blindfold", scarf: "Scarf",
+        bald: "Bald", cap: "Cap", strawhat: "Straw hat", ninjaband: "Ninja headband", blindfold: "Blindfold", scarf: "Scarf",
         short: "Short", spiky: "Spiky", long: "Long", bob: "Bob", ponytail: "Ponytail", hijab: "Hijab",
         smile: "Smile", grin: "Grin", calm: "Calm", stern: "Serious", shy: "Shy", happy: "Happy", cat: "Playful",
         shirt: "Shirt", hoodie: "Hoodie", coat: "Coat", kimono: "Kimono", dress: "Dress", jacket: "Jacket",
@@ -463,7 +463,7 @@
           method: "POST",
           headers: { "Content-Type": "application/json", apikey: window.RAFIQ_CONFIG.apiKey },
           body: JSON.stringify({
-            character: { name: loc(c.name), appearance: c.portrait ? window.Portrait.describe(c.portrait) : "", scenario: c.scenario || "" },
+            character: { name: loc(c.name), appearance: c.look || (c.portrait ? window.Portrait.describe(c.portrait) : ""), scenario: c.scenario || "" },
             reference,
             scene: actions,
             message: text,

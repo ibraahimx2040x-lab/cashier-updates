@@ -21,7 +21,7 @@
   const EYES = ["#6b3f2a", "#3a6ea5", "#2f9e6e", "#8a5cf6", "#d94a6a", "#d99a2b", "#22b8d6", "#c0392b", "#555c70"];
   const STYLES = ["short", "spiky", "long", "bob", "ponytail", "hijab", "bald"];
   const OUTFITS = ["shirt", "hoodie", "coat", "kimono", "dress", "jacket"];
-  const ACCESSORIES = ["none", "glasses", "headband", "hairclip", "fedora", "pirate", "horns", "headset", "flower", "strawhat", "ninjaband", "blindfold", "scarf"];
+  const ACCESSORIES = ["none", "glasses", "headband", "hairclip", "fedora", "pirate", "horns", "headset", "flower", "strawhat", "ninjaband", "blindfold", "scarf", "cap"];
   const EXPRESSIONS = ["smile", "grin", "calm", "stern", "shy", "happy", "cat"];
 
   // ------------------------------------------------------------ geometry
@@ -173,6 +173,8 @@
       return "";
     }
     switch (a) {
+      case "cap":
+        return `<path d="M64,66 C62,30 138,30 136,66 Z" fill="#d6283a"/><path d="M86,38 Q100,33 114,38 L116,64 L84,64 Z" fill="#f4f1f8"/><path d="M93,46 Q100,42 107,46 L106,56 Q100,58 94,56 Z" fill="#2fa36b"/><ellipse cx="100" cy="66" rx="44" ry="7" fill="#b51f30"/><path d="M60,64 Q100,58 140,64" fill="none" stroke="#8f1520" stroke-width="1.5"/>`;
       case "strawhat":
         return `<ellipse cx="100" cy="62" rx="66" ry="13" fill="#e8c56a"/><ellipse cx="100" cy="62" rx="66" ry="13" fill="none" stroke="#c9a24a" stroke-width="1.5"/><path d="M68,62 C68,30 132,30 132,62 Z" fill="#f0d27c"/><path d="M68,54 C90,58 110,58 132,54 L132,62 C110,66 90,66 68,62 Z" fill="#d6283a"/><path d="M80,40 Q100,34 120,40" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity=".7"/>`;
       case "ninjaband":
@@ -304,7 +306,7 @@
       return names[h.toLowerCase()] || `colour ${h}`;
     };
     const hair = o.hairStyle === "bald" ? "completely bald head" : o.hairStyle === "hijab" ? `wears a hijab (headscarf, colour ${o.hair}) covering the hair` : `${o.hairStyle === "spiky" ? "spiky" : o.hairStyle === "ponytail" ? "ponytail" : o.hairStyle} ${name(o.hair)} hair`;
-    const acc = { none: "", glasses: "round glasses", headband: "a red sports headband", hairclip: "a small hair clip", fedora: "a dark detective fedora", pirate: "a black pirate tricorn hat", horns: "small ivory dragon horns", headset: "a futuristic white headset", flower: "a pink flower in the hair", strawhat: "a straw hat with a red band", ninjaband: "a blue ninja forehead protector with a metal plate", blindfold: "a black blindfold over the eyes", scarf: "a red scarf around the neck" }[o.accessory];
+    const acc = { none: "", glasses: "round glasses", headband: "a red sports headband", hairclip: "a small hair clip", fedora: "a dark detective fedora", pirate: "a black pirate tricorn hat", horns: "small ivory dragon horns", headset: "a futuristic white headset", flower: "a pink flower in the hair", strawhat: "a straw hat with a red band", cap: "a red and white baseball cap", ninjaband: "a blue ninja forehead protector with a metal plate", blindfold: "a black blindfold over the eyes", scarf: "a red scarf around the neck" }[o.accessory];
     return [hair, `${name(o.eyes)} eyes`, `skin tone ${o.skin}`, `wearing a ${o.outfitStyle} (colour ${o.outfit})`, acc, o.ghost ? "a translucent, pale ghost" : "", o.scar ? "a small scar on the cheek" : ""].filter(Boolean).join(", ");
   }
 
