@@ -23,6 +23,14 @@
   <script src="portraits.js"></script>
   <script src="characters.js"></script>
   <script src="famous.js"></script>
+  <script src="images/manifest.js"></script>
+  <script>
+    // Pictures in images/ (listed by images/manifest.js) replace the drawn portraits for every visitor.
+    for (const c of [...(window.FAMOUS_CHARACTERS || []), ...(window.SEED_CHARACTERS || [])]) {
+      const url = (window.CHARACTER_IMAGES || {})[c.id];
+      if (url) c.avatar = { ...(c.avatar || {}), image: url };
+    }
+  </script>
   <script src="app.js"></script>
 </body>
 </html>

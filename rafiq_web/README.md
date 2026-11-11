@@ -37,3 +37,16 @@ supabase functions deploy character-scene --no-verify-jwt
 supabase secrets set ALLOWED_ORIGIN=https://ibraahimx2040x-lab.github.io,http://localhost:8080
 ```
 وينشر GitHub Pages الموقع على `https://ibraahimx2040x-lab.github.io/cashier-updates/rafiq/` عند الدمج في `main`.
+
+## صور الشخصيات
+
+أي صورة تحطها في مجلد `rafiq_web/images/` باسم الشخصية (مثل `naruto.webp` أو `luffy.jpg`) تطلع بدل الرسمة لكل الزوار. خطوة النشر تبني قائمة الصور (`images/manifest.js`) تلقائيًا.
+الصيغ المقبولة: jpg و png و webp. الأفضل صورة طولية (٤:٥) حجمها أقل من ٢٠٠ كيلوبايت.
+
+لتوليد الصور بالذكاء الاصطناعي (يحتاج تفعيل الدفع على مفتاح Gemini):
+```sh
+node rafiq_web/tools/generate-images.mjs          # كل الشخصيات اللي ما لها صورة
+node rafiq_web/tools/generate-images.mjs naruto   # شخصية معيّنة (يستبدل صورتها)
+```
+
+أسماء الملفات: `naruto` ناروتو أوزوماكي، `luffy` مونكي دي لوفي، `zoro` رورونوا زورو، `goku` غوكو، `vegeta` فيجيتا، `conan` المحقق كونان، `majed` كابتن ماجد، `duke` دايسكي (دوق فليد)، `gojo` غوجو ساتورو، `tanjiro` تانجيرو كامادو، `levi` ليفاي أكرمان، `mikasa` ميكاسا أكرمان، `light` لايت ياغامي، `l` إل، `killua` كيلوا زولديك، `saitama` سايتاما، `hinata` هيناتا هيوغا، `nami` نامي، `eren` إيرين ييغر، `sasuke` ساسكي أوتشيها، `itachi` إيتاتشي أوتشيها، `kakashi` كاكاشي هاتاكي، `ash` آش (ساتوشي)، `deku` ديكو (إيزوكو ميدوريا)، `edward` إدوارد إلريك، `anya` آنيا فورجر، `shinchan` شين تشان، `usagi` أوساغي (بحار القمر)، `doraemon` دورايمون، `chopper` تشوبر، `pikachu` بيكاتشو، `adnan` عدنان، `sally` سالي، `heidi` هايدي، `spongebob` سبونج بوب، `patrick` باتريك، `tom` توم، `jerry` جيري، `scooby` سكوبي دو، `lyan` ليان، `sahm` القبطان سهم، `noor` د. نور، `kai` كاي، `rakan` المحقق راكان، `zephyr` زفير، `echo` إيكو، `hessa` الجدة حصة، `fahd` الكابتن فهد، `mira` ميرا
