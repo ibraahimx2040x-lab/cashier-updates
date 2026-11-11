@@ -1,7 +1,8 @@
 name: Web app (GitHub Pages)
 
 # Publishes the Flutter web build, connected to the project's Supabase,
-# at https://ibraahimx2040x-lab.github.io/cashier-updates/.
+# at https://ibraahimx2040x-lab.github.io/cashier-updates/,
+# and the Rafiq website (rafiq_web/) at .../cashier-updates/rafiq/.
 # The publishable key is safe to ship (every table is protected by RLS).
 
 on:
@@ -36,6 +37,8 @@ jobs:
           --base-href /cashier-updates/
           --dart-define=SUPABASE_URL=https://ldptcpbqbgarypzplbwy.supabase.co
           --dart-define=SUPABASE_ANON_KEY=sb_publishable_gxM3jE1D_xIAjgChGATTXg_HQp3knyD
+      # The Rafiq character-chat website, served at /cashier-updates/rafiq/.
+      - run: cp -r ../rafiq_web build/web/rafiq
       - uses: actions/upload-pages-artifact@v3
         with:
           path: hayati_app/build/web
