@@ -28,6 +28,7 @@
   );
   let custom = store.get("custom", []);
   let chats = store.get("chats", {});
+  let pictures = store.get("pictures", {}); // character id → picture the visitor chose
 
   const saveSettings = () => store.set("settings", settings);
   const saveCustom = () => store.set("custom", custom);
@@ -38,7 +39,8 @@
     ar: {
       brand: "رفيق", discover: "اكتشف", chats: "المحادثات", create: "اصنع", me: "حسابي",
       search: "ابحث عن شخصية…", featured: "شخصية مميزة", startChat: "ابدأ المحادثة", continueChat: "كمّل المحادثة",
-      famous: "شخصيات أنمي وكرتون مشهورة", originals: "شخصيات رفيق الأصلية", fanNote: "شخصيات من أعمال مشهورة، كتبها المعجبون للتسلية. الحقوق لأصحابها.",
+      famous: "شخصيات أنمي وكرتون مشهورة", exploreTab: "استكشاف", famousTab: "المشهورة",
+      changePicture: "غيّر الصورة", resetPicture: "رجّع الصورة الأصلية", originals: "شخصيات رفيق الأصلية", fanNote: "شخصيات من أعمال مشهورة، كتبها المعجبون للتسلية. الحقوق لأصحابها.",
       forYou: "شخصيات لك", mine: "شخصياتي", noResults: "ما لقينا شخصية بهذا الاسم", yours: "لك",
       firstMessage: "أول رسالة", edit: "تعديل", close: "إغلاق",
       typeMessage: "اكتب رسالة…", send: "إرسال", action: "أضف حركة بين نجمتين", regenerate: "رد ثاني", copy: "نسخ", copied: "تم النسخ",
@@ -78,7 +80,8 @@
     en: {
       brand: "Rafiq", discover: "Discover", chats: "Chats", create: "Create", me: "Me",
       search: "Search characters…", featured: "Featured", startChat: "Start chat", continueChat: "Continue chat",
-      famous: "Famous anime & cartoon characters", originals: "Rafiq originals", fanNote: "Fan-made role-play of characters from well-known works. All rights belong to their creators.",
+      famous: "Famous anime & cartoon characters", exploreTab: "Explore", famousTab: "Famous",
+      changePicture: "Change picture", resetPicture: "Restore original", originals: "Rafiq originals", fanNote: "Fan-made role-play of characters from well-known works. All rights belong to their creators.",
       forYou: "For you", mine: "My characters", noResults: "No characters match that", yours: "Yours",
       firstMessage: "First message", edit: "Edit", close: "Close",
       typeMessage: "Type a message…", send: "Send", action: "Add an *action*", regenerate: "Regenerate", copy: "Copy", copied: "Copied",
@@ -175,8 +178,8 @@
   const allCharacters = () => [...custom, ...window.FAMOUS_CHARACTERS, ...window.SEED_CHARACTERS];
   const findChar = (id) => allCharacters().find((c) => c.id === id);
 
-  const hueOf = (c) => (c.portrait && !c.avatar?.image ? window.Portrait.normalize(c.portrait).bg : c.avatar?.hue ?? 260);
-  const imageOf = (c) => c.avatar?.image || (c.portrait ? window.Portrait.url(c.portrait) : "");
+  const hueOf = (c) => (c.portrait && !c.avatar?.image && !pictures[c.id] ? window.Portrait.normalize(c.portrait).bg : c.avatar?.hue ?? 260);
+  const imageOf = (c) => pictures[c.id] || c.avatar?.image || (c.portrait ? window.Portrait.url(c.portrait) : "");
 
   function avatar(c, size) {
     const a = c.avatar || {};
@@ -210,59 +213,53 @@
   const ui = { category: "all", query: "" };
 
   function viewDiscover() {
-    const seeds = window.SEED_CHARACTERS;
-    const famous = window.FAMOUS_CHARACTERS;
-    const day = Math.floor(Date.now() / 86400000);
-    const feat = famous[day % famous.length];
-    const hasChat = (c) => chats[c.id]?.messages?.length;
+    const all = [...custom, ...window.FAMOUS_CHARACTERS, ...window.SEED_CHARACTERS];
+    const tabs = [
+      { id: "all", label: tr("exploreTab") },
+      { id: "famous", label: "🔥 " + tr("famousTab") },
+      ...window.CATEGORIES.filter((k) => k.id !== "all").map((k) => ({ id: k.id, label: `${k.icon} ${k[settings.lang]}` })),
+    ];
+    const catName = (id) => window.CATEGORIES.find((k) => k.id === id)?.[settings.lang];
 
     $("#view").innerHTML = `
-      <div class="page">
-        <div class="topbar"><h1>${tr("discover")}</h1></div>
+      <div class="page discover">
         <label class="search">${icon("search")}<input id="q" type="search" placeholder="${tr("search")}" value="${esc(ui.query)}" autocomplete="off"></label>
-        <div class="chips" role="tablist">
-          ${window.CATEGORIES.map((k) => `<button class="chip ${ui.category === k.id ? "active" : ""}" data-cat="${k.id}" role="tab" aria-selected="${ui.category === k.id}">${k.icon} ${esc(k[settings.lang])}</button>`).join("")}
+        <div class="tabs" role="tablist">
+          ${tabs.map((t) => `<button class="tab ${ui.category === t.id ? "active" : ""}" data-cat="${t.id}" role="tab" aria-selected="${ui.category === t.id}">${esc(t.label)}</button>`).join("")}
         </div>
-        <div id="feat-wrap"></div>
         <div id="results"></div>
       </div>`;
 
-    const featHTML = `
-      <section class="featured" style="--h:${hueOf(feat)}">
-        <div class="big-emoji">${coverInner(feat)}</div>
-        <div class="info">
-          <div class="kicker">✨ ${tr("featured")} · ${esc(loc(feat.show))}</div>
-          <h2>${esc(loc(feat.name))}</h2>
-          <p>${esc(loc(feat.tagline))}</p>
-          <button class="btn" data-open="${feat.id}">${hasChat(feat) ? tr("continueChat") : tr("startChat")}</button>
-        </div>
-      </section>`;
+    // Uneven cover heights give the grid its staggered look; stable per character.
+    const ratios = ["1 / 1", "4 / 5", "3 / 4", "5 / 6"];
+    const ratioOf = (id) => ratios[[...id].reduce((a, ch) => a + ch.charCodeAt(0), 0) % ratios.length];
 
-    const card = (c) => `
-      <button class="card" data-open="${esc(c.id)}">
-        <div class="cover" style="--h:${hueOf(c)}">${coverInner(c)}</div>
-        <div class="body">
-          <div class="name">${esc(loc(c.name))}${c.custom ? `<span class="badge">${tr("yours")}</span>` : ""}</div>
-          ${c.show ? `<div class="show">${esc(loc(c.show))}</div>` : ""}
-          <div class="tag">${esc(loc(c.tagline))}</div>
+    const card = (c) => {
+      const count = chats[c.id]?.messages?.length || 0;
+      const tags = [c.custom ? tr("yours") : catName(c.category), c.show ? loc(c.show) : null].filter(Boolean);
+      return `
+      <button class="mcard" data-open="${esc(c.id)}">
+        <div class="mcover" style="--h:${hueOf(c)};aspect-ratio:${ratioOf(c.id)}">
+          ${coverInner(c)}
+          ${count ? `<span class="count">${icon("chat")}${count.toLocaleString(settings.lang)}</span>` : ""}
+        </div>
+        <div class="mbody">
+          <div class="mtitle">${esc(loc(c.name))}</div>
+          <div class="mdesc">${esc(loc(c.tagline))}</div>
+          <div class="mtags">${tags.map((t) => `<span>${esc(t)}</span>`).join("")}</div>
         </div>
       </button>`;
+    };
 
     const draw = () => {
       const q = ui.query.trim().toLowerCase();
-      const match = (c) =>
-        (ui.category === "all" || c.category === ui.category) &&
-        (!q || [c.name, c.tagline, c.show].some((f) => (typeof f === "object" ? Object.values(f).join(" ") : f || "").toLowerCase().includes(q)));
-      const mine = custom.filter(match);
-      const list = seeds.filter(match);
-      const fam = famous.filter(match);
-      $("#feat-wrap").innerHTML = !q && ui.category === "all" ? featHTML : "";
-      let html = "";
-      if (mine.length) html += `<div class="section-title">🎨 ${tr("mine")}</div><div class="grid">${mine.map(card).join("")}</div>`;
-      if (fam.length) html += `<div class="section-title">🔥 ${tr("famous")}</div><div class="grid">${fam.map(card).join("")}</div>`;
-      if (list.length) html += `<div class="section-title">💫 ${tr("originals")}</div><div class="grid">${list.map(card).join("")}</div>`;
-      if (!html) html = `<div class="empty"><div class="em">🔎</div>${tr("noResults")}</div>`;
-      $("#results").innerHTML = html;
+      const text = (f) => (f && typeof f === "object" ? Object.values(f).join(" ") : f || "").toLowerCase();
+      const list = all.filter((c) =>
+        (ui.category === "all" || (ui.category === "famous" ? !!c.show : c.category === ui.category)) &&
+        (!q || [c.name, c.tagline, c.show].some((f) => text(f).includes(q))));
+      $("#results").innerHTML = list.length
+        ? `<div class="masonry">${list.map(card).join("")}</div>`
+        : `<div class="empty"><div class="em">🔎</div>${tr("noResults")}</div>`;
     };
     draw();
 
@@ -271,13 +268,14 @@
       draw();
     });
     $("#view").addEventListener("click", (e) => {
-      const chip = e.target.closest("[data-cat]");
-      if (chip) {
-        ui.category = chip.dataset.cat;
-        document.querySelectorAll(".chip").forEach((b) => {
-          b.classList.toggle("active", b === chip);
-          b.setAttribute("aria-selected", b === chip);
+      const tab = e.target.closest("[data-cat]");
+      if (tab) {
+        ui.category = tab.dataset.cat;
+        document.querySelectorAll(".tab").forEach((b) => {
+          b.classList.toggle("active", b === tab);
+          b.setAttribute("aria-selected", b === tab);
         });
+        tab.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
         draw();
         return;
       }
@@ -305,6 +303,10 @@
             <p class="desc">${c.show ? `<b>${esc(loc(c.show))}</b> · ` : ""}${esc(loc(c.tagline))}</p>
             <div class="greet"><div class="lbl">${tr("firstMessage")}</div>${fmt(loc(c.greeting))}</div>
             ${c.show ? `<p class="fan-note">${tr("fanNote")}</p>` : ""}
+            ${c.custom ? "" : `<div class="pic-row">
+              <label class="upload">📷 ${tr("changePicture")}<input type="file" accept="image/*" data-pic></label>
+              ${pictures[c.id] ? `<button class="upload" data-pic-reset>${tr("resetPicture")}</button>` : ""}
+            </div>`}
             <div class="row">
               ${c.custom ? `<a class="btn ghost" href="#/create/${esc(c.id)}">${icon("edit")}${tr("edit")}</a>` : ""}
               <a class="btn" href="#/chat/${esc(c.id)}">${has ? tr("continueChat") : tr("startChat")}</a>
@@ -319,6 +321,22 @@
     };
     const onKey = (e) => e.key === "Escape" && close();
     document.addEventListener("keydown", onKey);
+    root.querySelector("[data-pic]")?.addEventListener("change", async (e) => {
+      const f = e.target.files?.[0];
+      if (!f) return;
+      try {
+        pictures[c.id] = await shrinkImage(f, 512);
+      } catch {
+        return toast(tr("err_provider_error"));
+      }
+      if (!store.set("pictures", pictures)) delete pictures[c.id];
+      refreshAfterPicture(c.id);
+    });
+    root.querySelector("[data-pic-reset]")?.addEventListener("click", () => {
+      delete pictures[c.id];
+      store.set("pictures", pictures);
+      refreshAfterPicture(c.id);
+    });
     root.querySelector(".sheet-backdrop").addEventListener("click", (e) => {
       if (e.target.classList.contains("sheet-backdrop") || e.target.closest("[data-close]")) close();
       else if (e.target.closest("a")) root.innerHTML = "";
@@ -326,6 +344,15 @@
     root.querySelector(".sheet a.btn:last-child").focus();
   }
   const closeSheet = () => ($("#sheet-root").innerHTML = "");
+
+  /** Re-render the page behind the sheet, then reopen the sheet with the new picture. */
+  function refreshAfterPicture(id) {
+    const y = window.scrollY;
+    route();
+    window.scrollTo(0, y);
+    openSheet(id);
+    toast(tr("saved"));
+  }
 
   // ---------------------------------------------------------------- chat
   let streaming = null; // { controller, charId }
@@ -942,8 +969,10 @@
       if (!confirm(tr("confirmClear"))) return;
       custom = [];
       chats = {};
+      pictures = {};
       saveCustom();
       saveChats();
+      store.set("pictures", pictures);
       toast(tr("cleared"));
     });
   }
@@ -982,6 +1011,7 @@
     if (!e.key?.startsWith("rafiq.")) return;
     custom = store.get("custom", []);
     chats = store.get("chats", {});
+    pictures = store.get("pictures", {});
   });
   applyShell();
   route();
