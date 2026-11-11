@@ -15,8 +15,12 @@ const GEMINI_URL = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguag
 const MAX_REFERENCE_BASE64 = 600_000; // ~450 KB image
 const MIME = new Set(["image/png", "image/jpeg", "image/webp"]);
 
+// Only the Rafiq site may call this from a browser. ALLOWED_ORIGIN (comma-separated)
+// overrides the default, e.g. to add http://localhost:8080 while developing.
+const SITE_ORIGINS = (Deno.env.get("ALLOWED_ORIGIN") || "https://ibraahimx2040x-lab.github.io")
+  .split(",").map((o) => o.trim().replace(/\/+$/, "")).filter(Boolean);
+
 const cors = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") ?? "*",
   "Access-Control-Allow-Headers": "authorization, content-type, apikey, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -29,6 +33,18 @@ type Body = {
 };
 
 Deno.serve(async (req) => {
+  // Browsers always send Origin on cross-site requests: refuse other websites outright.
+  const origin = req.headers.get("Origin");
+  if (origin && !SITE_ORIGINS.includes(origin)) {
+    return new Response(JSON.stringify({ error: "forbidden_origin" }), { status: 403, headers: { "Content-Type": "application/json" } });
+  }
+  const res = await handle(req);
+  res.headers.set("Access-Control-Allow-Origin", origin ?? SITE_ORIGINS[0]);
+  res.headers.set("Vary", "Origin");
+  return res;
+});
+
+async function handle(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
 
@@ -104,7 +120,7 @@ Rules:
     return json({ error: blocked ? "refusal" : "empty" }, 200);
   }
   return json({ mimeType: img.mimeType ?? "image/png", data: img.data });
-});
+}
 
 /** Google answers 503 when the model is overloaded; try once more after a short pause. */
 async function fetchRetry(url: string, init: RequestInit): Promise<Response> {
