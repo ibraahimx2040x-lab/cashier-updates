@@ -21,8 +21,12 @@ const MAX_MESSAGES = 40;
 const MAX_MESSAGE_CHARS = 2000;
 const MAX_FIELD_CHARS = 3000;
 
+// Only the Rafiq site may call this from a browser. ALLOWED_ORIGIN (comma-separated)
+// overrides the default, e.g. to add http://localhost:8080 while developing.
+const SITE_ORIGINS = (Deno.env.get("ALLOWED_ORIGIN") || "https://ibraahimx2040x-lab.github.io")
+  .split(",").map((o) => o.trim().replace(/\/+$/, "")).filter(Boolean);
+
 const cors = {
-  "Access-Control-Allow-Origin": Deno.env.get("ALLOWED_ORIGIN") ?? "*",
   "Access-Control-Allow-Headers": "authorization, content-type, apikey, x-client-info",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
 };
@@ -36,6 +40,18 @@ type Body = {
 };
 
 Deno.serve(async (req) => {
+  // Browsers always send Origin on cross-site requests: refuse other websites outright.
+  const origin = req.headers.get("Origin");
+  if (origin && !SITE_ORIGINS.includes(origin)) {
+    return new Response(JSON.stringify({ error: "forbidden_origin" }), { status: 403, headers: { "Content-Type": "application/json" } });
+  }
+  const res = await handle(req);
+  res.headers.set("Access-Control-Allow-Origin", origin ?? SITE_ORIGINS[0]);
+  res.headers.set("Vary", "Origin");
+  return res;
+});
+
+async function handle(req: Request): Promise<Response> {
   if (req.method === "OPTIONS") return new Response("ok", { headers: cors });
   if (req.method !== "POST") return json({ error: "method_not_allowed" }, 405);
 
@@ -105,7 +121,6 @@ Limits (these override the character):
         contents,
         generationConfig: { temperature: 0.95, topP: 0.95, maxOutputTokens: 2048 },
       }),
-      signal: AbortSignal.timeout(60_000),
     });
   } catch (e) {
     console.error("gemini fetch failed", String(e));
@@ -171,15 +186,33 @@ Limits (these override the character):
   return new Response(stream, {
     headers: { ...cors, "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
   });
-});
+}
 
-/** Google answers 503 when a model is overloaded; then try once more on the lighter model. */
+/**
+ * When the main model is overloaded Google either answers 503 or doesn't answer
+ * at all; in both cases try once more on the lighter model.
+ */
 async function fetchRetry(url: string, fallbackUrl: string, init: RequestInit): Promise<Response> {
-  const res = await fetch(url, init);
-  if (res.status !== 503) return res;
-  await res.body?.cancel();
-  await new Promise((r) => setTimeout(r, 800));
-  return fetch(fallbackUrl, init);
+  try {
+    const res = await fetchWithin(url, init, 20_000);
+    if (res.status !== 503) return res;
+    await res.body?.cancel();
+  } catch (e) {
+    if ((e as Error).name !== "AbortError") throw e;
+    console.error("main model timed out, using fallback");
+  }
+  return fetchWithin(fallbackUrl, init, 40_000);
+}
+
+/** Like fetch, but gives up if no response arrives within `ms`; a reply that has started may stream for longer. */
+async function fetchWithin(url: string, init: RequestInit, ms: number): Promise<Response> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), ms);
+  try {
+    return await fetch(url, { ...init, signal: ctrl.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function busy(status: number) {

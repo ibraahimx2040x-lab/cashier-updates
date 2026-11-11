@@ -32,6 +32,8 @@ cd rafiq_web && python3 -m http.server 8080   # ثم افتح http://localhost:8
 ```sh
 supabase functions deploy character-chat --no-verify-jwt
 supabase functions deploy character-scene --no-verify-jwt
-supabase secrets set ALLOWED_ORIGIN=https://ibraahimx2040x-lab.github.io   # اختياري: يحصر الطلبات على الموقع
+# الدوال تقبل افتراضيًا طلبات موقع https://ibraahimx2040x-lab.github.io فقط.
+# لإضافة مواقع ثانية (مثل التجربة المحلية):
+supabase secrets set ALLOWED_ORIGIN=https://ibraahimx2040x-lab.github.io,http://localhost:8080
 ```
 وينشر GitHub Pages الموقع على `https://ibraahimx2040x-lab.github.io/cashier-updates/rafiq/` عند الدمج في `main`.
