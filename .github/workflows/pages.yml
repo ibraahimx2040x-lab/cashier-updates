@@ -39,6 +39,19 @@ jobs:
           --dart-define=SUPABASE_ANON_KEY=sb_publishable_gxM3jE1D_xIAjgChGATTXg_HQp3knyD
       # The Rafiq character-chat website, served at /cashier-updates/rafiq/.
       - run: cp -r ../rafiq_web build/web/rafiq
+      # List every picture in rafiq/images/ so the site uses it for that character
+      # (file name = character id, e.g. naruto.webp).
+      - run: |
+          cd build/web/rafiq/images
+          {
+            echo "window.CHARACTER_IMAGES = {"
+            for f in *.jpg *.jpeg *.png *.webp; do
+              [ -e "$f" ] || continue
+              printf '  "%s": "images/%s",\n' "${f%.*}" "$f"
+            done
+            echo "};"
+          } > manifest.js
+          cat manifest.js
       - uses: actions/upload-pages-artifact@v3
         with:
           path: hayati_app/build/web

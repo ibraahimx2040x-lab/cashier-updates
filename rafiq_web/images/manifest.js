@@ -1,0 +1,2 @@
+window.CHARACTER_IMAGES = {
+};
