@@ -60,6 +60,8 @@
       err_not_configured: "الخادم غير مهيأ بعد.", err_network: "تأكد من الإنترنت وجرّب مرة ثانية.", retry: "أعد المحاولة",
       storageFull: "المساحة ممتلئة في المتصفح. احذف محادثات قديمة أو صور.", justNow: "الحين",
       notFound: "الشخصية غير موجودة", back: "رجوع", more: "المزيد",
+      err_sceneRefusal: "ما قدرنا نرسم هذا المشهد. جرّب مشهد ثاني.",
+      drawScene: "ارسم المشهد", drawing: "يرسم المشهد…", viewScene: "رسمة المشهد", download: "تحميل", redraw: "ارسم من جديد",
       anime: "أنمي", emoji: "إيموجي", photo: "صورة", randomLook: "شكل عشوائي",
       hairStyle: "الشعر", expression: "التعبير", outfitStyle: "اللبس", accessory: "إكسسوار",
       hairColor: "لون الشعر", eyeColor: "لون العيون", skinColor: "لون البشرة", outfitColor: "لون اللبس", background: "الخلفية",
@@ -95,6 +97,8 @@
       err_not_configured: "The server isn't set up yet.", err_network: "Check your connection and try again.", retry: "Retry",
       storageFull: "Browser storage is full. Delete old chats or images.", justNow: "now",
       notFound: "Character not found", back: "Back", more: "More",
+      err_sceneRefusal: "This scene couldn't be drawn. Try another one.",
+      drawScene: "Draw scene", drawing: "Drawing the scene…", viewScene: "Scene drawing", download: "Download", redraw: "Redraw",
       anime: "Anime", emoji: "Emoji", photo: "Photo", randomLook: "Random look",
       hairStyle: "Hair", expression: "Expression", outfitStyle: "Outfit", accessory: "Accessory",
       hairColor: "Hair colour", eyeColor: "Eye colour", skinColor: "Skin tone", outfitColor: "Outfit colour", background: "Background",
@@ -313,6 +317,39 @@
 
   // ---------------------------------------------------------------- chat
   let streaming = null; // { controller, charId }
+  const drawing = new Set(); // messages whose scene is being drawn
+
+  /** The character's portrait or photo as a small JPEG, for the scene drawing to match. */
+  async function referenceImage(c) {
+    const src = imageOf(c);
+    if (!src) return null;
+    try {
+      const url = await shrinkDataUrl(src, 384, 0.9);
+      return { mimeType: "image/jpeg", data: url.split(",")[1] };
+    } catch {
+      return null;
+    }
+  }
+
+  function shrinkDataUrl(src, max, quality = 0.84) {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        const scale = Math.min(1, max / Math.max(img.naturalWidth || max, img.naturalHeight || max));
+        const w = Math.round((img.naturalWidth || max) * scale), h = Math.round((img.naturalHeight || max) * scale);
+        const cv = document.createElement("canvas");
+        cv.width = w;
+        cv.height = h;
+        const g = cv.getContext("2d");
+        g.fillStyle = "#fff";
+        g.fillRect(0, 0, w, h);
+        g.drawImage(img, 0, 0, w, h);
+        resolve(cv.toDataURL("image/jpeg", quality));
+      };
+      img.onerror = () => reject(new Error("bad image"));
+      img.src = src;
+    });
+  }
 
   function getChat(c) {
     if (!chats[c.id]) chats[c.id] = { greeting: loc(c.greeting), messages: [], updated: Date.now() };
@@ -348,28 +385,37 @@
     const input = $("#input");
     const sendBtn = $("#send");
 
+    const hasAction = (t) => /\*[^*\n]+\*/.test(t);
+    const sceneOf = (i) => (i < 0 ? chat.greetingScene : chat.messages[i]?.scene);
+    const isDrawing = (i) => drawing.has(i < 0 ? "greeting" : chat.messages[i]);
+
     const bubble = (m, i) => {
       const isChar = m.role === "char";
       const isLastChar = isChar && i === chat.messages.length - 1;
+      const scene = isChar ? sceneOf(i) : null;
       return `
-        <div>
+        <div data-msg="${i}">
           <div class="msg ${m.role}">
             ${isChar ? avatar(c, 32) : ""}
             <div class="bubble">${fmt(m.text)}</div>
           </div>
-          ${isChar && i >= 0 ? `<div class="msg-tools">
+          ${isDrawing(i) ? `<div class="scene loading"><span class="typing"><i></i><i></i><i></i></span>${tr("drawing")}</div>`
+            : scene ? `<button class="scene" data-act="view" data-i="${i}" aria-label="${tr("viewScene")}"><img src="${scene}" alt="${tr("viewScene")}"></button>` : ""}
+          ${isChar ? `<div class="msg-tools">
+            ${hasAction(m.text) && !scene && !isDrawing(i) ? `<button data-act="scene" data-i="${i}" class="draw">🎨 ${tr("drawScene")}</button>` : ""}
             <button data-act="copy" data-i="${i}">${icon("copy")}${tr("copy")}</button>
             ${isLastChar ? `<button data-act="regen">${icon("refresh")}${tr("regenerate")}</button>` : ""}
           </div>` : ""}
         </div>`;
     };
 
-    const draw = () => {
+    const draw = (keepScroll = false) => {
+      const top = msgsEl.scrollTop;
       msgsEl.innerHTML =
         `<div class="intro">${tr("fiction")}</div>` +
         (chat.greeting ? bubble({ role: "char", text: chat.greeting }, -1) : "") +
         chat.messages.map(bubble).join("");
-      msgsEl.scrollTop = msgsEl.scrollHeight;
+      msgsEl.scrollTop = keepScroll ? top : msgsEl.scrollHeight;
     };
     draw();
 
@@ -390,6 +436,76 @@
         $("#composer").requestSubmit();
       }
     });
+
+    async function drawScene(i) {
+      const key = i < 0 ? "greeting" : chat.messages[i];
+      if (!key || drawing.has(key)) return;
+      const text = i < 0 ? chat.greeting : key.text;
+      const actions = (text.match(/\*[^*\n]+\*/g) || []).map((a) => a.slice(1, -1).trim()).join(" … ");
+      drawing.add(key);
+      draw(true);
+      let error = null;
+      try {
+        const reference = await referenceImage(c);
+        const res = await fetch(window.RAFIQ_CONFIG.sceneUrl, {
+          method: "POST",
+          headers: { "Content-Type": "application/json", apikey: window.RAFIQ_CONFIG.apiKey },
+          body: JSON.stringify({
+            character: { name: loc(c.name), appearance: c.portrait ? window.Portrait.describe(c.portrait) : "", scenario: c.scenario || "" },
+            reference,
+            scene: actions,
+            message: text,
+          }),
+        });
+        let out = {};
+        try {
+          out = await res.json();
+        } catch {}
+        if (!out.data) throw Object.assign(new Error("scene"), { code: out.error || "provider_error" });
+        const url = await shrinkDataUrl(`data:${out.mimeType || "image/png"};base64,${out.data}`, 768);
+        if (i < 0) chat.greetingScene = url;
+        else key.scene = url;
+        saveChats();
+      } catch (e) {
+        error = e.code === "refusal" ? "sceneRefusal" : e.code || "network";
+      }
+      drawing.delete(key);
+      if (!document.body.contains(msgsEl)) return;
+      draw(true);
+      if (error) toast(I18N[settings.lang]["err_" + error] ? tr("err_" + error) : tr("err_provider_error"));
+    }
+
+    function viewScene(i) {
+      const url = sceneOf(i);
+      if (!url) return;
+      const root = $("#sheet-root");
+      root.innerHTML = `
+        <div class="sheet-backdrop viewer">
+          <div class="viewer-box" role="dialog" aria-modal="true" aria-label="${tr("viewScene")}">
+            <img src="${url}" alt="">
+            <div class="row">
+              <a class="btn ghost" href="${url}" download="${esc(loc(c.name))}-scene.jpg">${tr("download")}</a>
+              <button class="btn ghost" data-v="redraw">🎨 ${tr("redraw")}</button>
+              <button class="btn" data-v="close">${tr("close")}</button>
+            </div>
+          </div>
+        </div>`;
+      const close = () => {
+        root.innerHTML = "";
+        document.removeEventListener("keydown", onKey);
+      };
+      const onKey = (e) => e.key === "Escape" && close();
+      document.addEventListener("keydown", onKey);
+      root.firstElementChild.addEventListener("click", (e) => {
+        const v = e.target.closest("[data-v]")?.dataset.v;
+        if (v === "redraw") {
+          close();
+          if (i < 0) delete chat.greetingScene;
+          else delete chat.messages[i].scene;
+          drawScene(i);
+        } else if (v === "close" || e.target.classList.contains("sheet-backdrop")) close();
+      });
+    }
 
     async function reply() {
       const controller = new AbortController();
@@ -500,6 +616,10 @@
         input.value = v.slice(0, s) + "*" + v.slice(s, en) + "*" + v.slice(en);
         input.focus();
         input.setSelectionRange(s + 1, en + 1);
+      } else if (act === "scene") {
+        drawScene(+btn.dataset.i);
+      } else if (act === "view") {
+        viewScene(+btn.dataset.i);
       } else if (act === "copy") {
         const i = +btn.dataset.i;
         const t = i < 0 ? chat.greeting : chat.messages[i]?.text;

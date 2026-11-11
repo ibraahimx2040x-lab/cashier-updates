@@ -7,6 +7,7 @@ A website for chatting with fictional AI characters: discover, chat, and create 
 ## الميزات
 - **اكتشف**: شخصية مميزة يوميًا، تصنيفات (أصدقاء، مغامرة، أنمي، خيال، غموض، خيال علمي، رعب، تعلّم، حكايات)، وبحث.
 - **المحادثة**: ردود تظهر حرفًا بحرف، الحركات بين نجمتين `*تبتسم*` تظهر مائلة، زر «رد ثاني»، نسخ، إيقاف، محادثة جديدة، حذف.
+- **ارسم المشهد 🎨**: تحت كل رسالة فيها حركة بين نجمتين، يرسم الذكاء الاصطناعي المشهد بأسلوب أنمي وبنفس شكل الشخصية (`supabase/functions/character-scene`، نموذج `gemini-2.5-flash-image`). الرسمة تنحفظ مع الرسالة، وتقدر تكبّرها أو تحمّلها أو ترسمها من جديد.
 - **اصنع شخصيتك**: الاسم، الصورة (شكل أنمي تصممه: الشعر والعيون والبشرة واللبس والإكسسوار، أو إيموجي، أو صورة ترفعها)، الوصف، الشخصية، المشهد، أول رسالة، التصنيف.
 - **المحادثات**: قائمة بآخر المحادثات.
 - **حسابي**: اسمك في القصص، العربية/English، داكن/فاتح.
@@ -29,6 +30,7 @@ cd rafiq_web && python3 -m http.server 8080   # ثم افتح http://localhost:8
 ## النشر
 ```sh
 supabase functions deploy character-chat --no-verify-jwt
+supabase functions deploy character-scene --no-verify-jwt
 supabase secrets set ALLOWED_ORIGIN=https://ibraahimx2040x-lab.github.io   # اختياري: يحصر الطلبات على الموقع
 ```
 وينشر GitHub Pages الموقع على `https://ibraahimx2040x-lab.github.io/cashier-updates/rafiq/` عند الدمج في `main`.

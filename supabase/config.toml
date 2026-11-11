@@ -419,3 +419,6 @@ enabled = true
 # request itself (see supabase/functions/character-chat/index.ts).
 [functions.character-chat]
 verify_jwt = false
+
+[functions.character-scene]
+verify_jwt = false

@@ -280,5 +280,18 @@
     };
   }
 
-  window.Portrait = { svg, url, random, normalize, SKINS, HAIRS, EYES, STYLES, OUTFITS, ACCESSORIES, EXPRESSIONS };
+  /** Plain-English appearance, sent with scene drawings. */
+  function describe(input) {
+    const o = normalize(input);
+    const name = (h, list) => {
+      const names = { "#2a2230": "black", "#4a3226": "dark brown", "#7a4a2a": "brown", "#c98b4f": "light brown", "#f1d38a": "blonde", "#e9e4ef": "white", "#b3b9c9": "silver", "#d9475f": "red", "#ff8fb8": "pink", "#8f6cff": "purple", "#3f7cff": "blue", "#2fbf9a": "teal", "#4caf50": "green",
+        "#6b3f2a": "brown", "#3a6ea5": "blue", "#2f9e6e": "green", "#8a5cf6": "violet", "#d94a6a": "pink-red", "#d99a2b": "golden", "#22b8d6": "glowing cyan", "#c0392b": "red", "#555c70": "grey" };
+      return names[h.toLowerCase()] || `colour ${h}`;
+    };
+    const hair = o.hairStyle === "hijab" ? `wears a hijab (headscarf, colour ${o.hair}) covering the hair` : `${o.hairStyle === "spiky" ? "spiky" : o.hairStyle === "ponytail" ? "ponytail" : o.hairStyle} ${name(o.hair)} hair`;
+    const acc = { none: "", glasses: "round glasses", headband: "a red sports headband", hairclip: "a small hair clip", fedora: "a dark detective fedora", pirate: "a black pirate tricorn hat", horns: "small ivory dragon horns", headset: "a futuristic white headset", flower: "a pink flower in the hair" }[o.accessory];
+    return [hair, `${name(o.eyes)} eyes`, `skin tone ${o.skin}`, `wearing a ${o.outfitStyle} (colour ${o.outfit})`, acc, o.ghost ? "a translucent, pale ghost" : "", o.scar ? "a small scar on the cheek" : ""].filter(Boolean).join(", ");
+  }
+
+  window.Portrait = { svg, url, random, normalize, describe, SKINS, HAIRS, EYES, STYLES, OUTFITS, ACCESSORIES, EXPRESSIONS };
 })();
