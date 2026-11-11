@@ -3,6 +3,7 @@
 window.SEED_CHARACTERS = [
   {
     id: "lyan",
+    portrait: {"skin": "#f8d3b8", "hair": "#7a4a2a", "eyes": "#6b3f2a", "hairStyle": "long", "outfit": "#d9a066", "outfitStyle": "dress", "accessory": "hairclip", "expression": "smile", "bg": 24},
     avatar: { emoji: "☕", hue: 24 },
     category: "friend",
     name: { ar: "ليان", en: "Lyan" },
@@ -17,6 +18,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "sahm",
+    portrait: {"skin": "#eebd98", "hair": "#2a2230", "eyes": "#d99a2b", "hairStyle": "short", "outfit": "#7b1e2b", "outfitStyle": "jacket", "accessory": "pirate", "expression": "grin", "bg": 205, "scar": true},
     avatar: { emoji: "🏴‍☠️", hue: 205 },
     category: "adventure",
     name: { ar: "القبطان سهم", en: "Captain Sahm" },
@@ -31,6 +33,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "noor",
+    portrait: {"skin": "#f8d3b8", "hair": "#3d6a8a", "eyes": "#2f9e6e", "hairStyle": "hijab", "outfit": "#f2efe8", "outfitStyle": "shirt", "accessory": "glasses", "expression": "smile", "bg": 160},
     avatar: { emoji: "📚", hue: 160 },
     category: "mentor",
     name: { ar: "د. نور", en: "Dr. Noor" },
@@ -45,6 +48,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "kai",
+    portrait: {"skin": "#ffe6d6", "hair": "#2a2230", "eyes": "#8a5cf6", "hairStyle": "spiky", "outfit": "#2d2a4a", "outfitStyle": "kimono", "accessory": "none", "expression": "calm", "bg": 265, "scar": true},
     avatar: { emoji: "⚔️", hue: 265 },
     category: "anime",
     name: { ar: "كاي", en: "Kai" },
@@ -59,6 +63,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "rakan",
+    portrait: {"skin": "#d39a72", "hair": "#2a2230", "eyes": "#555c70", "hairStyle": "short", "outfit": "#9a8466", "outfitStyle": "coat", "accessory": "fedora", "expression": "stern", "bg": 40},
     avatar: { emoji: "🕵️", hue: 40 },
     category: "mystery",
     name: { ar: "المحقق راكان", en: "Detective Rakan" },
@@ -73,6 +78,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "zephyr",
+    portrait: {"skin": "#ffe6d6", "hair": "#2fbf9a", "eyes": "#d99a2b", "hairStyle": "spiky", "outfit": "#2e7d5b", "outfitStyle": "hoodie", "accessory": "horns", "expression": "cat", "bg": 140},
     avatar: { emoji: "🐉", hue: 140 },
     category: "fantasy",
     name: { ar: "زفير", en: "Zephyr" },
@@ -87,6 +93,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "echo",
+    portrait: {"skin": "#ffe6d6", "hair": "#b3b9c9", "eyes": "#22b8d6", "hairStyle": "bob", "outfit": "#2b3445", "outfitStyle": "jacket", "accessory": "headset", "expression": "shy", "bg": 190},
     avatar: { emoji: "🤖", hue: 190 },
     category: "scifi",
     name: { ar: "إيكو", en: "Echo" },
@@ -101,6 +108,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "hessa",
+    portrait: {"skin": "#eebd98", "hair": "#2b2433", "eyes": "#6b3f2a", "hairStyle": "hijab", "outfit": "#5a2d4a", "outfitStyle": "dress", "accessory": "none", "expression": "happy", "bg": 330},
     avatar: { emoji: "🌙", hue: 330 },
     category: "stories",
     name: { ar: "الجدة حصة", en: "Grandma Hessa" },
@@ -115,6 +123,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "fahd",
+    portrait: {"skin": "#d39a72", "hair": "#2a2230", "eyes": "#6b3f2a", "hairStyle": "short", "outfit": "#e8384f", "outfitStyle": "hoodie", "accessory": "headband", "expression": "grin", "bg": 0},
     avatar: { emoji: "💪", hue: 0 },
     category: "friend",
     name: { ar: "الكابتن فهد", en: "Coach Fahd" },
@@ -129,6 +138,7 @@ window.SEED_CHARACTERS = [
   },
   {
     id: "mira",
+    portrait: {"skin": "#ffe6d6", "hair": "#2a2230", "eyes": "#3a6ea5", "hairStyle": "long", "outfit": "#e9e4ef", "outfitStyle": "dress", "accessory": "flower", "expression": "shy", "bg": 280, "ghost": true},
     avatar: { emoji: "👻", hue: 280 },
     category: "horror",
     name: { ar: "ميرا", en: "Mira" },

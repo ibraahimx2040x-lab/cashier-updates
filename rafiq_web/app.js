@@ -60,6 +60,15 @@
       err_not_configured: "الخادم غير مهيأ بعد.", err_network: "تأكد من الإنترنت وجرّب مرة ثانية.", retry: "أعد المحاولة",
       storageFull: "المساحة ممتلئة في المتصفح. احذف محادثات قديمة أو صور.", justNow: "الحين",
       notFound: "الشخصية غير موجودة", back: "رجوع", more: "المزيد",
+      anime: "أنمي", emoji: "إيموجي", photo: "صورة", randomLook: "شكل عشوائي",
+      hairStyle: "الشعر", expression: "التعبير", outfitStyle: "اللبس", accessory: "إكسسوار",
+      hairColor: "لون الشعر", eyeColor: "لون العيون", skinColor: "لون البشرة", outfitColor: "لون اللبس", background: "الخلفية",
+      look: {
+        short: "قصير", spiky: "منفوش", long: "طويل", bob: "بوب", ponytail: "ذيل حصان", hijab: "حجاب",
+        smile: "مبتسم", grin: "ضحكة", calm: "هادي", stern: "جاد", shy: "خجول", happy: "فرحان", cat: "شقي",
+        shirt: "قميص", hoodie: "هودي", coat: "معطف", kimono: "كيمونو", dress: "فستان", jacket: "جاكيت",
+        none: "بدون", glasses: "نظارة", headband: "عصابة رأس", hairclip: "مشبك", fedora: "قبعة محقق", pirate: "قبعة قرصان", horns: "قرون", headset: "سماعة", flower: "وردة",
+      },
     },
     en: {
       brand: "Rafiq", discover: "Discover", chats: "Chats", create: "Create", me: "Me",
@@ -86,6 +95,15 @@
       err_not_configured: "The server isn't set up yet.", err_network: "Check your connection and try again.", retry: "Retry",
       storageFull: "Browser storage is full. Delete old chats or images.", justNow: "now",
       notFound: "Character not found", back: "Back", more: "More",
+      anime: "Anime", emoji: "Emoji", photo: "Photo", randomLook: "Random look",
+      hairStyle: "Hair", expression: "Expression", outfitStyle: "Outfit", accessory: "Accessory",
+      hairColor: "Hair colour", eyeColor: "Eye colour", skinColor: "Skin tone", outfitColor: "Outfit colour", background: "Background",
+      look: {
+        short: "Short", spiky: "Spiky", long: "Long", bob: "Bob", ponytail: "Ponytail", hijab: "Hijab",
+        smile: "Smile", grin: "Grin", calm: "Calm", stern: "Serious", shy: "Shy", happy: "Happy", cat: "Playful",
+        shirt: "Shirt", hoodie: "Hoodie", coat: "Coat", kimono: "Kimono", dress: "Dress", jacket: "Jacket",
+        none: "None", glasses: "Glasses", headband: "Headband", hairclip: "Hair clip", fedora: "Detective hat", pirate: "Pirate hat", horns: "Horns", headset: "Headset", flower: "Flower",
+      },
     },
   };
   const tr = (k) => I18N[settings.lang][k] ?? I18N.en[k] ?? k;
@@ -147,12 +165,15 @@
   const allCharacters = () => [...custom, ...window.SEED_CHARACTERS];
   const findChar = (id) => allCharacters().find((c) => c.id === id);
 
+  const imageOf = (c) => c.avatar?.image || (c.portrait ? window.Portrait.url(c.portrait) : "");
+
   function avatar(c, size) {
     const a = c.avatar || {};
-    const inner = a.image ? `<img src="${esc(a.image)}" alt="">` : esc(a.emoji || "🙂");
+    const img = imageOf(c);
+    const inner = img ? `<img src="${esc(img)}" alt="">` : esc(a.emoji || "🙂");
     return `<span class="avatar" style="width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px;background:hsl(${a.hue ?? 260} 45% 30%)">${inner}</span>`;
   }
-  const coverInner = (c) => (c.avatar?.image ? `<img src="${esc(c.avatar.image)}" alt="" loading="lazy">` : esc(c.avatar?.emoji || "🙂"));
+  const coverInner = (c) => (imageOf(c) ? `<img src="${esc(imageOf(c))}" alt="" loading="lazy">` : esc(c.avatar?.emoji || "🙂"));
 
   // ---------------------------------------------------------------- shell
   function applyShell() {
@@ -561,8 +582,15 @@
     if (editId && !existing) return viewMissing();
     const d = existing
       ? structuredClone(existing)
-      : { avatar: { emoji: "🙂", hue: Math.floor(Math.random() * 360) }, category: "friend", name: "", tagline: "", personality: "", scenario: "", greeting: "" };
+      : { avatar: { emoji: "🙂", hue: Math.floor(Math.random() * 360) }, portrait: window.Portrait.random(), category: "friend", name: "", tagline: "", personality: "", scenario: "", greeting: "" };
 
+    const P = window.Portrait;
+    const LOOK = I18N[settings.lang].look;
+    const lookSelect = (key, label, options) => `
+      <label class="field small"><span>${label}</span>
+        <select data-p="${key}">${options.map((v) => `<option value="${v}">${esc(LOOK[v] ?? v)}</option>`).join("")}</select></label>`;
+    const swatches = (key, label, colors) => `
+      <div class="look-row"><span>${label}</span><div class="swatches" data-sw="${key}">${colors.map((c) => `<button type="button" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join("")}</div></div>`;
     const field = (key, label, ph, { area = false, max = 200, hint = "" } = {}) => `
       <div class="field">
         <label for="f-${key}">${label} <span class="counter" data-for="${key}">${(d[key] || "").length}/${max}</span></label>
@@ -581,11 +609,30 @@
             <div class="avatar-pick">
               <span id="av-preview"></span>
               <div style="flex:1;min-width:220px">
-                <div class="emoji-row" id="emojis">${EMOJIS.map((e) => `<button type="button" data-emoji="${e}" aria-label="${e}">${e}</button>`).join("")}</div>
-                <input class="hue" id="hue" type="range" min="0" max="359" value="${d.avatar.hue ?? 260}" aria-label="color">
-                <label class="upload">📷 ${tr("upload")}<input type="file" id="file" accept="image/*"></label>
-                <button type="button" class="upload" id="rm-img" style="margin-inline-start:12px;${d.avatar.image ? "" : "display:none"}">${tr("removeImage")}</button>
+                <div class="seg" id="av-mode">
+                  <button type="button" data-mode="anime">✨ ${tr("anime")}</button>
+                  <button type="button" data-mode="emoji">🙂 ${tr("emoji")}</button>
+                  <label class="seg-upload" data-mode="photo">📷 ${tr("photo")}<input type="file" id="file" accept="image/*"></label>
+                </div>
               </div>
+            </div>
+            <div id="av-anime" class="look">
+              <button type="button" class="btn ghost" id="dice">🎲 ${tr("randomLook")}</button>
+              <div class="look-grid">
+                ${lookSelect("hairStyle", tr("hairStyle"), P.STYLES)}
+                ${lookSelect("expression", tr("expression"), P.EXPRESSIONS)}
+                ${lookSelect("outfitStyle", tr("outfitStyle"), P.OUTFITS)}
+                ${lookSelect("accessory", tr("accessory"), P.ACCESSORIES)}
+              </div>
+              ${swatches("hair", tr("hairColor"), P.HAIRS)}
+              ${swatches("eyes", tr("eyeColor"), P.EYES)}
+              ${swatches("skin", tr("skinColor"), P.SKINS)}
+              <div class="look-row"><span>${tr("outfitColor")}</span><input type="color" data-p="outfit" aria-label="${tr("outfitColor")}"></div>
+              <div class="look-row"><span>${tr("background")}</span><input class="hue" type="range" min="0" max="359" data-p="bg" aria-label="${tr("background")}"></div>
+            </div>
+            <div id="av-emoji">
+              <div class="emoji-row" id="emojis">${EMOJIS.map((e) => `<button type="button" data-emoji="${e}" aria-label="${e}">${e}</button>`).join("")}</div>
+              <input class="hue" id="hue" type="range" min="0" max="359" value="${d.avatar.hue ?? 260}" aria-label="color">
             </div>
           </div>
           ${field("name", tr("name"), tr("namePh"), { max: 40 })}
@@ -604,26 +651,61 @@
         </form>
       </div>`;
 
+    const mode = () => (d.avatar.image ? "photo" : d.portrait ? "anime" : "emoji");
     const drawAvatar = () => {
-      $("#av-preview").innerHTML = avatar(d, 96);
-      document.querySelectorAll("#emojis button").forEach((b) => b.classList.toggle("on", !d.avatar.image && b.dataset.emoji === d.avatar.emoji));
-      $("#rm-img").style.display = d.avatar.image ? "" : "none";
+      $("#av-preview").innerHTML = avatar(d, 120);
+      const m = mode();
+      document.querySelectorAll("#av-mode [data-mode]").forEach((b) => b.classList.toggle("on", b.dataset.mode === m));
+      $("#av-anime").hidden = m !== "anime";
+      $("#av-emoji").hidden = m !== "emoji";
+      document.querySelectorAll("#emojis button").forEach((b) => b.classList.toggle("on", b.dataset.emoji === d.avatar.emoji));
+      if (d.portrait) {
+        const p = P.normalize(d.portrait);
+        document.querySelectorAll("#av-anime [data-p]").forEach((el) => (el.value = p[el.dataset.p]));
+        document.querySelectorAll("[data-sw]").forEach((row) =>
+          row.querySelectorAll("button").forEach((b) => b.classList.toggle("on", b.dataset.c.toLowerCase() === String(p[row.dataset.sw]).toLowerCase())),
+        );
+      }
     };
     drawAvatar();
+
+    let lastPortrait = d.portrait || P.random();
+    $("#av-mode").addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-mode]");
+      if (!b) return;
+      delete d.avatar.image;
+      if (b.dataset.mode === "anime") d.portrait = d.portrait || lastPortrait;
+      else {
+        if (d.portrait) lastPortrait = d.portrait;
+        delete d.portrait;
+      }
+      drawAvatar();
+    });
+    $("#dice").addEventListener("click", () => {
+      d.portrait = P.random();
+      drawAvatar();
+    });
+    $("#av-anime").addEventListener("input", (e) => {
+      const k = e.target.dataset.p;
+      if (!k) return;
+      d.portrait = { ...P.normalize(d.portrait), [k]: k === "bg" ? +e.target.value : e.target.value };
+      drawAvatar();
+    });
+    $("#av-anime").addEventListener("click", (e) => {
+      const b = e.target.closest("[data-c]");
+      if (!b) return;
+      d.portrait = { ...P.normalize(d.portrait), [b.parentElement.dataset.sw]: b.dataset.c };
+      drawAvatar();
+    });
 
     $("#emojis").addEventListener("click", (e) => {
       const b = e.target.closest("[data-emoji]");
       if (!b) return;
       d.avatar.emoji = b.dataset.emoji;
-      delete d.avatar.image;
       drawAvatar();
     });
     $("#hue").addEventListener("input", (e) => {
       d.avatar.hue = +e.target.value;
-      drawAvatar();
-    });
-    $("#rm-img").addEventListener("click", () => {
-      delete d.avatar.image;
       drawAvatar();
     });
     $("#file").addEventListener("change", async (e) => {

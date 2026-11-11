@@ -151,7 +151,7 @@ body.in-chat .view { padding-bottom: 0; }
               linear-gradient(160deg, hsl(var(--h) 45% 22%), hsl(var(--h) 30% 12%));
 }
 .featured .big-emoji { position: absolute; inset-inline-end: 18px; top: 10px; font-size: 110px; filter: drop-shadow(0 10px 30px rgb(0 0 0 / .35)); }
-.featured .big-emoji img { width: 140px; height: 140px; border-radius: 28px; object-fit: cover; }
+.featured .big-emoji img { width: 168px; height: 168px; border-radius: 28px; object-fit: cover; border: 3px solid rgb(255 255 255 / .85); transform: rotate(3deg); }
 .featured .info { position: relative; max-width: 70%; color: #fff; }
 .featured .kicker { font-size: 12px; opacity: .8; letter-spacing: .02em; }
 .featured h2 { margin: 2px 0 4px; font-size: 26px; line-height: 1.25; }
@@ -306,6 +306,28 @@ body.in-chat .view { padding-bottom: 0; }
 @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
 @media (max-width: 619px) {
   .featured .big-emoji { font-size: 76px; top: 14px; }
-  .featured .big-emoji img { width: 96px; height: 96px; }
+  .featured .big-emoji img { width: 104px; height: 104px; border-radius: 22px; }
+  .featured .info { padding-top: 96px !important; }
   .featured .info { max-width: 100%; padding-top: 70px; }
 }
+
+/* ---------- anime look designer ---------- */
+#av-mode { flex-wrap: nowrap; max-width: 100%; }
+#av-mode button, .seg-upload { padding: 7px 12px; white-space: nowrap; border-radius: 999px; font-size: 13px; color: var(--muted); cursor: pointer; }
+#av-mode .on { background: var(--text); color: var(--bg); }
+.seg-upload input { display: none; }
+.look { margin-top: 14px; padding: 14px; background: var(--card); border: 1px solid var(--line); border-radius: 18px; display: flex; flex-direction: column; gap: 12px; }
+.look[hidden], #av-emoji[hidden] { display: none; }
+#av-emoji { margin-top: 14px; }
+.look > .btn { align-self: flex-start; height: 38px; }
+.look-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+.field.small span { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; font-weight: 500; }
+.field.small select { padding: 9px 10px; }
+.look-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.look-row > span { font-size: 12px; color: var(--muted); min-width: 80px; }
+.look-row .hue { flex: 1; width: auto; min-width: 140px; }
+.look-row input[type=color] { width: 44px; height: 30px; border: 1px solid var(--line); border-radius: 8px; background: none; padding: 2px; }
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+.swatches button { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--line); }
+.swatches button.on { outline: 2px solid var(--accent); outline-offset: 2px; }
+.avatar-pick .avatar { border-radius: 26px; }
