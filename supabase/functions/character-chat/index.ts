@@ -13,7 +13,9 @@
 // * Every field is length-capped and the history is trimmed, so one request
 //   can't run up a large bill. ALLOWED_ORIGIN pins the site's origin.
 
-const MODEL = Deno.env.get("CHARACTER_MODEL") ?? Deno.env.get("GEMINI_MODEL") ?? "gemini-2.5-flash";
+const MODEL = Deno.env.get("CHARACTER_MODEL") ?? Deno.env.get("GEMINI_MODEL") ?? "gemini-3.8-flash";
+// Used for the retry when the main model is overloaded.
+const FALLBACK_MODEL = Deno.env.get("CHARACTER_FALLBACK_MODEL") ?? "gemini-3.1-flash-lite";
 const GEMINI_URL = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com";
 const MAX_MESSAGES = 40;
 const MAX_MESSAGE_CHARS = 2000;
@@ -94,13 +96,14 @@ Limits (these override the character):
 
   let upstream: Response;
   try {
-    upstream = await fetch(`${GEMINI_URL}/v1beta/models/${MODEL}:streamGenerateContent?alt=sse`, {
+    const url = (model: string) => `${GEMINI_URL}/v1beta/models/${model}:streamGenerateContent?alt=sse`;
+    upstream = await fetchRetry(url(MODEL), url(FALLBACK_MODEL), {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
         systemInstruction: { parts: [{ text: system }] },
         contents,
-        generationConfig: { temperature: 0.95, topP: 0.95, maxOutputTokens: 1024, thinkingConfig: { thinkingBudget: 0 } },
+        generationConfig: { temperature: 0.95, topP: 0.95, maxOutputTokens: 2048 },
       }),
       signal: AbortSignal.timeout(60_000),
     });
@@ -109,8 +112,11 @@ Limits (these override the character):
     return json({ error: "provider_error" }, 502);
   }
   if (!upstream.ok || !upstream.body) {
-    console.error("gemini error", upstream.status, (await upstream.text()).slice(0, 500));
-    return json({ error: upstream.status === 429 ? "busy" : "provider_error" }, upstream.status === 429 ? 503 : 502);
+    const detail = await upstream.text();
+    console.error("gemini error", upstream.status, detail.slice(0, 500));
+    // 429 with a quota message means the key's plan doesn't cover this model.
+    const code = upstream.status === 429 && /quota/i.test(detail) ? "quota" : busy(upstream.status) ? "busy" : "provider_error";
+    return json({ error: code }, code === "provider_error" ? 502 : 503);
   }
 
   // Re-emit only the reply text as a plain stream.
@@ -166,6 +172,19 @@ Limits (these override the character):
     headers: { ...cors, "Content-Type": "text/plain; charset=utf-8", "Cache-Control": "no-store" },
   });
 });
+
+/** Google answers 503 when a model is overloaded; then try once more on the lighter model. */
+async function fetchRetry(url: string, fallbackUrl: string, init: RequestInit): Promise<Response> {
+  const res = await fetch(url, init);
+  if (res.status !== 503) return res;
+  await res.body?.cancel();
+  await new Promise((r) => setTimeout(r, 800));
+  return fetch(fallbackUrl, init);
+}
+
+function busy(status: number) {
+  return status === 429 || status === 503;
+}
 
 function str(v: unknown, max: number): string {
   return typeof v === "string" ? v.trim().slice(0, max) : "";

@@ -10,7 +10,7 @@
 // same look. GEMINI_API_KEY lives only in the function's secrets; every field
 // is size-capped so a single request stays one small image.
 
-const MODEL = Deno.env.get("SCENE_MODEL") ?? "gemini-2.5-flash-image";
+const MODEL = Deno.env.get("SCENE_MODEL") ?? "gemini-3.1-flash-image";
 const GEMINI_URL = Deno.env.get("GEMINI_BASE_URL") ?? "https://generativelanguage.googleapis.com";
 const MAX_REFERENCE_BASE64 = 600_000; // ~450 KB image
 const MIME = new Set(["image/png", "image/jpeg", "image/webp"]);
@@ -74,7 +74,7 @@ Rules:
 
   let res: Response;
   try {
-    res = await fetch(`${GEMINI_URL}/v1beta/models/${MODEL}:generateContent`, {
+    res = await fetchRetry(`${GEMINI_URL}/v1beta/models/${MODEL}:generateContent`, {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-goog-api-key": key },
       body: JSON.stringify({
@@ -88,8 +88,11 @@ Rules:
     return json({ error: "provider_error" }, 502);
   }
   if (!res.ok) {
-    console.error("gemini error", res.status, (await res.text()).slice(0, 500));
-    return json({ error: res.status === 429 ? "busy" : "provider_error" }, res.status === 429 ? 503 : 502);
+    const detail = await res.text();
+    console.error("gemini error", res.status, detail.slice(0, 500));
+    // 429 with a quota message means the key's plan doesn't cover this model.
+    const code = res.status === 429 && /quota/i.test(detail) ? "quota" : busy(res.status) ? "busy" : "provider_error";
+    return json({ error: code }, code === "provider_error" ? 502 : 503);
   }
 
   const out = await res.json();
@@ -102,6 +105,19 @@ Rules:
   }
   return json({ mimeType: img.mimeType ?? "image/png", data: img.data });
 });
+
+/** Google answers 503 when the model is overloaded; try once more after a short pause. */
+async function fetchRetry(url: string, init: RequestInit): Promise<Response> {
+  const res = await fetch(url, init);
+  if (res.status !== 503) return res;
+  await res.body?.cancel();
+  await new Promise((r) => setTimeout(r, 1500));
+  return fetch(url, init);
+}
+
+function busy(status: number) {
+  return status === 429 || status === 503;
+}
 
 function str(v: unknown, max: number): string {
   return typeof v === "string" ? v.trim().slice(0, max) : "";
