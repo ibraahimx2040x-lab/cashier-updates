@@ -344,3 +344,5 @@ body.in-chat .view { padding-bottom: 0; }
 .viewer-box img { width: 100%; border-radius: 20px; max-height: 76dvh; object-fit: contain; background: #000; }
 .viewer-box .row { display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; }
 @keyframes shimmer { to { background-position: -150% 0; } }
+.card .show { font-size: 11px; font-weight: 600; color: var(--accent); margin-top: 1px; }
+.fan-note { font-size: 11px; color: var(--muted); text-align: center; margin: -6px 0 14px; }

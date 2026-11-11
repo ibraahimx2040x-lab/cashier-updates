@@ -19,9 +19,9 @@
   const SKINS = ["#ffe6d6", "#f8d3b8", "#eebd98", "#d39a72", "#a8704d", "#7a4a33"];
   const HAIRS = ["#2a2230", "#4a3226", "#7a4a2a", "#c98b4f", "#f1d38a", "#e9e4ef", "#b3b9c9", "#d9475f", "#ff8fb8", "#8f6cff", "#3f7cff", "#2fbf9a", "#4caf50"];
   const EYES = ["#6b3f2a", "#3a6ea5", "#2f9e6e", "#8a5cf6", "#d94a6a", "#d99a2b", "#22b8d6", "#c0392b", "#555c70"];
-  const STYLES = ["short", "spiky", "long", "bob", "ponytail", "hijab"];
+  const STYLES = ["short", "spiky", "long", "bob", "ponytail", "hijab", "bald"];
   const OUTFITS = ["shirt", "hoodie", "coat", "kimono", "dress", "jacket"];
-  const ACCESSORIES = ["none", "glasses", "headband", "hairclip", "fedora", "pirate", "horns", "headset", "flower"];
+  const ACCESSORIES = ["none", "glasses", "headband", "hairclip", "fedora", "pirate", "horns", "headset", "flower", "strawhat", "ninjaband", "blindfold", "scarf"];
   const EXPRESSIONS = ["smile", "grin", "calm", "stern", "shy", "happy", "cat"];
 
   // ------------------------------------------------------------ geometry
@@ -159,6 +159,12 @@
 
   function accessory(o, layer) {
     const a = o.accessory;
+    if (layer === "neck") {
+      if (a === "scarf") {
+        return `<path d="M70,140 C80,156 120,156 130,140 L136,150 C122,170 78,170 64,150 Z" fill="#c4202f"/><path d="M110,156 L120,192 L106,194 L100,160 Z" fill="#a51a27"/><path d="M72,148 C84,160 116,160 128,148" fill="none" stroke="#8f1520" stroke-width="1.5" opacity=".7"/>`;
+      }
+      return "";
+    }
     if (layer === "back") {
       if (a === "horns") {
         const h = "#f3e6c8", s = "#c9a96a";
@@ -167,6 +173,12 @@
       return "";
     }
     switch (a) {
+      case "strawhat":
+        return `<ellipse cx="100" cy="62" rx="66" ry="13" fill="#e8c56a"/><ellipse cx="100" cy="62" rx="66" ry="13" fill="none" stroke="#c9a24a" stroke-width="1.5"/><path d="M68,62 C68,30 132,30 132,62 Z" fill="#f0d27c"/><path d="M68,54 C90,58 110,58 132,54 L132,62 C110,66 90,66 68,62 Z" fill="#d6283a"/><path d="M80,40 Q100,34 120,40" fill="none" stroke="#c9a24a" stroke-width="1.5" opacity=".7"/>`;
+      case "ninjaband":
+        return `<path d="M58,70 C80,60 120,60 142,70 L142,82 C120,72 80,72 58,82 Z" fill="#23356b"/><rect x="82" y="64" width="36" height="14" rx="3" fill="#cfd6e2" stroke="#8d97a8" stroke-width="1.2"/><circle cx="86" cy="71" r="1.2" fill="#8d97a8"/><circle cx="114" cy="71" r="1.2" fill="#8d97a8"/><path d="M95,71 Q100,66 105,71 Q100,75 95,71 Z" fill="none" stroke="#8d97a8" stroke-width="1.2"/><path d="M142,72 L156,88 L150,90 M142,76 L152,96" stroke="#23356b" stroke-width="4" stroke-linecap="round"/>`;
+      case "blindfold":
+        return `<path d="M62,88 C80,84 120,84 138,88 L138,108 C120,104 80,104 62,108 Z" fill="#15121c"/><path d="M66,92 C84,88 116,88 134,92" fill="none" stroke="#3a3346" stroke-width="1.5"/>`;
       case "glasses":
         return `<g fill="none" stroke="#2b2337" stroke-width="2.2"><rect x="70" y="88" width="28" height="22" rx="8"/><rect x="102" y="88" width="28" height="22" rx="8"/><path d="M98,97 Q100,95 102,97 M70,96 L64,94 M130,96 L136,94"/></g><path d="M74,92 L80,92" stroke="#fff" stroke-width="2" opacity=".7" stroke-linecap="round"/>`;
       case "headband":
@@ -214,14 +226,17 @@
     const hairD = shade(o.hair, -0.22);
     const skinS = shade(o.skin, -0.13);
     const isHijab = o.hairStyle === "hijab";
+    const isBald = o.hairStyle === "bald";
     const hj = isHijab ? hijab(o) : null;
-    const fr = isHijab ? "" : front(o.hairStyle);
+    const fr = isHijab || isBald ? "" : front(o.hairStyle);
 
     const character = `
       ${isHijab ? "" : BACK[o.hairStyle] ? `<path d="${BACK[o.hairStyle]}" fill="${hairD}"/>` : ""}
       ${accessory(o, "back")}
       ${body(o)}
+      ${accessory(o, "neck")}
       ${isHijab ? hj.outer : ""}
+      ${isBald ? `<ellipse cx="100" cy="84" rx="35" ry="46" fill="${o.skin}"/><ellipse cx="88" cy="52" rx="10" ry="5" fill="#fff" opacity=".35" transform="rotate(-20 88 52)"/>` : ""}
       ${isHijab ? "" : `<ellipse cx="66" cy="101" rx="5" ry="8" fill="${skinS}"/><ellipse cx="134" cy="101" rx="5" ry="8" fill="${skinS}"/>`}
       <path d="${FACE}" fill="${o.skin}"/>
       ${fr ? `<g clip-path="url(#face)"><path d="${fr}" transform="translate(0 6)" fill="${skinS}" opacity=".75"/></g>` : ""}
@@ -288,8 +303,8 @@
         "#6b3f2a": "brown", "#3a6ea5": "blue", "#2f9e6e": "green", "#8a5cf6": "violet", "#d94a6a": "pink-red", "#d99a2b": "golden", "#22b8d6": "glowing cyan", "#c0392b": "red", "#555c70": "grey" };
       return names[h.toLowerCase()] || `colour ${h}`;
     };
-    const hair = o.hairStyle === "hijab" ? `wears a hijab (headscarf, colour ${o.hair}) covering the hair` : `${o.hairStyle === "spiky" ? "spiky" : o.hairStyle === "ponytail" ? "ponytail" : o.hairStyle} ${name(o.hair)} hair`;
-    const acc = { none: "", glasses: "round glasses", headband: "a red sports headband", hairclip: "a small hair clip", fedora: "a dark detective fedora", pirate: "a black pirate tricorn hat", horns: "small ivory dragon horns", headset: "a futuristic white headset", flower: "a pink flower in the hair" }[o.accessory];
+    const hair = o.hairStyle === "bald" ? "completely bald head" : o.hairStyle === "hijab" ? `wears a hijab (headscarf, colour ${o.hair}) covering the hair` : `${o.hairStyle === "spiky" ? "spiky" : o.hairStyle === "ponytail" ? "ponytail" : o.hairStyle} ${name(o.hair)} hair`;
+    const acc = { none: "", glasses: "round glasses", headband: "a red sports headband", hairclip: "a small hair clip", fedora: "a dark detective fedora", pirate: "a black pirate tricorn hat", horns: "small ivory dragon horns", headset: "a futuristic white headset", flower: "a pink flower in the hair", strawhat: "a straw hat with a red band", ninjaband: "a blue ninja forehead protector with a metal plate", blindfold: "a black blindfold over the eyes", scarf: "a red scarf around the neck" }[o.accessory];
     return [hair, `${name(o.eyes)} eyes`, `skin tone ${o.skin}`, `wearing a ${o.outfitStyle} (colour ${o.outfit})`, acc, o.ghost ? "a translucent, pale ghost" : "", o.scar ? "a small scar on the cheek" : ""].filter(Boolean).join(", ");
   }
 

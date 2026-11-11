@@ -38,6 +38,7 @@
     ar: {
       brand: "رفيق", discover: "اكتشف", chats: "المحادثات", create: "اصنع", me: "حسابي",
       search: "ابحث عن شخصية…", featured: "شخصية مميزة", startChat: "ابدأ المحادثة", continueChat: "كمّل المحادثة",
+      famous: "شخصيات أنمي مشهورة", originals: "شخصيات رفيق الأصلية", fanNote: "شخصيات من أعمال مشهورة، كتبها المعجبون للتسلية. الحقوق لأصحابها.",
       forYou: "شخصيات لك", mine: "شخصياتي", noResults: "ما لقينا شخصية بهذا الاسم", yours: "لك",
       firstMessage: "أول رسالة", edit: "تعديل", close: "إغلاق",
       typeMessage: "اكتب رسالة…", send: "إرسال", action: "أضف حركة بين نجمتين", regenerate: "رد ثاني", copy: "نسخ", copied: "تم النسخ",
@@ -66,6 +67,7 @@
       hairStyle: "الشعر", expression: "التعبير", outfitStyle: "اللبس", accessory: "إكسسوار",
       hairColor: "لون الشعر", eyeColor: "لون العيون", skinColor: "لون البشرة", outfitColor: "لون اللبس", background: "الخلفية",
       look: {
+        bald: "أصلع", strawhat: "قبعة قش", ninjaband: "عصابة نينجا", blindfold: "عصابة عين", scarf: "وشاح",
         short: "قصير", spiky: "منفوش", long: "طويل", bob: "بوب", ponytail: "ذيل حصان", hijab: "حجاب",
         smile: "مبتسم", grin: "ضحكة", calm: "هادي", stern: "جاد", shy: "خجول", happy: "فرحان", cat: "شقي",
         shirt: "قميص", hoodie: "هودي", coat: "معطف", kimono: "كيمونو", dress: "فستان", jacket: "جاكيت",
@@ -75,6 +77,7 @@
     en: {
       brand: "Rafiq", discover: "Discover", chats: "Chats", create: "Create", me: "Me",
       search: "Search characters…", featured: "Featured", startChat: "Start chat", continueChat: "Continue chat",
+      famous: "Famous anime characters", originals: "Rafiq originals", fanNote: "Fan-made role-play of characters from well-known works. All rights belong to their creators.",
       forYou: "For you", mine: "My characters", noResults: "No characters match that", yours: "Yours",
       firstMessage: "First message", edit: "Edit", close: "Close",
       typeMessage: "Type a message…", send: "Send", action: "Add an *action*", regenerate: "Regenerate", copy: "Copy", copied: "Copied",
@@ -103,6 +106,7 @@
       hairStyle: "Hair", expression: "Expression", outfitStyle: "Outfit", accessory: "Accessory",
       hairColor: "Hair colour", eyeColor: "Eye colour", skinColor: "Skin tone", outfitColor: "Outfit colour", background: "Background",
       look: {
+        bald: "Bald", strawhat: "Straw hat", ninjaband: "Ninja headband", blindfold: "Blindfold", scarf: "Scarf",
         short: "Short", spiky: "Spiky", long: "Long", bob: "Bob", ponytail: "Ponytail", hijab: "Hijab",
         smile: "Smile", grin: "Grin", calm: "Calm", stern: "Serious", shy: "Shy", happy: "Happy", cat: "Playful",
         shirt: "Shirt", hoodie: "Hoodie", coat: "Coat", kimono: "Kimono", dress: "Dress", jacket: "Jacket",
@@ -166,16 +170,17 @@
     return new Date(ts).toLocaleDateString(settings.lang);
   }
 
-  const allCharacters = () => [...custom, ...window.SEED_CHARACTERS];
+  const allCharacters = () => [...custom, ...window.FAMOUS_CHARACTERS, ...window.SEED_CHARACTERS];
   const findChar = (id) => allCharacters().find((c) => c.id === id);
 
+  const hueOf = (c) => (c.portrait && !c.avatar?.image ? window.Portrait.normalize(c.portrait).bg : c.avatar?.hue ?? 260);
   const imageOf = (c) => c.avatar?.image || (c.portrait ? window.Portrait.url(c.portrait) : "");
 
   function avatar(c, size) {
     const a = c.avatar || {};
     const img = imageOf(c);
     const inner = img ? `<img src="${esc(img)}" alt="">` : esc(a.emoji || "🙂");
-    return `<span class="avatar" style="width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px;background:hsl(${a.hue ?? 260} 45% 30%)">${inner}</span>`;
+    return `<span class="avatar" style="width:${size}px;height:${size}px;font-size:${Math.round(size * 0.52)}px;background:hsl(${hueOf(c)} 45% 30%)">${inner}</span>`;
   }
   const coverInner = (c) => (imageOf(c) ? `<img src="${esc(imageOf(c))}" alt="" loading="lazy">` : esc(c.avatar?.emoji || "🙂"));
 
@@ -204,8 +209,9 @@
 
   function viewDiscover() {
     const seeds = window.SEED_CHARACTERS;
+    const famous = window.FAMOUS_CHARACTERS;
     const day = Math.floor(Date.now() / 86400000);
-    const feat = seeds[day % seeds.length];
+    const feat = famous[day % famous.length];
     const hasChat = (c) => chats[c.id]?.messages?.length;
 
     $("#view").innerHTML = `
@@ -220,10 +226,10 @@
       </div>`;
 
     const featHTML = `
-      <section class="featured" style="--h:${feat.avatar.hue}">
+      <section class="featured" style="--h:${hueOf(feat)}">
         <div class="big-emoji">${coverInner(feat)}</div>
         <div class="info">
-          <div class="kicker">✨ ${tr("featured")}</div>
+          <div class="kicker">✨ ${tr("featured")} · ${esc(loc(feat.show))}</div>
           <h2>${esc(loc(feat.name))}</h2>
           <p>${esc(loc(feat.tagline))}</p>
           <button class="btn" data-open="${feat.id}">${hasChat(feat) ? tr("continueChat") : tr("startChat")}</button>
@@ -232,9 +238,10 @@
 
     const card = (c) => `
       <button class="card" data-open="${esc(c.id)}">
-        <div class="cover" style="--h:${c.avatar?.hue ?? 260}">${coverInner(c)}</div>
+        <div class="cover" style="--h:${hueOf(c)}">${coverInner(c)}</div>
         <div class="body">
           <div class="name">${esc(loc(c.name))}${c.custom ? `<span class="badge">${tr("yours")}</span>` : ""}</div>
+          ${c.show ? `<div class="show">${esc(loc(c.show))}</div>` : ""}
           <div class="tag">${esc(loc(c.tagline))}</div>
         </div>
       </button>`;
@@ -243,13 +250,15 @@
       const q = ui.query.trim().toLowerCase();
       const match = (c) =>
         (ui.category === "all" || c.category === ui.category) &&
-        (!q || [c.name, c.tagline].some((f) => (typeof f === "object" ? Object.values(f).join(" ") : f || "").toLowerCase().includes(q)));
+        (!q || [c.name, c.tagline, c.show].some((f) => (typeof f === "object" ? Object.values(f).join(" ") : f || "").toLowerCase().includes(q)));
       const mine = custom.filter(match);
       const list = seeds.filter(match);
+      const fam = famous.filter(match);
       $("#feat-wrap").innerHTML = !q && ui.category === "all" ? featHTML : "";
       let html = "";
       if (mine.length) html += `<div class="section-title">🎨 ${tr("mine")}</div><div class="grid">${mine.map(card).join("")}</div>`;
-      if (list.length) html += `<div class="section-title">💫 ${tr("forYou")}</div><div class="grid">${list.map(card).join("")}</div>`;
+      if (fam.length) html += `<div class="section-title">🔥 ${tr("famous")}</div><div class="grid">${fam.map(card).join("")}</div>`;
+      if (list.length) html += `<div class="section-title">💫 ${tr("originals")}</div><div class="grid">${list.map(card).join("")}</div>`;
       if (!html) html = `<div class="empty"><div class="em">🔎</div>${tr("noResults")}</div>`;
       $("#results").innerHTML = html;
     };
@@ -284,15 +293,16 @@
     const previouslyFocused = document.activeElement;
     root.innerHTML = `
       <div class="sheet-backdrop">
-        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" style="--h:${c.avatar?.hue ?? 260}">
+        <div class="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" style="--h:${hueOf(c)}">
           <div class="hero">
             <button class="icon-btn close" data-close aria-label="${tr("close")}">${icon("x")}</button>
             ${avatar(c, 112)}
             <h2 id="sheet-title">${esc(loc(c.name))}</h2>
           </div>
           <div class="content">
-            <p class="desc">${esc(loc(c.tagline))}</p>
+            <p class="desc">${c.show ? `<b>${esc(loc(c.show))}</b> · ` : ""}${esc(loc(c.tagline))}</p>
             <div class="greet"><div class="lbl">${tr("firstMessage")}</div>${fmt(loc(c.greeting))}</div>
+            ${c.show ? `<p class="fan-note">${tr("fanNote")}</p>` : ""}
             <div class="row">
               ${c.custom ? `<a class="btn ghost" href="#/create/${esc(c.id)}">${icon("edit")}${tr("edit")}</a>` : ""}
               <a class="btn" href="#/chat/${esc(c.id)}">${has ? tr("continueChat") : tr("startChat")}</a>
@@ -752,7 +762,7 @@
             </div>
             <div id="av-emoji">
               <div class="emoji-row" id="emojis">${EMOJIS.map((e) => `<button type="button" data-emoji="${e}" aria-label="${e}">${e}</button>`).join("")}</div>
-              <input class="hue" id="hue" type="range" min="0" max="359" value="${d.avatar.hue ?? 260}" aria-label="color">
+              <input class="hue" id="hue" type="range" min="0" max="359" value="${d.avatar?.hue ?? 260}" aria-label="color">
             </div>
           </div>
           ${field("name", tr("name"), tr("namePh"), { max: 40 })}

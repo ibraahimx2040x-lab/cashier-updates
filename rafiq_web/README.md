@@ -17,7 +17,8 @@ A website for chatting with fictional AI characters: discover, chat, and create 
 
 ## كيف يشتغل
 - `index.html`, `styles.css`, `app.js` — الموقع (HTML/CSS/JS بدون أي بناء).
-- `characters.js` — الشخصيات الجاهزة (كلها أصلية).
+- `famous.js` — شخصيات أنمي مشهورة (ناروتو، لوفي، زورو، غوكو، فيجيتا، كونان، كابتن ماجد، دايسكي، غوجو، تانجيرو، ليفاي، ميكاسا، لايت، إل، كيلوا، سايتاما، هيناتا، نامي) كتقمّص من المعجبين، بصور مرسومة بأسلوب المعجبين.
+- `characters.js` — شخصيات رفيق الأصلية.
 - `portraits.js` — يرسم صور الأنمي للشخصيات (SVG)، وتقدر تصمم شكل شخصيتك منه.
 - `config.js` — رابط دالة الدردشة.
 - الردود من `supabase/functions/character-chat` (Gemini)، والمفتاح `GEMINI_API_KEY` في أسرار الدالة فقط.
